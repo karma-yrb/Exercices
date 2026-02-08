@@ -23,6 +23,7 @@ function init() {
             progText: document.getElementById('progress-text'),
             tag: document.getElementById('session-tag'),
             footer: document.getElementById('footer'),
+            btnPrev: document.getElementById('btn-prev'),
             btnNext: document.getElementById('btn-next'),
             stepTitle: document.getElementById('step-title'),
             stepBody: document.getElementById('step-body')
@@ -88,6 +89,16 @@ function boot() {
     updateGlobalProgress();
     
     // 5. Global Navigation Events
+    if (el.btnPrev) {
+        el.btnPrev.onclick = () => {
+            if (state.currentStep > 0) {
+                state.currentStep--;
+                renderStep();
+                saveState();
+            }
+        };
+    }
+
     if (el.btnNext) {
         el.btnNext.onclick = () => {
             const day = appData.find(d => d.id.toString() === state.currentDay);
@@ -197,6 +208,10 @@ function renderStep() {
     }
     
     if (el.stepTitle) el.stepTitle.innerText = step.title;
+    
+    if (el.btnPrev) {
+        el.btnPrev.classList.toggle('hidden', state.currentStep === 0);
+    }
     
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);

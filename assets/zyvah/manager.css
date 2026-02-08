@@ -86,8 +86,16 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     border-top: 1px solid var(--border); 
     flex-shrink: 0;
 }
+.btn-group { display: flex; gap: 12px; }
+.btn-nav {
+    flex: 1; padding: 18px; 
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    border-radius: 20px; color: var(--text-dim);
+    font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
+    cursor: pointer;
+}
 .btn-main {
-    width: 100%; padding: 20px; background: var(--accent); border: none; border-radius: 20px;
+    flex: 3; padding: 20px; background: var(--accent); border: none; border-radius: 20px;
     color: #000; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer;
 }
 .btn-main:disabled { opacity: 0.3; filter: grayscale(1); }

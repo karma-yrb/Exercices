@@ -85,8 +85,16 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     flex-shrink: 0;
     z-index: 10;
 }
+.btn-group { display: flex; gap: 12px; }
+.btn-nav {
+    flex: 1; padding: 18px; 
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    border-radius: 18px; color: var(--text-dim);
+    font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
+    cursor: pointer;
+}
 .btn-main { 
-    width: 100%; padding: 20px; background: var(--accent); border: none; border-radius: 18px;
+    flex: 3; padding: 20px; background: var(--accent); border: none; border-radius: 18px;
     color: white; font-weight: 800; font-size: 1.1rem; cursor: pointer;
 }
 .btn-main:disabled { opacity: 0.2; transform: scale(0.98); }
