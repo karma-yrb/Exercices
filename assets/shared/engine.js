@@ -117,6 +117,7 @@ function startDay(id) {
     if (el.content) el.content.classList.add('active');
     if (el.footer) el.footer.classList.remove('hidden');
     if (el.tag) el.tag.innerText = `MISSION ${id}`;
+    if (el.content) el.content.scrollTop = 0;
     renderStep();
     saveState();
 }
@@ -126,6 +127,7 @@ function renderStep() {
     if (!day) return;
     const step = day.steps[state.currentStep];
     
+    if (el.content) el.content.scrollTop = 0;
     if (el.stepTitle) el.stepTitle.innerText = step.title;
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
@@ -158,8 +160,9 @@ function renderStep() {
         }
 
         const input = document.createElement('input');
-        input.type = "text"; input.placeholder = "..."; input.className = "btn-opt";
-        input.style.background = "rgba(0,0,0,0.2)";
+        input.type = "text"; input.placeholder = "Tape ta réponse ici..."; input.className = "btn-opt";
+        input.style.background = "rgba(255,255,255,0.05)";
+        input.style.borderStyle = "dashed";
         
         const check = document.createElement('button');
         check.className = "btn-main"; check.innerText = "VÉRIFIER";

@@ -14,19 +14,32 @@
 body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; height: 100dvh; }
 
 #app {
-    width: 100%; max-width: 480px; height: 100vh; height: 100dvh;
-    margin: auto; background: var(--card); overflow-y: auto;
+    width: 100%; max-width: 480px; height: 100dvh;
+    margin: auto; background: var(--card); 
     position: relative; display: flex; flex-direction: column;
     border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+    overflow: hidden;
 }
 
-.header { padding: 20px; border-bottom: 1px solid var(--border); background: rgba(217, 70, 239, 0.05); }
+.header { 
+    padding: 20px; 
+    border-bottom: 2px solid var(--border); 
+    background: #1a1429;
+    flex-shrink: 0;
+    z-index: 10;
+}
 .progress-meta { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
 .bar-container { height: 6px; background: #000; border-radius: 10px; overflow: hidden; }
 .bar-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.8s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: 0 0 15px var(--accent-glow); }
 
-.view { display: none; padding: 20px; animation: slideUp 0.4s ease; }
-.view.active { display: block; }
+.view { 
+    display: none; 
+    padding: 20px; 
+    flex: 1;
+    overflow-y: auto;
+    animation: slideUp 0.4s ease; 
+}
+.view.active { display: flex; flex-direction: column; }
 
 /* LOBBY STYLE */
 .lobby-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: var(--accent); }
@@ -56,7 +69,20 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 
 .opt-list { margin-top: 20px; display: grid; gap: 12px; }
 .btn-opt { 
-    padding: 18px; background: #241d3d; border: 1px solid var(--border); border-radius: 16px; 
+    paddinrgba(255,255,255,0.08); border: 1px solid var(--border); border-radius: 16px; 
+    color: #fff; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s;
+}
+.btn-opt:focus {
+    outline: none;
+    background: rgba(255,255,255,0.12);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent-glow)
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 25px));
+    background: var(--card); 
+    border-top: 2px solid var(--border); 
+    flex-shrink: 0;
+    z-index: 10;
+
     color: #fff; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s;
 }
 .btn-opt.correct { background: var(--success) !important; color: #000; font-weight: 800; }
