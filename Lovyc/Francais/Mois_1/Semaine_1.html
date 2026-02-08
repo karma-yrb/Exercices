@@ -123,8 +123,10 @@
                     type: "write",
                     title: "Saisie Tactique",
                     question: "Écris le mot qui manque (le Verbe) pour que la phrase fonctionne : <br><br><i>'Lovyc ____ son écran de jeu.'</i>",
-                    answer: ["allume", "regarde", "fixe", "partage"],
-                    hint: "Cherche une action que l'on fait avec les yeux ou avec le bouton Power (regarde, allume, fixe...)",
+                    requirements: {
+                        keywords: ["regarde", "allume", "fixe", "nettoie", "prépare"]
+                    },
+                    hint: "Cherche une action concrète (regarde, allume, fixe...)",
                     feedback: "Bien ! N'importe lequel de ces verbes d'action valide la phrase."
                 },
                 {
@@ -200,12 +202,10 @@
                     type: "challenge",
                     title: "Boss de Fin - Jour 1",
                     question: "Rédige une phrase complète (S+V+C) avec le verbe 'ÉLIMINER' :",
-                    answer: [
-                        "Lovyc élimine son adversaire", "Je élimine l'ennemi", "J'élimine l'ennemi", 
-                        "Il élimine le boss", "Lovyc élimine l'adversaire", "Le joueur élimine ses adversaires",
-                        "Le pro-gamer élimine son adversaire", "Je élimine mon adversaire", "J'élimine mon adversaire"
-                    ],
-                    hint: "Exemple : 'Le joueur élimine ses adversaires' (Sujet + Verbe + Complément)",
+                    requirements: {
+                        keywords: ["élimine", "éliminent"]
+                    },
+                    hint: "Rappel : Sujet (Qui?) + Verbe (Quelle action?) + Complément (Quoi?).",
                     feedback: "Félicitations Agent ! Mission 1 accomplie à 100%. Ton noyau est stable."
                 }
             ]
@@ -396,13 +396,10 @@
                     type: "challenge",
                     title: "Boss de Fin - Jour 3",
                     question: "Réécris proprement ce message buggé : <br><br><i>'y'a plus de batterie j'arrête l'appel'</i>",
-                    answer: [
-                        "Il n'y a plus de batterie, j'arrête l'appel", 
-                        "Y'a plus de batterie, j'arrête l'appel", 
-                        "Il n'y a plus de batterie. J'arrête l'appel",
-                        "Il n'y a plus de batterie j'arrête l'appel"
-                    ],
-                    hint: "N'oublie pas d'utiliser une majuscule et un point. Exemple : Il n'y a plus de batterie, j'arrête l'appel.",
+                    requirements: {
+                        keywords: ["batterie", "appel"]
+                    },
+                    hint: "N'oublie pas de séparer les deux idées par une virgule ou un point.",
                     feedback: "Mission accomplie. Le flux est fluide."
                 }
             ]

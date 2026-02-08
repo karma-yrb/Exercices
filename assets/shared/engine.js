@@ -169,19 +169,45 @@ function renderStep() {
         const feedback = document.getElementById('write-feedback');
 
         if (check && input) {
-            check.onclick = () => {
-                const val = input.value.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
-                const sols = Array.isArray(a) ? a : [a];
-                const ok = sols.some(s => s.toString().toLowerCase().trim().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"") === val);
-                if (ok) {
-                    input.disabled = true; 
+            check.onclick = async () => {
+                const val = input.value.trim();
+                const feedArea = feedback;
+                
+                // Mode de validation intelligent (Alerte Tactique)
+                if (step.requirements) {
                     check.disabled = true;
-                    feedback.innerHTML = `<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ${feed}</p>`;
-                    if (el.btnNext) el.btnNext.disabled = false;
+                    check.innerText = "SCAN EN COURS...";
+                    
+                    const result = await validateTactical(val, step.requirements);
+                    
+                    if (result.ok) {
+                        input.disabled = true;
+                        check.classList.add('hidden');
+                        feedArea.innerHTML = `<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ${feed}</p>`;
+                        if (el.btnNext) el.btnNext.disabled = false;
+                    } else {
+                        check.disabled = false;
+                        check.innerText = "RÉESSAYER LE SCAN";
+                        input.classList.add('shake');
+                        feedArea.innerHTML = `<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ${result.msg}</p>`;
+                        setTimeout(() => input.classList.remove('shake'), 400);
+                    }
                 } else {
-                    input.classList.add('shake'); 
-                    feedback.innerHTML = `<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l'ordre ou l'orthographe !</p>`;
-                    setTimeout(() => input.classList.remove('shake'), 400);
+                    // Fallback : Mode classique (comparaison exacte)
+                    const cleanVal = val.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+                    const sols = Array.isArray(a) ? a : [a];
+                    const ok = sols.some(s => s.toString().toLowerCase().trim().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"") === cleanVal);
+                    
+                    if (ok) {
+                        input.disabled = true; 
+                        check.disabled = true;
+                        feedArea.innerHTML = `<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ${feed}</p>`;
+                        if (el.btnNext) el.btnNext.disabled = false;
+                    } else {
+                        input.classList.add('shake'); 
+                        feedArea.innerHTML = `<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l'ordre ou l'orthographe !</p>`;
+                        setTimeout(() => input.classList.remove('shake'), 400);
+                    }
                 }
             };
         }
@@ -207,6 +233,43 @@ function renderStep() {
         });
         el.stepBody.appendChild(area);
     }
+}
+
+async function validateTactical(text, reqs) {
+    if (!text || text.length < 5) return { ok: false, msg: "Message trop court pour être valide." };
+
+    // 1. Vérification des Mots-Clés Requis (Filtre Pédagogique)
+    if (reqs.keywords) {
+        const found = reqs.keywords.some(k => text.toLowerCase().includes(k.toLowerCase()));
+        if (!found) return { ok: false, msg: `Objectif non atteint. N'oublie pas d'utiliser : ${reqs.keywords.join(', ')}.` };
+    }
+
+    // 2. Scan Grammatical Live (LanguageTool API)
+    try {
+        const params = new URLSearchParams();
+        params.append('text', text);
+        params.append('language', 'fr');
+
+        const response = await fetch('https://api.languagetool.org/v2/check', {
+            method: 'POST',
+            body: params
+        });
+        const data = await response.json();
+
+        if (data.matches && data.matches.length > 0) {
+            const error = data.matches[0];
+            // Nettoyage pédagogique du message technique
+            let msg = error.message;
+            if (error.rule.issueType === 'misspelling') msg = `Erreur de saisie : '${error.context.text.substr(error.context.offset, error.context.length)}' semble mal écrit.`;
+            if (msg.includes('Sujet et verbe ne semblent pas s’accorder')) msg = "Alerte Accord : Ton verbe n'est pas synchronisé avec ton sujet !";
+            
+            return { ok: false, msg: msg };
+        }
+    } catch (e) {
+        console.error("API de grammaire injoignable, validation locale uniquement.");
+    }
+
+    return { ok: true };
 }
 
 function completeDay() {
