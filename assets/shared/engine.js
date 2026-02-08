@@ -235,16 +235,6 @@ function renderLobby() {
             if (!isLocked) card.onclick = () => startDay(dayIdStr);
             el.grid.appendChild(card);
         });
-
-        // Bouton Retour au Hub
-        const backToHub = document.createElement('button');
-        backToHub.className = 'btn-opt';
-        backToHub.style.marginTop = '20px';
-        backToHub.style.borderStyle = 'dashed';
-        backToHub.style.textAlign = 'center';
-        backToHub.innerText = '⬅ RETOUR AU HUB PRINCIPAL';
-        backToHub.onclick = () => window.location.href = '../../index.html';
-        el.grid.appendChild(backToHub);
     }
 }
 
