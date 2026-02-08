@@ -74,9 +74,17 @@
             background: #1c1f35; border: 1px solid var(--border); padding: 18px;
             border-radius: 16px; color: var(--text); text-align: left; font-size: 0.95rem;
             cursor: pointer; transition: 0.2s;
+            width: 100%;
         }
         .opt-btn.correct { background: var(--success) !important; color: #000; font-weight: bold; border-color: var(--success); }
         .opt-btn.wrong { background: #ff4757; color: #fff; border-color: #ff4757; }
+
+        .shake { animation: shake 0.4s ease-in-out; border-color: #ff4757 !important; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
 
         .footer { position: sticky; bottom: 0; padding: 24px; background: var(--card); border-top: 1px solid var(--border); }
         .btn-main {
@@ -89,6 +97,20 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
         b { color: var(--accent); }
+
+        /* HINT SYSTEM */
+        .hint-btn {
+            background: transparent; border: 1px dashed var(--text-dim); color: var(--text-dim);
+            padding: 8px 12px; border-radius: 10px; font-size: 0.8rem; cursor: pointer;
+            margin-top: 10px; opacity: 0.7; transition: 0.3s;
+        }
+        .hint-btn:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
+        .hint-box {
+            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px;
+            margin-top: 10px; font-size: 0.9rem; border-left: 3px solid var(--accent);
+            font-style: italic; animation: fadeInHint 0.3s ease;
+        }
+        @keyframes fadeInHint { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -130,35 +152,79 @@
 
     const missionData = [
         {
-            id: 1, title: "Le Marché du Son", intro: "Comprendre qui achète et qui vend.", icon: "📈",
+            id: 1, title: "Mission 01 : Le Marché du Son", intro: "Maîtrise les bases de l'Offre et de la Demande pour fixer tes prix.", icon: "📈",
             steps: [
-                { type: "msg", title: "C'est quoi un Marché ?", body: `<p>Un marché, ce n'est pas juste des fruits. C'est partout où des gens <b>vendent</b> et des gens <b>achètent</b>.</p><div class="data-box">Exemple : <b>Spotify</b> est un marché. Les artistes vendent leur musique, les auditeurs l'achètent (via l'abonnement).</div>` },
-                { type: "quiz", title: "Analyse de Flow", q: "Qui est l'Offre (le vendeur) sur le marché d'un concert ?", opts: ["Les fans qui viennent voir", "L'artiste qui chante sur scène", "Le vigile à l'entrée"], a: 1, feed: "Exact ! L'offre, c'est celui qui propose le produit ou le service." }
+                { type: "msg", title: "Briefing Manager", body: `<p>Bienvenue dans le Game, Zyvah. Un <b>Marché</b>, c'est partout où des <b>vendeurs (Offre)</b> et des <b>acheteurs (Demande)</b> se rencontrent.</p><div class="data-box">Dans l'industrie musicale :<br>• <b>Offre :</b> Artistes, labels, salles.<br>• <b>Demande :</b> Fans, auditeurs.</div>` },
+                { type: "quiz", title: "Identification", q: "Qui représente l'OFFRE sur le marché du streaming ?", opts: ["Les fans", "Spotify", "Le prix"], a: 1, feed: "Exact ! Le vendeur propose le produit." },
+                { type: "write", title: "Terminologie", q: "Quel mot désigne l'ensemble des vendeurs sur un marché ?", a: "offre", hint: "C'est l'un des deux mots du titre de la mission (ça commence par 'O').", feed: "Correct. C'est le signal des producteurs." },
+                { type: "msg", title: "La Loi de l'Offre", body: `<p>Plus le prix est élevé, plus les producteurs veulent vendre.</p><div class="data-box"><b>Prix ⬆️ = Offre ⬆️</b></div>` },
+                { type: "msg", title: "La Loi de la Demande", body: `<p>Inversement pour les fans : si c'est trop cher, ils achètent moins.</p><div class="data-box"><b>Prix ⬆️ = Demande ⬇️</b></div>` },
+                { type: "quiz", title: "Mécanisme", q: "Si le prix d'un disque passe de 20€ à 50€, que fait la demande ?", opts: ["Elle augmente", "Elle diminue", "Rien"], a: 1, feed: "Loi de base : trop cher = moins de clients." },
+                { type: "write", title: "Le Mot Clé", q: "Comment appelle-t-on le prix où l'offre est égale à la demande ?", a: "equilibre", hint: "C'est quand les deux côtés de la balance sont au même niveau (9 lettres).", feed: "Le prix d'équilibre ! Là où le marché se vide." },
+                { type: "quiz", title: "Choc de Demande", q: "Une trend TikTok rend ton son viral. La demande EXPLOSE. Le prix...", opts: ["Va descendre", "Va monter", "Va disparaître"], a: 1, feed: "Forte demande + stock limité = hausse des prix." },
+                { type: "write", title: "Action Manager", q: "Si tu as trop de stock invendu, dois-tu monter ou baisser ton prix ?", a: "baisser", hint: "Pour attirer plus de clients (Demande), que fais-tu du prix ?", feed: "Baisser le prix attire la demande pour vider le stock." },
+                { type: "challenge", title: "Validation 1", q: "Vrai ou Faux : Sur un marché, le prix est fixé uniquement par le vendeur ?", opts: ["VRAI", "FAUX"], a: 1, feed: "Faux ! L'acheteur (la demande) a aussi son mot à dire par son comportement." }
             ]
         },
         {
-            id: 2, title: "Offre vs Demande", intro: "Fixer le prix de tes places.", icon: "📊",
+            id: 2, title: "Mission 02 : Coûts & Profit", intro: "Gère ton budget studio et calcule tes bénéfices.", icon: "💸",
             steps: [
-                { type: "msg", title: "La Loi du Business", body: `<p>Si tout le monde veut ton ticket mais qu'il n'en reste que 10, le prix explose ! C'est la <b>Demande</b> qui dépasse l'<b>Offre</b>.</p><div class="data-box">Quand la <b>Demande</b> est forte ⬆️ et l'<b>Offre</b> est faible ⬇️, le <b>Prix</b> monte ⬆️.</div>` },
-                { type: "quiz", title: "Cas Pratique", q: "Pourquoi les places de Taylor Swift sont si chères ?", opts: ["Parce qu'il y a trop de places", "Parce que des millions de gens en veulent", "Parce que c'est gratuit"], a: 1, feed: "Yes ! La demande est immense par rapport au nombre de sièges." }
+                { type: "msg", title: "Facteurs de Production", body: `<p>Pour produire, il faut :</p><div class="data-box">1. <b>Travail (L) :</b> Les humains.<br>2. <b>Capital (K) :</b> Les machines/outils.</div>` },
+                { type: "quiz", title: "Inventaire", q: "L'ordinateur du studio, c'est quel facteur ?", opts: ["Travail", "Capital"], a: 1, feed: "C'est un outil, donc du Capital." },
+                { type: "write", title: "Facteur Humain", q: "Comment appelle-t-on le facteur représenté par l'ingénieur du son ?", a: "travail", hint: "C'est l'activité de l'humain pour produire (7 lettres).", feed: "C'est l'effort humain." },
+                { type: "msg", title: "Coût Fixe vs Variable", body: `<p>• <b>Fixe :</b> Loyer (ne change pas avec la prod).<br>• <b>Variable :</b> Matière première (change selon la prod).</p>` },
+                { type: "quiz", title: "Type de Coût", q: "L'électricité du studio qui tourne 24h/24 pour tes machines est un...", opts: ["Coût fixe", "Coût variable"], a: 1, feed: "Plus tu produis, plus tu consommes : c'est variable." },
+                { type: "write", title: "Calcul Business", q: "CA = Prix x Quantité. Si tu vends 100 places à 20€, quel est ton CA ?", a: "2000", hint: "Fais l'opération 100 multiplié par 20.", feed: "2000€ de chiffre d'affaires !" },
+                { type: "msg", title: "La Profitabilité", body: `<p><b>Profit = CA - Coûts Totaux.</b> Ne confonds jamais l'argent qui rentre (CA) et ce qu'il te reste (Profit).</p>` },
+                { type: "write", title: "Verdict Profit", q: "CA = 2000€. Coûts = 1500€. Quel est ton profit ?", a: "500", hint: "Fais la soustraction : 2000 - 1500.", feed: "Il te reste 500€ de gain réel." },
+                { type: "quiz", title: "Productivité", q: "Produire plus avec autant de machines, c'est augmenter sa...", opts: ["Dette", "Productivité", "Taille"], a: 1, feed: "Efficacité maximum !" },
+                { type: "challenge", title: "Alerte Faillite", q: "Ton CA est de 1000€ et tes Coûts sont de 1200€. Tu es en...", opts: ["Bénéfice", "Déficit"], a: 1, feed: "Attention ! Tu perds 200€. Il faut ajuster ton modèle." }
             ]
         },
         {
-            id: 3, title: "Production & Coûts", intro: "Gagner de l'argent (Le Profit).", icon: "💸",
+            id: 3, title: "Mission 03 : L'Effet de Marque", intro: "Pourquoi les gens achètent TON son ? (Sociologie).", icon: "🧠",
             steps: [
-                { type: "msg", title: "Le Chiffre d'Affaire", body: `<p>Vendre des albums, c'est bien. Faire du profit, c'est mieux.</p><div class="data-box"><b>Chiffre d'Affaire</b> (Argent encaissé) <br>MINUS <br><b>Coûts de Production</b> (Location studio, clips) <br>= <b>PROFIT</b>.</div>` }
+                { type: "msg", title: "Socialisation", body: `<p>On apprend les goûts de notre entourage. C'est la <b>socialisation</b>.</p>` },
+                { type: "quiz", title: "Groupe de Pairs", q: "Tes amis influencent tes goûts. C'est une socialisation...", opts: ["Verticale (parents)", "Horizontale (amis)"], a: 1, feed: "Exact. Entre personnes de même niveau." },
+                { type: "write", title: "Processus", q: "Comment appelle-t-on l'apprentissage des codes de la société ?", a: "socialisation", hint: "Le mot commence par 'S' et se termine par 'ition'. C'est le titre du bloc d'avant.", feed: "C'est ça. On devient un être social." },
+                { type: "msg", title: "Consommation Ostentatoire", body: `<p>Acheter pour 'montrer' son succès. C'est l'effet Veblen.</p>` },
+                { type: "quiz", title: "L'Effet Veblen", q: "Plus c'est cher, plus c'est désiré car c'est un signe de...", opts: ["Pauvreté", "Luxe/Statut", "Tristesse"], a: 1, feed: "Le prix devient un signal social." },
+                { type: "write", title: "Auteur", q: "Quel est le nom de l'effet quand la hausse du prix booste l'envie d'achat ?", a: "veblen", hint: "Un nom propre de 6 lettres commençant par 'V'.", feed: "L'effet Veblen, pilier du luxe." },
+                { type: "msg", title: "Capital Culturel", body: `<p>Tes diplômes et tes connaissances influencent ce que tu consommes.</p>` },
+                { type: "quiz", title: "Habitus", q: "Nos habitudes de consommation liées à notre milieu s'appellent l'...", opts: ["Habitus", "Hasard"], a: 0, feed: "Concept de Bourdieu : nos goûts sont ancrés en nous." },
+                { type: "write", title: "Le Capital", q: "Outre l'argent, comment appelle-t-on le capital lié aux diplômes ?", a: "culturel", hint: "C'est lié à la 'culture' (8 lettres).", feed: "Capital culturel. Très important pour le réseau." },
+                { type: "challenge", title: "Marketing Pro", q: "Pour vendre un casque 'ultra-premium', tu dois...", opts: ["Le brader", "L'associer à une image d'élite", "Le donner"], a: 1, feed: "Le marketing social joue sur l'appartenance à un groupe." }
             ]
         },
         {
-            id: 4, title: "Les Échanges", intro: "Pourquoi on ne vit pas seul ?", icon: "🤝",
+            id: 4, title: "Mission 04 : Guerre des Plateformes", intro: "Spotify, Apple, Deezer... Maîtrise la concurrence.", icon: "⚔️",
             steps: [
-                { type: "msg", title: "La Spécialisation", body: `<p>Un manager ne fabrique pas ses propres ordinateurs. Il les achète. Pourquoi ?</p><div class="data-box">On se <b>spécialise</b> pour être meilleur. On échange ce qu'on sait faire de mieux contre ce que les autres font mieux.</div>` }
+                { type: "msg", title: "Structures de Marché", body: `<p>Trois types : Monopole (1), Oligopole (quelques-uns), Concurrence (beaucoup).</p>` },
+                { type: "quiz", title: "Streaming", q: "Le marché du streaming (Spotify, Apple, Deezer) est un...", opts: ["Monopole", "Oligopole", "Bazar"], a: 1, feed: "Quelques gros acteurs = Oligopole." },
+                { type: "write", title: "Le Seul", q: "Comment appelle-t-on une entreprise SEULE sur son marché ?", a: "monopole", hint: "Prefixe 'Mono-' (un seul).", feed: "Le roi du marché." },
+                { type: "msg", title: "Pouvoir de Marché", body: `<p>Un monopole peut fixer ses prix librement. C'est dangereux pour le client.</p>` },
+                { type: "write", title: "Le Danger", q: "Comment appelle-t-on l'accord secret entre entreprises pour monter les prix ?", a: "cartel", hint: "Un mot de 6 lettres commençant par 'C'. (Comme dans les films sur les trafics, mais pour le prix).", feed: "Un cartel (ou entente). C'est illégal !" },
+                { type: "quiz", title: "Régulation", q: "Qui surveille que les entreprises ne trichent pas sur la concurrence ?", opts: ["La police locale", "L'Autorité de la Concurrence", "Personne"], a: 1, feed: "L'État régule pour protéger les prix." },
+                { type: "msg", title: "Sortir du lot", body: `<p>Pour éviter la guerre des prix, il faut se <b>différencier</b> (style unique).</p>` },
+                { type: "write", title: "Stratégie", q: "Le fait de créer un produit différent de ses concurrents s'appelle la...", a: "differenciation", hint: "Un mot long qui vient de 'différent' (15 lettres).", feed: "Exact. Tu deviens unique." },
+                { type: "quiz", title: "Innovation", q: "L'innovation permet de créer un...", opts: ["Petit monopole temporaire", "Grand désordre"], a: 0, feed: "Schumpeter : l'innovation est le moteur de l'éco." },
+                { type: "challenge", title: "Droit du Marché", q: "Vrai ou Faux : Un monopole peut legalement fixer un prix de 1 million € pour un café ?", opts: ["Oui, s'il n'y a pas d'autre choix", "Non, l'Etat peut intervenir"], a: 1, feed: "L'abus de position dominante est sanctionné." }
             ]
         },
         {
-            id: 5, title: "Certification Manager", intro: "Valide tes acquis.", icon: "🏆",
+            id: 5, title: "Mission 05 : L'Examen Final", intro: "Prouve que tu es la meilleure Manager de l'année !", icon: "🏆",
             steps: [
-                { type: "quiz", title: "Examen Final", q: "Qu'est-ce que le Profit ?", opts: ["Tout l'argent gagné par les ventes", "L'argent restant après avoir payé les frais", "Le nombre de fans sur Instagram"], a: 1, feed: "Parfait ! Tu es prête à gérer ton propre label." }
+                { type: "msg", title: "CEO Mode", body: `<p>Zyvah, c'est l'heure. Plus de briefing. Saisie tes décisions.</p>` },
+                { type: "write", title: "Q1 : Market", q: "Si la Demande > Offre, le prix va-t-il monter ou descendre ?", a: "monter", hint: "Plus de monde veut le produit mais il y en a peu... le prix ?", feed: "Pénurie = Hausse." },
+                { type: "write", title: "Q2 : Facteur", q: "Machines + Batiments = Facteur ... ?", a: "capital", hint: "Le facteur 'K'.", feed: "Validé." },
+                { type: "write", title: "Q3 : Social", q: "L'effet de prestige lié au prix élevé s'appelle l'effet ... ?", a: "veblen", hint: "Commence par 'V'.", feed: "Expertise confirmée." },
+                { type: "quiz", title: "Q4 : Structure", q: "Marché avec une multitude de petits vendeurs :", opts: ["Monopole", "Concurrence Parfaite", "Cartel"], a: 1, feed: "L'atomicité du marché." },
+                { type: "write", title: "Q5 : Formule", q: "Comment s'appelle : CA - Coûts ?", a: "profit", feed: "L'essentiel du business." },
+                { type: "quiz", title: "Q6 : Stratégie", q: "Investir dans la formation des employés, c'est booster le...", opts: ["Capital financier", "Capital humain"], a: 1, feed: "Le savoir est une richesse." },
+                { type: "write", title: "Q7 : Illegal", q: "Nom du groupement d'entreprises qui s'entendent sur les prix :", a: "cartel", feed: "Interdit par la loi." },
+                { type: "write", title: "Q8 : Psycho", q: "Le processus par lequel on apprend les normes :", a: "socialisation", feed: "La base de la sociologie." },
+                { type: "quiz", title: "Q9 : Risque", q: "Si tes coûts > CA, tu es en...", opts: ["Déficit", "Bénéfice"], a: 0, feed: "Zone de danger." },
+                { type: "challenge", title: "VERDICT FINAL", q: "Peut-on dire que le Marché est toujours parfait ?", opts: ["OUI", "NON (défaillances)"], a: 1, feed: "FÉLICITATIONS CEO ! Tu maîtrises les rouages du système. Le contrat est signé. 🖋️" }
             ]
         }
     ];
@@ -234,10 +300,71 @@
         const s = m.steps[state.curStep];
         ui.sId.innerText = `Mission ${m.id} • Étape ${state.curStep + 1}`;
         ui.title.innerText = s.title;
-        ui.next.disabled = (s.type === 'quiz');
+        ui.next.disabled = ['quiz', 'challenge', 'write'].includes(s.type);
+        ui.next.innerText = (state.curStep === m.steps.length - 1) ? "VALIDER LA MISSION" : "SUIVANT";
 
         if (s.type === 'msg') {
             ui.body.innerHTML = s.body;
+        } else if (s.type === 'write') {
+            ui.body.innerHTML = `<p style="margin-bottom:20px">${s.q}</p>`;
+            const container = document.createElement('div');
+            
+            const input = document.createElement('input');
+            input.type = "text";
+            input.placeholder = "Ta réponse de Manager...";
+            input.className = "opt-btn";
+            input.style.cursor = "text";
+            input.style.background = "rgba(0,0,0,0.1)";
+            
+            const actionContainer = document.createElement('div');
+            actionContainer.style.display = "flex";
+            actionContainer.style.flexDirection = "column";
+            actionContainer.style.gap = "10px";
+
+            const checkBtn = document.createElement('button');
+            checkBtn.className = "btn-main";
+            checkBtn.style.marginTop = "10px";
+            checkBtn.innerText = "VÉRIFIER LES DONNÉES";
+            
+            container.appendChild(input);
+            container.appendChild(actionContainer);
+            actionContainer.appendChild(checkBtn);
+
+            if (s.hint) {
+                const hBtn = document.createElement('button');
+                hBtn.className = "hint-btn";
+                hBtn.innerText = "💡 INDICE";
+                const hBox = document.createElement('div');
+                hBox.className = "hint-box hidden";
+                hBox.innerText = s.hint;
+                hBtn.onclick = () => hBox.classList.toggle('hidden');
+                actionContainer.appendChild(hBtn);
+                actionContainer.appendChild(hBox);
+            }
+
+            ui.body.appendChild(container);
+
+            input.onkeydown = (e) => { if (e.key === 'Enter') checkBtn.click(); };
+            
+            checkBtn.onclick = () => {
+                const userVal = input.value.trim().toLowerCase()
+                    .normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Normalisation accents
+                const cleanS = s.a.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                
+                if (userVal === cleanS) {
+                    input.disabled = true;
+                    checkBtn.disabled = true;
+                    input.style.borderColor = "var(--success)";
+                    const f = document.createElement('p');
+                    f.style.marginTop = "15px"; f.style.color = "var(--success)";
+                    f.innerHTML = `<b>✓ ANALYSE VALIDÉE :</b> ${s.feed}`;
+                    ui.body.appendChild(f);
+                    ui.next.disabled = false;
+                } else {
+                    input.classList.add('shake');
+                    setTimeout(() => input.classList.remove('shake'), 400);
+                }
+            };
         } else {
             ui.body.innerHTML = `<p style="margin-bottom:20px">${s.q}</p><div class="option-grid"></div>`;
             const grid = ui.body.querySelector('.option-grid');
@@ -266,7 +393,18 @@
 
     function finish() {
         if (!state.done.includes(state.curDay)) state.done.push(state.curDay);
-        state.curDay = null; renderLobby(); updateProgress();
+        
+        // Ecran de réussite CEO
+        ui.body.innerHTML = `
+            <div style="text-align:center; padding: 40px 0;">
+                <h2 style="color:var(--success); font-size: 2rem; margin-bottom: 15px;">MISSION ACCOMPLIE !</h2>
+                <p style="color:var(--text-dim); margin-bottom: 30px;">Les chiffres sont excellents. Tes actionnaires sont ravis.</p>
+                <button onclick="renderLobby()" class="btn-main" style="background:var(--success); color:#000;">RETOUR AU DASHBOARD</button>
+            </div>
+        `;
+        ui.next.parentElement.classList.add('hidden');
+        ui.title.innerText = "SESSION TERMINÉE";
+        state.curDay = null; updateProgress(); save();
     }
 
     init();

@@ -78,6 +78,26 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         b { color: var(--accent); }
         .hidden { display: none !important; }
+
+        /* HINT SYSTEM */
+        .hint-btn {
+            background: transparent; border: 1px dashed var(--text-dim); color: var(--text-dim);
+            padding: 8px 12px; border-radius: 10px; font-size: 0.8rem; cursor: pointer;
+            margin-top: 10px; opacity: 0.7; transition: 0.3s;
+        }
+        .hint-btn:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
+        .hint-box {
+            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px;
+            margin-top: 10px; font-size: 0.9rem; border-left: 3px solid var(--accent);
+            font-style: italic; animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .shake { animation: shake 0.4s ease; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
     </style>
 </head>
 <body>
@@ -85,16 +105,25 @@
 <div id="app">
     <div class="header">
         <div class="progress-meta">
-            <span id="p-text">STUDIO PROGRESS : 0%</span>
-            <span id="s-tag">LOBBY</span>
+            <span id="p-text">PROGRESSION STUDIO : 0%</span>
+            <span id="s-tag">CABINE</span>
         </div>
         <div class="bar-container"><div id="p-bar" class="bar-fill"></div></div>
     </div>
 
     <!-- LOBBY -->
     <div id="lobby" class="view active">
-        <h1 class="lobby-title">Studio Maths</h1>
-        <p class="lobby-intro">Hey Zyvah ! Apprends à mixer les nombres comme tu mixes tes sons. Ici, la précision, c'est la clé du succès.</p>
+        <div style="display:flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h1 class="lobby-title">Studio Maths</h1>
+                <p class="lobby-intro">Hey Zyvah ! Mixe les nombres comme tes sons. La précision, c'est ta signature.</p>
+            </div>
+            <div style="margin-top: 5px;">
+                <svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:var(--accent);filter: drop-shadow(0 0 5px var(--accent-glow));">
+                    <path d="M12,4L12,14.71C11.53,14.26 10.89,14 10.19,14A2.69,2.69 0 0,0 7.5,16.69C7.5,18.18 8.7,19.38 10.19,19.38C11.68,19.38 12.88,18.18 12.88,16.69V7H17.31V4H12M10.19,18.13C9.4,18.13 8.75,17.48 8.75,16.69C8.75,15.9 9.4,15.25 10.19,15.25C10.97,15.25 11.63,15.9 11.63,16.69C11.63,17.48 10.97,18.13 10.19,18.13Z"/>
+                </svg>
+            </div>
+        </div>
         <div class="days-grid" id="grid"></div>
     </div>
 
@@ -117,43 +146,76 @@
 
     const data = [
         {
-            id: 1, title: "L'Ordre du Mixage", intro: "Priorité aux Parenthèses (Le Master).",
+            id: 1, title: "L'Ordre du Mixage", intro: "Priorité aux Parenthèses (Le Master). Sans elles, le son sature.",
             steps: [
-                { type: "msg", title: "Le Code du Studio", body: `<p>Pour que le son soit bon, il y a un ordre. En maths, c'est pareil : on appelle ça les <b>Priorités</b>.</p><div class="studio-box"><p>1. Les <b>Parenthèses ( )</b> : On s'en occupe TOUJOURS en premier, c'est le Master !</p></div>` },
-                { type: "quiz", title: "Test Cabine", q: "Dans le calcul 5 + (2 × 3), par quoi commences-tu ?", opts: ["5 + 2", "2 × 3", "5 + 3"], a: 1, feed: "Exact ! Le Master ( ) passe avant le reste." },
-                { type: "msg", title: "Calcul de Rythme", body: `<p>Si tu calcules mal l'ordre, ta mélodie va être 'off-beat'.</p><div class="studio-box"><p>(10 - 2) × 5 = ?<br>D'abord 10-2 = 8. Puis 8 × 5 = <b>40</b>.</p></div>` },
-                { type: "quiz", title: "Action !", q: "Calcule : (3 + 7) × 2", opts: ["17", "20", "13"], a: 1, feed: "10 × 2 = 20. Propre !" }
+                { type: "msg", title: "Le Code du Studio", body: `<p>Zyvah, pour que le son soit bon, il y a un ordre. En maths, c'est pareil : on appelle ça les <b>Priorités</b>.</p><div class="studio-box"><p>1. Les <b>Parenthèses ( )</b> : On s'en occupe TOUJOURS en premier. C'est le signal direct qui ne doit pas être filtré.</p></div>` },
+                { type: "quiz", title: "Test Cabine 1", q: "Dans le calcul <b>5 + (2 × 3)</b>, par quoi commences-tu ?", opts: ["5 + 2", "2 × 3", "5 + 3"], a: 1, feed: "Exact ! Le Master ( ) passe avant tout le reste." },
+                { type: "quiz", title: "Test Cabine 2", q: "Calcule le contenu de la parenthèse : <b>10 - (2 + 3)</b>", opts: ["5", "8", "11"], a: 0, feed: "Exact. 2 + 3 = 5." },
+                { type: "write", title: "Saisie de Gain", q: "Calcule le résultat final de : <b>10 - (2 + 3)</b>", a: "5", hint: "Tu as déjà trouvé 5 pour la parenthèse. Fais maintenant 10 - 5.", feed: "Master ( ) géré. 10 - 5 = 5." },
+                { type: "msg", title: "L'Imbrication (Double Deck)", body: `<p>Parfois, tu as des parenthèses dans des parenthèses. On commence par <b>la plus profonde</b>.</p><div class="studio-box"><p>10 + [ 2 × (3 + 1) ]<br>D'abord (3 + 1) = 4.<br>Ensuite [ 2 × 4 ] = 8.<br>Enfin 10 + 8 = 18.</p></div>` },
+                { type: "write", title: "Deep Mix", q: "Calcule la parenthèse intérieure : <b>5 × (2 + (3 - 1))</b>", a: "2", hint: "Regarde bien le moteur le plus au centre : (3 - 1).", feed: "Bien ! 3 - 1 = 2." },
+                { type: "write", title: "Deep Mix Final", q: "Maintenant, calcule le total : <b>5 × (2 + 2)</b>", a: "20", hint: "Priorité à la parenthèse (2 + 2), puis multiplie le résultat par 5.", feed: "5 × 4 = 20. Mixage propre." },
+                { type: "quiz", title: "Le Piège du Master", q: "Que vaut <b>20 - (5 + 5)</b> ?", opts: ["20", "10", "15"], a: 1, feed: "On fait 5+5=10 d'abord. 20-10=10." },
+                { type: "write", title: "Mastering", q: "Calcule : <b>(15 - 5) × 2</b>", a: "20", hint: "D'abord la soustraction dans les parenthèses, puis multiplie par 2.", feed: "10 × 2 = 20." },
+                { type: "challenge", title: "Session Finale Jour 1", q: "Calcule ce mix complet : <b>(3 + 7) × (2 + 2)</b>", a: "40", hint: "Calcule chaque parenthèse séparément, puis multiplie les deux résultats entre eux.", feed: "10 × 4 = 40. Mixage parfait !" }
             ]
         },
         {
             id: 2, title: "Multiplication & Gain",
-            intro: "La puissance des × et ÷.",
+            intro: "La puissance des × et ÷. Le moteur de ton mix.",
             steps: [
-                { type: "msg", title: "Le Gain", body: `<p>Après les parenthèses, les multiplications (<b>×</b>) et divisions (<b>÷</b>) sont plus fortes que les additions (<b>+</b>).</p><div class="studio-box">2 + 5 × 2 = ? <br>On fait d'abord 5 × 2 = 10. <br>Puis 2 + 10 = <b>12</b>.</div>` },
-                { type: "quiz", title: "Réglage Niveau", q: "Calcule : 10 - 2 × 4", opts: ["32", "2", "8"], a: 1, feed: "Bien ! 10 - 8 = 2." }
+                { type: "msg", title: "Le Gain de Sortie", body: `<p>Après les parenthèses, les multiplications (<b>×</b>) et divisions (<b>÷</b>) sont plus fortes que les additions et soustractions.</p><div class="studio-box">2 + 5 × 2 = ? <br>On ne fait pas 2 + 5 ! On fait d'abord le Gain : 5 × 2 = 10. <br>Puis 2 + 10 = <b>12</b>.</div>` },
+                { type: "quiz", title: "Réglage Niveau 1", q: "Calcule : <b>10 - 2 × 4</b>", opts: ["32", "2", "8"], a: 1, feed: "Bien ! 10 - 8 = 2. La multiplication est prioritaire." },
+                { type: "write", title: "Gain Rapide", q: "Calcule : <b>3 + 4 × 2</b>", a: "11", hint: "Le gain (×) passe avant l'ajout (+). Fais 4 × 2 d'abord.", feed: "4 × 2 = 8, puis 3 + 8 = 11." },
+                { type: "quiz", title: "Réglage Niveau 2", q: "Calcule : <b>15 ÷ 3 + 2</b>", opts: ["7", "3", "5"], a: 0, feed: "15/3 = 5, puis 5 + 2 = 7." },
+                { type: "write", title: "Division de Flow", q: "Calcule : <b>20 - 10 ÷ 2</b>", a: "15", hint: "La division (÷) est prioritaire sur la soustraction (-).", feed: "10 ÷ 2 = 5, 20 - 5 = 15." },
+                { type: "msg", title: "Mélange Complexe", body: `<p>Multiplications et divisions ont la <b>même force</b>. Si elles sont côte à côte, on suit le flow de lecture.</p>` },
+                { type: "quiz", title: "Test Gain", q: "Calcule : <b>6 + 4 × 3 - 2</b>", opts: ["28", "16", "22"], a: 1, feed: "4×3 = 12. Ensuite 6 + 12 - 2 = 16." },
+                { type: "write", title: "Mixage Gain", q: "Calcule : <b>5 × 4 ÷ 2</b>", a: "10", hint: "× et ÷ ont la même force, lis de gauche à droite : 5 × 4, puis divise par 2.", feed: "20 ÷ 2 = 10." },
+                { type: "write", title: "Gain Maximum", q: "Que vaut <b>100 - 50 ÷ 2</b> ?", a: "75", hint: "Diviser avant de soustraire ! Calcule 50 ÷ 2 d'abord.", feed: "50/2 = 25. 100 - 25 = 75." },
+                { type: "challenge", title: "Boss de Session", q: "Calcule : <b>10 + 10 × 10</b>", a: "110", hint: "Multiplie d'abord les deux 10, puis ajoute le premier 10.", feed: "100 + 10 = 110. Puissance maximum !" }
             ]
         },
         {
-            id: 3, title: "L'Égaliseur (Gauche à Droite)",
-            intro: "Quand les signes ont la même force.",
+            id: 3, title: "L'Égaliseur (Le Flow)",
+            intro: "Quand les signes ont la même force. Respecte le panoramique.",
             steps: [
-                { type: "msg", title: "Le Flow", body: `<p>Si tu n'as que des + et des -, ou que des × et des ÷, on suit le flow de <b>gauche à droite</b>.</p>` },
-                { type: "quiz", title: "Test Flow", q: "Calcule : 20 ÷ 5 × 2", opts: ["2", "8", "4"], a: 1, feed: "20÷5=4, puis 4×2=8. Le flow est respecté !" }
+                { type: "msg", title: "Le Flow de Gauche/Droite", body: `<p>Si tu n'as que des + et des -, ou que des × et des ÷, on suit le flow de <b>gauche à droite</b>. Comme une barre de lecture.</p>` },
+                { type: "quiz", title: "Test Flow 1", q: "Calcule : <b>20 ÷ 5 × 2</b>", opts: ["2", "8", "4"], a: 1, feed: "20÷5=4, puis 4×2=8. Si tu faisais 5×2 d'abord, tu aurais faux !" },
+                { type: "write", title: "Flow de Lecture", q: "Calcule : <b>15 - 5 + 2</b>", a: "12", hint: "Lis de gauche à droite : 15 - 5 d'abord, puis ajoute 2.", feed: "15-5=10, puis 10+2=12." },
+                { type: "write", title: "Panoramique", q: "Calcule : <b>30 ÷ 3 ÷ 2</b>", a: "5", hint: "Gauche vers Droite : 30 ÷ 3 d'abord.", feed: "10 ÷ 2 = 5." },
+                { type: "msg", title: "L'Importance du Timing", body: `<p>Respecter l'ordre de lecture évite que ton calcul ne se désynchronise.</p>` },
+                { type: "quiz", title: "Mix Rapide", q: "Calcule : <b>10 × 4 ÷ 5</b>", opts: ["8", "2", "20"], a: 0, feed: "40 ÷ 5 = 8. Flow maîtrisé." },
+                { type: "write", title: "Beat Check", q: "Calcule : <b>50 - 20 - 10</b>", a: "20", hint: "Soustrais 20 de 50, puis soustrais encore 10.", feed: "30 - 10 = 20." },
+                { type: "write", title: "Sync Check", q: "Calcule : <b>12 ÷ 2 × 3</b>", a: "18", hint: "D'abord la division à gauche (12/2), puis multiplie.", feed: "6 × 3 = 18." },
+                { type: "challenge", title: "Final de Session", q: "Calcule : <b>100 ÷ 10 × 10 ÷ 10</b>", a: "10", hint: "Fais-le étape par étape de gauche à droite : 100/10... ×10... /10.", feed: "Respect du flow total. Résultat : 10." }
             ]
         },
         {
             id: 4, title: "Effets Spéciaux",
-            intro: "Mélange complet des priorités.",
+            intro: "Mélange complet des priorités. La session de mastering.",
             steps: [
-                { type: "msg", title: "Le Mix Final", body: `<p>Prête pour un mixage complet ? Rappelle-toi : master ( ), puis gain ×÷, puis flow + -.</p>` },
-                { type: "quiz", title: "Calcul Complexe", q: "12 + (10 ÷ 2) × 2", opts: ["22", "34", "17"], a: 0, feed: "12 + 5 × 2 = 12 + 10 = 22. Score parfait !" }
+                { type: "msg", title: "Le Mix Final", body: `<p>Prête pour un mixage complet ? Rappelle-toi l'ordre : <br>1. Master ( ) <br>2. Gain × ÷ <br>3. Flow + - (de gauche à droite).</p>` },
+                { type: "quiz", title: "Calcul Complexe 1", q: "<b>12 + (10 ÷ 2) × 2</b>", opts: ["22", "34", "17"], a: 0, feed: "12 + 5 × 2 = 12 + 10 = 22. Score parfait !" },
+                { type: "write", title: "Mastering Check", q: "Calcule : <b>5 × 4 - (12 + 2)</b>", a: "6", hint: "Calcule la parenthèse et la multiplication en premier.", feed: "20 - 14 = 6." },
+                { type: "write", title: "Double Effet", q: "Calcule : <b>(2 + 3) × (10 - 4) ÷ 2</b>", a: "15", hint: "Calcule chaque parenthèse, multiplie les résultats, puis divise par 2.", feed: "5 × 6 ÷ 2 = 30 ÷ 2 = 15." },
+                { type: "msg", title: "Presque là !", body: `<p>Plus que quelques réglages avant de sortir l'album.</p>` },
+                { type: "quiz", title: "Le Défi", q: "Que vaut <b>2 + 2 × 2 - 2 ÷ 2</b> ?", opts: ["3", "5", "2"], a: 1, feed: "2 + 4 - 1 = 5. Tu es une pro du gain." },
+                { type: "write", title: "Vérif Signal", q: "Calcule : <b>10 + 2 × (5 - 3)</b>", a: "14", hint: "La parenthèse d'abord, puis la multiplication, enfin l'addition.", feed: "10 + 2 × 2 = 10 + 4 = 14." },
+                { type: "challenge", title: "Mastering Final", q: "Calcule : <b>(20 - 5) ÷ 3 + 10</b>", a: "15", hint: "Priorité Parenthèse -> Division -> Addition.", feed: "15 / 3 + 10 = 5 + 10 = 15." }
             ]
         },
         {
             id: 5, title: "Certification Producer",
-            intro: "Validation de tes compétences.",
+            intro: "Validation de tes compétences de production mathématique.",
             steps: [
-                { type: "quiz", title: "Examen Final", q: "Lequel donne 50 ?", opts: ["(5 + 5) × 5", "5 + 5 × 5", "5 × (5 + 1)"], a: 0, feed: "10 × 5 = 50. Tu es prête pour le studio !" }
+                { type: "msg", title: "Examen Final", body: `<p>C'est l'heure du rendu final. Pas de droit à l'erreur sur ce mixage.</p>` },
+                { type: "write", title: "Final Track 1", q: "Calcule : <b>(5 + 5) × 5</b>", a: "50", hint: "N'oublie pas le Master ( ).", feed: "10 × 5 = 50." },
+                { type: "write", title: "Final Track 2", q: "Calcule : <b>5 + 5 × 5</b>", a: "30", hint: "Le Gain × est plus fort que l'addition.", feed: "5 + 25 = 30." },
+                { type: "write", title: "Final Track 3", q: "Calcule : <b>10 ÷ (2 + 3) × 4</b>", a: "8", hint: "Parenthèse -> Division -> Multiplication.", feed: "10 ÷ 5 × 4 = 2 × 4 = 8." },
+                { type: "write", title: "Final Track 4", q: "Calcule : <b>[ 20 - (5 × 2) ] ÷ 5 + 3</b>", a: "5", hint: "Occupe-toi de la parenthèse profonde (5×2), puis des crochets, puis divise par 5.", feed: "10 / 5 + 3 = 2 + 3 = 5." },
+                { type: "write", title: "The Masterpiece", q: "Dernier mix : <b>2 × (10 + 5) - 30</b>", a: "0", hint: "2 × 15 = 30. Et 30 - 30 ?", feed: "30 - 30 = 0. Équilibre parfait !" },
+                { type: "msg", title: "Félicitations !", body: `<p>Ton album de maths est prêt à être diffusé. Tu maîtrises toutes les priorités !</p>` }
             ]
         }
     ];
@@ -189,21 +251,30 @@
     function progress() {
         const perc = Math.round((state.done.length / data.length) * 100);
         ui.bar.style.width = perc + "%";
-        ui.txt.innerText = `STUDIO PROGRESS : ${perc}%`;
+        ui.txt.innerText = `PROGRESSION STUDIO : ${perc}%`;
     }
 
     function renderLobby() {
         ui.lobby.classList.add('active');
         ui.content.classList.remove('active');
         ui.foot.classList.add('hidden');
-        ui.tag.innerText = "LOBBY";
+        ui.tag.innerText = "CABINE";
         ui.grid.innerHTML = "";
+
+        const icons = [
+            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,3V12.26C11.5,12.09 11,12 10.5,12C8,12 6,14 6,16.5C6,19 8,21 10.5,21C13,21 15,19 15,16.5V6H19V3H12Z"/></svg>',
+            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M21,3V15.5A3.5,3.5 0 0,1 17.5,19A3.5,3.5 0 0,1 14,15.5A3.5,3.5 0 0,1 17.5,12C18.04,12 18.55,12.12 19,12.34V6.47L9,8.6V17.5A3.5,3.5 0 0,1 5.5,21A3.5,3.5 0 0,1 2,17.5A3.5,3.5 0 0,1 5.5,14C6.04,14 6.55,14.12 7,14.34V4L21,1Z"/></svg>',
+            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M14,10H10V14H14V10M12,17L7,12H10V8H14V12H17L12,17M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg>',
+            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6V12L16,14.5L16.8,13.2L13.5,11.2V6H12Z"/></svg>',
+            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"/></svg>'
+        ];
+
         data.forEach((d, i) => {
             const locked = i > 0 && !state.done.includes(data[i-1].id);
             const done = state.done.includes(d.id);
             const card = document.createElement('div');
             card.className = `day-card ${locked ? 'locked' : ''} ${done ? 'completed' : ''}`;
-            card.innerHTML = `<div class="icon">${done ? '★' : d.id}</div><div class="day-info"><h3>${d.title}</h3><p>${d.intro}</p></div>`;
+            card.innerHTML = `<div class="icon">${done ? '★' : icons[i]}</div><div class="day-info"><h3>SESSION ${d.id} : ${d.title}</h3><p>${d.intro}</p></div>`;
             if(!locked) card.onclick = () => start(d.id);
             ui.grid.appendChild(card);
         });
@@ -214,7 +285,7 @@
         ui.lobby.classList.remove('active');
         ui.content.classList.add('active');
         ui.foot.classList.remove('hidden');
-        ui.tag.innerText = `SESSION ${id}`;
+        ui.tag.innerText = `MIXAGE ${id}`;
         renderStep();
         save();
     }
@@ -222,11 +293,68 @@
     function renderStep() {
         const step = data.find(d => d.id === state.curDay).steps[state.curStep];
         ui.title.innerText = step.title;
-        ui.next.disabled = step.type === 'quiz';
-        ui.next.innerText = (state.curStep === data.find(d => d.id === state.curDay).steps.length - 1) ? "VALIDER" : "SUIVANT";
+        ui.next.disabled = ['quiz', 'challenge', 'write'].includes(step.type);
+        ui.next.innerText = (state.curStep === data.find(d => d.id === state.curDay).steps.length - 1) ? "ENREGISTRER" : "SUIVANT";
 
         if (step.type === 'msg') {
             ui.body.innerHTML = step.body;
+        } else if (step.type === 'write') {
+            ui.body.innerHTML = `<p style="margin-bottom:20px">${step.q}</p>`;
+            const container = document.createElement('div');
+            
+            const input = document.createElement('input');
+            input.type = "text";
+            input.placeholder = "Ton résultat...";
+            input.className = "opt-btn";
+            input.style.cursor = "text";
+            input.style.background = "rgba(0,0,0,0.2)";
+            
+            const actionContainer = document.createElement('div');
+            actionContainer.style.display = "flex";
+            actionContainer.style.flexDirection = "column";
+            actionContainer.style.gap = "10px";
+
+            const checkBtn = document.createElement('button');
+            checkBtn.className = "btn-next";
+            checkBtn.style.marginTop = "10px";
+            checkBtn.innerText = "VÉRIFIER LE MIX";
+            
+            container.appendChild(input);
+            container.appendChild(actionContainer);
+            actionContainer.appendChild(checkBtn);
+
+            if (step.hint) {
+                const hBtn = document.createElement('button');
+                hBtn.className = "hint-btn";
+                hBtn.innerText = "💡 BESOIN D'UN INDICE ?";
+                const hBox = document.createElement('div');
+                hBox.className = "hint-box hidden";
+                hBox.innerText = step.hint;
+                hBtn.onclick = () => hBox.classList.toggle('hidden');
+                actionContainer.appendChild(hBtn);
+                actionContainer.appendChild(hBox);
+            }
+
+            ui.body.appendChild(container);
+
+            input.onkeydown = (e) => { if (e.key === 'Enter') checkBtn.click(); };
+            
+            checkBtn.onclick = () => {
+                const userVal = input.value.trim().toLowerCase();
+                if (userVal === step.a.toLowerCase()) {
+                    input.disabled = true;
+                    checkBtn.disabled = true;
+                    input.style.borderColor = "var(--success)";
+                    const f = document.createElement('p');
+                    f.style.marginTop = "15px"; f.style.color = "var(--success)";
+                    f.innerHTML = `<b>✓ SIGNAL PUR :</b> ${step.feed}`;
+                    ui.body.appendChild(f);
+                    ui.next.disabled = false;
+                } else {
+                    input.classList.add('shake');
+                    setTimeout(() => input.classList.remove('shake'), 400);
+                }
+            };
         } else {
             ui.body.innerHTML = `<p style="margin-bottom:20px">${step.q}</p><div class="opt-list"></div>`;
             const list = ui.body.querySelector('.opt-list');
@@ -255,7 +383,18 @@
 
     function finishDay() {
         if (!state.done.includes(state.curDay)) state.done.push(state.curDay);
-        state.curDay = null; renderLobby(); progress();
+        
+        // Message de réussite style Studio
+        ui.body.innerHTML = `
+            <div style="text-align:center; padding: 40px 0;">
+                <h2 style="color:var(--success); font-size: 2rem; margin-bottom: 15px;">MIXTAPE VALIDÉE !</h2>
+                <p style="color:var(--text-dim); margin-bottom: 30px;">La session est enregistrée dans le cloud. Tes réglages sont parfaits.</p>
+                <button onclick="renderLobby()" class="btn-next" style="background:var(--success); color:#000;">RETOURE À LA CABINE</button>
+            </div>
+        `;
+        ui.next.classList.add('hidden');
+        ui.title.innerText = "SESSION TERMINÉE";
+        state.curDay = null; progress(); save();
     }
 
     init();

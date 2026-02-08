@@ -3,80 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lovyc French - Squad Leader Training (Week 1)</title>
+    <title>Lovyc - Tactical Comms (Français)</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
         :root {
-            --bg: #0b0a10;
-            --card: #1c1b26;
-            --accent: #ff3e3e;
-            --accent-glow: rgba(255, 62, 62, 0.4);
+            --bg: #06070d;
+            --card: #0f111a;
+            --accent: #00fcf4; /* Tactical Cyan */
+            --accent-glow: rgba(0, 252, 244, 0.3);
+            --danger: #ff3e3e;
             --success: #00ff88;
             --text: #ffffff;
-            --text-dim: #94a3b8;
-            --border: #2d2c3d;
-            --font: 'Outfit', 'Inter', system-ui, sans-serif;
+            --text-dim: #71768f;
+            --border: rgba(0, 252, 244, 0.15);
+            --font-main: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
-        body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: var(--font-main);
+            overflow: hidden; 
+            height: 100vh;
+        }
 
-        /* UI COMPONENTS */
+        /* TACTICAL OVERLAY */
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none; z-index: 100; opacity: 0.3;
+        }
+
         #app {
             width: 100%; max-width: 480px; height: 100vh;
             margin: auto; background: var(--card); overflow-y: auto;
             position: relative; display: flex; flex-direction: column;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
         }
 
-        .header { padding: 20px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.2); }
-        .progress-meta { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 10px; color: var(--text-dim); }
-        .bar-container { height: 8px; background: #000; border-radius: 4px; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.5s; box-shadow: 0 0 10px var(--accent-glow); }
+        .header { 
+            padding: 24px 20px; 
+            background: linear-gradient(to bottom, #141724, transparent);
+            border-bottom: 1px solid var(--border);
+        }
 
-        .view { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
+        .progress-meta { 
+            display: flex; justify-content: space-between; 
+            font-family: var(--font-mono); font-size: 0.7rem; 
+            margin-bottom: 12px; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .bar-container { 
+            height: 4px; background: rgba(0,0,0,0.5); 
+            border-radius: 2px; overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .bar-fill { 
+            height: 100%; background: var(--accent); width: 0%; 
+            transition: 1s cubic-bezier(0.19, 1, 0.22, 1); 
+            box-shadow: 0 0 15px var(--accent-glow); 
+        }
+
+        .view { display: none; padding: 25px 20px; animation: slideIn 0.4s ease-out; }
         .view.active { display: block; }
 
-        /* LOBBY STYLE */
-        .lobby-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; letter-spacing: -1px; }
-        .lobby-intro { color: var(--text-dim); margin-bottom: 30px; line-height: 1.5; }
-        .days-grid { display: grid; gap: 15px; grid-template-columns: 1fr; }
+        /* LOBBY / COMMAND CENTER */
+        .lobby-title { 
+            font-size: 2rem; font-weight: 900; margin-bottom: 8px; 
+            text-transform: uppercase; letter-spacing: -1px;
+            color: var(--text);
+        }
+        .lobby-intro { color: var(--text-dim); margin-bottom: 35px; line-height: 1.6; font-size: 0.95rem; }
+        
+        .days-grid { display: grid; gap: 16px; }
         .day-card { 
-            background: #252433; border: 1px solid var(--border); padding: 20px; 
-            border-radius: 16px; display: flex; align-items: center; gap: 15px;
-            cursor: pointer; transition: 0.2s; position: relative;
+            background: rgba(255,255,255,0.02); 
+            border: 1px solid var(--border); 
+            padding: 24px; 
+            border-radius: 20px; 
+            display: flex; align-items: center; gap: 20px;
+            cursor: pointer; transition: all 0.3s;
+            position: relative; overflow: hidden;
         }
-        .day-card.locked { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
-        .day-card.completed { border-color: var(--success); }
-        .day-card .icon { width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .day-card.completed .icon { background: var(--success); }
-        .day-info h3 { font-size: 1rem; margin-bottom: 4px; }
-        .day-info p { font-size: 0.8rem; color: var(--text-dim); }
+        .day-card::after {
+            content: "TACTICAL"; position: absolute; right: -10px; bottom: -5px;
+            font-size: 2rem; font-weight: 900; opacity: 0.03; font-style: italic;
+        }
+        .day-card.locked { opacity: 0.3; filter: grayscale(1); }
+        .day-card.completed { border-color: var(--success); background: rgba(0, 255, 136, 0.03); }
+        
+        .day-card .icon { 
+            width: 50px; height: 50px; 
+            background: rgba(0, 252, 244, 0.1); 
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-weight: 900; font-family: var(--font-mono);
+            font-size: 1.2rem;
+        }
+        .day-card.completed .icon { 
+            background: rgba(0, 255, 136, 0.1); 
+            border-color: var(--success);
+            color: var(--success);
+        }
 
-        /* CONTENT STYLE */
-        .content-chunk { margin-bottom: 25px; line-height: 1.6; }
-        .box-concept { background: #12111a; border-radius: 12px; padding: 15px; border-left: 4px solid var(--accent); margin-bottom: 20px; }
-        .interactive-area { margin: 20px 0; }
+        .day-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .day-info p { font-size: 0.85rem; color: var(--text-dim); }
+
+        /* CONTENT */
+        h2#step-title { 
+            font-size: 1.5rem; font-weight: 800; color: var(--accent); 
+            margin-bottom: 25px; text-transform: uppercase;
+            border-left: 4px solid var(--accent); padding-left: 15px;
+        }
+
+        .content-chunk { margin-bottom: 25px; line-height: 1.7; font-size: 1.05rem; }
+        
+        .box-concept { 
+            background: rgba(0, 252, 244, 0.05); 
+            border-radius: 16px; padding: 20px; 
+            border: 1px dashed var(--accent); 
+            margin-bottom: 25px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        .hint-btn {
+            background: none; border: 1px dashed var(--accent); color: var(--accent);
+            padding: 8px 16px; border-radius: 8px; font-size: 0.75rem; cursor: pointer;
+            margin: 10px 0; display: inline-block; opacity: 0.6; transition: 0.2s;
+            text-transform: uppercase; font-weight: 700;
+        }
+        .hint-btn:hover { opacity: 1; background: rgba(0, 252, 244, 0.1); }
+        .hint-box {
+            background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 15px;
+            margin-bottom: 20px; font-size: 0.9rem; color: var(--text-dim); border: 1px solid var(--border);
+            animation: fadeIn 0.3s ease-out; font-style: italic;
+        }
+
         .btn-opt { 
-            display: block; width: 100%; padding: 16px; background: rgba(255,255,255,0.05); 
-            border: 1px solid var(--border); border-radius: 12px; color: var(--text);
-            text-align: left; margin-bottom: 10px; cursor: pointer; transition: 0.2s;
+            display: block; width: 100%; padding: 20px; 
+            background: rgba(255,255,255,0.03); 
+            border: 1px solid var(--border); 
+            border-radius: 16px; color: var(--text);
+            text-align: left; margin-bottom: 12px; 
+            cursor: pointer; transition: 0.2s;
+            font-size: 1rem; font-weight: 600;
         }
-        .btn-opt:active { transform: scale(0.98); }
-        .btn-opt.correct { background: var(--success) !important; color: #000; font-weight: bold; }
-        .btn-opt.wrong { background: var(--accent) !important; color: #fff; }
+        .btn-opt:active { transform: translateX(5px); background: rgba(0, 252, 244, 0.15); }
+        .btn-opt.correct { background: var(--success) !important; color: #000; border-color: var(--success); }
+        .btn-opt.wrong { background: var(--danger) !important; color: #fff; border-color: var(--danger); }
 
-        .footer-nav { position: sticky; bottom: 0; padding: 20px; background: var(--card); border-top: 1px solid var(--border); }
+        .footer-nav { 
+            margin-top: auto; padding: 25px 20px; 
+            background: linear-gradient(to top, #0f111a, transparent);
+        }
         .btn-main { 
-            width: 100%; padding: 20px; background: var(--accent); border: none; border-radius: 16px;
-            color: white; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer;
-            box-shadow: 0 4px 15px var(--accent-glow);
+            width: 100%; padding: 22px; 
+            background: var(--accent); border: none; 
+            border-radius: 20px; 
+            color: #000; font-weight: 900; 
+            font-size: 1rem; text-transform: uppercase; 
+            letter-spacing: 2px; cursor: pointer;
+            box-shadow: 0 0 25px var(--accent-glow);
+            transition: 0.3s;
         }
-        .btn-main:disabled { opacity: 0.3; cursor: not-allowed; }
+        .btn-main:disabled { background: #232735; color: #4b526d; box-shadow: none; }
 
-        /* ANIMATIONS */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { 
+            from { opacity: 0; transform: translateX(20px); } 
+            to { opacity: 1; transform: translateX(0); } 
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .shake { animation: shake 0.2s ease-in-out 0s 2; }
 
         .hidden { display: none !important; }
-        b { color: var(--accent); }
+        b { color: var(--accent); font-weight: 800; }
+        i { color: var(--text-dim); }
     </style>
 </head>
 <body>
@@ -85,16 +203,21 @@
     <!-- HEADER & PROGRESS BAR -->
     <div class="header">
         <div class="progress-meta">
-            <span id="progress-text">SQUAD LEVEL : 0%</span>
-            <span id="session-tag">LOBBY</span>
+            <span id="progress-text">SYNCHRO TACTIQUE : 0%</span>
+            <span id="session-tag">CENTRE DE COMMANDE</span>
         </div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
 
     <!-- LOBBY VIEW -->
     <div id="view-lobby" class="view active">
-        <h1 class="lobby-title">Français : Squad Leader</h1>
-        <p class="lobby-intro">Bienvenue Lovyc. Ici, on ne parle pas juste pour rien. On communique pour gagner. Maîtrise la syntaxe pour diriger ton équipe et tes projets.</p>
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+            <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--accent-glow);">
+                <svg viewBox="0 0 24 24" style="width: 30px; fill: #000;"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>
+            </div>
+            <h1 class="lobby-title" style="margin-bottom: 0;">Tactical Comms</h1>
+        </div>
+        <p class="lobby-intro">Agent Lovyc, la clarté est ton arme principale. Maîtrise la syntaxe pour coordonner tes missions et dominer le terrain.</p>
         
         <div class="days-grid" id="days-grid">
             <!-- Dynamically generated -->
@@ -129,63 +252,119 @@
         {
             id: 1,
             title: "Le Noyau : S + V + C",
-            intro: "Identifier les joueurs essentiels d'une phrase.",
+            intro: "Identifier les joueurs essentiels d'une phrase pour éviter le lag.",
             steps: [
                 {
                     type: "lesson",
-                    title: "Le Scan de la Zone",
-                    content: `<p>Une phrase, c'est comme une composition d'équipe. Si tu n'as pas de <b>Buteur</b>, tu ne marques pas.</p>
+                    title: "Briefing : La Squad de Base",
+                    content: `<p>Agent Lovyc, une phrase c'est comme une composition d'équipe. Si tu n'as pas de <b>Buteur</b> (Verbe), tu ne marques pas.</p>
                               <div class="box-concept">
                                 <b>Sujet</b> (Qui ?) + <b>Verbe</b> (Action) + <b>Complément</b> (Quoi ?)
                               </div>
-                              <p>Sans verbe, ton message est un "Lag". Personne ne comprend ce qui se passe.</p>`
+                              <p>Sans verbe, ton message est un "Lag". Personne ne comprend ce qui se passe sur le serveur.</p>`
                 },
                 {
                     type: "interactive",
-                    title: "Détection du Verbe",
-                    question: "Dans cette phrase, quel mot est le verbe d'action ? <br><br><i>'Le pro-gamer lance une attaque parfaite.'</i>",
-                    options: ["pro-gamer", "lance", "parfaite"],
+                    title: "Scan de Zone 1",
+                    question: "Dans cette phrase, quel mot est le <b>Sujet</b> (celui qui fait l'action) ? <br><br><i>'Le pro-gamer lance une attaque parfaite.'</i>",
+                    options: ["l'attaque", "Le pro-gamer", "parfaite"],
                     answer: 1,
-                    feedback: "Correct ! 'Lance' est l'action. Sans lui, on ne sait pas ce que fait le joueur."
+                    feedback: "Correct ! C'est le pro-gamer qui agit."
+                },
+                {
+                    type: "interactive",
+                    title: "Scan de Zone 2",
+                    question: "Trouve maintenant le <b>Verbe</b> (l'action) : <br><br><i>'Le pro-gamer lance une attaque parfaite.'</i>",
+                    options: ["lance", "une attaque", "pro-gamer"],
+                    answer: 0,
+                    feedback: "Exact ! 'Lance' est le mouvement, l'action."
+                },
+                {
+                    type: "write",
+                    title: "Saisie Tactique",
+                    question: "Écris le mot qui manque (le Verbe) pour que la phrase fonctionne : <br><br><i>'Lovyc ____ son écran de jeu.'</i>",
+                    answer: ["allume", "regarde", "fixe", "partage"],
+                    hint: "Cherche une action que l'on fait avec les yeux ou avec le bouton Power (regarde, allume, fixe...)",
+                    feedback: "Bien ! N'importe lequel de ces verbes d'action valide la phrase."
                 },
                 {
                     type: "lesson",
                     title: "Le Danger du Verbe 'Être'",
                     content: `<p>Attention au tic de langage : <b>'Je suis en appel'</b> ou <b>'Je suis au foot'</b>.</p>
-                              <p>C'est correct, mais à l'écrit, on cherche des verbes plus riches. Ça montre que tu es le leader.</p>
-                              <div class="box-concept">
-                                Moyen : Je suis sur Roblox.<br>
-                                <b>Pro :</b> Je <b>pilote</b> un avion sur Roblox.
-                              </div>`
+                    <p>C'est correct, mais on cherche des verbes plus riches pour montrer que tu es le leader (Boss de guilde).</p>
+                    <div class="box-concept">
+                      Passif : Je suis sur mon vélo.<br>
+                      <b>Actif :</b> Je <b>pédale</b> sur mon vélo.
+                    </div>`
                 },
                 {
-                    type: "quiz",
-                    title: "Amélioration de message",
-                    question: "Comment rendre cette phrase plus efficace ?<br>'Je suis avec ma squad.'",
-                    options: ["Je joue avec ma squad.", "C'est ma squad avec moi.", "Moi et ma squad on est là."],
-                    answer: 0,
-                    feedback: "Exact ! 'Joue' décrit l'action précise."
+                    type: "write",
+                    title: "Optimisation de Signal",
+                    question: "Remplace 'suis' par un verbe d'action plus précis : <br><br><i>'Je suis dans ma chambre.'</i>",
+                    answer: ["je range ma chambre", "je dors dans ma chambre", "je joue dans ma chambre", "je travaille dans ma chambre", "je range", "je dors", "je joue"],
+                    hint: "Que fais-tu dans ta chambre ? (dors, joue, range...)",
+                    feedback: "Gagné ! Un leader utilise des verbes précis pour ses ordres."
+                },
+                {
+                    type: "interactive",
+                    title: "Repérage de Phrase Cassée",
+                    question: "Laquelle de ces phrases n'a <b>PAS</b> de verbe (elle 'lag') ?",
+                    options: ["Les joueurs attendent le patch.", "Demain, le gros tournoi national.", "Nous gagnons le match."],
+                    answer: 1,
+                    feedback: "Bien vu ! 'Demain, le gros tournoi' n'annonce aucune action. C'est une phrase incomplète."
+                },
+                {
+                    type: "write",
+                    title: "Récupération de Données",
+                    question: "Ajoute un verbe pour réparer la phrase cassée : <br><br><i>'Demain, le gros tournoi national ____.'</i>",
+                    answer: ["commence", "débute", "arrive", "stoppe"],
+                    hint: "Le tournoi va-t-il bientôt commencer ? (8 lettres : commence / 6 lettres : débute)",
+                    feedback: "Phrase réparée ! Le signal est maintenant complet."
+                },
+                {
+                    type: "lesson",
+                    title: "L'Ordre Tactique",
+                    content: `<p>En français, on ne commence pas par le complément si on veut être compris en 1ms.</p>
+                    <div class="box-concept">
+                      ❌ Un skin je veux acheter.<br>
+                      ✅ <b>Je veux acheter</b> un skin.
+                    </div>
+                    <p>Garde l'ordre S+V+C : Sujet puis Verbe puis Complément.</p>`
+                },
+                {
+                    type: "write",
+                    title: "Réorganisation de Comm",
+                    question: "Réécris cette phrase dans le bon ordre (S+V+C) : <br><br><i>'le ballon - Lovyc - lance'</i>",
+                    answer: "Lovyc lance le ballon",
+                    feedback: "Ordre rétabli. Transmission claire."
+                },
+                {
+                    type: "interactive",
+                    title: "Choix Final",
+                    question: "Laquelle de ces phrases respecte l'ordre S+V+C et possède un verbe d'action riche ?",
+                    options: ["Dans le jeu je suis bien.", "J'élimine mes adversaires avec précision.", "Mes amis et moi sur le serveur."],
+                    answer: 1,
+                    feedback: "Correct. C'est précis, actif et structuré."
                 },
                 {
                     type: "challenge",
                     title: "Boss de Fin - Jour 1",
-                    question: "Laquelle de ces phrases respecte l'ordre S+V+C ?",
-                    options: ["Demain le match.", "Nous gagnons le tournoi.", "Sur le serveur moi."],
-                    answer: 1,
-                    feedback: "Félicitations ! Sujet(Nous) + Verbe(Gagnons) + Complément(Le tournoi)."
+                    question: "Rédige une phrase complète (S+V+C) avec le verbe 'SMASH' :",
+                    answer: ["Lovyc smash le volant", "Je smash le volant", "Il smash le volant", "Lovyc smash la balle"],
+                    feedback: "Félicitations Agent ! Mission 1 accomplie à 100%. Ton noyau est stable."
                 }
             ]
         },
         {
             id: 2,
             title: "Accord Multi-joueurs",
-            intro: "Maîtriser le pluriel et le -ent.",
+            intro: "Maîtriser le pluriel et le code -ENT pour éviter les bugs de lecture.",
             steps: [
                 {
                     type: "lesson",
                     title: "Le Serveur Squad",
-                    content: `<p>Quand tu es en solo, le verbe finit souvent par 'e' ou 's'. Mais en Squad (Pluriel), il change de version.</p>
-                              <p>Le code du serveur pluriel, c'est souvent <b>-ENT</b>.</p>
+                    content: `<p>Quand tu es en solo, le verbe finit souvent par 'e' ou 's'. Mais en Squad (Pluriel), le système change.</p>
+                              <p>Le code secret du pluriel pour les verbes, c'est <b>-ENT</b>.</p>
                               <div class="box-concept">
                                 Solo : Le joueur <b>tire</b>.<br>
                                 Squad : Les joueurs <b>tirent</b>.
@@ -193,97 +372,305 @@
                 },
                 {
                     type: "interactive",
-                    title: "Correction en Live",
-                    question: "Choisis le bon patch : 'Mes potes ____ un nouveau skin.'",
-                    options: ["achète", "achètent", "achètes"],
+                    title: "Patch Correctif 1",
+                    question: "Choisis la bonne terminaison : <br><br><i>'Mes coéquipiers ____ la zone.'</i>",
+                    options: ["sécurise", "sécurisent", "sécurises"],
                     answer: 1,
-                    feedback: "Bravo ! 'Potes' est au pluriel, donc le verbe prend -ent."
+                    feedback: "Bien joué ! Plusieurs coéquipiers = terminaison -ent."
+                },
+                {
+                    type: "write",
+                    title: "Codage Manuel",
+                    question: "Écris le verbe GAGNER correctement ici : <br><br><i>'Les membres de ma guilde ____ tout le temps.'</i>",
+                    answer: "gagnent",
+                    feedback: "Le code -ENT est bien appliqué."
                 },
                 {
                     type: "lesson",
-                    title: "Le Cas 'ON'",
-                    content: `<p>Attention ! Quand on utilise 'ON', le verbe reste au <b>singulier</b>, même si on parle de tout le monde.</p>
+                    title: "Le Cas du 'ON' (Infiltré)",
+                    content: `<p>Attention ! Le pronom <b>'ON'</b> est un agent double. Il veut dire 'nous', mais il se conjugue comme s'il était <b>SOLO</b>.</p>
                               <div class="box-concept">
                                 ✅ On <b>part</b> en raid. (Singulier)<br>
-                                ❌ On partent en raid. (Erreur !)
+                                ❌ On partent en raid. (Bug !)
                               </div>`
                 },
                 {
-                    type: "quiz",
-                    title: "Analyse Rapide",
-                    question: "Quelle phrase est correcte ?",
-                    options: ["Ils cours vite.", "Elles parlent sur Discord.", "On mangent bientôt."],
-                    answer: 1,
-                    feedback: "Top ! 'Elles parlent' respecte l'accord pluriel."
+                    type: "write",
+                    title: "Infiltration",
+                    question: "Accorde le verbe JOUER : <br><br><i>'On ____ souvent ensemble.'</i>",
+                    answer: "joue",
+                    feedback: "Exact ! 'On' se comporte comme 'Il' au singulier."
+                },
+                {
+                    type: "interactive",
+                    title: "Détection de Faille",
+                    question: "Trouve la phrase qui contient une erreur d'accord :",
+                    options: ["On joue ensemble.", "Ils courent vite.", "Les adversaires arrive."],
+                    answer: 2,
+                    feedback: "Correct ! 'Les adversaires' (pluriel) devrait prendre -ent : arrivent."
+                },
+                {
+                    type: "write",
+                    title: "Correction de Bug",
+                    question: "Corrige le verbe de cette phrase : <br><br><i>'Mes parents regarde mon match.'</i>",
+                    answer: "regardent",
+                    feedback: "Fix réussi ! Tes parents (ils) = regardent."
+                },
+                {
+                    type: "lesson",
+                    title: "Mixité : Moi + Toi",
+                    content: `<p>Si tu dis 'Mon pote et moi', c'est comme si tu disais <b>NOUS</b>.</p>
+                              <div class="box-concept">
+                                Mon pote et moi <b>jouons</b>. (-ONS)
+                              </div>`
+                },
+                {
+                    type: "write",
+                    title: "Liaison Radio",
+                    question: "Accorde le verbe COURIR : <br><br><i>'Mon cousin et moi ____ vers le but.'</i>",
+                    answer: "courons",
+                    feedback: "Bien ! Lui + Moi = Nous."
+                },
+                {
+                    type: "challenge",
+                    title: "Boss de Fin - Jour 2",
+                    question: "Réécris toute cette phrase sans aucune erreur : <br><br><i>'Les joueurs saute sur le terrain.'</i>",
+                    answer: "Les joueurs sautent sur le terrain",
+                    feedback: "Mission accomplie ! L'accord de la squad est parfait."
                 }
             ]
         },
         {
             id: 3,
-            title: "Le Ping de la Ponctuation",
-            intro: "Utiliser points et virgules pour éviter le crash.",
+            title: "Le Flux Dynamique",
+            intro: "Rythmer ses messages avec la ponctuation pour ne pas s'essouffler.",
             steps: [
                 {
                     type: "lesson",
-                    title: "Le Point = Valider",
-                    content: `<p>Écrire sans point, c'est comme envoyer un paquet de données trop lourd : ça crash.</p>
-                              <p>Le point permet de respirer et de valider l'information.</p>
+                    title: "Le Scan de Ponctuation",
+                    content: `<p>Un mur de texte sans points, c'est comme un jeu qui freeze. Ton interlocuteur perd le fil.</p>
                               <div class="box-concept">
-                                ❌ J'avance je vois un ennemi je tire.<br>
-                                ✅ J'avance. Je vois un ennemi. Je tire.
+                                Point (.) = Fin d'action.<br>
+                                Virgule (,) = Pause ou Liste.
                               </div>`
                 },
                 {
-                    type: "quiz",
-                    title: "Gestion du Ping",
-                    question: "Où faut-il couper ? 'Le pack est prêt on y va.'",
-                    options: ["Le pack est. Prêt on y va.", "Le pack est prêt. On y va.", "Le pack. Est prêt on y va."],
-                    answer: 1,
-                    feedback: "Parfait. Deux actions distinctes = deux phrases."
+                    type: "write",
+                    title: "Split de Signal",
+                    question: "Sépare ces deux actions par un point : <br><br><i>'Le match commence Lovyc se prépare.'</i>",
+                    answer: "Le match commence. Lovyc se prépare",
+                    feedback: "Parfait. Deux actions, deux phrases."
+                },
+                {
+                    type: "lesson",
+                    title: "La Virgule (Le Boost)",
+                    content: `<p>La virgule sert à lister des objets ou donner un détail sans couper le courant.</p>
+                              <div class="box-concept">
+                                Dans mon sac, j'ai une raquette, une gourde et des balles.
+                              </div>`
+                },
+                {
+                    type: "write",
+                    title: "Inventaire Tactical",
+                    question: "Ajoute les virgules manquantes pour lister ton stuff : <br><br><i>'J'aime le basket le badminton et Valorant.'</i>",
+                    answer: "J'aime le basket, le badminton et Valorant",
+                    feedback: "Exact. On ne met pas de virgule avant le 'et', il fait déjà le lien."
+                },
+                {
+                    type: "write",
+                    title: "Saisie de Précision",
+                    question: "Écris une phrase où tu listes 3 jeux que tu aimes, avec les virgules au bon endroit :",
+                    answer: ["j'aime", "joue", "jeux"],
+                    feedback: "Signal validé. Ta liste est bien structurée."
+                },
+                {
+                    type: "interactive",
+                    title: "Correction de Chat",
+                    question: "Où placer la virgule ? <br><br><i>'Si tu gagnes je te rejoins.'</i>",
+                    options: ["Si tu gagnes, je te rejoins.", "Si tu, gagnes je te rejoins.", "Si tu gagnes je te, rejoins."],
+                    answer: 0,
+                    feedback: "Correct ! La virgule marque la condition."
+                },
+                {
+                    type: "write",
+                    title: "Echo Tactique",
+                    question: "Transforme cette question en affirmation pointée : <br><br><i>'Est-ce que le serveur est ouvert ?'</i>",
+                    answer: "Le serveur est ouvert",
+                    feedback: "Transmission claire et directe."
+                },
+                {
+                    type: "lesson",
+                    title: "L'Exclamation (Le Cri)",
+                    content: `<p>À utiliser avec parcimonie pour montrer l'urgence ou la joie.</p>
+                              <div class="box-concept">
+                                ✅ Attention derrière toi !<br>
+                                ❌ Pourquoi tu fais ça !!?!!! (Trop de bruit)
+                              </div>`
+                },
+                {
+                    type: "write",
+                    title: "Alerte Squad",
+                    question: "Écris un message d'alerte pour tes coéquipiers avec un point d'exclamation :",
+                    answer: ["!", "attention", "danger", "vite"],
+                    feedback: "Alerte reçue 5/5."
+                },
+                {
+                    type: "challenge",
+                    title: "Boss de Fin - Jour 3",
+                    question: "Réécris proprement ce message qui lag : <br><br><i>'y'a plus de batterie j'arrête l'appel'</i>",
+                    answer: ["Il n'y a plus de batterie, j'arrête l'appel", "Y'a plus de batterie, j'arrête l'appel", "Il n'y a plus de batterie. J'arrête l'appel"],
+                    feedback: "Mission accomplie. Le flux est fluide."
                 }
             ]
         },
         {
             id: 4,
-            title: "Nettoyage Vocal (Oral vs Écrit)",
-            intro: "Supprimer les tics de langage inutiles.",
+            title: "Nettoyage de Comm (Et vs Est)",
+            intro: "Distinguer le verbe être de la liaison pour éviter les malentendus.",
             steps: [
                 {
                     type: "lesson",
-                    title: "Le 'Et' vs 'Est'",
-                    content: `<p>C'est l'erreur la plus courante sur le chat.</p>
-                              <p><b>ET</b> = 'et aussi' (Ajout)<br><b>EST</b> = verbe être (C'est)</p>
+                    title: "L'Analyse du Signal",
+                    content: `<p>C'est l'erreur la plus courante. Si tu les confonds, ton message perd sa force.</p>
                               <div class="box-concept">
-                                Le skin <b>est</b> beau <b>et</b> rare.
+                                <b>EST</b> = Verbe Être (On peut le remplacer par 'était').<br>
+                                <b>ET</b> = Liaison (On peut le remplacer par 'et aussi').
                               </div>`
                 },
                 {
-                    type: "quiz",
-                    title: "Test de Reflexe",
-                    question: "Complète : 'Il ___ tard ___ je dois partir.'",
+                    type: "write",
+                    title: "Diagnostic 1",
+                    question: "Complète : <i>'Le niveau ____ difficile.'</i>",
+                    answer: "est",
+                    feedback: "Oui ! Le niveau 'était' difficile -> donc EST."
+                },
+                {
+                    type: "write",
+                    title: "Diagnostic 2",
+                    question: "Complète : <i>'Je prends mon sac ____ ma raquette.'</i>",
+                    answer: "et",
+                    feedback: "Bien ! 'Et aussi' ma raquette -> donc ET."
+                },
+                {
+                    type: "interactive",
+                    title: "Double Diagnostic",
+                    question: "Trouve la bonne combinaison : <i>'Il ___ tard ___ je suis fatigué.'</i>",
                     options: ["et / est", "est / et", "est / est"],
                     answer: 1,
-                    feedback: "Bien vu ! Verbe être d'abord, puis coordination."
+                    feedback: "Parfait. 'Il était tard et aussi je suis fatigué'."
+                },
+                {
+                    type: "lesson",
+                    title: "Le Cas du 'A' vs 'À'",
+                    content: `<p>Même logique ici :</p>
+                              <div class="box-concept">
+                                <b>A</b> = Verbe Avoir (On peut dire 'avait').<br>
+                                <b>À</b> = Direction ou Lieu (Position).
+                              </div>`
+                },
+                {
+                    type: "write",
+                    title: "Navigation GPS",
+                    question: "Complète : <i>'Lovyc ___ gagné ___ Lyon.'</i>",
+                    answer: "a à",
+                    hint: "Astuces : 'a' sans accent = il avait. 'à' avec accent = direction/lieu Lyon.",
+                    feedback: "Top ! 'A' (avait) gagné 'À' (lieu) Lyon."
+                },
+                {
+                    type: "write",
+                    title: "Récupération",
+                    question: "Corrige cette phrase : <i>'Il à faim.'</i>",
+                    answer: "Il a faim",
+                    hint: "Peux-tu dire 'Il avait faim' ? Si oui, pas d'accent !",
+                    feedback: "Exact. On peut dire 'Il avait faim'."
+                },
+                {
+                    type: "interactive",
+                    title: "Détection Rapide",
+                    question: "Laquelle est juste ?",
+                    options: ["Je vais a la plage.", "Il a une nouvelle console.", "C'est etrange et beau."],
+                    answer: 1,
+                    feedback: "Correct."
+                },
+                {
+                    type: "write",
+                    title: "Saisie de Sécurité",
+                    question: "Complète : <i>'Le coach ____ là ____ il nous regarde.'</i>",
+                    answer: "est et",
+                    hint: "1. Verbe être (avait été/était). 2. Liaison (et aussi).",
+                    feedback: "Clean ! Signal pur."
+                },
+                {
+                    type: "challenge",
+                    title: "Boss de Fin - Jour 4",
+                    question: "Saisis la phrase suivante sans erreur : <br><br><i>'Le pro est fatigué et il a sommeil.'</i>",
+                    answer: "Le pro est fatigué et il a sommeil",
+                    feedback: "Excellent ! Tu as nettoyé ton signal."
                 }
             ]
         },
         {
             id: 5,
             title: "Certification Leader",
-            intro: "Test final de la semaine.",
+            intro: "Dernière mission de la semaine. Prouve que tu es prêt à diriger.",
             steps: [
                 {
                     type: "lesson",
-                    title: "Dernière Révision",
-                    content: `<p>Un leader écrit avec :<br>1. Une <b>Majuscule</b>.<br>2. Un <b>Sujet</b> clair.<br>3. Un <b>Verbe</b> accordé.<br>4. Un <b>Point</b> final.</p>`
+                    title: "Checklist du Leader",
+                    content: `<p>Pour être un Leader d'expression, n'oublie jamais :<br>1. Le <b>Sujet</b> est clair.<br>2. Le <b>Verbe</b> est précis et bien accordé.<br>3. Les <b>Liaisons</b> (et/est) sont vérifiées.<br>4. La <b>Ponctuation</b> valide le message.</p>`
+                },
+                {
+                    type: "write",
+                    title: "Épreuve de Force 1",
+                    question: "Corrige cette phrase : <i>'Ils vas au tournoi à Bordeaux.'</i>",
+                    answer: "Ils vont au tournoi à Bordeaux",
+                    hint: "Accorde le verbe 'aller' avec 'Ils' (pluriel).",
+                    feedback: "Bien. 'Ils vont' (pluriel) et 'à' (lieu)."
+                },
+                {
+                    type: "write",
+                    title: "Épreuve de Force 2",
+                    question: "Corrige cette phrase : <i>'Le micro est cassé j'en veut un autre.'</i>",
+                    answer: "Le micro est cassé. J'en veux un autre",
+                    hint: "Sépare les deux idées par un point (.) et vérifie la fin du verbe 'vouloir' avec 'JE'.",
+                    feedback: "Exactement ! Point pour séparer + orthographe correcte du verbe."
+                },
+                {
+                    type: "write",
+                    title: "Épreuve de Force 3",
+                    question: "Remets de l'ordre : <br><br><i>'gagnons - nous - le match - ensemble'</i>",
+                    answer: "Nous gagnons le match ensemble",
+                    hint: "Respecte l'ordre S+V+C (Sujet + Verbe + Complément).",
+                    feedback: "Structure parfaite."
+                },
+                {
+                    type: "interactive",
+                    title: "Audit de Signal",
+                    question: "Laquelle est fausse ?",
+                    options: ["Les joueurs courent.", "On mangent dehors.", "Tu es prêt."],
+                    answer: 1,
+                    feedback: "On mange (singulier)."
+                },
+                {
+                    type: "write",
+                    title: "Refactorisation",
+                    question: "Réécris 'On mangent dehors' correctement :",
+                    answer: "On mange dehors",
+                    feedback: "Corrigé."
+                },
+                {
+                    type: "write",
+                    title: "Dernière Liaison",
+                    question: "Complète : <i>'Lovyc ___ fort ___ rapide.'</i>",
+                    answer: "est et",
+                    feedback: "Impeccable."
                 },
                 {
                     type: "challenge",
-                    title: "Épreuve Finale",
-                    question: "Trouve la phrase parfaite :",
-                    options: ["les troupes avance.", "Les troupes avancent.", "Les troupes avances"],
-                    answer: 1,
-                    feedback: "Missions accomplie ! Tu es prêt."
+                    title: "BOSS FINAL : La Transmission Claire",
+                    question: "Rédige une phrase de leader pour encourager ton équipe (S+V+C + émotion !) :",
+                    answer: ["!", "gagne", "allez", "joue"],
+                    feedback: "INCROYABLE ! Mission de la semaine accomplie à 100%. Tu es le Squad Leader de l'expression."
                 }
             ]
         }
@@ -323,14 +710,14 @@
         const count = state.completedDays.length;
         const percent = Math.round((count / total) * 100);
         el.bar.style.width = percent + "%";
-        el.progText.innerText = `SQUAD LEVEL : ${percent}%`;
+        el.progText.innerText = `SYNCHRO TACTIQUE : ${percent}%`;
     }
 
     function renderLobby() {
         el.lobby.classList.add('active');
         el.content.classList.remove('active');
         el.footer.classList.add('hidden');
-        el.tag.innerText = "LOBBY";
+        el.tag.innerText = "CENTRE DE COMMANDE";
         el.grid.innerHTML = "";
 
         weekData.forEach((day, index) => {
@@ -339,16 +726,26 @@
             
             const card = document.createElement('div');
             card.className = `day-card ${isLocked ? 'locked' : ''} ${isDone ? 'completed' : ''}`;
+            
+            // Icônes tactiques par mission
+            const icons = [
+                '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>', 
+                '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M16,13C15.71,13 15.38,13 15.03,13.05C16.19,13.89 17,15 17,16.5V19H21V16.5C21,14.67 19.7,13.21 17.83,12.41C17.39,12.15 16.79,12 16,12L16,13M8,13C6.17,13 4,14.08 4,16V19H12V16C12,14.08 9.83,13 8,13M8,12A3,3 0 0,0 11,9A3,3 0 0,0 8,6A3,3 0 0,0 5,9A3,3 0 0,0 8,12M16,11A2,2 0 0,0 18,9A2,2 0 0,0 16,7A2,2 0 0,0 14,9A2,2 0 0,0 16,11M8,14C10.21,14 13,15.12 13,17V20H3V17C4,15.12 5.79,14 8,14Z"/></svg>',
+                '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M14,10H2V12H14V10M14,6H2V8H14V6M2,16H10V14H2V16M21.5,11.5L23,13L16,20L11.5,15.5L13,14L16,17L21.5,11.5Z"/></svg>',
+                '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6V12L16,14.5L16.8,13.2L13.5,11.2V6H12Z"/></svg>',
+                '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"/></svg>'
+            ];
+
             card.innerHTML = `
-                <div class="icon">${isDone ? '✓' : day.id}</div>
+                <div class="icon">${isDone ? '✓' : icons[index]}</div>
                 <div class="day-info">
-                    <h3>${day.title}</h3>
+                    <h3>MISSION ${day.id} : ${day.title}</h3>
                     <p>${day.intro}</p>
                 </div>
             `;
             
             if (!isLocked) {
-                card.onclick = () => startDay(id = day.id);
+                card.onclick = () => startDay(day.id);
             }
             el.grid.appendChild(card);
         });
@@ -360,7 +757,7 @@
         el.lobby.classList.remove('active');
         el.content.classList.add('active');
         el.footer.classList.remove('hidden');
-        el.tag.innerText = `JOUR ${id}`;
+        el.tag.innerText = `MISSION ${id}`;
         renderStep();
         saveState();
     }
@@ -370,11 +767,73 @@
         const step = day.steps[state.currentStep];
         
         el.stepTitle.innerText = step.title;
-        el.btnNext.disabled = (step.type === 'interactive' || step.type === 'quiz' || step.type === 'challenge');
-        el.btnNext.innerText = (state.currentStep === day.steps.length - 1) ? "TERMINER LE JOUR" : "CONTINUER";
+        el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
+        el.btnNext.innerText = (state.currentStep === day.steps.length - 1) ? "VALIDER LA MISSION" : "ÉTAPE SUIVANTE";
 
         if (step.type === 'lesson') {
             el.stepBody.innerHTML = step.content;
+        } else if (step.type === 'write') {
+            el.stepBody.innerHTML = `<p class="content-chunk">${step.question}</p>`;
+            const container = document.createElement('div');
+            container.style.marginTop = "20px";
+            
+            if (step.hint) {
+                const hintBtn = document.createElement('button');
+                hintBtn.className = "hint-btn";
+                hintBtn.innerText = "💡 BESOIN D'UN INDICE ?";
+                const hintBox = document.createElement('div');
+                hintBox.className = "hint-box hidden";
+                hintBox.innerHTML = `<b>Indice :</b> ${step.hint}`;
+                hintBtn.onclick = () => {
+                    hintBox.classList.toggle('hidden');
+                    hintBtn.innerText = hintBox.classList.contains('hidden') ? "💡 BESOIN D'UN INDICE ?" : "💡 MASQUER L'INDICE";
+                };
+                el.stepBody.appendChild(hintBtn);
+                el.stepBody.appendChild(hintBox);
+            }
+
+            const input = document.createElement('input');
+            input.type = "text";
+            input.placeholder = "Tape ta réponse ici...";
+            input.className = "btn-opt";
+            input.style.cursor = "text";
+            input.style.background = "rgba(0,0,0,0.2)";
+            input.style.border = "1px solid var(--accent)";
+            
+            const checkBtn = document.createElement('button');
+            checkBtn.className = "btn-main";
+            checkBtn.style.marginTop = "10px";
+            checkBtn.innerText = "VÉRIFIER LE SIGNAL";
+            
+            container.appendChild(input);
+            container.appendChild(checkBtn);
+            el.stepBody.appendChild(container);
+
+            input.onkeydown = (e) => { if (e.key === 'Enter') checkBtn.click(); };
+            
+            checkBtn.onclick = () => {
+                const userVal = input.value.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+                const solutions = Array.isArray(step.answer) ? step.answer : [step.answer];
+                const isCorrect = solutions.some(s => {
+                    const cleanS = s.toLowerCase().trim().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+                    return userVal === cleanS;
+                });
+                
+                if (isCorrect) {
+                    input.disabled = true;
+                    checkBtn.disabled = true;
+                    input.style.borderColor = "var(--success)";
+                    const f = document.createElement('p');
+                    f.style.marginTop = "15px";
+                    f.style.color = "var(--success)";
+                    f.innerHTML = `<b>✓ SIGNAL CLAIR :</b> ${step.feedback}`;
+                    el.stepBody.appendChild(f);
+                    el.btnNext.disabled = false;
+                } else {
+                    input.classList.add('shake');
+                    setTimeout(() => input.classList.remove('shake'), 400);
+                }
+            };
         } else {
             el.stepBody.innerHTML = `<p class="content-chunk">${step.question}</p>`;
             const area = document.createElement('div');
@@ -421,8 +880,8 @@
         updateGlobalProgress();
         
         const congrats = document.createElement('div');
-        congrats.style = "position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:var(--success); color:#000; padding:20px; border-radius:15px; font-weight:800; z-index:100; animation: fadeIn 0.3s;";
-        congrats.innerText = "JOUR VALIDÉ ! +20 XP";
+        congrats.style = "position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:var(--accent); color:#000; padding:20px 40px; border-radius:15px; font-weight:900; z-index:100; animation: slideIn 0.3s; box-shadow: 0 0 30px var(--accent-glow); text-transform:uppercase; letter-spacing:2px;";
+        congrats.innerText = "MISSION ACCOMPLIE ! +100 COMP";
         document.body.appendChild(congrats);
         setTimeout(() => congrats.remove(), 1500);
     }
