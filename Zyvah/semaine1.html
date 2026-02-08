@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Maths - Mix & Master</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --accent: #8b5cf6;
+            --success: #10b981;
+            --error: #ef4444;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #app {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            height: 8px;
+            background: #334155;
+            width: 100%;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .day-label {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        h1 { font-size: 1.5rem; margin-top: 5px; }
+
+        /* Lesson Styles */
+        .lesson-text {
+            line-height: 1.6;
+            color: var(--text-dim);
+            font-size: 1.05rem;
+        }
+
+        .lesson-text strong { color: var(--text); }
+        .example {
+            background: #334155;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Quiz Styles */
+        .quiz-container { display: none; }
+        .question { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; }
+        
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: #334155;
+            border: 2px solid transparent;
+            color: var(--text);
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover { background: #475569; }
+        .option-btn.correct { background: var(--success); border-color: #059669; }
+        .option-btn.wrong { background: var(--error); border-color: #dc2626; }
+
+        /* Feedback Area */
+        #feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Navigation */
+        .nav-footer {
+            padding: 20px;
+            background: rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .btn-main {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .btn-main:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Utils */
+        .hidden { display: none; }
+        .visible { display: block; }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+    
+    <div class="content">
+        <div class="header">
+            <span class="day-label" id="day-display">Jour 1</span>
+            <h1 id="title-display">Chargement...</h1>
+        </div>
+
+        <div id="lesson-view" class="lesson-text">
+            </div>
+
+        <div id="quiz-view" class="quiz-container">
+            <p class="question" id="question-text"></p>
+            <div class="options" id="options-container"></div>
+            <div id="feedback"></div>
+        </div>
+    </div>
+
+    <div class="nav-footer">
+        <button id="next-btn" class="btn-main">Commencer le Quiz</button>
+    </div>
+</div>
+
+<script>
+    const courseData = {
+        theme: "Le Studio d'Enregistrement",
+        semaine: [
+            {
+                jour: 1,
+                titre: "Le Mixage des Nombres (Priorités)",
+                cours: `<p>En musique, on ne peut pas mettre la batterie plus fort que la voix sans réfléchir. En maths, c'est pareil, il y a une <strong>hiérarchie</strong>.</p>
+                        <div class="example">
+                            <strong>1. Les Parenthèses (VIP) :</strong> On s'en occupe d'abord.<br>
+                            <strong>2. Multiplication/Division (Stars) :</strong> On gère ensuite.<br>
+                            <strong>3. Addition/Soustraction (Choristes) :</strong> À la fin.
+                        </div>
+                        <p>Exemple : 2 + 3 × 5. On ne fait pas 2+3. On fait d'abord la star : 3 × 5 = 15. Puis 2 + 15 = 17.</p>`,
+                quiz: [
+                    { q: "Ariana veut calculer son temps : 2h le matin + 3 sessions de 4h. (2 + 3 × 4). Total ?", o: ["20 heures", "14 heures", "11 heures"], a: 1, e: "Bravo ! On multiplie d'abord 3 × 4 = 12, puis + 2." },
+                    { q: "Que donne (10 - 2) × 5 ?", o: ["40", "48", "35"], a: 0, e: "Super ! Le VIP entre parenthèses (10-2=8) passe en premier." },
+                    { q: "Dans 10 + 10 ÷ 2, quelle opération fais-tu en premier ?", o: ["L'addition", "La division", "Le hasard"], a: 1, e: "Exact. La division est prioritaire. 10 ÷ 2 = 5, total = 15." },
+                    { q: "Résous : 5 × 4 + 3 × 2.", o: ["46", "26", "22"], a: 1, e: "Tu assures ! 20 + 6 = 26. Deux stars avant les choristes." }
+                ]
+            },
+            {
+                jour: 2,
+                titre: "Les Groupies (Réduction)",
+                cours: `<p>Dans une chorégraphie, on ne mélange pas les danseurs K-Pop avec les musiciens de Jazz. En maths, on <strong>regroupe</strong> ce qui se ressemble.</p>
+                        <ul>
+                            <li>Les <strong>x</strong> (danseurs) ensemble.</li>
+                            <li>Les <strong>nombres</strong> (instruments) ensemble.</li>
+                        </ul>
+                        <div class="example">3x + 5 + 2x + 1 devient <strong>5x + 6</strong>.</div>`,
+                quiz: [
+                    { q: "Simplifie la troupe : 4x + 7 + 2x.", o: ["13x", "6x + 7", "4x + 9"], a: 1, e: "Parfait ! 4x + 2x = 6x. Le 7 reste seul." },
+                    { q: "Réduis : 10a - 3a + 5.", o: ["7a + 5", "12a", "7 + 5a"], a: 0, e: "10 pommes moins 3 pommes = 7 pommes. Le 5 ne bouge pas." },
+                    { q: "Si j'ai x + x, ça fait quoi ?", o: ["x²", "2x", "2"], a: 1, e: "Oui ! Un danseur + un danseur = 2 danseurs (2x)." },
+                    { q: "Simplifie : 3x + 4 + x - 2.", o: ["4x + 6", "3x + 2", "4x + 2"], a: 2, e: "Génial ! 3x + x = 4x et 4 - 2 = 2." }
+                ]
+            },
+            {
+                jour: 3,
+                titre: "Le Remix (Développement)",
+                cours: `<p>Le producteur (le nombre devant) donne le <strong>même micro</strong> à tout le monde dans la parenthèse.</p>
+                        <div class="example">3(x + 4) = 3 × x + 3 × 4 = <strong>3x + 12</strong>.</div>`,
+                quiz: [
+                    { q: "Développe 5(x + 3).", o: ["5x + 3", "5x + 15", "8x"], a: 1, e: "Très bien ! 5 × x et 5 × 3." },
+                    { q: "Développe 2(3x - 4).", o: ["6x - 8", "6x - 4", "5x - 6"], a: 0, e: "2 × 3x = 6x et 2 × (-4) = -8." },
+                    { q: "-3(x + 2) donne ?", o: ["-3x + 2", "-3x + 6", "-3x - 6"], a: 2, e: "Le signe moins se distribue aussi ! -3x et -6." },
+                    { q: "Développe x(x + 5).", o: ["x² + 5x", "2x + 5", "x² + 5"], a: 0, e: "x × x = x². C'est l'étape vers les fonctions !" }
+                ]
+            },
+            {
+                jour: 4,
+                titre: "L'Équilibre du Son (Équations)",
+                cours: `<p>Le signe <strong>=</strong> est le milieu d'une balance. Pour trouver x, on déplace les éléments en <strong>changeant leur signe</strong>.</p>
+                        <div class="example">x + 10 = 30 <br> x = 30 - 10 <br> <strong>x = 20</strong></div>`,
+                quiz: [
+                    { q: "x - 5 = 15. Que vaut x ?", o: ["10", "20", "75"], a: 1, e: "Le -5 devient +5 de l'autre côté. 15 + 5 = 20." },
+                    { q: "4x = 20. On fait quoi ?", o: ["16", "80", "5"], a: 2, e: "C'est une multiplication, donc on divise : 20 / 4 = 5." },
+                    { q: "2x + 3 = 13. Première étape ?", o: ["Faire 13 - 3", "Faire 13 / 2", "Faire 2 + 3"], a: 0, e: "Oui, on libère d'abord le x en déplaçant le +3." },
+                    { q: "Si 2x = 10, alors x = ?", o: ["5", "12", "8"], a: 0, e: "Parfait ! 10 / 2 = 5." }
+                ]
+            },
+            {
+                jour: 5,
+                titre: "Défi Manager de Tournée",
+                cours: `<p>Tu gères un bus (500€ fixe) + 10€ par danseur (x). Budget total : 650€.</p>
+                        <div class="example"><strong>10x + 500 = 650</strong></div>`,
+                quiz: [
+                    { q: "Enlève les frais fixes (500) de 650. Reste ?", o: ["150€", "1150€", "100€"], a: 0, e: "Top ! 650 - 500 = 150." },
+                    { q: "Si 10x = 150, combien de danseurs ?", o: ["10", "15", "1500"], a: 1, e: "150 / 10 = 15 danseurs !" },
+                    { q: "3(x + 2) = 12. Développe à gauche.", o: ["3x + 2 = 12", "3x + 6 = 12", "5x = 12"], a: 1, e: "3 × x et 3 × 2 = 6." },
+                    { q: "Si 3x + 6 = 12, donc 3x = 6. x vaut ?", o: ["2", "3", "18"], a: 0, e: "INCROYABLE ! Manager certifié." }
+                ]
+            }
+        ]
+    };
+
+    let currentDay = 0;
+    let currentQuizIdx = 0;
+    let isLessonMode = true;
+    let canProceed = false;
+
+    const dom = {
+        progressBar: document.getElementById('progress-bar'),
+        dayDisplay: document.getElementById('day-display'),
+        titleDisplay: document.getElementById('title-display'),
+        lessonView: document.getElementById('lesson-view'),
+        quizView: document.getElementById('quiz-view'),
+        questionText: document.getElementById('question-text'),
+        optionsContainer: document.getElementById('options-container'),
+        feedback: document.getElementById('feedback'),
+        nextBtn: document.getElementById('next-btn')
+    };
+
+    function init() {
+        render();
+        dom.nextBtn.addEventListener('click', handleNext);
+    }
+
+    function render() {
+        const day = courseData.semaine[currentDay];
+        dom.dayDisplay.innerText = `Jour ${day.jour}`;
+        dom.titleDisplay.innerText = day.titre;
+
+        if (isLessonMode) {
+            dom.lessonView.innerHTML = day.cours;
+            dom.lessonView.style.display = 'block';
+            dom.quizView.style.display = 'none';
+            dom.nextBtn.innerText = "Prêt pour le Quiz";
+        } else {
+            dom.lessonView.style.display = 'none';
+            dom.quizView.style.display = 'block';
+            showQuestion();
+        }
+        updateProgress();
+    }
+
+    function showQuestion() {
+        const quiz = courseData.semaine[currentDay].quiz[currentQuizIdx];
+        dom.questionText.innerText = quiz.q;
+        dom.optionsContainer.innerHTML = '';
+        dom.feedback.style.display = 'none';
+        dom.nextBtn.disabled = true;
+        canProceed = false;
+
+        quiz.o.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(idx, quiz.a, quiz.e);
+            dom.optionsContainer.appendChild(btn);
+        });
+        dom.nextBtn.innerText = "Question Suivante";
+    }
+
+    function checkAnswer(selected, correct, explanation) {
+        if (canProceed) return;
+        const btns = dom.optionsContainer.querySelectorAll('.option-btn');
+        
+        if (selected === correct) {
+            btns[selected].classList.add('correct');
+            dom.feedback.innerHTML = `<strong>Correct !</strong> ${explanation}`;
+            dom.feedback.style.background = 'rgba(16, 185, 129, 0.2)';
+            dom.feedback.style.display = 'block';
+            dom.nextBtn.disabled = false;
+            canProceed = true;
+        } else {
+            btns[selected].classList.add('wrong');
+            dom.feedback.innerHTML = `<strong>Réessaie !</strong> Ce n'est pas tout à fait ça.`;
+            dom.feedback.style.background = 'rgba(239, 68, 68, 0.2)';
+            dom.feedback.style.display = 'block';
+        }
+    }
+
+    function handleNext() {
+        const day = courseData.semaine[currentDay];
+        
+        if (isLessonMode) {
+            isLessonMode = false;
+            render();
+        } else {
+            if (currentQuizIdx < day.quiz.length - 1) {
+                currentQuizIdx++;
+                showQuestion();
+            } else {
+                if (currentDay < courseData.semaine.length - 1) {
+                    currentDay++;
+                    currentQuizIdx = 0;
+                    isLessonMode = true;
+                    render();
+                } else {
+                    finish();
+                }
+            }
+        }
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const totalSteps = courseData.semaine.length * 5; // approx (1 lesson + 4 quiz)
+        const currentStep = (currentDay * 5) + (isLessonMode ? 0 : currentQuizIdx + 1);
+        const percent = (currentStep / totalSteps) * 100;
+        dom.progressBar.style.width = `${percent}%`;
+    }
+
+    function finish() {
+        dom.app.innerHTML = `
+            <div class="content" style="text-align:center; justify-content:center;">
+                <h1 style="font-size:3rem;">🏆</h1>
+                <h1>Album Terminé !</h1>
+                <p style="margin: 20px 0; color: var(--text-dim);">Tu as maîtrisé les priorités, le rangement et l'équilibre. Ton studio est prêt pour le succès.</p>
+                <button class="btn-main" onclick="location.reload()">Recommencer la session</button>
+            </div>
+        `;
+    }
+
+    init();
+</script>
+
+</body>
+</html>
