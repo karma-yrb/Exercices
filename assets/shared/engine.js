@@ -25,26 +25,9 @@ function init() {
             footer: document.getElementById('footer'),
             btnPrev: document.getElementById('btn-prev'),
             btnNext: document.getElementById('btn-next'),
-            btnQuit: document.getElementById('btn-quit'), // Mapping quit button
             stepTitle: document.getElementById('step-title'),
             stepBody: document.getElementById('step-body')
         };
-
-        // Injection dynamique du bouton QUITTER s'il n'existe pas dans le HTML
-        if (el.footer && !el.btnQuit) {
-            const btnGroup = el.footer.querySelector('.btn-group');
-            if (btnGroup) {
-                const qBtn = document.createElement('button');
-                qBtn.id = 'btn-quit';
-                qBtn.className = 'btn-nav quit-btn';
-                qBtn.innerText = 'QUITTER';
-                qBtn.style.color = '#ff4757';
-                qBtn.style.border = '1px solid rgba(255, 71, 87, 0.3)';
-                qBtn.onclick = () => abandonMission();
-                btnGroup.prepend(qBtn);
-                el.btnQuit = qBtn;
-            }
-        }
 
         if (!el.lobby) {
             console.error('Critical: el.lobby (view-lobby) not found in DOM');
@@ -112,11 +95,10 @@ function boot() {
             if (state.currentStep > 0) {
                 state.currentStep--;
                 renderStep();
+                saveState();
             } else {
-                state.currentDay = null;
-                renderLobby();
+                showQuitModal();
             }
-            saveState();
         };
     }
 
@@ -132,7 +114,64 @@ function boot() {
             saveState();
         };
     }
+    
+    injectStyles();
+    injectModal();
     console.log('Engine Initialized Successfully.');
+}
+
+function injectStyles() {
+    if (document.getElementById('engine-styles')) return;
+    const s = document.createElement('style');
+    s.id = 'engine-styles';
+    s.innerHTML = `
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center;
+            z-index: 9999; backdrop-filter: blur(8px);
+            opacity: 0; pointer-events: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-content {
+            background: #111; border: 1px solid rgba(255,255,255,0.1); padding: 30px;
+            border-radius: 24px; max-width: 85%; width: 340px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); transform: translateY(20px); transition: 0.3s;
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-title { color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: 700; }
+        .modal-text { color: var(--text-dim, #888); font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; }
+        .modal-btns { display: flex; gap: 12px; }
+        .quit-confirm-btn { background: #ff4757 !important; border-color: #ff4757 !important; color: #fff !important; }
+        .quit-cancel-btn { background: rgba(255,255,255,0.05) !important; color: #fff !important; }
+        #btn-prev.quit-style { color: #ff4757; border-color: rgba(255, 71, 87, 0.3); }
+    `;
+    document.head.appendChild(s);
+}
+
+function injectModal() {
+    if (document.getElementById('quit-modal')) return;
+    const m = document.createElement('div');
+    m.id = 'quit-modal';
+    m.className = 'modal-overlay';
+    m.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-title">Abandonner la mission ?</div>
+            <p class="modal-text">Ta progression dans cet exercice sera perdue. Es-tu sûr de vouloir nous quitter Agent ?</p>
+            <div class="modal-btns">
+                <button class="btn-nav quit-cancel-btn" style="flex:1" onclick="hideQuitModal()">RESTER</button>
+                <button class="btn-nav quit-confirm-btn" style="flex:1" onclick="abandonMission()">QUITTER</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(m);
+}
+
+function showQuitModal() {
+    document.getElementById('quit-modal').classList.add('active');
+}
+
+function hideQuitModal() {
+    document.getElementById('quit-modal').classList.remove('active');
 }
 
 function showFatalError(err) {
@@ -241,7 +280,9 @@ function renderStep() {
     
     if (el.btnPrev) {
         el.btnPrev.classList.remove('hidden');
-        el.btnPrev.innerText = (state.currentStep === 0) ? 'QUITTER' : 'RETOUR';
+        const isFirst = state.currentStep === 0;
+        el.btnPrev.innerText = isFirst ? 'QUITTER' : 'RETOUR';
+        el.btnPrev.classList.toggle('quit-style', isFirst);
     }
     
     if (el.btnNext) {
@@ -405,8 +446,9 @@ function completeDay() {
 
 function abandonMission() {
     const lastDayId = state.currentDay;
-    if (!lastDayId || !confirm("Veux-tu vraiment quitter cette mission ? Ta progression actuelle sera perdue.")) return;
+    if (!lastDayId) return;
     
+    hideQuitModal();
     syncWithParent(lastDayId, 'ABANDONNÉ');
 
     state.currentDay = null;
