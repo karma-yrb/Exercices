@@ -171,8 +171,8 @@ h2#step-title {
 .btn-group { display: flex; gap: 12px; }
 .btn-nav {
     flex: 1; padding: 18px; 
-    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-    border-radius: 20px; color: var(--text-dim);
+    background: rgba(255,255,255,0.1); border: 1px solid var(--border);
+    border-radius: 20px; color: #ffffff;
     font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
     cursor: pointer;
 }

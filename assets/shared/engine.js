@@ -94,8 +94,11 @@ function boot() {
             if (state.currentStep > 0) {
                 state.currentStep--;
                 renderStep();
-                saveState();
+            } else {
+                state.currentDay = null;
+                renderLobby();
             }
+            saveState();
         };
     }
 
@@ -147,8 +150,6 @@ function renderLobby() {
     if (el.content) el.content.classList.remove('active');
     if (el.footer) el.footer.classList.add('hidden');
     
-    if (el.tag) el.tag.innerText = window.weekData ? 'CENTRE DE COMMANDE' : 'TABLEAU DE BORD';
-    
     if (el.grid) {
         el.grid.innerHTML = '';
         if (appData.length === 0) {
@@ -177,6 +178,16 @@ function renderLobby() {
             if (!isLocked) card.onclick = () => startDay(dayIdStr);
             el.grid.appendChild(card);
         });
+
+        // Bouton Retour au Hub
+        const backToHub = document.createElement('button');
+        backToHub.className = 'btn-opt';
+        backToHub.style.marginTop = '20px';
+        backToHub.style.borderStyle = 'dashed';
+        backToHub.style.textAlign = 'center';
+        backToHub.innerText = '⬅ RETOUR AU HUB PRINCIPAL';
+        backToHub.onclick = () => window.location.href = '../../index.html';
+        el.grid.appendChild(backToHub);
     }
 }
 
@@ -210,7 +221,8 @@ function renderStep() {
     if (el.stepTitle) el.stepTitle.innerText = step.title;
     
     if (el.btnPrev) {
-        el.btnPrev.classList.toggle('hidden', state.currentStep === 0);
+        el.btnPrev.classList.remove('hidden');
+        el.btnPrev.innerText = (state.currentStep === 0) ? 'QUITTER' : 'RETOUR';
     }
     
     if (el.btnNext) {
