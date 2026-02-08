@@ -386,24 +386,29 @@ function completeDay() {
 
 async function syncWithParent(dayId) {
     const childName = (window.APP_CONFIG && window.APP_CONFIG.STORAGE_KEY.includes('lovyc')) ? 'Lovyc' : 'Zyvah';
-    const subject = window.location.pathname.split('/').slice(-3, -2)[0] || 'Général';
-    const url = 'https://script.google.com/macros/s/AKfycbyNHvhCg9mtYfhuPKdy89iaFaKMGtfzRMHNlzB5nqXpC_DRIRnpMj7VjgnTjTpdvV9R/exec';
+    const pathParts = window.location.pathname.split('/');
+    const subject = pathParts[pathParts.length - 3] || 'Général'; 
+    const mission = dayId;
+    
+    const baseUrl = 'https://script.google.com/macros/s/AKfycbyNHvhCg9mtYfhuPKdy89iaFaKMGtfzRMHNlzB5nqXpC_DRIRnpMj7VjgnTjTpdvV9R/exec';
+    const payload = {
+        child: childName,
+        subject: subject,
+        mission: mission,
+        date: new Date().toISOString()
+    };
 
     try {
-        await fetch(url, {
+        await fetch(baseUrl, {
             method: 'POST',
             mode: 'no-cors',
+            cache: 'no-cache',
             headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({
-                child: childName,
-                subject: subject,
-                mission: dayId,
-                date: new Date().toISOString()
-            })
+            body: JSON.stringify(payload)
         });
-        console.log('Synchro Cloud envoyée.');
+        console.log('Synchro Cloud envoyée (POST).');
     } catch (e) {
-        console.log('Echec de la synchro Cloud.');
+        console.error('Echec de la synchro Cloud:', e);
     }
 }
 
