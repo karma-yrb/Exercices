@@ -1,7 +1,7 @@
 :root {
     --bg: #0f0a1a;
     --card: #1a1429;
-    --accent: #d946ef; /* Rose/Violet Studio */
+    --accent: #d946ef;
     --accent-glow: rgba(217, 70, 239, 0.4);
     --success: #00ffcc;
     --text: #ffffff;
@@ -10,7 +10,7 @@
     --font: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); -webkit-tap-highlight-color: transparent; }
 body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; height: 100dvh; }
 
 #app {
@@ -41,9 +41,8 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 }
 .view.active { display: flex; flex-direction: column; }
 
-/* LOBBY STYLE */
 .lobby-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: var(--accent); }
-.lobby-intro { color: var(--text-dim); margin-bottom: 30px; line-height: 1.5; font-size: 1rem; }
+.lobby-intro { color: var(--text-dim); margin-bottom: 45px; line-height: 1.5; font-size: 1rem; }
 .days-grid { display: grid; gap: 15px; }
 .day-card { 
     background: #241d3d; border: 1px solid var(--border); padding: 20px; 
@@ -58,37 +57,33 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 .day-info h3 { font-size: 1.1rem; margin-bottom: 4px; }
 .day-info p { font-size: 0.85rem; color: var(--text-dim); }
 
-/* CONTENT */
 .step-header { margin-bottom: 25px; }
 .step-header h2 { font-size: 1.4rem; color: var(--accent); }
 .content-body { line-height: 1.7; font-size: 1.05rem; }
 
-/* Persona Specific Box */
 .studio-box { background: rgba(255,255,255,0.03); border: 1.5px dashed var(--border); border-radius: 16px; padding: 20px; margin: 20px 0; position: relative; }
-.studio-box::before { content: "🎹 MIXER"; position: absolute; top: -12px; left: 15px; background: var(--accent); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 800; }
+.studio-box::before { content: ' MIXER'; position: absolute; top: -12px; left: 15px; background: var(--accent); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 800; }
 
 .opt-list { margin-top: 20px; display: grid; gap: 12px; }
 .btn-opt { 
-    paddinrgba(255,255,255,0.08); border: 1px solid var(--border); border-radius: 16px; 
+    padding: 18px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); border-radius: 16px; 
     color: #fff; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s;
 }
 .btn-opt:focus {
     outline: none;
     background: rgba(255,255,255,0.12);
     border-color: var(--accent);
-    box-shadow: 0 0 15px var(--accent-glow)
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.footer { 
+    padding: 20px; 
     padding-bottom: calc(20px + env(safe-area-inset-bottom, 25px));
     background: var(--card); 
     border-top: 2px solid var(--border); 
     flex-shrink: 0;
     z-index: 10;
-
-    color: #fff; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s;
 }
-.btn-opt.correct { background: var(--success) !important; color: #000; font-weight: 800; }
-.btn-opt.wrong { background: #ff4757 !important; border-color: #ff4757; }
-
-.footer { padding: 20px 20px 40px 20px; background: var(--card); border-top: 1px solid var(--border); flex-shrink: 0; }
 .btn-main { 
     width: 100%; padding: 20px; background: var(--accent); border: none; border-radius: 18px;
     color: white; font-weight: 800; font-size: 1.1rem; cursor: pointer;
@@ -98,9 +93,7 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 
 @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 b { color: var(--accent); }
-.hidden { display: none !important; }
 
-/* HINT SYSTEM */
 .hint-btn {
     background: transparent; border: 1px dashed var(--text-dim); color: var(--text-dim);
     padding: 8px 12px; border-radius: 10px; font-size: 0.8rem; cursor: pointer;

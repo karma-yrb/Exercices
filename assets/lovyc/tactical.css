@@ -77,6 +77,7 @@ body::before {
     overflow-y: auto;
     animation: slideIn 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); 
 }
+.view.active { display: flex; flex-direction: column; }
 
 /* Animations Spécifiques */
 @keyframes successPop {
@@ -123,11 +124,12 @@ body::before {
     padding: 15px;
     margin-top: 15px;
 }
+.lobby-title {
     font-size: 2rem; font-weight: 900; margin-bottom: 8px; 
     text-transform: uppercase; letter-spacing: -1px;
     color: var(--text);
 }
-.lobby-intro { color: var(--text-dim); margin-bottom: 35px; line-height: 1.6; font-size: 0.95rem; }
+.lobby-intro { color: var(--text-dim); margin-bottom: 50px; line-height: 1.6; font-size: 0.95rem; }
 
 .days-grid { display: grid; gap: 16px; }
 .day-card { 
