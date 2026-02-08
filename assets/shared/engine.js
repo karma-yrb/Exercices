@@ -129,6 +129,7 @@ function renderStep() {
     
     if (el.content) el.content.scrollTop = 0;
     if (el.stepTitle) el.stepTitle.innerText = step.title;
+    
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
         el.btnNext.innerText = (state.currentStep === day.steps.length - 1) ? "VALIDER LA MISSION" : "ÉTAPE SUIVANTE";
@@ -145,50 +146,53 @@ function renderStep() {
     if (step.type === 'lesson' || step.type === 'msg') {
         el.stepBody.innerHTML = body;
     } else if (step.type === 'write') {
-        el.stepBody.innerHTML = `<p class="content-chunk">${q}</p>`;
-        const container = document.createElement('div');
-        container.style.marginTop = "20px";
-        
+        let hintHtml = "";
         if (step.hint) {
-            const hb = document.createElement('button');
-            hb.className = "hint-btn"; hb.innerText = "� INDICE";
-            const hbx = document.createElement('div');
-            hbx.className = "hint-box hidden"; hbx.innerHTML = step.hint;
-            hb.onclick = () => hbx.classList.toggle('hidden');
-            el.stepBody.appendChild(hb);
-            el.stepBody.appendChild(hbx);
+            hintHtml = `
+                <button class="hint-btn" onclick="this.nextElementSibling.classList.toggle('hidden')">💡 INDICE</button>
+                <div class="hint-box hidden">${step.hint}</div>
+            `;
         }
+        el.stepBody.innerHTML = `
+            <p class="content-chunk">${q}</p>
+            <div style="margin-top:20px; display: flex; flex-direction: column; gap: 15px;">
+                ${hintHtml}
+                <input type="text" id="input-write" placeholder="Tape ta réponse ici..." class="btn-opt" 
+                       style="background: rgba(255,255,255,0.05); border-style: dashed; width: 100%; cursor: text; margin-bottom: 0;">
+                <button id="btn-check-write" class="btn-main">VÉRIFIER</button>
+                <div id="write-feedback"></div>
+            </div>
+        `;
 
-        const input = document.createElement('input');
-        input.type = "text"; input.placeholder = "Tape ta réponse ici..."; input.className = "btn-opt";
-        input.style.background = "rgba(255,255,255,0.05)";
-        input.style.borderStyle = "dashed";
-        
-        const check = document.createElement('button');
-        check.className = "btn-main"; check.innerText = "VÉRIFIER";
-        
-        container.appendChild(input); container.appendChild(check);
-        el.stepBody.appendChild(container);
+        const input = document.getElementById('input-write');
+        const check = document.getElementById('btn-check-write');
+        const feedback = document.getElementById('write-feedback');
 
-        check.onclick = () => {
-            const val = input.value.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
-            const sols = Array.isArray(a) ? a : [a];
-            const ok = sols.some(s => s.toString().toLowerCase().trim().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"") === val);
-            if (ok) {
-                input.disabled = true; check.disabled = true;
-                const f = document.createElement('p'); f.style.color = "var(--success)"; f.innerHTML = "<b>✓</b> " + feed;
-                el.stepBody.appendChild(f);
-                if (el.btnNext) el.btnNext.disabled = false;
-            } else {
-                input.classList.add('shake'); setTimeout(() => input.classList.remove('shake'), 400);
-            }
-        };
+        if (check && input) {
+            check.onclick = () => {
+                const val = input.value.trim().toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+                const sols = Array.isArray(a) ? a : [a];
+                const ok = sols.some(s => s.toString().toLowerCase().trim().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"") === val);
+                if (ok) {
+                    input.disabled = true; 
+                    check.disabled = true;
+                    feedback.innerHTML = `<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ${feed}</p>`;
+                    if (el.btnNext) el.btnNext.disabled = false;
+                } else {
+                    input.classList.add('shake'); 
+                    setTimeout(() => input.classList.remove('shake'), 400);
+                }
+            };
+        }
     } else {
         el.stepBody.innerHTML = `<p class="content-chunk">${q}</p>`;
-        const area = document.createElement('div'); area.className = "interactive-area";
+        const area = document.createElement('div'); 
+        area.className = "interactive-area";
+        area.style.marginTop = "20px";
         opts.forEach((o, i) => {
             const btn = document.createElement('button');
-            btn.className = "btn-opt"; btn.innerText = o;
+            btn.className = "btn-opt"; 
+            btn.innerText = o;
             btn.onclick = () => {
                 if (i === a) {
                     btn.classList.add('correct');
