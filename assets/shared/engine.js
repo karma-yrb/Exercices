@@ -145,7 +145,7 @@ function renderStep() {
 
     if (step.type === 'lesson' || step.type === 'msg') {
         el.stepBody.innerHTML = body;
-    } else if (step.type === 'write') {
+    } else if (step.type === 'write' || step.type === 'challenge') {
         let hintHtml = "";
         if (step.hint) {
             hintHtml = `
