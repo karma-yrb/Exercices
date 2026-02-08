@@ -1,4 +1,4 @@
-// ENGINE SPA - UNIVERSAL
+// ENGINE SPA - UNIVERSAL (Robust Version)
 // Handles progress, navigation and rendering for all modules
 
 let el = {};
@@ -33,52 +33,82 @@ function init() {
             return;
         }
 
-        // 2. Data loading
-        appData = window.weekData || window.missionData || [];
-        const config = window.APP_CONFIG || { STORAGE_KEY: 'default_v1' };
-        console.log('Config - Storage Key:', config.STORAGE_KEY);
-        console.log('Data - Steps found:', appData.length);
-
-        // 3. State Initialization (Safe Merge)
-        try {
-            const saved = localStorage.getItem(config.STORAGE_KEY);
-            const parsed = saved ? JSON.parse(saved) : {};
-            state = {
-                completedDays: Array.isArray(parsed.completedDays) ? parsed.completedDays : [],
-                currentDay: (typeof parsed.currentDay !== 'undefined') ? parsed.currentDay : null,
-                currentStep: (typeof parsed.currentStep !== 'undefined') ? parsed.currentStep : 0
-            };
-        } catch(e) {
-            console.warn('State recovery failed, using defaults.');
-            state = { completedDays: [], currentDay: null, currentStep: 0 };
-        }
-
-        // 4. Initial Rendering
-        renderLobby();
-        updateGlobalProgress();
+        // 2. Data loading (Aggressive capture)
+        const findData = () => {
+            return window.weekData || window.missionData || (typeof weekData !== 'undefined' ? weekData : []);
+        };
         
-        // 5. Global Navigation Events
-        if (el.btnNext) {
-            el.btnNext.onclick = () => {
-                const day = appData.find(d => d.id === state.currentDay);
-                if (day && state.currentStep < day.steps.length - 1) {
-                    state.currentStep++;
-                    renderStep();
-                } else {
-                    completeDay();
+        appData = findData();
+        
+        // If empty, try again in 50ms (handles some race conditions with sync script tags)
+        if (!appData || appData.length === 0) {
+            setTimeout(() => {
+                appData = findData();
+                console.log('Retry Data Capture - Missions found:', appData.length);
+                if (appData && appData.length > 0) boot();
+                else {
+                    // Final fallback to UI message
+                    if (el.grid) el.grid.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:20px;">Chargement des données...</p>';
                 }
-                saveState();
-            };
+            }, 50);
+        } else {
+            boot();
         }
-        console.log('Engine Initialized Successfully.');
 
     } catch (err) {
-        console.error('FATAL ENGINE ERROR:', err);
-        const errorDiv = document.createElement('div');
-        errorDiv.style = 'position:fixed; top:20px; left:20px; right:20px; background:red; color:white; padding:15px; z-index:9999; font-family:monospace; font-size:12px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.5);';
-        errorDiv.innerHTML = '<b>FATAL ENGINE ERROR:</b><br>' + err.message + '<br><br>Stack:<br>' + (err.stack ? err.stack.substring(0, 200) : 'No stack trace');
-        document.body.appendChild(errorDiv);
+        showFatalError(err);
     }
+}
+
+function boot() {
+    console.log('Missions loaded:', appData.length);
+    const config = window.APP_CONFIG || { STORAGE_KEY: 'default_v1' };
+    
+    // 3. State Initialization (Safe Merge)
+    try {
+        const saved = localStorage.getItem(config.STORAGE_KEY);
+        const parsed = (saved && saved !== 'undefined') ? JSON.parse(saved) : {};
+        const cleanParsed = parsed || {};
+        state = {
+            completedDays: Array.isArray(cleanParsed.completedDays) ? cleanParsed.completedDays.map(id => id.toString()) : [],
+            currentDay: (typeof cleanParsed.currentDay !== 'undefined' && cleanParsed.currentDay !== null) ? cleanParsed.currentDay.toString() : null,
+            currentStep: cleanParsed.currentStep || 0
+        };
+    } catch(e) {
+        console.warn('State recovery failed:', e);
+        state = { completedDays: [], currentDay: null, currentStep: 0 };
+    }
+
+    // 4. Initial Rendering
+    if (state.currentDay) {
+        renderStep();
+    } else {
+        renderLobby();
+    }
+    updateGlobalProgress();
+    
+    // 5. Global Navigation Events
+    if (el.btnNext) {
+        el.btnNext.onclick = () => {
+            const day = appData.find(d => d.id.toString() === state.currentDay);
+            if (day && state.currentStep < day.steps.length - 1) {
+                state.currentStep++;
+                renderStep();
+            } else {
+                completeDay();
+            }
+            saveState();
+        };
+    }
+    console.log('Engine Initialized Successfully.');
+}
+
+function showFatalError(err) {
+    console.error('FATAL ENGINE ERROR:', err);
+    const errorDiv = document.createElement('div');
+    errorDiv.style = 'position:fixed; top:20px; left:20px; right:20px; background:red; color:white; padding:15px; z-index:9999; font-family:monospace; font-size:12px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.5);';
+    errorDiv.innerHTML = '<b>FATAL ENGINE ERROR:</b><br>' + err.message + '<br><br>Stack:<br>' + (err.stack ? err.stack.substring(0, 200) : 'No stack trace');
+    document.body.appendChild(errorDiv);
 }
 
 function saveState() {
@@ -110,9 +140,15 @@ function renderLobby() {
     
     if (el.grid) {
         el.grid.innerHTML = '';
+        if (appData.length === 0) {
+            el.grid.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:20px;">Aucune mission disponible.</p>';
+            return;
+        }
+
         appData.forEach((day, index) => {
-            const isLocked = index > 0 && !state.completedDays.includes(appData[index-1].id);
-            const isDone = state.completedDays.includes(day.id);
+            const dayIdStr = day.id.toString();
+            const isDone = state.completedDays.includes(dayIdStr);
+            const isLocked = index > 0 && !state.completedDays.includes(appData[index-1].id.toString());
             
             const card = document.createElement('div');
             card.className = `day-card ${isLocked ? 'locked' : ''} ${isDone ? 'completed' : ''}`;
@@ -127,22 +163,26 @@ function renderLobby() {
                     <p>${day.intro}</p>
                 </div>
             `;
-            if (!isLocked) card.onclick = () => startDay(day.id);
+            if (!isLocked) card.onclick = () => startDay(dayIdStr);
             el.grid.appendChild(card);
         });
     }
 }
 
-function startDay(dayId) {
-    state.currentDay = dayId;
+function startDay(dayIdStr) {
+    state.currentDay = dayIdStr;
     state.currentStep = 0;
     saveState();
     renderStep();
 }
 
 function renderStep() {
-    const day = appData.find(d => d.id === state.currentDay);
-    if (!day) return;
+    const day = appData.find(d => d.id.toString() === state.currentDay);
+    if (!day) {
+        state.currentDay = null;
+        renderLobby();
+        return;
+    }
     
     const step = day.steps[state.currentStep];
     const isBoss = step.type === 'challenge';
@@ -181,14 +221,14 @@ function renderStep() {
         if (step.hint) {
             hintHtml = `
                 <button class="hint-btn" onclick="this.nextElementSibling.classList.toggle('hidden')">💡 INDICE</button>
-                <div class="hint-box hidden">\${step.hint}</div>
+                <div class="hint-box hidden">${step.hint}</div>
             `;
         }
         el.stepBody.innerHTML = `
-            \${bossIcon}
-            <p class="content-chunk">\${q}</p>
+            ${bossIcon}
+            <p class="content-chunk">${q}</p>
             <div style="margin-top:20px; display: flex; flex-direction: column; gap: 15px;">
-                \${hintHtml}
+                ${hintHtml}
                 <input type="text" id="input-write" placeholder="Tape ta réponse ici..." class="btn-opt" 
                        style="background: rgba(255,255,255,0.05); border-style: dashed; width: 100%; cursor: text; margin-bottom: 0;">
                 <button id="btn-check-write" class="btn-main">VÉRIFIER</button>
@@ -216,7 +256,7 @@ function renderStep() {
                         check.classList.add('hidden');
                         feedArea.innerHTML = `
                             <div class="success-badge">
-                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> \${feed}</p>
+                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> ${feed}</p>
                             </div>
                         `;
                         if (el.btnNext) el.btnNext.disabled = false;
@@ -239,7 +279,7 @@ function renderStep() {
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
                         input.classList.add('shake'); 
-                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l\\'ordre ou l\\'orthographe !</p>';
+                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l\'ordre ou l\'orthographe !</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
                     }
                 }
@@ -274,7 +314,7 @@ async function validateTactical(text, reqs) {
 
     if (reqs.keywords) {
         const found = reqs.keywords.some(k => text.toLowerCase().includes(k.toLowerCase()));
-        if (!found) return { ok: false, msg: 'Objectif non atteint. N\\'oublie pas d\\'utiliser : ' + reqs.keywords.join(', ') + '.' };
+        if (!found) return { ok: false, msg: 'Objectif non atteint. N\'oublie pas d\'utiliser : ' + reqs.keywords.join(', ') + '.' };
     }
 
     try {
@@ -292,7 +332,7 @@ async function validateTactical(text, reqs) {
             const error = data.matches[0];
             let msg = error.message;
             if (error.rule.issueType === 'misspelling') msg = 'Erreur de saisie : ' + error.context.text.substr(error.context.offset, error.context.length) + ' semble mal écrit.';
-            if (msg.includes('Sujet et verbe ne semblent pas s’accorder')) msg = 'Alerte Accord : Ton verbe n\\'est pas synchronisé avec ton sujet !';
+            if (msg.includes('Sujet et verbe ne semblent pas s’accorder')) msg = 'Alerte Accord : Ton verbe n\'est pas synchronisé avec ton sujet !';
             
             return { ok: false, msg: msg };
         }
@@ -305,7 +345,7 @@ async function validateTactical(text, reqs) {
 
 function completeDay() {
     const lastDayId = state.currentDay;
-    if (!state.completedDays.includes(lastDayId)) {
+    if (lastDayId && !state.completedDays.includes(lastDayId)) {
         state.completedDays.push(lastDayId);
     }
     
