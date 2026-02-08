@@ -68,7 +68,27 @@
             ]
         },
         {
-            id: 3,
+            id: 3, title: "Le Combo Gain/Soustraction",
+            intro: "Gérer les baisses de volume tout en gardant la puissance du Mix.",
+            steps: [
+                { type: "msg", title: "Le Filtre Negatif", body: "<p>Attention Zyvah : le signe moins (<b>-</b>) est un réducteur de gain. Mais la multiplication reste prioritaire !</p><div class='studio-box'>10 - 2 × 3 = 10 - 6 = 4</div>" },
+                { type: "quiz", title: "Réglage Précision", q: "Calcule : <b>20 - 5 × 3</b>", opts: ["45", "5", "15"], a: 1, feed: "Exact ! 20 - 15 = 5." },
+                { type: "write", title: "Saisie Quick", q: "Calcule : <b>15 + 10 ÷ 2</b>", a: "20", hint: "Divise 10 par 2 en premier.", feed: "10/2 = 5, 15+5 = 20." },
+                { type: "challenge", title: "Boss de Session 3", q: "Trouve le résultat : <b>30 - 10 × 2 + 5</b>", a: "15", hint: "Fais d'abord 10 × 2, puis soustrais du début et ajoute 5.", feedback: "Mixage équilibré !" }
+            ]
+        },
+        {
+            id: 4, title: "Parenthèses & Effets",
+            intro: "Forcer le signal à passer par tes propres filtres.",
+            steps: [
+                { type: "msg", title: "Forcer le Mix", body: "<p>Si tu veux qu'une addition soit faite AVANT une multiplication, tu dois utiliser les parenthèses.</p><div class='studio-box'>(2 + 3) × 2 = 5 × 2 = 10</div>" },
+                { type: "interactive", title: "Comparaison de Signal", question: "Lequel de ces mix donne 20 ?", options: ["(5 + 5) × 2", "5 + 5 × 2"], answer: 0, feedback: "Oui ! Avec parenthèses = 10x2=20. Sans = 5+10 = 15." },
+                { type: "write", title: "Calcul Master", q: "Que vaut <b>(20 - 10) ÷ 2</b> ?", a: "5", hint: "La parenthèse d'abord !", feed: "10 ÷ 2 = 5." },
+                { type: "challenge", title: "Boss de Session 4", q: "Résous ce signal complexe : <b>10 × (15 - 5) + 5</b>", a: "105", hint: "Parenthèse, puis multiplication, puis addition.", feedback: "Précision chirurgicale !" }
+            ]
+        },
+        {
+            id: 5,
             title: "Le Master Challenge",
             intro: "Validation finale de ta session de mixage. Zéro saturation autorisée.",
             steps: [

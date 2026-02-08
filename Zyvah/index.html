@@ -162,7 +162,7 @@
                         <div class="flex-grow bg-white/5 h-2 rounded-full overflow-hidden max-w-[200px]">
                             <div id="math-bar" class="bg-purple-500 h-full w-0 transition-all duration-1000"></div>
                         </div>
-                        <p id="math-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/3 Missions</p>
+                        <p id="math-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/5 Missions</p>
                     </div>
                 </div>
                 <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
@@ -182,7 +182,7 @@
                         <div class="flex-grow bg-white/5 h-2 rounded-full overflow-hidden max-w-[200px]">
                             <div id="ses-bar" class="bg-cyan-500 h-full w-0 transition-all duration-1000"></div>
                         </div>
-                        <p id="ses-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/4 Missions</p>
+                        <p id="ses-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/5 Missions</p>
                     </div>
                 </div>
                 <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
@@ -212,13 +212,13 @@
             const sesDone = getDone('zyvah_ses_w1_v2');
             
             // Calcul Maths
-            const mathTotal = 3;
+            const mathTotal = 5;
             const mathPercent = (mathDone / mathTotal) * 100;
             document.getElementById('math-bar').style.width = mathPercent + '%';
             document.getElementById('math-count').innerText = `${mathDone}/${mathTotal} Missions`;
 
             // Calcul SES
-            const sesTotal = 4;
+            const sesTotal = 5;
             const sesPercent = (sesDone / sesTotal) * 100;
             document.getElementById('ses-bar').style.width = sesPercent + '%';
             document.getElementById('ses-count').innerText = `${sesDone}/${sesTotal} Missions`;
@@ -238,7 +238,7 @@
 
             const mathDone = getDone('zyvah_maths_w1_v2');
             const sesDone = getDone('zyvah_ses_w1_v2');
-            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathDone}/3 missions.\n- SES : ${sesDone}/4 missions.`;
+            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathDone}/5 missions.\n- SES : ${sesDone}/5 missions.`;
             const bodyEncoded = encodeURIComponent(reportText);
 
             // Ouverture du mail
