@@ -25,9 +25,26 @@ function init() {
             footer: document.getElementById('footer'),
             btnPrev: document.getElementById('btn-prev'),
             btnNext: document.getElementById('btn-next'),
+            btnQuit: document.getElementById('btn-quit'), // Mapping quit button
             stepTitle: document.getElementById('step-title'),
             stepBody: document.getElementById('step-body')
         };
+
+        // Injection dynamique du bouton QUITTER s'il n'existe pas dans le HTML
+        if (el.footer && !el.btnQuit) {
+            const btnGroup = el.footer.querySelector('.btn-group');
+            if (btnGroup) {
+                const qBtn = document.createElement('button');
+                qBtn.id = 'btn-quit';
+                qBtn.className = 'btn-nav quit-btn';
+                qBtn.innerText = 'QUITTER';
+                qBtn.style.color = '#ff4757';
+                qBtn.style.border = '1px solid rgba(255, 71, 87, 0.3)';
+                qBtn.onclick = () => abandonMission();
+                btnGroup.prepend(qBtn);
+                el.btnQuit = qBtn;
+            }
+        }
 
         if (!el.lobby) {
             console.error('Critical: el.lobby (view-lobby) not found in DOM');
@@ -73,11 +90,12 @@ function boot() {
         state = {
             completedDays: Array.isArray(cleanParsed.completedDays) ? cleanParsed.completedDays.map(id => id.toString()) : [],
             currentDay: (typeof cleanParsed.currentDay !== 'undefined' && cleanParsed.currentDay !== null) ? cleanParsed.currentDay.toString() : null,
-            currentStep: cleanParsed.currentStep || 0
+            currentStep: cleanParsed.currentStep || 0,
+            startTime: cleanParsed.startTime || null
         };
     } catch(e) {
         console.warn('State recovery failed:', e);
-        state = { completedDays: [], currentDay: null, currentStep: 0 };
+        state = { completedDays: [], currentDay: null, currentStep: 0, startTime: null };
     }
 
     // 4. Initial Rendering
@@ -194,6 +212,7 @@ function renderLobby() {
 function startDay(dayIdStr) {
     state.currentDay = dayIdStr;
     state.currentStep = 0;
+    state.startTime = new Date().toISOString(); // Record start time
     saveState();
     renderStep();
 }
@@ -376,7 +395,7 @@ function completeDay() {
         state.completedDays.push(lastDayId);
     }
     
-    syncWithParent(lastDayId);
+    syncWithParent(lastDayId, 'TERMINÉ');
 
     state.currentDay = null; 
     state.currentStep = 0;
@@ -384,18 +403,50 @@ function completeDay() {
     updateGlobalProgress();
 }
 
-async function syncWithParent(dayId) {
+function abandonMission() {
+    const lastDayId = state.currentDay;
+    if (!lastDayId || !confirm("Veux-tu vraiment quitter cette mission ? Ta progression actuelle sera perdue.")) return;
+    
+    syncWithParent(lastDayId, 'ABANDONNÉ');
+
+    state.currentDay = null;
+    state.currentStep = 0;
+    renderLobby();
+    updateGlobalProgress();
+}
+
+async function syncWithParent(dayId, status = 'TERMINÉ') {
     const childName = (window.APP_CONFIG && window.APP_CONFIG.STORAGE_KEY.includes('lovyc')) ? 'Lovyc' : 'Zyvah';
     const pathParts = window.location.pathname.split('/');
     const subject = pathParts[pathParts.length - 3] || 'Général'; 
-    const mission = dayId;
     
+    // Extraction du module (ex: Mois_1 / Semaine_1)
+    const folder = pathParts[pathParts.length - 2] || '';
+    const file = pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].replace('.html', '') : '';
+    const moduleName = folder + ' / ' + file;
+    
+    // Récupération des infos de la mission
+    const day = appData.find(d => d.id.toString() === dayId.toString());
+    const missionId = dayId;
+    const missionTitle = day ? day.title : 'Mission';
+    
+    // Calcul de la durée
+    const endTime = new Date();
+    const startTime = state.startTime ? new Date(state.startTime) : endTime;
+    const durationMin = Math.round((endTime - startTime) / 60000); // Différence en minutes
+
     const baseUrl = 'https://script.google.com/macros/s/AKfycbyNHvhCg9mtYfhuPKdy89iaFaKMGtfzRMHNlzB5nqXpC_DRIRnpMj7VjgnTjTpdvV9R/exec';
     const payload = {
         child: childName,
         subject: subject,
-        mission: mission,
-        date: new Date().toISOString()
+        module: moduleName,
+        mission_id: missionId,
+        mission_title: missionTitle,
+        status: status,
+        date: endTime.toLocaleDateString('fr-FR'),
+        start_time: startTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+        end_time: endTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+        duration: durationMin + ' min'
     };
 
     try {
