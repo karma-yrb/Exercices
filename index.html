@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centre d'Exercices - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #8b5cf6;
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.2);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Portail d'Exercices</h1>
+            <p class="text-slate-400 text-lg">Sélectionnez une session pour commencer l'apprentissage.</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Section Zyvah -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                    <i class="fas fa-star text-yellow-400"></i> Zyvah
+                </h2>
+                <div class="space-y-4">
+                    <a href="Zyvah/semaine1.html" class="glass-card p-6 rounded-2xl flex justify-between items-center group">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Semaine 1</h3>
+                            <p class="text-sm text-slate-400">Studio Maths - Mix & Master</p>
+                        </div>
+                        <i class="fas fa-chevron-right text-slate-500 group-hover:text-purple-500 transition-colors"></i>
+                    </a>
+
+                    <!-- Sub-section Afro-Pop -->
+                    <div class="mt-8">
+                        <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Afro-Pop Math Tour</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <a href="Zyvah/Afro-Pop_Math_Tour/Afro-Pop_Math_Tour-P1.html" class="glass-card p-4 rounded-xl text-center">
+                                <span class="block text-purple-400 font-bold mb-1">Partie 1</span>
+                                <span class="text-xs text-slate-400">Introduction</span>
+                            </a>
+                            <a href="Zyvah/Afro-Pop_Math_Tour/Afro-Pop_Math_Tour-P2.html" class="glass-card p-4 rounded-xl text-center">
+                                <span class="block text-purple-400 font-bold mb-1">Partie 2</span>
+                                <span class="text-xs text-slate-400">Rythme</span>
+                            </a>
+                            <a href="Zyvah/Afro-Pop_Math_Tour/Afro-Pop_Math_Tour-P3.html" class="glass-card p-4 rounded-xl text-center">
+                                <span class="block text-purple-400 font-bold mb-1">Partie 3</span>
+                                <span class="text-xs text-slate-400">Harmonie</span>
+                            </a>
+                            <a href="Zyvah/Afro-Pop_Math_Tour/Afro-Pop_Math_Tour-P4.html" class="glass-card p-4 rounded-xl text-center">
+                                <span class="block text-purple-400 font-bold mb-1">Partie 4</span>
+                                <span class="text-xs text-slate-400">Final</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Lovyc -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                    <i class="fas fa-rocket text-blue-400"></i> Lovyc
+                </h2>
+                <div class="space-y-4">
+                    <a href="Lovyc/semaine1.html" class="glass-card p-6 rounded-2xl flex justify-between items-center group">
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">Semaine 1</h3>
+                            <p class="text-sm text-slate-400">Exploration Mathématique</p>
+                        </div>
+                        <i class="fas fa-chevron-right text-slate-500 group-hover:text-purple-500 transition-colors"></i>
+                    </a>
+                </div>
+                
+                <div class="mt-12 p-8 rounded-3xl bg-gradient-to-br from-purple-900/40 to-slate-900 border border-purple-500/30">
+                    <h3 class="text-xl font-bold mb-2">Progrès Global</h3>
+                    <div class="w-full bg-slate-800 rounded-full h-2.5 mb-2">
+                        <div class="bg-purple-600 h-2.5 rounded-full" style="width: 45%"></div>
+                    </div>
+                    <p class="text-sm text-slate-400">Continue l'excellent travail !</p>
+                </div>
+            </section>
+        </div>
+
+        <footer class="mt-20 text-center text-slate-500 text-sm">
+            <p>&copy; 2026 Portail d'Apprentissage Interactif</p>
+        </footer>
+    </div>
+</body>
+</html>
