@@ -134,7 +134,7 @@
         function sendReport() {
             const frData = JSON.parse(localStorage.getItem('lovyc_fr_w1_v2') || '[]');
             const body = `Salut !%0D%0A%0D%0AVoilà ma progression Lovyc :%0D%0A- Français : ${frData.length}/3 missions terminées.`;
-            window.location.href = `mailto:?subject=Progression Lovyc&body=${body}`;
+            window.location.href = `mailto:karmafr@gmail.com?subject=Progression Lovyc&body=${body}`;
         }
 
         updateProgress();

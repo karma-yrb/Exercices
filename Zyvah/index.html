@@ -161,7 +161,7 @@
             const mathData = JSON.parse(localStorage.getItem('zyvah_maths_w1_v2') || '[]');
             const sesData = JSON.parse(localStorage.getItem('zyvah_ses_w1_v2') || '[]');
             const body = `Salut !%0D%0A%0D%0AVoilà ma progression Zyvah :%0D%0A- Maths : ${mathData.length}/2 missions.%0D%0A- SES : ${sesData.length}/2 missions.`;
-            window.location.href = `mailto:?subject=Progression Zyvah&body=${body}`;
+            window.location.href = `mailto:karmafr@gmail.com?subject=Progression Zyvah&body=${body}`;
         }
 
         updateProgress();
