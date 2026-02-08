@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah SES - The Manager (Mois 1)</title>
+    <style>
+        :root {
+            --bg: #0a0b14;
+            --card: #141625;
+            --accent: #00d2ff; /* Bleu Business/Manager */
+            --accent-glow: rgba(0, 210, 255, 0.3);
+            --success: #00ff88;
+            --text: #ffffff;
+            --text-dim: #8e96aa;
+            --border: #232741;
+            --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
+        body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; }
+
+        #app {
+            width: 100%; max-width: 480px; height: 100vh;
+            margin: auto; background: var(--card); overflow-y: auto;
+            position: relative; display: flex; flex-direction: column;
+            border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+        }
+
+        /* HEADER DASHBOARD STYLE */
+        .header { padding: 20px; border-bottom: 1px solid var(--border); background: linear-gradient(180deg, rgba(0,210,255,0.05) 0%, transparent 100%); }
+        .stats-bar { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--accent); font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+        .bar-container { height: 4px; background: #000; border-radius: 2px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--accent); width: 0%; transition: 1s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px var(--accent-glow); }
+
+        .view { display: none; padding: 24px; animation: fadeIn 0.4s ease-out; }
+        .view.active { display: block; }
+
+        /* MANAGER LOBBY */
+        .manager-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+        .manager-intro { color: var(--text-dim); margin-bottom: 32px; line-height: 1.5; font-size: 0.95rem; }
+        
+        .mission-card {
+            background: #1c1f35; border: 1px solid var(--border); padding: 20px;
+            border-radius: 24px; display: flex; align-items: center; gap: 16px;
+            margin-bottom: 16px; cursor: pointer; transition: 0.2s;
+        }
+        .mission-card:active { transform: scale(0.97); }
+        .mission-card.locked { opacity: 0.4; filter: grayscale(1); cursor: not-allowed; }
+        .mission-card.done { border-color: var(--success); background: rgba(0, 255, 136, 0.05); }
+        
+        .m-icon { 
+            width: 48px; height: 48px; background: var(--border); border-radius: 16px; 
+            display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+        }
+        .mission-card.active-mission .m-icon { background: var(--accent); color: #000; }
+        .mission-card.done .m-icon { background: var(--success); color: #000; }
+
+        .m-info h3 { font-size: 1rem; margin-bottom: 4px; }
+        .m-info p { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* CONTENT */
+        .step-label { font-size: 0.7rem; font-weight: 800; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 12px; }
+        .content-title { font-size: 1.4rem; margin-bottom: 20px; line-height: 1.2; }
+        .data-box { 
+            background: #0a0b14; border: 1px solid var(--border); border-radius: 16px; 
+            padding: 20px; margin: 20px 0; font-size: 0.95rem; line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        /* INTERACTIVE OPTIONS */
+        .option-grid { display: grid; gap: 12px; margin-top: 24px; }
+        .opt-btn {
+            background: #1c1f35; border: 1px solid var(--border); padding: 18px;
+            border-radius: 16px; color: var(--text); text-align: left; font-size: 0.95rem;
+            cursor: pointer; transition: 0.2s;
+        }
+        .opt-btn.correct { background: var(--success) !important; color: #000; font-weight: bold; border-color: var(--success); }
+        .opt-btn.wrong { background: #ff4757; color: #fff; border-color: #ff4757; }
+
+        .footer { position: sticky; bottom: 0; padding: 24px; background: var(--card); border-top: 1px solid var(--border); }
+        .btn-main {
+            width: 100%; padding: 20px; background: var(--accent); border: none; border-radius: 20px;
+            color: #000; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer;
+            box-shadow: 0 4px 15px var(--accent-glow); transition: 0.2s;
+        }
+        .btn-main:disabled { opacity: 0.3; filter: grayscale(1); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .hidden { display: none !important; }
+        b { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="stats-bar">
+            <span>The Manager v1.0</span>
+            <span id="rank">NIVEAU : STAGIAIRE</span>
+        </div>
+        <div class="bar-container"><div id="p-bar" class="bar-fill"></div></div>
+    </div>
+
+    <!-- LOBBY -->
+    <div id="lobby" class="view active">
+        <h1 class="manager-title">Manager : Zyvah</h1>
+        <p class="manager-intro">Gère ta carrière comme une pro. Apprends comment fonctionne l'économie pour dominer le marché de la musique.</p>
+        
+        <div id="mission-list"></div>
+    </div>
+
+    <!-- CONTENT -->
+    <div id="content" class="view">
+        <span class="step-label" id="step-id">Étape 01</span>
+        <h2 id="step-title" class="content-title"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div class="footer hidden" id="footer">
+        <button id="next" class="btn-main">CONTINUER</button>
+    </div>
+</div>
+
+<script>
+    const STORAGE_KEY = "zyvah_ses_w1";
+    let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { done: [], curDay: null, curStep: 0 };
+
+    function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+    const missionData = [
+        {
+            id: 1, title: "Le Marché du Son", intro: "Comprendre qui achète et qui vend.", icon: "📈",
+            steps: [
+                { type: "msg", title: "C'est quoi un Marché ?", body: `<p>Un marché, ce n'est pas juste des fruits. C'est partout où des gens <b>vendent</b> et des gens <b>achètent</b>.</p><div class="data-box">Exemple : <b>Spotify</b> est un marché. Les artistes vendent leur musique, les auditeurs l'achètent (via l'abonnement).</div>` },
+                { type: "quiz", title: "Analyse de Flow", q: "Qui est l'Offre (le vendeur) sur le marché d'un concert ?", opts: ["Les fans qui viennent voir", "L'artiste qui chante sur scène", "Le vigile à l'entrée"], a: 1, feed: "Exact ! L'offre, c'est celui qui propose le produit ou le service." }
+            ]
+        },
+        {
+            id: 2, title: "Offre vs Demande", intro: "Fixer le prix de tes places.", icon: "📊",
+            steps: [
+                { type: "msg", title: "La Loi du Business", body: `<p>Si tout le monde veut ton ticket mais qu'il n'en reste que 10, le prix explose ! C'est la <b>Demande</b> qui dépasse l'<b>Offre</b>.</p><div class="data-box">Quand la <b>Demande</b> est forte ⬆️ et l'<b>Offre</b> est faible ⬇️, le <b>Prix</b> monte ⬆️.</div>` },
+                { type: "quiz", title: "Cas Pratique", q: "Pourquoi les places de Taylor Swift sont si chères ?", opts: ["Parce qu'il y a trop de places", "Parce que des millions de gens en veulent", "Parce que c'est gratuit"], a: 1, feed: "Yes ! La demande est immense par rapport au nombre de sièges." }
+            ]
+        },
+        {
+            id: 3, title: "Production & Coûts", intro: "Gagner de l'argent (Le Profit).", icon: "💸",
+            steps: [
+                { type: "msg", title: "Le Chiffre d'Affaire", body: `<p>Vendre des albums, c'est bien. Faire du profit, c'est mieux.</p><div class="data-box"><b>Chiffre d'Affaire</b> (Argent encaissé) <br>MINUS <br><b>Coûts de Production</b> (Location studio, clips) <br>= <b>PROFIT</b>.</div>` }
+            ]
+        },
+        {
+            id: 4, title: "Les Échanges", intro: "Pourquoi on ne vit pas seul ?", icon: "🤝",
+            steps: [
+                { type: "msg", title: "La Spécialisation", body: `<p>Un manager ne fabrique pas ses propres ordinateurs. Il les achète. Pourquoi ?</p><div class="data-box">On se <b>spécialise</b> pour être meilleur. On échange ce qu'on sait faire de mieux contre ce que les autres font mieux.</div>` }
+            ]
+        },
+        {
+            id: 5, title: "Certification Manager", intro: "Valide tes acquis.", icon: "🏆",
+            steps: [
+                { type: "quiz", title: "Examen Final", q: "Qu'est-ce que le Profit ?", opts: ["Tout l'argent gagné par les ventes", "L'argent restant après avoir payé les frais", "Le nombre de fans sur Instagram"], a: 1, feed: "Parfait ! Tu es prête à gérer ton propre label." }
+            ]
+        }
+    ];
+
+    const ui = {
+        lobby: document.getElementById('lobby'),
+        content: document.getElementById('content'),
+        list: document.getElementById('mission-list'),
+        bar: document.getElementById('p-bar'),
+        rank: document.getElementById('rank'),
+        foot: document.getElementById('footer'),
+        next: document.getElementById('next'),
+        title: document.getElementById('step-title'),
+        body: document.getElementById('step-body'),
+        sId: document.getElementById('step-id')
+    };
+
+    function init() {
+        renderLobby();
+        updateProgress();
+        ui.next.onclick = () => {
+            const m = missionData.find(d => d.id === state.curDay);
+            if (state.curStep < m.steps.length - 1) {
+                state.curStep++;
+                renderStep();
+            } else {
+                finish();
+            }
+            save();
+        };
+    }
+
+    function updateProgress() {
+        const perc = Math.round((state.done.length / missionData.length) * 100);
+        ui.bar.style.width = perc + "%";
+        if (perc >= 20) ui.rank.innerText = "NIVEAU : ASSISTANT";
+        if (perc >= 60) ui.rank.innerText = "NIVEAU : MANAGER";
+        if (perc === 100) ui.rank.innerText = "NIVEAU : CEO";
+    }
+
+    function renderLobby() {
+        ui.lobby.classList.add('active');
+        ui.content.classList.remove('active');
+        ui.foot.classList.add('hidden');
+        ui.list.innerHTML = "";
+        missionData.forEach((m, i) => {
+            const locked = i > 0 && !state.done.includes(missionData[i-1].id);
+            const done = state.done.includes(m.id);
+            const card = document.createElement('div');
+            card.className = `mission-card ${locked ? 'locked' : ''} ${done ? 'done' : ''} ${!locked && !done ? 'active-mission' : ''}`;
+            card.innerHTML = `
+                <div class="m-icon">${m.icon}</div>
+                <div class="m-info">
+                    <h3>${m.title}</h3>
+                    <p>${m.intro}</p>
+                </div>
+            `;
+            if (!locked) card.onclick = () => start(m.id);
+            ui.list.appendChild(card);
+        });
+    }
+
+    function start(id) {
+        state.curDay = id; state.curStep = 0;
+        ui.lobby.classList.remove('active');
+        ui.content.classList.add('active');
+        ui.foot.classList.remove('hidden');
+        renderStep();
+    }
+
+    function renderStep() {
+        const m = missionData.find(d => d.id === state.curDay);
+        const s = m.steps[state.curStep];
+        ui.sId.innerText = `Mission ${m.id} • Étape ${state.curStep + 1}`;
+        ui.title.innerText = s.title;
+        ui.next.disabled = (s.type === 'quiz');
+
+        if (s.type === 'msg') {
+            ui.body.innerHTML = s.body;
+        } else {
+            ui.body.innerHTML = `<p style="margin-bottom:20px">${s.q}</p><div class="option-grid"></div>`;
+            const grid = ui.body.querySelector('.option-grid');
+            s.opts.forEach((o, i) => {
+                const b = document.createElement('button');
+                b.className = "opt-btn";
+                b.innerText = o;
+                b.onclick = () => {
+                    if (i === s.a) {
+                        b.classList.add('correct');
+                        ui.next.disabled = false;
+                        const f = document.createElement('p');
+                        f.style.marginTop = "15px"; f.style.color = "var(--success)";
+                        f.innerHTML = `<b>✓ Correct :</b> ${s.feed}`;
+                        ui.body.appendChild(f);
+                        grid.querySelectorAll('button').forEach(btn => btn.disabled = true);
+                    } else {
+                        b.classList.add('wrong');
+                        setTimeout(() => b.classList.remove('wrong'), 500);
+                    }
+                };
+                grid.appendChild(b);
+            });
+        }
+    }
+
+    function finish() {
+        if (!state.done.includes(state.curDay)) state.done.push(state.curDay);
+        state.curDay = null; renderLobby(); updateProgress();
+    }
+
+    init();
+</script>
+
+</body>
+</html>
