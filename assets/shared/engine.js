@@ -6,56 +6,78 @@ let state = null;
 let appData = [];
 
 function init() {
-    console.log("Engine Booting...");
-    
-    // 1. Elements
-    el = {
-        lobby: document.getElementById('view-lobby'),
-        content: document.getElementById('view-content'),
-        grid: document.getElementById('days-grid'),
-        bar: document.getElementById('main-bar'),
-        progText: document.getElementById('progress-text'),
-        tag: document.getElementById('session-tag'),
-        footer: document.getElementById('footer'),
-        btnNext: document.getElementById('btn-next'),
-        stepTitle: document.getElementById('step-title'),
-        stepBody: document.getElementById('step-body')
-    };
-
-    if (!el.lobby) {
-        console.error("Lobby not found");
+    if (window.engineInitialized) {
+        console.log('Engine already initialized, skipping.');
         return;
     }
-
-    // 2. Data
-    appData = window.weekData || window.missionData || [];
-    const config = window.APP_CONFIG || { STORAGE_KEY: 'default_v1' };
-
-    // 3. State
-    try {
-        const saved = localStorage.getItem(config.STORAGE_KEY);
-        const parsed = saved ? JSON.parse(saved) : null;
-        state = parsed || { completedDays: [], currentDay: null, currentStep: 0 };
-    } catch(e) {
-        state = { completedDays: [], currentDay: null, currentStep: 0 };
-    }
-
-    // 4. Render
-    renderLobby();
-    updateGlobalProgress();
+    window.engineInitialized = true;
+    console.log('Engine Booting - Robust Mode...');
     
-    // 5. Events
-    if (el.btnNext) {
-        el.btnNext.onclick = () => {
-            const day = appData.find(d => d.id === state.currentDay);
-            if (day && state.currentStep < day.steps.length - 1) {
-                state.currentStep++;
-                renderStep();
-            } else {
-                completeDay();
-            }
-            saveState();
+    try {
+        // 1. Element Mapping
+        el = {
+            lobby: document.getElementById('view-lobby'),
+            content: document.getElementById('view-content'),
+            grid: document.getElementById('days-grid'),
+            bar: document.getElementById('main-bar'),
+            progText: document.getElementById('progress-text'),
+            tag: document.getElementById('session-tag'),
+            footer: document.getElementById('footer'),
+            btnNext: document.getElementById('btn-next'),
+            stepTitle: document.getElementById('step-title'),
+            stepBody: document.getElementById('step-body')
         };
+
+        if (!el.lobby) {
+            console.error('Critical: el.lobby (view-lobby) not found in DOM');
+            return;
+        }
+
+        // 2. Data loading
+        appData = window.weekData || window.missionData || [];
+        const config = window.APP_CONFIG || { STORAGE_KEY: 'default_v1' };
+        console.log('Config - Storage Key:', config.STORAGE_KEY);
+        console.log('Data - Steps found:', appData.length);
+
+        // 3. State Initialization (Safe Merge)
+        try {
+            const saved = localStorage.getItem(config.STORAGE_KEY);
+            const parsed = saved ? JSON.parse(saved) : {};
+            state = {
+                completedDays: Array.isArray(parsed.completedDays) ? parsed.completedDays : [],
+                currentDay: (typeof parsed.currentDay !== 'undefined') ? parsed.currentDay : null,
+                currentStep: (typeof parsed.currentStep !== 'undefined') ? parsed.currentStep : 0
+            };
+        } catch(e) {
+            console.warn('State recovery failed, using defaults.');
+            state = { completedDays: [], currentDay: null, currentStep: 0 };
+        }
+
+        // 4. Initial Rendering
+        renderLobby();
+        updateGlobalProgress();
+        
+        // 5. Global Navigation Events
+        if (el.btnNext) {
+            el.btnNext.onclick = () => {
+                const day = appData.find(d => d.id === state.currentDay);
+                if (day && state.currentStep < day.steps.length - 1) {
+                    state.currentStep++;
+                    renderStep();
+                } else {
+                    completeDay();
+                }
+                saveState();
+            };
+        }
+        console.log('Engine Initialized Successfully.');
+
+    } catch (err) {
+        console.error('FATAL ENGINE ERROR:', err);
+        const errorDiv = document.createElement('div');
+        errorDiv.style = 'position:fixed; top:20px; left:20px; right:20px; background:red; color:white; padding:15px; z-index:9999; font-family:monospace; font-size:12px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.5);';
+        errorDiv.innerHTML = '<b>FATAL ENGINE ERROR:</b><br>' + err.message + '<br><br>Stack:<br>' + (err.stack ? err.stack.substring(0, 200) : 'No stack trace');
+        document.body.appendChild(errorDiv);
     }
 }
 
@@ -65,15 +87,16 @@ function saveState() {
 }
 
 function updateGlobalProgress() {
-    if (!appData.length) return;
     const total = appData.length;
+    if (total === 0) return;
+    
     const count = state.completedDays.length;
     const percent = Math.round((count / total) * 100);
     
-    if (el.bar) el.bar.style.width = percent + "%";
+    if (el.bar) el.bar.style.width = percent + '%';
     if (el.progText) {
-        const prefix = window.weekData ? "SYNCHRO TACTIQUE : " : "PROGRESSION : ";
-        el.progText.innerText = prefix + percent + "%";
+        const prefix = window.weekData ? 'SYNCHRO TACTIQUE : ' : 'PROGRESSION : ';
+        el.progText.innerText = prefix + percent + '%';
     }
 }
 
@@ -83,10 +106,10 @@ function renderLobby() {
     if (el.content) el.content.classList.remove('active');
     if (el.footer) el.footer.classList.add('hidden');
     
-    if (el.tag) el.tag.innerText = window.weekData ? "CENTRE DE COMMANDE" : "TABLEAU DE BORD";
+    if (el.tag) el.tag.innerText = window.weekData ? 'CENTRE DE COMMANDE' : 'TABLEAU DE BORD';
     
     if (el.grid) {
-        el.grid.innerHTML = "";
+        el.grid.innerHTML = '';
         appData.forEach((day, index) => {
             const isLocked = index > 0 && !state.completedDays.includes(appData[index-1].id);
             const isDone = state.completedDays.includes(day.id);
@@ -110,23 +133,23 @@ function renderLobby() {
     }
 }
 
-function startDay(id) {
-    state.currentDay = id;
+function startDay(dayId) {
+    state.currentDay = dayId;
     state.currentStep = 0;
-    if (el.lobby) el.lobby.classList.remove('active');
-    if (el.content) el.content.classList.add('active');
-    if (el.footer) el.footer.classList.remove('hidden');
-    if (el.tag) el.tag.innerText = `MISSION ${id}`;
-    if (el.content) el.content.scrollTop = 0;
-    renderStep();
     saveState();
+    renderStep();
 }
 
 function renderStep() {
     const day = appData.find(d => d.id === state.currentDay);
     if (!day) return;
+    
     const step = day.steps[state.currentStep];
-    const isBoss = (state.currentStep === day.steps.length - 1);
+    const isBoss = step.type === 'challenge';
+    
+    if (el.lobby) el.lobby.classList.remove('active');
+    if (el.content) el.content.classList.add('active');
+    if (el.footer) el.footer.classList.remove('hidden');
     
     if (el.content) {
         el.content.scrollTop = 0;
@@ -137,35 +160,35 @@ function renderStep() {
     
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
-        el.btnNext.innerText = isBoss ? "VALIDER LA MISSION" : "ÉTAPE SUIVANTE";
+        el.btnNext.innerText = isBoss ? 'VALIDER LA MISSION' : 'ÉTAPE SUIVANTE';
         el.btnNext.classList.toggle('boss-btn', isBoss);
     }
 
-    const body = step.body || step.content || "";
-    const q = step.q || step.question || "";
+    const body = step.body || step.content || '';
+    const q = step.q || step.question || '';
     const opts = step.opts || step.options || [];
     const a = (step.a !== undefined) ? step.a : step.answer;
-    const feed = step.feed || step.feedback || "Correct !";
+    const feed = step.feed || step.feedback || 'Correct !';
 
     if (!el.stepBody) return;
 
     if (step.type === 'lesson' || step.type === 'msg') {
         el.stepBody.innerHTML = body;
     } else if (step.type === 'write' || step.type === 'challenge') {
-        let hintHtml = "";
+        let hintHtml = '';
         let bossIcon = isBoss ? '<span class="boss-icon">👾</span>' : '';
         
         if (step.hint) {
             hintHtml = `
                 <button class="hint-btn" onclick="this.nextElementSibling.classList.toggle('hidden')">💡 INDICE</button>
-                <div class="hint-box hidden">${step.hint}</div>
+                <div class="hint-box hidden">\${step.hint}</div>
             `;
         }
         el.stepBody.innerHTML = `
-            ${bossIcon}
-            <p class="content-chunk">${q}</p>
+            \${bossIcon}
+            <p class="content-chunk">\${q}</p>
             <div style="margin-top:20px; display: flex; flex-direction: column; gap: 15px;">
-                ${hintHtml}
+                \${hintHtml}
                 <input type="text" id="input-write" placeholder="Tape ta réponse ici..." class="btn-opt" 
                        style="background: rgba(255,255,255,0.05); border-style: dashed; width: 100%; cursor: text; margin-bottom: 0;">
                 <button id="btn-check-write" class="btn-main">VÉRIFIER</button>
@@ -182,10 +205,9 @@ function renderStep() {
                 const val = input.value.trim();
                 const feedArea = feedback;
                 
-                // Mode de validation intelligent (Alerte Tactique)
                 if (step.requirements) {
                     check.disabled = true;
-                    check.innerText = "SCAN EN COURS...";
+                    check.innerText = 'SCAN EN COURS...';
                     
                     const result = await validateTactical(val, step.requirements);
                     
@@ -194,44 +216,43 @@ function renderStep() {
                         check.classList.add('hidden');
                         feedArea.innerHTML = `
                             <div class="success-badge">
-                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> ${feed}</p>
+                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> \${feed}</p>
                             </div>
                         `;
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
                         check.disabled = false;
-                        check.innerText = "RÉESSAYER LE SCAN";
+                        check.innerText = 'RÉESSAYER LE SCAN';
                         input.classList.add('shake');
-                        feedArea.innerHTML = `<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ${result.msg}</p>`;
+                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ' + result.msg + '</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
                     }
                 } else {
-                    // Fallback : Mode classique (comparaison exacte)
-                    const cleanVal = val.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"");
+                    const cleanVal = val.toLowerCase().replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, '');
                     const sols = Array.isArray(a) ? a : [a];
-                    const ok = sols.some(s => s.toString().toLowerCase().trim().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"") === cleanVal);
+                    const ok = sols.some(s => s.toString().toLowerCase().trim().replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, '') === cleanVal);
                     
                     if (ok) {
                         input.disabled = true; 
                         check.disabled = true;
-                        feedArea.innerHTML = `<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ${feed}</p>`;
+                        feedArea.innerHTML = '<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ' + feed + '</p>';
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
                         input.classList.add('shake'); 
-                        feedArea.innerHTML = `<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l'ordre ou l'orthographe !</p>`;
+                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l\\'ordre ou l\\'orthographe !</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
                     }
                 }
             };
         }
     } else {
-        el.stepBody.innerHTML = `<p class="content-chunk">${q}</p>`;
+        el.stepBody.innerHTML = '<p class="content-chunk">' + q + '</p>';
         const area = document.createElement('div'); 
-        area.className = "interactive-area";
-        area.style.marginTop = "20px";
+        area.className = 'interactive-area';
+        area.style.marginTop = '20px';
         opts.forEach((o, i) => {
             const btn = document.createElement('button');
-            btn.className = "btn-opt"; 
+            btn.className = 'btn-opt'; 
             btn.innerText = o;
             btn.onclick = () => {
                 if (i === a) {
@@ -249,15 +270,13 @@ function renderStep() {
 }
 
 async function validateTactical(text, reqs) {
-    if (!text || text.length < 5) return { ok: false, msg: "Message trop court pour être valide." };
+    if (!text || text.length < 5) return { ok: false, msg: 'Message trop court pour être valide.' };
 
-    // 1. Vérification des Mots-Clés Requis (Filtre Pédagogique)
     if (reqs.keywords) {
         const found = reqs.keywords.some(k => text.toLowerCase().includes(k.toLowerCase()));
-        if (!found) return { ok: false, msg: `Objectif non atteint. N'oublie pas d'utiliser : ${reqs.keywords.join(', ')}.` };
+        if (!found) return { ok: false, msg: 'Objectif non atteint. N\\'oublie pas d\\'utiliser : ' + reqs.keywords.join(', ') + '.' };
     }
 
-    // 2. Scan Grammatical Live (LanguageTool API)
     try {
         const params = new URLSearchParams();
         params.append('text', text);
@@ -271,15 +290,14 @@ async function validateTactical(text, reqs) {
 
         if (data.matches && data.matches.length > 0) {
             const error = data.matches[0];
-            // Nettoyage pédagogique du message technique
             let msg = error.message;
-            if (error.rule.issueType === 'misspelling') msg = `Erreur de saisie : '${error.context.text.substr(error.context.offset, error.context.length)}' semble mal écrit.`;
-            if (msg.includes('Sujet et verbe ne semblent pas s’accorder')) msg = "Alerte Accord : Ton verbe n'est pas synchronisé avec ton sujet !";
+            if (error.rule.issueType === 'misspelling') msg = 'Erreur de saisie : ' + error.context.text.substr(error.context.offset, error.context.length) + ' semble mal écrit.';
+            if (msg.includes('Sujet et verbe ne semblent pas s’accorder')) msg = 'Alerte Accord : Ton verbe n\\'est pas synchronisé avec ton sujet !';
             
             return { ok: false, msg: msg };
         }
     } catch (e) {
-        console.error("API de grammaire injoignable, validation locale uniquement.");
+        console.error('API de grammaire injoignable, validation locale uniquement.');
     }
 
     return { ok: true };
@@ -291,7 +309,6 @@ function completeDay() {
         state.completedDays.push(lastDayId);
     }
     
-    // Synchro Cloud (Google Sheets)
     syncWithParent(lastDayId);
 
     state.currentDay = null; 
@@ -303,10 +320,9 @@ function completeDay() {
 async function syncWithParent(dayId) {
     const childName = (window.APP_CONFIG && window.APP_CONFIG.STORAGE_KEY.includes('lovyc')) ? 'Lovyc' : 'Zyvah';
     const subject = window.location.pathname.split('/').slice(-3, -2)[0] || 'Général';
-    const url = "https://script.google.com/macros/s/AKfycbyNHvhCg9mtYfhuPKdy89iaFaKMGtfzRMHNlzB5nqXpC_DRIRnpMj7VjgnTjTpdvV9R/exec";
+    const url = 'https://script.google.com/macros/s/AKfycbyNHvhCg9mtYfhuPKdy89iaFaKMGtfzRMHNlzB5nqXpC_DRIRnpMj7VjgnTjTpdvV9R/exec';
 
     try {
-        // Utilisation de text/plain pour éviter les erreurs CORS preflight avec Google Apps Script
         await fetch(url, {
             method: 'POST',
             mode: 'no-cors',
@@ -318,9 +334,9 @@ async function syncWithParent(dayId) {
                 date: new Date().toISOString()
             })
         });
-        console.log("Synchro Cloud envoyée.");
+        console.log('Synchro Cloud envoyée.');
     } catch (e) {
-        console.log("Echec de la synchro Cloud.");
+        console.log('Echec de la synchro Cloud.');
     }
 }
 
