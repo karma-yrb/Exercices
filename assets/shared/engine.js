@@ -180,6 +180,7 @@ function renderStep() {
                     if (el.btnNext) el.btnNext.disabled = false;
                 } else {
                     input.classList.add('shake'); 
+                    feedback.innerHTML = `<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l'ordre ou l'orthographe !</p>`;
                     setTimeout(() => input.classList.remove('shake'), 400);
                 }
             };
