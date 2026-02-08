@@ -13,186 +13,176 @@
             font-family: 'Outfit', sans-serif;
             background-color: #06070d;
             color: #ffffff;
+            margin: 0;
+            padding: 1.25rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .subject-tag {
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 100px;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-
-        .glow-zyvah { color: #d946ef; text-shadow: 0 0 20px rgba(217, 70, 239, 0.5); }
-        
-        .avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            background: rgba(217, 70, 239, 0.1);
-            border: 1px solid rgba(217, 70, 239, 0.3);
-            box-shadow: 0 0 30px rgba(217, 70, 239, 0.2);
+            padding: 16px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .card-maths { 
+            border-left: 4px solid #a855f7; 
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
+        }
+        .card-ses { 
+            border-left: 4px solid #06b6d4; 
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
         }
 
         .icon-box {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(255,255,255,0.05);
-            margin-right: 16px;
+            margin-right: 14px;
+            flex-shrink: 0;
         }
 
-        svg { width: 24px; height: 24px; fill: currentColor; }
-    
-        /* CSS replacement for Tailwind */
-        .min-h-screen { min-height: 100vh; }
-        .p-6 { padding: 1.5rem; }
-        .md\:p-16 { padding: 4rem; }
-        .max-w-4xl { max-width: 56rem; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .mb-16 { margin-bottom: 4rem; }
+        svg { width: 28px; height: 28px; fill: currentColor; }
+        
+        .glow-zyvah { color: #d946ef; text-shadow: 0 0 20px rgba(217, 70, 239, 0.5); }
+        
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: rgba(217, 70, 239, 0.1);
+            border: 1px solid rgba(217, 70, 239, 0.3);
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.2);
+        }
+
         .flex { display: flex; }
         .items-center { align-items: center; }
-        .gap-6 { gap: 1.5rem; }
-        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-        .font-extrabold { font-weight: 800; }
-        .tracking-tighter { letter-spacing: -0.05em; }
-        .text-slate-500 { color: #64748b; }
-        .font-bold { font-weight: 700; }
-        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-        .uppercase { text-transform: uppercase; }
-        .tracking-widest { letter-spacing: 0.1em; }
-        .rounded-full { border-radius: 9999px; }
-        .overflow-hidden { overflow: hidden; }
-        .bg-white\/5 { background-color: rgba(255, 255, 255, 0.05); }
-        .bg-gradient-to-r { background-image: linear-gradient(to right, #a855f7, #06b6d4); }
-        .h-full { height: 100%; }
-        .w-0 { width: 0; }
-        .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-        .duration-1000 { transition-duration: 1000ms; }
-        .text-slate-400 { color: #94a3b8; }
-        .mt-4 { margin-top: 1rem; }
-        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-        .grid { display: grid; }
-        .gap-6 { gap: 1.5rem; }
-        .p-8 { padding: 2.5rem; }
-        .rounded-\ \[2\.5rem\ \] { border-radius: 2.5rem; }
-        .text-purple-400 { color: #c084fc; }
         .flex-grow { flex-grow: 1; }
-        .bg-purple-500\/10 { background-color: rgba(168, 85, 247, 0.1); }
-        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
-        .mt-2 { margin-top: 0.5rem; }
-        .max-w-\ \[200px\ \] { max-width: 200px; }
-        .bg-purple-500 { background-color: #a855f7; }
-        .text-xs { font-size: 0.75rem; line-height: 1rem; }
-        .opacity-0 { opacity: 0; }
-        .-translate-x-4 { transform: translateX(-1rem); }
+        .text-slate-100 { color: #f1f5f9; }
+        .text-slate-300 { color: #cbd5e1; }
+        .text-slate-400 { color: #94a3b8; }
+        .text-purple-400 { color: #c084fc; }
         .text-cyan-400 { color: #22d3ee; }
+        .bg-purple-500 { background-color: #a855f7; }
         .bg-cyan-500 { background-color: #06b6d4; }
-        .mt-12 { margin-top: 3rem; }
-        .w-full { width: 100%; }
-        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-        .rounded-2xl { border-radius: 1rem; }
-        .mb-8 { margin-bottom: 2rem; }
-        .bg-cyan-500\/10 { background-color: rgba(6, 182, 212, 0.1); }
+        .bg-white\/10 { background-color: rgba(255, 255, 255, 0.1); }
         
-        /* Interactive states */
-        .group:hover { transform: translateY(-8px) scale(1.02); background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.2); }
-        .group:hover .opacity-0 { opacity: 1; transform: translateX(0); }
-        .group:hover .icon-box.text-purple-400 { background: rgba(168, 85, 247, 0.2); }
-        .group:hover .icon-box.text-cyan-400 { background: rgba(6, 182, 212, 0.2); }
-
-        @media (min-width: 768px) {
-            .md\:p-16 { padding: 4rem; }
-            .md\:text-5xl { font-size: 3rem; line-height: 1; }
+        header { margin-bottom: 2rem; }
+        .header-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .title-h1 { font-size: 2rem; font-weight: 800; margin: 0; letter-spacing: -0.05em; }
+        .subtitle { color: #64748b; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 0; }
+        
+        .global-bar-container { h-1 w-full bg-white/5 rounded-full overflow-hidden; height: 4px; background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .global-bar-fill { height: 100%; background: linear-gradient(to right, #a855f7, #06b6d4); width: 0%; transition: all 1s ease; }
+        
+        .subject-title { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; margin: 0; }
+        .mission-title { font-size: 0.9rem; font-weight: 600; margin: 2px 0 0 0; }
+        
+        .prog-container { display: flex; align-items: center; gap: 0.75rem; margin-top: 10px; }
+        .prog-bar-bg { flex-grow: 1; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; max-width: 140px; }
+        .prog-bar-fill { height: 100%; transition: all 1s ease; }
+        .prog-text { font-size: 10px; font-weight: 800; color: #cbd5e1; letter-spacing: 0.05em; margin: 0; }
+        
+        .chevron { opacity: 0.5; margin-left: 8px; }
+        
+        .btn-report {
+            margin-top: 1.5rem;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: #c084fc;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
         }
     </style>
 </head>
 <body class="min-h-screen p-6 md:p-16">
-    <div class="max-w-4xl mx-auto">
+    <div class="container">
         
         <!-- HEADER -->
-        <header class="mb-16">
-            <div class="flex items-center gap-6 mb-8">
+        <header>
+            <div class="header-top">
                 <div class="avatar">🌟</div>
                 <div>
-                    <h1 class="text-4xl md:text-5xl font-extrabold glow-zyvah tracking-tighter">ZYVAH</h1>
-                    <p class="text-slate-500 font-bold text-sm uppercase tracking-widest">Studio Dashboard • Music & Art Universe</p>
+                    <h1 class="title-h1 glow-zyvah">ZYVAH</h1>
+                    <p class="subtitle">Studio Dashboard • Music Universe</p>
                 </div>
             </div>
-            <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                <div id="global-bar" class="bg-gradient-to-r from-purple-500 to-cyan-500 h-full w-0 transition-all duration-1000"></div>
+            <div class="global-bar-container">
+                <div id="global-bar" class="global-bar-fill"></div>
             </div>
-            <p class="text-slate-400 mt-4 text-lg">Prête pour tes sessions du jour ? Le studio est à toi.</p>
         </header>
 
-        <div class="grid gap-6">
+        <div class="grid gap-4">
             <!-- MATHS -->
-            <a href="./Maths/Mois_1/Semaine_1.html" class="glass-card p-8 rounded-[2.5rem] flex items-center group">
-                <div class="icon-box text-purple-400 group-hover:bg-purple-500/20 transition-all">
+            <a href="./Maths/Mois_1/Semaine_1.html" class="glass-card card-maths">
+                <div class="icon-box text-purple-400">
                     <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6V12L16,14.5L16.8,13.2L13.5,11.2V6H12Z"/></svg>
                 </div>
                 <div class="flex-grow">
-                    <span class="subject-tag bg-purple-500/10 text-purple-400">🎹 Studio Maths</span>
-                    <h3 class="text-2xl font-bold">Mois 1 - Semaine 1</h3>
-                    <div class="flex items-center gap-4 mt-2">
-                        <div class="flex-grow bg-white/5 h-2 rounded-full overflow-hidden max-w-[200px]">
-                            <div id="math-bar" class="bg-purple-500 h-full w-0 transition-all duration-1000"></div>
+                    <h3 class="subject-title text-purple-400">Mathématiques</h3>
+                    <p class="mission-title text-slate-100">Mastering des Priorités</p>
+                    <div class="prog-container">
+                        <div class="prog-bar-bg">
+                            <div id="math-bar" class="prog-bar-fill bg-purple-500"></div>
                         </div>
-                        <p id="math-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/5 Missions</p>
+                        <p id="math-count" class="prog-text">0/5 MISSIONS</p>
                     </div>
                 </div>
-                <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
-                    <svg class="text-purple-400" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                <div class="chevron text-purple-400">
+                    <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
                 </div>
             </a>
 
             <!-- SES -->
-            <a href="./SES/Mois_1/Semaine_1.html" class="glass-card p-8 rounded-[2.5rem] flex items-center group">
-                <div class="icon-box text-cyan-400 group-hover:bg-cyan-500/20 transition-all">
+            <a href="./SES/Mois_1/Semaine_1.html" class="glass-card card-ses">
+                <div class="icon-box text-cyan-400">
                     <svg viewBox="0 0 24 24"><path d="M16 11V3H8V11H2V21H22V11H16M10 5H14V11H10V5M4 19V13H8V19H4M14 19H10V13H14V19M20 19H16V13H20V19Z"/></svg>
                 </div>
                 <div class="flex-grow">
-                    <span class="subject-tag bg-cyan-500/10 text-cyan-400">📈 Private Manager</span>
-                    <h3 class="text-2xl font-bold">Mois 1 - Semaine 1</h3>
-                    <div class="flex items-center gap-4 mt-2">
-                        <div class="flex-grow bg-white/5 h-2 rounded-full overflow-hidden max-w-[200px]">
-                            <div id="ses-bar" class="bg-cyan-500 h-full w-0 transition-all duration-1000"></div>
+                    <h3 class="subject-title text-cyan-400">S.E.S.</h3>
+                    <p class="mission-title text-slate-100">Lancement du Label</p>
+                    <div class="prog-container">
+                        <div class="prog-bar-bg">
+                            <div id="ses-bar" class="prog-bar-fill bg-cyan-500"></div>
                         </div>
-                        <p id="ses-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/5 Missions</p>
+                        <p id="ses-count" class="prog-text">0/5 MISSIONS</p>
                     </div>
                 </div>
-                <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
-                    <svg class="text-cyan-400" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                <div class="chevron text-cyan-400">
+                    <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
                 </div>
             </a>
         </div>
 
-        <!-- RECAP BUTTON -->
-        <button onclick="sendReport()" class="mt-12 w-full py-4 glass-card rounded-2xl text-purple-400 font-bold uppercase tracking-widest hover:bg-purple-500/10 transition-all">
+        <button onclick="sendReport()" class="btn-report">
             Partager mon avancement
         </button>
 

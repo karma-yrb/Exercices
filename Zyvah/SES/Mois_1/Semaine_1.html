@@ -46,7 +46,7 @@
 
     var weekData = [
         {
-            id: 1, title: "Mission 01 : Le Marché du Son", intro: "Maîtrise les bases de l'Offre et de la Demande pour fixer tes prix.", icon: "📈",
+            id: 1, title: "Le Marché du Son", intro: "Maîtrise les bases de l'Offre et de la Demande pour fixer tes prix.", icon: "📈",
             steps: [
                 { type: "msg", title: "Briefing Manager", body: `<p>Bienvenue dans le Game, Zyvah. Un <b>Marché</b>, c'est partout où des <b>vendeurs (Offre)</b> et des <b>acheteurs (Demande)</b> se rencontrent.</p><div class="data-box">Dans l'industrie musicale :<br>• <b>Offre :</b> Artistes, labels, salles.<br>• <b>Demande :</b> Fans, auditeurs.</div>` },
                 { type: "quiz", title: "Identification", q: "Qui représente l'OFFRE sur le marché du streaming ?", opts: ["Les fans", "Spotify", "Le prix"], a: 1, feed: "Exact ! Le vendeur propose le produit." },
@@ -54,15 +54,28 @@
                 { type: "msg", title: "La Loi de l'Offre", body: `<p>Plus le prix est élevé, plus les producteurs veulent vendre.</p><div class="data-box"><b>Prix ⬆️ = Offre ⬆️</b></div>` },
                 { type: "msg", title: "La Loi de la Demande", body: `<p>Inversement pour les fans : si c'est trop cher, ils achètent moins.</p><div class="data-box"><b>Prix ⬆️ = Demande ⬇️</b></div>` },
                 { type: "quiz", title: "Mécanisme", q: "Si le prix d'un disque passe de 20€ à 50€, que fait la demande ?", opts: ["Elle augmente", "Elle diminue", "Rien"], a: 1, feed: "Loi de base : trop cher = moins de clients." },
-                { type: "write", title: "Le Mot Clé", q: "Comment appelle-t-on le prix où l'offre est égale à la demande ?", a: "equilibre", hint: "C'est quand les deux côtés de la balance sont au même niveau (9 lettres).", feed: "Le prix d'équilibre ! Là où le marché se vide." },
+                { type: "write", title: "Le Word Key", q: "Comment appelle-t-on le prix où l'offre est égale à la demande ?", a: "equilibre", hint: "C'est quand les deux côtés de la balance sont au même niveau (9 lettres).", feed: "Le prix d'équilibre ! Là où le marché se vide." },
                 { type: "quiz", title: "Choc de Demande", q: "Une trend TikTok rend ton son viral. La demande EXPLOSE. Le prix...", opts: ["Va descendre", "Va monter", "Va disparaître"], a: 1, feed: "Forte demande + stock limité = hausse des prix." },
                 { type: "write", title: "Action Manager", q: "Si tu as trop de stock invendu, dois-tu monter ou baisser ton prix ?", a: "baisser", hint: "Pour attirer plus de clients (Demande), que fais-tu du prix ?", feed: "Baisser le prix attire la demande pour vider le stock." },
                 { type: "challenge", title: "Validation 1", q: "Vrai ou Faux : Sur un marché, le prix est fixé uniquement par le vendeur ?", opts: ["VRAI", "FAUX"], a: 1, feed: "Faux ! L'acheteur (la demande) a aussi son mot à dire par son comportement." }
             ]
         },
         {
+            id: 2, title: "Coûts & Profit", intro: "Gère ton budget studio et calcule tes bénéfices réels.", icon: "💸",
+            steps: [
+                { type: "msg", title: "Facteurs de Production", body: `<p>Pour produire, il faut :</p><div class="data-box">1. <b>Travail (L) :</b> Les humains.<br>2. <b>Capital (K) :</b> Les machines/outils.</div>` },
+                { type: "quiz", title: "Inventaire", q: "L'ordinateur du studio, c'est quel facteur ?", opts: ["Travail", "Capital"], a: 1, feed: "C'est un outil, donc du Capital." },
+                { type: "write", title: "Facteur Humain", q: "Comment appelle-t-on le facteur représenté par l'ingénieur du son ?", a: "travail", hint: "C'est l'activité de l'humain pour produire (7 lettres).", feed: "C'est l'effort humain." },
+                { type: "msg", title: "Coût Fixe vs Variable", body: `<p>• <b>Fixe :</b> Loyer (ne change pas avec la prod).<br>• <b>Variable :</b> Matière première (change selon la prod).</p>` },
+                { type: "quiz", title: "Type de Coût", q: "L'électricité du studio qui tourne 24h/24 pour tes machines est un...", opts: ["Coût fixe", "Coût variable"], a: 1, feed: "Plus tu produis, plus tu consommes : c'est variable." },
+                { type: "write", title: "Calcul Business", q: "CA = Prix x Quantité. Si tu vends 100 places à 20€, quel est ton CA ?", a: "2000", hint: "Fais l'opération 100 multiplié par 20.", feed: "2000€ de chiffre d'affaires !" },
+                { type: "msg", title: "La Profitabilité", body: `<p><b>Profit = CA - Coûts Totaux.</b> Ne confonds jamais l'argent qui rentre (CA) et ce qu'il te reste (Profit).</p>` },
+                { type: "write", title: "Verdict Profit", q: "CA = 2000€. Coûts = 1500€. Quel est ton profit ?", a: "500", hint: "Fais la soustraction : 2000 - 1500.", feed: "Il te reste 500€ de gain réel." }
+            ]
+        },
+        {
             id: 3,
-            title: "Mission 03 : Identité & Socialisation",
+            title: "Identité & Socialisation",
             intro: "Comprendre comment on devient une manager (ou une artiste) influente.",
             steps: [
                 {
@@ -98,7 +111,7 @@
         },
         {
             id: 4,
-            title: "Mission 04 : L'Entreprise & son Image",
+            title: "L'Entreprise & son Image",
             intro: "Comprendre pourquoi un label ou une artiste soigne sa communication.",
             steps: [
                 {
@@ -136,7 +149,7 @@
         },
         {
             id: 5,
-            title: "Mission 05 : Le Grand Audit",
+            title: "Le Grand Audit",
             intro: "Bilan des compétences du mois. Validation du grade Manager.",
             steps: [
                 {

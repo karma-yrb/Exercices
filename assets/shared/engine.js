@@ -159,7 +159,7 @@ function renderLobby() {
             card.innerHTML = `
                 <div class="icon">${iconContent}</div>
                 <div class="day-info">
-                    <h3>${(window.weekData ? 'MISSION' : 'BLOCK')} ${day.id} : ${day.title}</h3>
+                    <h3>${day.title}</h3>
                     <p>${day.intro}</p>
                 </div>
             `;
