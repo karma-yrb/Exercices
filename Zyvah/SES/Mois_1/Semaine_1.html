@@ -61,16 +61,84 @@
             ]
         },
         {
-            id: 2, title: "Mission 02 : Coûts & Profit", intro: "Gère ton budget studio et calcule tes bénéfices.", icon: "💸",
+            id: 3,
+            title: "Mission 03 : Identité & Socialisation",
+            intro: "Comprendre comment on devient une manager (ou une artiste) influente.",
             steps: [
-                { type: "msg", title: "Facteurs de Production", body: `<p>Pour produire, il faut :</p><div class="data-box">1. <b>Travail (L) :</b> Les humains.<br>2. <b>Capital (K) :</b> Les machines/outils.</div>` },
-                { type: "quiz", title: "Inventaire", q: "L'ordinateur du studio, c'est quel facteur ?", opts: ["Travail", "Capital"], a: 1, feed: "C'est un outil, donc du Capital." },
-                { type: "write", title: "Facteur Humain", q: "Comment appelle-t-on le facteur représenté par l'ingénieur du son ?", a: "travail", hint: "C'est l'activity de l'humain pour produire (7 lettres).", feed: "C'est l'effort humain." },
-                { type: "msg", title: "Coût Fixe vs Variable", body: `<p>• <b>Fixe :</b> Loyer (ne change pas avec la prod).<br>• <b>Variable :</b> Matière première (change selon la prod).</p>` },
-                { type: "quiz", title: "Type de Coût", q: "L'électricité du studio qui tourne 24h/24 pour tes machines est un...", opts: ["Coût fixe", "Coût variable"], a: 1, feed: "Plus tu produis, plus tu consommes : c'est variable." },
-                { type: "write", title: "Calcul Business", q: "CA = Prix x Quantité. Si tu vends 100 places à 20€, quel est ton CA ?", a: "2000", hint: "Fais l'opération 100 multiplié par 20.", feed: "2000€ de chiffre d'affaires !" },
-                { type: "msg", title: "La Profitabilité", body: `<p><b>Profit = CA - Coûts Totaux.</b> Ne confonds jamais l'argent qui rentre (CA) et ce qu'il te reste (Profit).</p>` },
-                { type: "write", title: "Verdict Profit", q: "CA = 2000€. Coûts = 1500€. Quel est ton profit ?", a: "500", hint: "Fais la soustraction : 2000 - 1500.", feed: "Il te reste 500€ de gain réel." }
+                {
+                    type: "msg",
+                    title: "Briefing Sociologie",
+                    body: "<p>La <b>socialisation</b>, c'est le processus par lequel tu apprends les règles (normes) et les valeurs de ton groupe.</p><div class='data-box'>• <b>Normes :</b> Les règles (ex: arriver à l'heure au studio).<br>• <b>Valeurs :</b> Les idéaux (ex: le respect des collaborateurs).</div>"
+                },
+                {
+                    type: "interactive",
+                    title: "Norme ou Valeur ?",
+                    question: "'Dire bonjour à son équipe' est une :",
+                    options: ["Norme", "Valeur"],
+                    answer: 0,
+                    feedback: "Correct. C'est une règle de politesse apprise."
+                },
+                {
+                    type: "write",
+                    title: "Agents de Socialisation",
+                    question: "Citez l'agent de socialisation qui vous apprend les règles à l'école :",
+                    answer: ["professeurs", "enseignants", "ecole", "profs"],
+                    hint: "Ce sont les personnes qui t'enseignent en classe.",
+                    feedback: "L'école et les profs sont des agents majeurs."
+                },
+                {
+                    type: "challenge",
+                    title: "Challenge Réputation",
+                    question: "Si une manager ne respecte jamais ses rendez-vous, elle subit une <b>sanction</b>. Laquelle ?",
+                    options: ["Pécuniaire (amende)", "Sociale (mauvaise image)", "Les deux"],
+                    answer: 2,
+                    feedback: "Exact ! Le marché et la société sanctionnent les comportements hors-normes."
+                }
+            ]
+        },
+        {
+            id: 4,
+            title: "Mission 04 : Le Grand Audit",
+            intro: "Bilan des compétences du mois. Validation du grade Manager.",
+            steps: [
+                {
+                    type: "msg",
+                    title: "Examen de Grade",
+                    body: "<p>Zyvah, c'est l'heure du test final. Pour valider ta Semaine 1, tu dois prouver que tu maîtrises les mécanismes de base du marché et de la production.</p>"
+                },
+                {
+                    type: "interactive",
+                    title: "Module 1 : Signal de Marché",
+                    question: "Si la demande baisse mais que l'offre reste forte, que risque de faire le prix ?",
+                    options: ["Monter (Pénurie)", "Baisser (Surplus)", "Ne pas bouger"],
+                    answer: 1,
+                    feedback: "Surplus = Baisse des prix pour écouler les stocks."
+                },
+                {
+                    type: "write",
+                    title: "Module 2 : Calcul Profit",
+                    question: "Une artiste vend pour 5000€ de merch. Ses coûts sont de 3200€. Quel est son <b>Profit</b> ?",
+                    answer: "1800",
+                    feedback: "Calcul validé (5000 - 3200 = 1800)."
+                },
+                {
+                    type: "interactive",
+                    title: "Module 3 : Production",
+                    question: "En SES, que désigne la lettre <b>K</b> ?",
+                    options: ["Le Kilos d'or", "Le Capital (les machines)", "Le Karma"],
+                    answer: 1,
+                    feedback: "Code K = Capital."
+                },
+                {
+                    type: "challenge",
+                    title: "ULtime Boss - Semaine 1",
+                    question: "Rédige une courte analyse de 3 mots minimum expliquant pourquoi un manager doit baisser ses prix s'il a trop de stock.",
+                    requirements: {
+                        keywords: ["demande", "vendre"]
+                    },
+                    hint: "Utilise les mots : 'attirer la demande' ou 'pour plus vendre'.",
+                    feedback: "STRATÉGIE VALIDÉE. Félicitations Zyvah, ton grade de Manager est confirmé !"
+                }
             ]
         }
     ];
