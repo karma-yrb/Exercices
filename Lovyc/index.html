@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovyc - Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #06070d;
+            color: #ffffff;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .subject-tag {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .glow-lovyc { color: #3b82f6; text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            margin-right: 16px;
+        }
+
+        svg { width: 24px; height: 24px; fill: currentColor; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-16">
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- HEADER -->
+        <header class="mb-16">
+            <div class="flex items-center gap-6 mb-8">
+                <div class="avatar">🚀</div>
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold glow-lovyc tracking-tighter">LOVYC</h1>
+                    <p class="text-slate-500 font-bold text-sm uppercase tracking-widest">Command Center • Tactical Universe</p>
+                </div>
+            </div>
+            <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                <div id="global-bar" class="bg-blue-500 h-full w-0 transition-all duration-1000"></div>
+            </div>
+            <p class="text-slate-400 mt-4 text-lg">Prêt pour tes prochaines missions ? Tout est prêt pour toi.</p>
+        </header>
+
+        <div class="grid gap-8">
+            <!-- FRANCAIS -->
+            <a href="./Francais/Mois_1/Semaine_1.html" class="glass-card p-8 rounded-[2.5rem] flex items-center group">
+                <div class="icon-box text-blue-400 group-hover:bg-blue-500/20 transition-all">
+                    <svg viewBox="0 0 24 24"><path d="M18.5,2L19,2V22L18.5,22C16.11,22 14.29,21.24 13,20.12C11.71,21.24 9.89,22 7.5,22L7,22V2L7.5,2C9.89,2 11.71,2.76 13,3.88C14.29,2.76 16.11,2 18.5,2M13,18.12C14.29,17 16.11,16.24 18.5,16.24L17,16.24V4.24L18.5,4.24C16.11,4.24 14.29,5 13,6.12V18.12M13,6.12C11.71,5 9.89,4.24 7.5,4.24L9,4.24V16.24L7.5,16.24C9.89,16.24 11.71,17 13,18.12V6.12Z"/></svg>
+                </div>
+                <div class="flex-grow">
+                    <span class="subject-tag bg-blue-500/10 text-blue-400">⚔️ Communication Tactique</span>
+                    <h3 class="text-2xl font-bold">Mois 1 - Semaine 1</h3>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div class="flex-grow bg-white/5 h-2 rounded-full overflow-hidden max-w-[200px]">
+                            <div id="fr-bar" class="bg-blue-500 h-full w-0 transition-all duration-1000"></div>
+                        </div>
+                        <p id="fr-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/3 Missions</p>
+                    </div>
+                </div>
+                <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
+                    <svg class="text-blue-400" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                </div>
+            </a>
+        </div>
+
+        <!-- RECAP BUTTON -->
+        <button onclick="sendReport()" class="mt-12 w-full py-4 glass-card rounded-2xl text-blue-400 font-bold uppercase tracking-widest hover:bg-blue-500/10 transition-all">
+            Partager mon avancement
+        </button>
+
+    </div>
+
+    <script>
+        function updateProgress() {
+            // Lecture des données (Clés synchronisées avec engine.js)
+            const frData = JSON.parse(localStorage.getItem('lovyc_fr_w1_v2') || '[]');
+            
+            // Calcul Français (Basé sur 3 missions prévues en Semaine 1)
+            const frTotal = 3;
+            const frDone = frData.length;
+            const frPercent = (frDone / frTotal) * 100;
+            
+            document.getElementById('fr-bar').style.width = frPercent + '%';
+            document.getElementById('fr-count').innerText = `${frDone}/${frTotal} Missions`;
+
+            // Barre Globale
+            document.getElementById('global-bar').style.width = frPercent + '%';
+        }
+
+        function sendReport() {
+            const frData = JSON.parse(localStorage.getItem('lovyc_fr_w1_v2') || '[]');
+            const body = `Salut !%0D%0A%0D%0AVoilà ma progression Lovyc :%0D%0A- Français : ${frData.length}/3 missions terminées.`;
+            window.location.href = `mailto:?subject=Progression Lovyc&body=${body}`;
+        }
+
+        updateProgress();
+    </script>
+</body>
+</html>

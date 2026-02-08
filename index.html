@@ -95,33 +95,23 @@
                 </div>
 
                 <div class="grid gap-6">
-                    <!-- MATHS -->
-                    <a href="./Zyvah/Maths/Mois_1/Semaine_1.html" class="glass-card p-6 rounded-[2rem] flex items-center group">
+                    <!-- LIEN VERS DASHBOARD ZYVAH -->
+                    <a href="./Zyvah/index.html" class="glass-card p-6 rounded-[2rem] flex items-center group">
                         <div class="icon-box text-purple-400 group-hover:bg-purple-500/20 transition-all">
                             <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6V12L16,14.5L16.8,13.2L13.5,11.2V6H12Z"/></svg>
                         </div>
                         <div class="flex-grow">
-                            <span class="subject-tag bg-purple-500/10 text-purple-400">🎹 Studio Maths</span>
-                            <h3 class="text-xl font-bold">Mois 1 - Semaine 1</h3>
-                            <p class="text-slate-400 text-sm">Priorités & Mixage des nombres</p>
+                            <span class="subject-tag bg-purple-500/10 text-purple-400">🎹 Studio Dashboard</span>
+                            <h3 class="text-xl font-bold">Accéder à l'espace Zyvah</h3>
+                            <div id="zyvah-global-progress" class="flex items-center gap-3 mt-2">
+                                <div class="w-24 bg-white/5 h-1.5 rounded-full overflow-hidden">
+                                    <div id="zyvah-bar" class="bg-purple-500 h-full w-0 transition-all duration-1000"></div>
+                                </div>
+                                <p id="zyvah-count" class="text-slate-500 text-[10px] font-bold uppercase tracking-tighter">Chargement...</p>
+                            </div>
                         </div>
                         <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
                             <svg class="text-purple-400" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-                        </div>
-                    </a>
-
-                    <!-- SES -->
-                    <a href="./Zyvah/SES/Mois_1/Semaine_1.html" class="glass-card p-6 rounded-[2rem] flex items-center group">
-                        <div class="icon-box text-cyan-400 group-hover:bg-cyan-500/20 transition-all">
-                            <svg viewBox="0 0 24 24"><path d="M16 11V3H8V11H2V21H22V11H16M10 5H14V11H10V5M4 19V13H8V19H4M14 19H10V13H14V19M20 19H16V13H20V19Z"/></svg>
-                        </div>
-                        <div class="flex-grow">
-                            <span class="subject-tag bg-cyan-500/10 text-cyan-400">📈 Private Manager</span>
-                            <h3 class="text-xl font-bold">Mois 1 - Semaine 1</h3>
-                            <p class="text-slate-400 text-sm">Le Marché : Offre et Demande (Musique)</p>
-                        </div>
-                        <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
-                            <svg class="text-cyan-400" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
                         </div>
                     </a>
                 </div>
@@ -138,18 +128,23 @@
                 </div>
 
                 <div class="grid gap-6">
-                    <!-- FRANCAIS -->
-                    <a href="./Lovyc/Francais/Mois_1/Semaine_1.html" class="glass-card p-6 rounded-[2rem] flex items-center group">
-                        <div class="icon-box text-red-500 group-hover:bg-red-500/20 transition-all">
+                    <!-- LIEN VERS DASHBOARD LOVYC -->
+                    <a href="./Lovyc/index.html" class="glass-card p-6 rounded-[2rem] flex items-center group">
+                        <div class="icon-box text-blue-400 group-hover:bg-blue-500/20 transition-all">
                             <svg viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5Z"/></svg>
                         </div>
                         <div class="flex-grow">
-                            <span class="subject-tag bg-red-500/10 text-red-500">🕹️ Tactical Comms</span>
-                            <h3 class="text-xl font-bold">Mois 1 - Semaine 1</h3>
-                            <p class="text-slate-400 text-sm">Français : Architecture SVC & Codes</p>
+                            <span class="subject-tag bg-blue-500/10 text-blue-400">⚔️ Tactical Dashboard</span>
+                            <h3 class="text-xl font-bold">Accéder à l'espace Lovyc</h3>
+                            <div class="flex items-center gap-3">
+                                <div class="w-24 bg-white/5 h-1.5 rounded-full overflow-hidden">
+                                    <div id="lovyc-bar" class="bg-blue-500 h-full w-0 transition-all duration-1000"></div>
+                                </div>
+                                <p id="lovyc-count" class="text-slate-500 text-[10px] font-bold uppercase tracking-tighter">0/3 Missions</p>
+                            </div>
                         </div>
                         <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
-                            <svg class="text-red-500" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                            <svg class="text-blue-400" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
                         </div>
                     </a>
 
@@ -185,11 +180,73 @@
         <footer class="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
             <p class="text-slate-500 font-bold tracking-widest text-xs uppercase">© 2026 Dashboard d'Apprentissage Privé</p>
             <div class="flex gap-8">
-                <span class="text-slate-600 text-xs font-bold uppercase tracking-widest">Version Local 2.4</span>
-                <span class="text-slate-600 text-xs font-bold uppercase tracking-widest">Zéro Dépendance Extérieure</span>
+                <button onclick="generateParentReport()" class="text-blue-400 hover:text-blue-300 text-xs font-bold uppercase tracking-widest border border-blue-400/30 px-4 py-2 rounded-lg transition-all">📧 Générer Rapport Parent</button>
+                <span class="text-slate-600 text-xs font-bold uppercase tracking-widest">Version Local 2.5</span>
             </div>
         </footer>
     </div>
+
+    <script>
+        function updateDashboard() {
+            // Configuration des modules pour calcul
+            const zyvahModules = [
+                { key: 'zyvah_maths_w1_v2', total: 2 },
+                { key: 'zyvah_ses_w1_v2', total: 2 }
+            ];
+            const lovycModules = [
+                { key: 'lovyc_fr_w1_v2', total: 3 }
+            ];
+
+            function getProgress(modules) {
+                let done = 0;
+                let total = 0;
+                modules.forEach(m => {
+                    const data = localStorage.getItem(m.key);
+                    if (data) {
+                        const state = JSON.parse(data);
+                        done += state.length || 0; // engine.js sauvegarde direct l'array
+                    }
+                    total += m.total;
+                });
+                return { done, total, percent: (done / total) * 100 };
+            }
+
+            // Update Zyvah
+            const zyvah = getProgress(zyvahModules);
+            document.getElementById('zyvah-bar').style.width = zyvah.percent + '%';
+            document.getElementById('zyvah-count').innerText = `${zyvah.done}/${zyvah.total} Missions`;
+
+            // Update Lovyc
+            const lovyc = getProgress(lovycModules);
+            document.getElementById('lovyc-bar').style.width = lovyc.percent + '%';
+            document.getElementById('lovyc-count').innerText = `${lovyc.done}/${lovyc.total} Missions`;
+        }
+
+        function generateParentReport() {
+            const keys = {
+                'Lovyc (Français)': 'lovyc_fr_w1_v2',
+                'Zyvah (Maths)': 'zyvah_maths_w1_v2',
+                'Zyvah (SES)': 'zyvah_ses_w1_v2'
+            };
+
+            let report = "RAPPORT D'AVANCEMENT - " + new Date().toLocaleDateString() + "\n\n";
+            for (let name in keys) {
+                const data = localStorage.getItem(keys[name]);
+                if (data) {
+                    const state = JSON.parse(data);
+                    const done = state.completedDays ? state.completedDays.length : 0;
+                    report += `[${name}] : ${done} mission(s) validée(s).\n`;
+                } else {
+                    report += `[${name}] : Pas encore commencé.\n`;
+                }
+            }
+
+            const mailto = `mailto:parent@example.com?subject=Rapport d'apprentissage&body=${encodeURIComponent(report)}`;
+            window.location.href = mailto;
+        }
+
+        window.onload = updateDashboard;
+    </script>
 </body>
 </html>
 

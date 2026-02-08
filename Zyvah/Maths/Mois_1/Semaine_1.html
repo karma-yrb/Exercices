@@ -4,115 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Zyvah - Studio Maths (Week 1)</title>
-    <style>
-        :root {
-            --bg: #0f0a1a;
-            --card: #1a1429;
-            --accent: #d946ef; /* Rose/Violet Studio */
-            --accent-glow: rgba(217, 70, 239, 0.4);
-            --success: #00ffcc;
-            --text: #ffffff;
-            --text-dim: #94a3b8;
-            --border: #332a4d;
-            --font: 'Plus Jakarta Sans', system-ui, sans-serif;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
-        body { background: var(--bg); color: var(--text); overflow: hidden; height: 100vh; }
-
-        #app {
-            width: 100%; max-width: 480px; height: 100vh;
-            margin: auto; background: var(--card); overflow-y: auto;
-            position: relative; display: flex; flex-direction: column;
-            border-left: 1px solid var(--border); border-right: 1px solid var(--border);
-        }
-
-        .header { padding: 20px; border-bottom: 1px solid var(--border); background: rgba(217, 70, 239, 0.05); }
-        .progress-meta { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
-        .bar-container { height: 6px; background: #000; border-radius: 10px; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.8s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: 0 0 15px var(--accent-glow); }
-
-        .view { display: none; padding: 20px; animation: slideUp 0.4s ease; }
-        .view.active { display: block; }
-
-        /* LOBBY STYLE */
-        .lobby-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: var(--accent); }
-        .lobby-intro { color: var(--text-dim); margin-bottom: 30px; line-height: 1.5; font-size: 1rem; }
-        .days-grid { display: grid; gap: 15px; }
-        .day-card { 
-            background: #241d3d; border: 1px solid var(--border); padding: 20px; 
-            border-radius: 20px; display: flex; align-items: center; gap: 15px;
-            cursor: pointer; transition: 0.3s;
-        }
-        .day-card:hover { transform: scale(1.02); border-color: var(--accent); }
-        .day-card.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(0.8); }
-        .day-card.completed { border-color: var(--success); background: rgba(0, 255, 204, 0.05); }
-        .day-card .icon { width: 45px; height: 45px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .day-card.completed .icon { background: var(--success); color: #000; }
-        .day-info h3 { font-size: 1.1rem; margin-bottom: 4px; }
-        .day-info p { font-size: 0.85rem; color: var(--text-dim); }
-
-        /* CONTENT */
-        .step-header { margin-bottom: 25px; }
-        .step-header h2 { font-size: 1.4rem; color: var(--accent); }
-        .content-body { line-height: 1.7; font-size: 1.05rem; }
-        .studio-box { background: rgba(255,255,255,0.03); border: 1.5px dashed var(--border); border-radius: 16px; padding: 20px; margin: 20px 0; position: relative; }
-        .studio-box::before { content: "🎹 MIXER"; position: absolute; top: -12px; left: 15px; background: var(--accent); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 800; }
-        
-        .opt-list { margin-top: 20px; display: grid; gap: 12px; }
-        .opt-btn { 
-            padding: 18px; background: #241d3d; border: 1px solid var(--border); border-radius: 16px; 
-            color: #fff; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s;
-        }
-        .opt-btn.correct { background: var(--success) !important; color: #000; font-weight: 800; }
-        .opt-btn.wrong { background: #ff4757 !important; border-color: #ff4757; }
-
-        .footer { padding: 20px; background: var(--card); border-top: 1px solid var(--border); }
-        .btn-next { 
-            width: 100%; padding: 20px; background: var(--accent); border: none; border-radius: 18px;
-            color: white; font-weight: 800; font-size: 1.1rem; cursor: pointer;
-            box-shadow: 0 4px 20px var(--accent-glow);
-        }
-        .btn-next:disabled { opacity: 0.2; transform: scale(0.98); }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        b { color: var(--accent); }
-        .hidden { display: none !important; }
-
-        /* HINT SYSTEM */
-        .hint-btn {
-            background: transparent; border: 1px dashed var(--text-dim); color: var(--text-dim);
-            padding: 8px 12px; border-radius: 10px; font-size: 0.8rem; cursor: pointer;
-            margin-top: 10px; opacity: 0.7; transition: 0.3s;
-        }
-        .hint-btn:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
-        .hint-box {
-            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px;
-            margin-top: 10px; font-size: 0.9rem; border-left: 3px solid var(--accent);
-            font-style: italic; animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .shake { animation: shake 0.4s ease; }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-    </style>
+    <!-- Mutualisation des ressources -->
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
 </head>
 <body>
 
 <div id="app">
     <div class="header">
         <div class="progress-meta">
-            <span id="p-text">PROGRESSION STUDIO : 0%</span>
-            <span id="s-tag">CABINE</span>
+            <span id="progress-text">PROGRESSION STUDIO : 0%</span>
+            <span id="session-tag">CABINE</span>
         </div>
-        <div class="bar-container"><div id="p-bar" class="bar-fill"></div></div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
 
     <!-- LOBBY -->
-    <div id="lobby" class="view active">
+    <div id="view-lobby" class="view active">
         <div style="display:flex; justify-content: space-between; align-items: flex-start;">
             <div>
                 <h1 class="lobby-title">Studio Maths</h1>
@@ -124,27 +31,26 @@
                 </svg>
             </div>
         </div>
-        <div class="days-grid" id="grid"></div>
+        <div class="days-grid" id="days-grid"></div>
     </div>
 
     <!-- CONTENT -->
-    <div id="content" class="view">
-        <div class="step-header"><h2 id="st-title"></h2></div>
-        <div id="st-body" class="content-body"></div>
+    <div id="view-content" class="view">
+        <div class="step-header"><h2 id="step-title"></h2></div>
+        <div id="step-body" class="content-body"></div>
     </div>
 
     <div class="footer hidden" id="footer">
-        <button id="next" class="btn-next">CONTINUER</button>
+        <button id="btn-next" class="btn-main">CONTINUER</button>
     </div>
 </div>
 
 <script>
-    const STORAGE_KEY = "zyvah_math_w1";
-    let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { done: [], curDay: null, curStep: 0 };
+    var APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w1_v2"
+    };
 
-    function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-
-    const data = [
+    var weekData = [
         {
             id: 1, title: "L'Ordre du Mixage", intro: "Priorité aux Parenthèses (Le Master). Sans elles, le son sature.",
             steps: [
@@ -175,230 +81,10 @@
                 { type: "write", title: "Gain Maximum", q: "Que vaut <b>100 - 50 ÷ 2</b> ?", a: "75", hint: "Diviser avant de soustraire ! Calcule 50 ÷ 2 d'abord.", feed: "50/2 = 25. 100 - 25 = 75." },
                 { type: "challenge", title: "Boss de Session", q: "Calcule : <b>10 + 10 × 10</b>", a: "110", hint: "Multiplie d'abord les deux 10, puis ajoute le premier 10.", feed: "100 + 10 = 110. Puissance maximum !" }
             ]
-        },
-        {
-            id: 3, title: "L'Égaliseur (Le Flow)",
-            intro: "Quand les signes ont la même force. Respecte le panoramique.",
-            steps: [
-                { type: "msg", title: "Le Flow de Gauche/Droite", body: `<p>Si tu n'as que des + et des -, ou que des × et des ÷, on suit le flow de <b>gauche à droite</b>. Comme une barre de lecture.</p>` },
-                { type: "quiz", title: "Test Flow 1", q: "Calcule : <b>20 ÷ 5 × 2</b>", opts: ["2", "8", "4"], a: 1, feed: "20÷5=4, puis 4×2=8. Si tu faisais 5×2 d'abord, tu aurais faux !" },
-                { type: "write", title: "Flow de Lecture", q: "Calcule : <b>15 - 5 + 2</b>", a: "12", hint: "Lis de gauche à droite : 15 - 5 d'abord, puis ajoute 2.", feed: "15-5=10, puis 10+2=12." },
-                { type: "write", title: "Panoramique", q: "Calcule : <b>30 ÷ 3 ÷ 2</b>", a: "5", hint: "Gauche vers Droite : 30 ÷ 3 d'abord.", feed: "10 ÷ 2 = 5." },
-                { type: "msg", title: "L'Importance du Timing", body: `<p>Respecter l'ordre de lecture évite que ton calcul ne se désynchronise.</p>` },
-                { type: "quiz", title: "Mix Rapide", q: "Calcule : <b>10 × 4 ÷ 5</b>", opts: ["8", "2", "20"], a: 0, feed: "40 ÷ 5 = 8. Flow maîtrisé." },
-                { type: "write", title: "Beat Check", q: "Calcule : <b>50 - 20 - 10</b>", a: "20", hint: "Soustrais 20 de 50, puis soustrais encore 10.", feed: "30 - 10 = 20." },
-                { type: "write", title: "Sync Check", q: "Calcule : <b>12 ÷ 2 × 3</b>", a: "18", hint: "D'abord la division à gauche (12/2), puis multiplie.", feed: "6 × 3 = 18." },
-                { type: "challenge", title: "Final de Session", q: "Calcule : <b>100 ÷ 10 × 10 ÷ 10</b>", a: "10", hint: "Fais-le étape par étape de gauche à droite : 100/10... ×10... /10.", feed: "Respect du flow total. Résultat : 10." }
-            ]
-        },
-        {
-            id: 4, title: "Effets Spéciaux",
-            intro: "Mélange complet des priorités. La session de mastering.",
-            steps: [
-                { type: "msg", title: "Le Mix Final", body: `<p>Prête pour un mixage complet ? Rappelle-toi l'ordre : <br>1. Master ( ) <br>2. Gain × ÷ <br>3. Flow + - (de gauche à droite).</p>` },
-                { type: "quiz", title: "Calcul Complexe 1", q: "<b>12 + (10 ÷ 2) × 2</b>", opts: ["22", "34", "17"], a: 0, feed: "12 + 5 × 2 = 12 + 10 = 22. Score parfait !" },
-                { type: "write", title: "Mastering Check", q: "Calcule : <b>5 × 4 - (12 + 2)</b>", a: "6", hint: "Calcule la parenthèse et la multiplication en premier.", feed: "20 - 14 = 6." },
-                { type: "write", title: "Double Effet", q: "Calcule : <b>(2 + 3) × (10 - 4) ÷ 2</b>", a: "15", hint: "Calcule chaque parenthèse, multiplie les résultats, puis divise par 2.", feed: "5 × 6 ÷ 2 = 30 ÷ 2 = 15." },
-                { type: "msg", title: "Presque là !", body: `<p>Plus que quelques réglages avant de sortir l'album.</p>` },
-                { type: "quiz", title: "Le Défi", q: "Que vaut <b>2 + 2 × 2 - 2 ÷ 2</b> ?", opts: ["3", "5", "2"], a: 1, feed: "2 + 4 - 1 = 5. Tu es une pro du gain." },
-                { type: "write", title: "Vérif Signal", q: "Calcule : <b>10 + 2 × (5 - 3)</b>", a: "14", hint: "La parenthèse d'abord, puis la multiplication, enfin l'addition.", feed: "10 + 2 × 2 = 10 + 4 = 14." },
-                { type: "challenge", title: "Mastering Final", q: "Calcule : <b>(20 - 5) ÷ 3 + 10</b>", a: "15", hint: "Priorité Parenthèse -> Division -> Addition.", feed: "15 / 3 + 10 = 5 + 10 = 15." }
-            ]
-        },
-        {
-            id: 5, title: "Certification Producer",
-            intro: "Validation de tes compétences de production mathématique.",
-            steps: [
-                { type: "msg", title: "Examen Final", body: `<p>C'est l'heure du rendu final. Pas de droit à l'erreur sur ce mixage.</p>` },
-                { type: "write", title: "Final Track 1", q: "Calcule : <b>(5 + 5) × 5</b>", a: "50", hint: "N'oublie pas le Master ( ).", feed: "10 × 5 = 50." },
-                { type: "write", title: "Final Track 2", q: "Calcule : <b>5 + 5 × 5</b>", a: "30", hint: "Le Gain × est plus fort que l'addition.", feed: "5 + 25 = 30." },
-                { type: "write", title: "Final Track 3", q: "Calcule : <b>10 ÷ (2 + 3) × 4</b>", a: "8", hint: "Parenthèse -> Division -> Multiplication.", feed: "10 ÷ 5 × 4 = 2 × 4 = 8." },
-                { type: "write", title: "Final Track 4", q: "Calcule : <b>[ 20 - (5 × 2) ] ÷ 5 + 3</b>", a: "5", hint: "Occupe-toi de la parenthèse profonde (5×2), puis des crochets, puis divise par 5.", feed: "10 / 5 + 3 = 2 + 3 = 5." },
-                { type: "write", title: "The Masterpiece", q: "Dernier mix : <b>2 × (10 + 5) - 30</b>", a: "0", hint: "2 × 15 = 30. Et 30 - 30 ?", feed: "30 - 30 = 0. Équilibre parfait !" },
-                { type: "msg", title: "Félicitations !", body: `<p>Ton album de maths est prêt à être diffusé. Tu maîtrises toutes les priorités !</p>` }
-            ]
         }
     ];
-
-    const ui = {
-        lobby: document.getElementById('lobby'),
-        content: document.getElementById('content'),
-        grid: document.getElementById('grid'),
-        bar: document.getElementById('p-bar'),
-        txt: document.getElementById('p-text'),
-        tag: document.getElementById('s-tag'),
-        foot: document.getElementById('footer'),
-        next: document.getElementById('next'),
-        title: document.getElementById('st-title'),
-        body: document.getElementById('st-body')
-    };
-
-    function init() {
-        renderLobby();
-        progress();
-        ui.next.onclick = () => {
-            const day = data.find(d => d.id === state.curDay);
-            if (state.curStep < day.steps.length - 1) {
-                state.curStep++;
-                renderStep();
-            } else {
-                finishDay();
-            }
-            save();
-        };
-    }
-
-    function progress() {
-        const perc = Math.round((state.done.length / data.length) * 100);
-        ui.bar.style.width = perc + "%";
-        ui.txt.innerText = `PROGRESSION STUDIO : ${perc}%`;
-    }
-
-    function renderLobby() {
-        ui.lobby.classList.add('active');
-        ui.content.classList.remove('active');
-        ui.foot.classList.add('hidden');
-        ui.tag.innerText = "CABINE";
-        ui.grid.innerHTML = "";
-
-        const icons = [
-            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,3V12.26C11.5,12.09 11,12 10.5,12C8,12 6,14 6,16.5C6,19 8,21 10.5,21C13,21 15,19 15,16.5V6H19V3H12Z"/></svg>',
-            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M21,3V15.5A3.5,3.5 0 0,1 17.5,19A3.5,3.5 0 0,1 14,15.5A3.5,3.5 0 0,1 17.5,12C18.04,12 18.55,12.12 19,12.34V6.47L9,8.6V17.5A3.5,3.5 0 0,1 5.5,21A3.5,3.5 0 0,1 2,17.5A3.5,3.5 0 0,1 5.5,14C6.04,14 6.55,14.12 7,14.34V4L21,1Z"/></svg>',
-            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M14,10H10V14H14V10M12,17L7,12H10V8H14V12H17L12,17M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg>',
-            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6V12L16,14.5L16.8,13.2L13.5,11.2V6H12Z"/></svg>',
-            '<svg viewBox="0 0 24 24" style="width:24px;height:24px"><path fill="currentColor" d="M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"/></svg>'
-        ];
-
-        data.forEach((d, i) => {
-            const locked = i > 0 && !state.done.includes(data[i-1].id);
-            const done = state.done.includes(d.id);
-            const card = document.createElement('div');
-            card.className = `day-card ${locked ? 'locked' : ''} ${done ? 'completed' : ''}`;
-            card.innerHTML = `<div class="icon">${done ? '★' : icons[i]}</div><div class="day-info"><h3>SESSION ${d.id} : ${d.title}</h3><p>${d.intro}</p></div>`;
-            if(!locked) card.onclick = () => start(d.id);
-            ui.grid.appendChild(card);
-        });
-    }
-
-    function start(id) {
-        state.curDay = id; state.curStep = 0;
-        ui.lobby.classList.remove('active');
-        ui.content.classList.add('active');
-        ui.foot.classList.remove('hidden');
-        ui.tag.innerText = `MIXAGE ${id}`;
-        renderStep();
-        save();
-    }
-
-    function renderStep() {
-        const step = data.find(d => d.id === state.curDay).steps[state.curStep];
-        ui.title.innerText = step.title;
-        ui.next.disabled = ['quiz', 'challenge', 'write'].includes(step.type);
-        ui.next.innerText = (state.curStep === data.find(d => d.id === state.curDay).steps.length - 1) ? "ENREGISTRER" : "SUIVANT";
-
-        if (step.type === 'msg') {
-            ui.body.innerHTML = step.body;
-        } else if (step.type === 'write') {
-            ui.body.innerHTML = `<p style="margin-bottom:20px">${step.q}</p>`;
-            const container = document.createElement('div');
-            
-            const input = document.createElement('input');
-            input.type = "text";
-            input.placeholder = "Ton résultat...";
-            input.className = "opt-btn";
-            input.style.cursor = "text";
-            input.style.background = "rgba(0,0,0,0.2)";
-            
-            const actionContainer = document.createElement('div');
-            actionContainer.style.display = "flex";
-            actionContainer.style.flexDirection = "column";
-            actionContainer.style.gap = "10px";
-
-            const checkBtn = document.createElement('button');
-            checkBtn.className = "btn-next";
-            checkBtn.style.marginTop = "10px";
-            checkBtn.innerText = "VÉRIFIER LE MIX";
-            
-            container.appendChild(input);
-            container.appendChild(actionContainer);
-            actionContainer.appendChild(checkBtn);
-
-            if (step.hint) {
-                const hBtn = document.createElement('button');
-                hBtn.className = "hint-btn";
-                hBtn.innerText = "💡 BESOIN D'UN INDICE ?";
-                const hBox = document.createElement('div');
-                hBox.className = "hint-box hidden";
-                hBox.innerText = step.hint;
-                hBtn.onclick = () => hBox.classList.toggle('hidden');
-                actionContainer.appendChild(hBtn);
-                actionContainer.appendChild(hBox);
-            }
-
-            ui.body.appendChild(container);
-
-            input.onkeydown = (e) => { if (e.key === 'Enter') checkBtn.click(); };
-            
-            checkBtn.onclick = () => {
-                const userVal = input.value.trim().toLowerCase();
-                if (userVal === step.a.toLowerCase()) {
-                    input.disabled = true;
-                    checkBtn.disabled = true;
-                    input.style.borderColor = "var(--success)";
-                    const f = document.createElement('p');
-                    f.style.marginTop = "15px"; f.style.color = "var(--success)";
-                    f.innerHTML = `<b>✓ SIGNAL PUR :</b> ${step.feed}`;
-                    ui.body.appendChild(f);
-                    ui.next.disabled = false;
-                } else {
-                    input.classList.add('shake');
-                    setTimeout(() => input.classList.remove('shake'), 400);
-                }
-            };
-        } else {
-            ui.body.innerHTML = `<p style="margin-bottom:20px">${step.q}</p><div class="opt-list"></div>`;
-            const list = ui.body.querySelector('.opt-list');
-            step.opts.forEach((o, i) => {
-                const btn = document.createElement('button');
-                btn.className = "opt-btn";
-                btn.innerText = o;
-                btn.onclick = () => {
-                    if (i === step.a) {
-                        btn.classList.add('correct');
-                        ui.next.disabled = false;
-                        const f = document.createElement('p');
-                        f.style.marginTop = "15px"; f.style.color = "var(--success)";
-                        f.innerHTML = `<b>✓</b> ${step.feed}`;
-                        ui.body.appendChild(f);
-                        list.querySelectorAll('button').forEach(b => b.disabled = true);
-                    } else {
-                        btn.classList.add('wrong');
-                        setTimeout(() => btn.classList.remove('wrong'), 500);
-                    }
-                };
-                list.appendChild(btn);
-            });
-        }
-    }
-
-    function finishDay() {
-        if (!state.done.includes(state.curDay)) state.done.push(state.curDay);
-        
-        // Message de réussite style Studio
-        ui.body.innerHTML = `
-            <div style="text-align:center; padding: 40px 0;">
-                <h2 style="color:var(--success); font-size: 2rem; margin-bottom: 15px;">MIXTAPE VALIDÉE !</h2>
-                <p style="color:var(--text-dim); margin-bottom: 30px;">La session est enregistrée dans le cloud. Tes réglages sont parfaits.</p>
-                <button onclick="renderLobby()" class="btn-next" style="background:var(--success); color:#000;">RETOURE À LA CABINE</button>
-            </div>
-        `;
-        ui.next.classList.add('hidden');
-        ui.title.innerText = "SESSION TERMINÉE";
-        state.curDay = null; progress(); save();
-    }
-
-    init();
 </script>
-
+<!-- Moteur partagé -->
+<script src="../../../assets/shared/engine.js"></script>
 </body>
 </html>

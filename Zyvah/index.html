@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zyvah - Studio Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #06070d;
+            color: #ffffff;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .subject-tag {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .glow-zyvah { color: #d946ef; text-shadow: 0 0 20px rgba(217, 70, 239, 0.5); }
+        
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: rgba(217, 70, 239, 0.1);
+            border: 1px solid rgba(217, 70, 239, 0.3);
+            box-shadow: 0 0 30px rgba(217, 70, 239, 0.2);
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            margin-right: 16px;
+        }
+
+        svg { width: 24px; height: 24px; fill: currentColor; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-16">
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- HEADER -->
+        <header class="mb-16">
+            <div class="flex items-center gap-6 mb-8">
+                <div class="avatar">🌟</div>
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold glow-zyvah tracking-tighter">ZYVAH</h1>
+                    <p class="text-slate-500 font-bold text-sm uppercase tracking-widest">Studio Dashboard • Music & Art Universe</p>
+                </div>
+            </div>
+            <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                <div id="global-bar" class="bg-gradient-to-r from-purple-500 to-cyan-500 h-full w-0 transition-all duration-1000"></div>
+            </div>
+            <p class="text-slate-400 mt-4 text-lg">Prête pour tes sessions du jour ? Le studio est à toi.</p>
+        </header>
+
+        <div class="grid gap-6">
+            <!-- MATHS -->
+            <a href="./Maths/Mois_1/Semaine_1.html" class="glass-card p-8 rounded-[2.5rem] flex items-center group">
+                <div class="icon-box text-purple-400 group-hover:bg-purple-500/20 transition-all">
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6V12L16,14.5L16.8,13.2L13.5,11.2V6H12Z"/></svg>
+                </div>
+                <div class="flex-grow">
+                    <span class="subject-tag bg-purple-500/10 text-purple-400">🎹 Studio Maths</span>
+                    <h3 class="text-2xl font-bold">Mois 1 - Semaine 1</h3>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div class="flex-grow bg-white/5 h-2 rounded-full overflow-hidden max-w-[200px]">
+                            <div id="math-bar" class="bg-purple-500 h-full w-0 transition-all duration-1000"></div>
+                        </div>
+                        <p id="math-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/2 Missions</p>
+                    </div>
+                </div>
+                <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
+                    <svg class="text-purple-400" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                </div>
+            </a>
+
+            <!-- SES -->
+            <a href="./SES/Mois_1/Semaine_1.html" class="glass-card p-8 rounded-[2.5rem] flex items-center group">
+                <div class="icon-box text-cyan-400 group-hover:bg-cyan-500/20 transition-all">
+                    <svg viewBox="0 0 24 24"><path d="M16 11V3H8V11H2V21H22V11H16M10 5H14V11H10V5M4 19V13H8V19H4M14 19H10V13H14V19M20 19H16V13H20V19Z"/></svg>
+                </div>
+                <div class="flex-grow">
+                    <span class="subject-tag bg-cyan-500/10 text-cyan-400">📈 Private Manager</span>
+                    <h3 class="text-2xl font-bold">Mois 1 - Semaine 1</h3>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div class="flex-grow bg-white/5 h-2 rounded-full overflow-hidden max-w-[200px]">
+                            <div id="ses-bar" class="bg-cyan-500 h-full w-0 transition-all duration-1000"></div>
+                        </div>
+                        <p id="ses-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/2 Missions</p>
+                    </div>
+                </div>
+                <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
+                    <svg class="text-cyan-400" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                </div>
+            </a>
+        </div>
+
+        <!-- RECAP BUTTON -->
+        <button onclick="sendReport()" class="mt-12 w-full py-4 glass-card rounded-2xl text-purple-400 font-bold uppercase tracking-widest hover:bg-purple-500/10 transition-all">
+            Partager mon avancement
+        </button>
+
+    </div>
+
+    <script>
+        function updateProgress() {
+            // Lecture des données
+            const mathData = JSON.parse(localStorage.getItem('zyvah_maths_w1_v2') || '[]');
+            const sesData = JSON.parse(localStorage.getItem('zyvah_ses_w1_v2') || '[]');
+            
+            // Calcul Maths
+            const mathTotal = 2;
+            const mathPercent = (mathData.length / mathTotal) * 100;
+            document.getElementById('math-bar').style.width = mathPercent + '%';
+            document.getElementById('math-count').innerText = `${mathData.length}/${mathTotal} Missions`;
+
+            // Calcul SES
+            const sesTotal = 2;
+            const sesPercent = (sesData.length / sesTotal) * 100;
+            document.getElementById('ses-bar').style.width = sesPercent + '%';
+            document.getElementById('ses-count').innerText = `${sesData.length}/${sesTotal} Missions`;
+
+            // Barre Globale
+            const globalPercent = (mathPercent + sesPercent) / 2;
+            document.getElementById('global-bar').style.width = globalPercent + '%';
+        }
+
+        function sendReport() {
+            const mathData = JSON.parse(localStorage.getItem('zyvah_maths_w1_v2') || '[]');
+            const sesData = JSON.parse(localStorage.getItem('zyvah_ses_w1_v2') || '[]');
+            const body = `Salut !%0D%0A%0D%0AVoilà ma progression Zyvah :%0D%0A- Maths : ${mathData.length}/2 missions.%0D%0A- SES : ${sesData.length}/2 missions.`;
+            window.location.href = `mailto:?subject=Progression Zyvah&body=${body}`;
+        }
+
+        updateProgress();
+    </script>
+</body>
+</html>
