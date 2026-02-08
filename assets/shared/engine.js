@@ -151,7 +151,7 @@ function renderStep() {
         
         if (step.hint) {
             const hb = document.createElement('button');
-            hb.className = "hint-btn"; hb.innerText = "��� INDICE";
+            hb.className = "hint-btn"; hb.innerText = "� INDICE";
             const hbx = document.createElement('div');
             hbx.className = "hint-box hidden"; hbx.innerHTML = step.hint;
             hb.onclick = () => hbx.classList.toggle('hidden');
