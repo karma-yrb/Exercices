@@ -75,12 +75,54 @@ body::before {
     padding: 25px 20px; 
     flex: 1;
     overflow-y: auto;
-    animation: slideIn 0.4s ease-out; 
+    animation: slideIn 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); 
 }
-.view.active { display: flex; flex-direction: column; }
 
-/* LOBBY / COMMAND CENTER */
-.lobby-title { 
+/* Animations Spécifiques */
+@keyframes successPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Styles Boss de Fin */
+.boss-mode {
+    background: linear-gradient(135deg, rgba(0, 252, 244, 0.1) 0%, rgba(20, 23, 36, 0) 100%);
+    border: 2px solid var(--accent) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.boss-mode::after {
+    content: "WARNING: BOSS BATTLE";
+    position: absolute;
+    top: 5px; right: 10px;
+    font-size: 0.6rem; font-weight: 800; color: var(--accent);
+    letter-spacing: 2px; opacity: 0.6;
+}
+
+.boss-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+    animation: float 3s ease-in-out infinite;
+}
+
+.success-badge {
+    animation: successPop 0.5s ease-out;
+    background: rgba(0, 255, 135, 0.1);
+    border: 1px solid var(--success);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+}
     font-size: 2rem; font-weight: 900; margin-bottom: 8px; 
     text-transform: uppercase; letter-spacing: -1px;
     color: var(--text);

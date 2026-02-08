@@ -126,13 +126,19 @@ function renderStep() {
     const day = appData.find(d => d.id === state.currentDay);
     if (!day) return;
     const step = day.steps[state.currentStep];
+    const isBoss = (state.currentStep === day.steps.length - 1);
     
-    if (el.content) el.content.scrollTop = 0;
+    if (el.content) {
+        el.content.scrollTop = 0;
+        el.content.classList.toggle('boss-mode', isBoss);
+    }
+    
     if (el.stepTitle) el.stepTitle.innerText = step.title;
     
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
-        el.btnNext.innerText = (state.currentStep === day.steps.length - 1) ? "VALIDER LA MISSION" : "ÉTAPE SUIVANTE";
+        el.btnNext.innerText = isBoss ? "VALIDER LA MISSION" : "ÉTAPE SUIVANTE";
+        el.btnNext.classList.toggle('boss-btn', isBoss);
     }
 
     const body = step.body || step.content || "";
@@ -147,6 +153,8 @@ function renderStep() {
         el.stepBody.innerHTML = body;
     } else if (step.type === 'write' || step.type === 'challenge') {
         let hintHtml = "";
+        let bossIcon = isBoss ? '<span class="boss-icon">👾</span>' : '';
+        
         if (step.hint) {
             hintHtml = `
                 <button class="hint-btn" onclick="this.nextElementSibling.classList.toggle('hidden')">💡 INDICE</button>
@@ -154,6 +162,7 @@ function renderStep() {
             `;
         }
         el.stepBody.innerHTML = `
+            ${bossIcon}
             <p class="content-chunk">${q}</p>
             <div style="margin-top:20px; display: flex; flex-direction: column; gap: 15px;">
                 ${hintHtml}
@@ -183,7 +192,11 @@ function renderStep() {
                     if (result.ok) {
                         input.disabled = true;
                         check.classList.add('hidden');
-                        feedArea.innerHTML = `<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ${feed}</p>`;
+                        feedArea.innerHTML = `
+                            <div class="success-badge">
+                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> ${feed}</p>
+                            </div>
+                        `;
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
                         check.disabled = false;
