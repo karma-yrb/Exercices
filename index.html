@@ -265,7 +265,13 @@
                     const data = localStorage.getItem(m.key);
                     if (data) {
                         const state = JSON.parse(data);
-                        done += state.length || 0; // engine.js sauvegarde direct l'array
+                        // engine.js v2 sauve un objet avec completedDays
+                        if (state.completedDays) {
+                            done += state.completedDays.length;
+                        } else if (Array.isArray(state)) {
+                            // Rétro-compatibilité engine v1
+                            done += state.length;
+                        }
                     }
                     total += m.total;
                 });

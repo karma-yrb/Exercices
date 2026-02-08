@@ -201,20 +201,27 @@
     <script>
         function updateProgress() {
             // Lecture des données
-            const mathData = JSON.parse(localStorage.getItem('zyvah_maths_w1_v2') || '[]');
-            const sesData = JSON.parse(localStorage.getItem('zyvah_ses_w1_v2') || '[]');
+            const getDone = (key) => {
+                const raw = localStorage.getItem(key);
+                if (!raw) return 0;
+                const state = JSON.parse(raw);
+                return (state.completedDays || []).length;
+            };
+
+            const mathDone = getDone('zyvah_maths_w1_v2');
+            const sesDone = getDone('zyvah_ses_w1_v2');
             
             // Calcul Maths
             const mathTotal = 2;
-            const mathPercent = (mathData.length / mathTotal) * 100;
+            const mathPercent = (mathDone / mathTotal) * 100;
             document.getElementById('math-bar').style.width = mathPercent + '%';
-            document.getElementById('math-count').innerText = `${mathData.length}/${mathTotal} Missions`;
+            document.getElementById('math-count').innerText = `${mathDone}/${mathTotal} Missions`;
 
             // Calcul SES
             const sesTotal = 2;
-            const sesPercent = (sesData.length / sesTotal) * 100;
+            const sesPercent = (sesDone / sesTotal) * 100;
             document.getElementById('ses-bar').style.width = sesPercent + '%';
-            document.getElementById('ses-count').innerText = `${sesData.length}/${sesTotal} Missions`;
+            document.getElementById('ses-count').innerText = `${sesDone}/${sesTotal} Missions`;
 
             // Barre Globale
             const globalPercent = (mathPercent + sesPercent) / 2;
@@ -222,9 +229,16 @@
         }
 
         function sendReport() {
-            const mathData = JSON.parse(localStorage.getItem('zyvah_maths_w1_v2') || '[]');
-            const sesData = JSON.parse(localStorage.getItem('zyvah_ses_w1_v2') || '[]');
-            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathData.length}/2 missions.\n- SES : ${sesData.length}/2 missions.`;
+            const getDone = (key) => {
+                const raw = localStorage.getItem(key);
+                if (!raw) return 0;
+                const state = JSON.parse(raw);
+                return (state.completedDays || []).length;
+            };
+
+            const mathDone = getDone('zyvah_maths_w1_v2');
+            const sesDone = getDone('zyvah_ses_w1_v2');
+            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathDone}/2 missions.\n- SES : ${sesDone}/2 missions.`;
             const bodyEncoded = encodeURIComponent(reportText);
 
             // Ouverture du mail

@@ -404,6 +404,133 @@
                     feedback: "Mission accomplie. Le flux est fluide."
                 }
             ]
+        },
+        {
+            id: 4,
+            title: "Filtres de Précision",
+            intro: "Éliminer les parasites (a/à, est/et) pour une transmission sans bug.",
+            steps: [
+                {
+                    type: "lesson",
+                    title: "Le Scan A vs À",
+                    content: `
+                              <div class="visual-anchor">
+                                <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                                  <circle cx="30" cy="30" r="10" />
+                                  <text x="25" y="35" style="fill:var(--accent); font-weight:bold;">a</text>
+                                  <line x1="50" y1="20" x2="50" y2="40" stroke-width="1" opacity="0.3" />
+                                  <circle cx="70" cy="30" r="10" />
+                                  <text x="65" y="35" style="fill:var(--accent); font-weight:bold;">à</text>
+                                </svg>
+                              </div>
+                              <p>C'est l'erreur la plus fréquente sur le chat. Pour ne plus te tromper :</p>
+                              <div class="box-concept">
+                                Si tu peux dire <b>AVAIT</b>, c'est le verbe : <b>a</b>.<br>
+                                Sinon, c'est la destination : <b>à</b>.
+                              </div>`
+                },
+                {
+                    type: "interactive",
+                    title: "Test de Signal 1",
+                    question: "Choisis le bon code : <br><br><i>'Lovyc ____ gagné son match.'</i>",
+                    options: ["a (avait)", "à"],
+                    answer: 0,
+                    feedback: "Bravo. On peut dire 'Lovyc avait gagné'."
+                },
+                {
+                    type: "write",
+                    title: "Saisie de Destination",
+                    question: "Complète la phrase : <br><br><i>'Je vais ____ la salle de sport.'</i>",
+                    answer: "à",
+                    feedback: "Correct. On ne peut pas dire 'avait la salle'."
+                },
+                {
+                    type: "lesson",
+                    title: "Le Scan EST vs ET",
+                    content: `
+                              <div class="box-concept">
+                                <b>Est</b> = Verbe Être (On peut dire <b>ÉTAIT</b>).<br>
+                                <b>Et</b> = Addition (On peut dire <b>ET PUIS</b>).
+                              </div>`
+                },
+                {
+                    type: "interactive",
+                    title: "Test de Signal 2",
+                    question: "Choisis le bon lien : <br><br><i>'Le serveur ____ en maintenance.'</i>",
+                    options: ["est", "et"],
+                    answer: 0,
+                    feedback: "Exact. Le serveur 'était' en maintenance."
+                },
+                {
+                    type: "write",
+                    title: "Combo Tactique",
+                    question: "Complète : <br><br><i>'Le pro-gamer ____ rapide ____ précis.'</i>",
+                    answer: "est et",
+                    feedback: "Parfait ! Il 'était' rapide 'et puis' précis."
+                },
+                {
+                    type: "challenge",
+                    title: "Boss de Fin - Jour 4",
+                    question: "Corrige cette phrase pleine de parasites : <br><br><i>'Il a une raquette et il va a la salle.'</i>",
+                    requirements: {
+                        keywords: ["a", "et", "à"]
+                    },
+                    hint: "Utilise les tests : avait, et puis, avait.",
+                    feedback: "Filtres activés. Ton message est cristallin."
+                }
+            ]
+        },
+        {
+            id: 5,
+            title: "L'Ultime Déploiement",
+            intro: "Validation finale de ton grade d'Agent Tactique.",
+            steps: [
+                {
+                    type: "msg",
+                    title: "Examen de Grade",
+                    body: "<p>Agent Lovyc, c'est l'heure du test final. Pour valider ta Semaine 1, tu dois prouver que tu maîtrises tout l'équipement.</p>"
+                },
+                {
+                    type: "interactive",
+                    title: "Module 1 : Structure S+V+C",
+                    question: "Réorganise mentalement : <i>'la cible - l'agent - verrouille'</i>. Quel est le bon ordre ?",
+                    options: ["La cible verrouille l'agent.", "L'agent verrouille la cible.", "Verrouille l'agent la cible."],
+                    answer: 1,
+                    feedback: "Structure verrouillée."
+                },
+                {
+                    type: "write",
+                    title: "Module 2 : Accord Squad",
+                    question: "Accorde le verbe : <br><br><i>'Tes amis (attendre) ____ ton signal.'</i>",
+                    answer: "attendent",
+                    feedback: "Liaison squad établie (-ent)."
+                },
+                {
+                    type: "interactive",
+                    title: "Module 3 : Ponctuation",
+                    question: "Quel message est le plus efficace pour tes alliés ?",
+                    options: ["vite on y va aidez moi", "Vite ! On y va. Aidez-moi !", "Vite on y va, aidez moi"],
+                    answer: 1,
+                    feedback: "Rythme de combat validé."
+                },
+                {
+                    type: "write",
+                    title: "Module 4 : Correction",
+                    question: "Saisis la phrase sans erreur : <br><br><i>'Il est a l'heure.'</i>",
+                    answer: "Il est à l'heure",
+                    feedback: "Scan de précision 100%."
+                },
+                {
+                    type: "challenge",
+                    title: "ULtime Boss - Semaine 1",
+                    question: "Rédige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au pluriel, et le mot 'TACTIQUE'.",
+                    requirements: {
+                        keywords: ["réussissent", "tactique", ","]
+                    },
+                    hint: "Exemple : Tes missions réussissent, c'est une victoire tactique.",
+                    feedback: "CODE ROUGE TERMINÉ. Félicitations Agent Lovyc, tu passes au grade supérieur !"
+                }
+            ]
         }
     ];
 

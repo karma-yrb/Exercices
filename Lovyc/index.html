@@ -141,7 +141,7 @@
             <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
                 <div id="global-bar" class="bg-blue-500 h-full w-0 transition-all duration-1000"></div>
             </div>
-            <p class="text-slate-400 mt-4 text-lg">Prêt pour tes prochaines missions ? Tout est prêt pour toi.</p>
+            <p class="text-slate-400 mt-4 text-lg">Prêt pour le déploiement ? Tes objectifs sont à jour et ton équipement est configuré.</p>
         </header>
 
         <div class="grid gap-8">
@@ -157,7 +157,7 @@
                         <div class="flex-grow bg-white/5 h-2 rounded-full overflow-hidden max-w-[200px]">
                             <div id="fr-bar" class="bg-blue-500 h-full w-0 transition-all duration-1000"></div>
                         </div>
-                        <p id="fr-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/3 Missions</p>
+                        <p id="fr-count" class="text-slate-500 text-xs font-bold uppercase tracking-widest">0/5 Missions</p>
                     </div>
                 </div>
                 <div class="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0">
@@ -176,11 +176,12 @@
     <script>
         function updateProgress() {
             // Lecture des données (Clés synchronisées avec engine.js)
-            const frData = JSON.parse(localStorage.getItem('lovyc_fr_w1_v2') || '[]');
+            const rawData = localStorage.getItem('lovyc_fr_w1_v2');
+            const frState = rawData ? JSON.parse(rawData) : {};
+            const frDone = (frState.completedDays || []).length;
             
-            // Calcul Français (Basé sur 3 missions prévues en Semaine 1)
-            const frTotal = 3;
-            const frDone = frData.length;
+            // Calcul Français (Basé sur 5 missions prévues en Semaine 1)
+            const frTotal = 5;
             const frPercent = (frDone / frTotal) * 100;
             
             document.getElementById('fr-bar').style.width = frPercent + '%';
@@ -191,8 +192,10 @@
         }
 
         function sendReport() {
-            const frData = JSON.parse(localStorage.getItem('lovyc_fr_w1_v2') || '[]');
-            const reportText = `Salut !\n\nVoilà ma progression Lovyc :\n- Français : ${frData.length}/3 missions terminées.`;
+            const rawData = localStorage.getItem('lovyc_fr_w1_v2');
+            const frState = rawData ? JSON.parse(rawData) : {};
+            const frDone = (frState.completedDays || []).length;
+            const reportText = `Salut !\n\nVoilà ma progression Lovyc :\n- Français : ${frDone}/5 missions terminées.`;
             const bodyEncoded = encodeURIComponent(reportText);
             
             // Ouverture du mail
