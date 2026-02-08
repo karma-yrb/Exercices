@@ -3,7 +3,7 @@
 :root {
     --bg: #06070d;
     --card: #0f111a;
-    --accent: #00fcf4; /* Tactical Cyan */
+    --accent: #00fcf4;
     --accent-glow: rgba(0, 252, 244, 0.3);
     --danger: #ff3e3e;
     --success: #00ff88;
@@ -24,9 +24,8 @@ body {
     height: 100dvh;
 }
 
-/* TACTICAL OVERLAY */
 body::before {
-    content: "";
+    content: '';
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
                 linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
@@ -77,53 +76,8 @@ body::before {
     overflow-y: auto;
     animation: slideIn 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); 
 }
-.view.active { display: flex; flex-direction: column; }
+.view.active { display: flex !important; flex-direction: column; }
 
-/* Animations Spécifiques */
-@keyframes successPop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-/* Styles Boss de Fin */
-.boss-mode {
-    background: linear-gradient(135deg, rgba(0, 252, 244, 0.1) 0%, rgba(20, 23, 36, 0) 100%);
-    border: 2px solid var(--accent) !important;
-    position: relative;
-    overflow: hidden;
-}
-
-.boss-mode::after {
-    content: "WARNING: BOSS BATTLE";
-    position: absolute;
-    top: 5px; right: 10px;
-    font-size: 0.6rem; font-weight: 800; color: var(--accent);
-    letter-spacing: 2px; opacity: 0.6;
-}
-
-.boss-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    display: block;
-    text-align: center;
-    animation: float 3s ease-in-out infinite;
-}
-
-.success-badge {
-    animation: successPop 0.5s ease-out;
-    background: rgba(0, 255, 135, 0.1);
-    border: 1px solid var(--success);
-    border-radius: 12px;
-    padding: 15px;
-    margin-top: 15px;
-}
 .lobby-title {
     font-size: 2rem; font-weight: 900; margin-bottom: 8px; 
     text-transform: uppercase; letter-spacing: -1px;
@@ -140,10 +94,6 @@ body::before {
     display: flex; align-items: center; gap: 20px;
     cursor: pointer; transition: all 0.3s;
     position: relative; overflow: hidden;
-}
-.day-card::after {
-    content: "TACTICAL"; position: absolute; right: -10px; bottom: -5px;
-    font-size: 2rem; font-weight: 900; opacity: 0.03; font-style: italic;
 }
 .day-card.locked { opacity: 0.3; filter: grayscale(1); }
 .day-card.completed { border-color: var(--success); background: rgba(0, 255, 136, 0.03); }
@@ -167,7 +117,6 @@ body::before {
 .day-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
 .day-info p { font-size: 0.85rem; color: var(--text-dim); }
 
-/* CONTENT */
 h2#step-title { 
     font-size: 1.5rem; font-weight: 800; color: var(--accent); 
     margin-bottom: 25px; text-transform: uppercase;
@@ -185,27 +134,18 @@ h2#step-title {
     font-size: 0.9rem;
 }
 
-/* VISUAL ANCHOR */
 .visual-anchor {
     display: flex; justify-content: center; margin-bottom: 30px;
-    animation: pulse 4s infinite ease-in-out;
-}
-@keyframes pulse {
-    0%, 100% { opacity: 0.8; transform: scale(1); filter: drop-shadow(0 0 10px var(--accent-glow)); }
-    50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 25px var(--accent-glow)); }
 }
 
 .hint-btn {
     background: none; border: 1px dashed var(--accent); color: var(--accent);
     padding: 8px 16px; border-radius: 8px; font-size: 0.75rem; cursor: pointer;
     margin: 10px 0; display: inline-block; opacity: 0.6; transition: 0.2s;
-    text-transform: uppercase; font-weight: 700;
 }
-.hint-btn:hover { opacity: 1; background: rgba(0, 252, 244, 0.1); }
 .hint-box {
     background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 15px;
     margin-bottom: 20px; font-size: 0.9rem; color: var(--text-dim); border: 1px solid var(--border);
-    animation: fadeIn 0.3s ease-out; font-style: italic;
 }
 
 .btn-opt { 
@@ -217,22 +157,15 @@ h2#step-title {
     cursor: pointer; transition: 0.2s;
     font-size: 1rem; font-weight: 600;
 }
-.btn-opt:focus {
-    outline: none;
-    background: rgba(255,255,255,0.12);
-    border-color: var(--accent);
-    box-shadow: 0 0 15px var(--accent-glow);
-}padding: 20px; 
+.btn-opt:focus { border-color: var(--accent); background: rgba(255,255,255,0.12); }
+.btn-opt.correct { background: var(--success) !important; color: #000; border-color: var(--success); }
+.btn-opt.wrong { background: var(--danger) !important; color: #fff; border-color: var(--danger); }
+
+.footer { 
+    padding: 20px; 
     padding-bottom: calc(20px + env(safe-area-inset-bottom, 25px));
     background: #0f111a;
     border-top: 2px solid var(--border);
-    flex-shrink: 0;
-    z-index: 1background: var(--danger) !important; color: #fff; border-color: var(--danger); }
-
-.footer-nav { 
-    margin-top: auto; padding: 25px 20px 45px 20px; 
-    background: #0f111a;
-    border-top: 1px solid var(--border);
     flex-shrink: 0;
 }
 .btn-main { 
@@ -242,23 +175,20 @@ h2#step-title {
     color: #000; font-weight: 900; 
     font-size: 1rem; text-transform: uppercase; 
     letter-spacing: 2px; cursor: pointer;
-    box-shadow: 0 0 25px var(--accent-glow);
-    transition: 0.3s;
 }
 .btn-main:disabled { background: #232735; color: #4b526d; box-shadow: none; }
+
+.hidden { display: none !important; }
+b { color: var(--accent); font-weight: 800; }
+i { color: var(--text-dim); }
 
 @keyframes slideIn { 
     from { opacity: 0; transform: translateX(20px); } 
     to { opacity: 1; transform: translateX(0); } 
 }
-
+.shake { animation: shake 0.2s ease-in-out 0s 2; }
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
     75% { transform: translateX(5px); }
 }
-.shake { animation: shake 0.2s ease-in-out 0s 2; }
-
-.hidden { display: none !important; }
-b { color: var(--accent); font-weight: 800; }
-i { color: var(--text-dim); }

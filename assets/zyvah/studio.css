@@ -39,7 +39,7 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     overflow-y: auto;
     animation: slideUp 0.4s ease; 
 }
-.view.active { display: flex; flex-direction: column; }
+.view.active { display: flex !important; flex-direction: column; }
 
 .lobby-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: var(--accent); }
 .lobby-intro { color: var(--text-dim); margin-bottom: 45px; line-height: 1.5; font-size: 1rem; }
@@ -49,13 +49,11 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     border-radius: 20px; display: flex; align-items: center; gap: 15px;
     cursor: pointer; transition: 0.3s;
 }
-.day-card:hover { transform: scale(1.02); border-color: var(--accent); }
 .day-card.locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(0.8); }
 .day-card.completed { border-color: var(--success); background: rgba(0, 255, 204, 0.05); }
-.day-card .icon { width: 45px; height: 45px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+.day-card .icon { width: 45px; height: 45px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; }
 .day-card.completed .icon { background: var(--success); color: #000; }
-.day-info h3 { font-size: 1.1rem; margin-bottom: 4px; }
-.day-info p { font-size: 0.85rem; color: var(--text-dim); }
 
 .step-header { margin-bottom: 25px; }
 .step-header h2 { font-size: 1.4rem; color: var(--accent); }
@@ -69,12 +67,9 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     padding: 18px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); border-radius: 16px; 
     color: #fff; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s;
 }
-.btn-opt:focus {
-    outline: none;
-    background: rgba(255,255,255,0.12);
-    border-color: var(--accent);
-    box-shadow: 0 0 15px var(--accent-glow);
-}
+.btn-opt:focus { border-color: var(--accent); background: rgba(255,255,255,0.12); }
+.btn-opt.correct { background: var(--success) !important; color: #000; border-color: var(--success); }
+.btn-opt.wrong { background: #ff4757 !important; color: #fff; border-color: #ff4757; }
 
 .footer { 
     padding: 20px; 
@@ -87,11 +82,10 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 .btn-main { 
     width: 100%; padding: 20px; background: var(--accent); border: none; border-radius: 18px;
     color: white; font-weight: 800; font-size: 1.1rem; cursor: pointer;
-    box-shadow: 0 4px 20px var(--accent-glow);
 }
 .btn-main:disabled { opacity: 0.2; transform: scale(0.98); }
 
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hidden { display: none !important; }
 b { color: var(--accent); }
 
 .hint-btn {
@@ -99,16 +93,15 @@ b { color: var(--accent); }
     padding: 8px 12px; border-radius: 10px; font-size: 0.8rem; cursor: pointer;
     margin-top: 10px; opacity: 0.7; transition: 0.3s;
 }
-.hint-btn:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
 .hint-box {
     background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px;
     margin-top: 10px; font-size: 0.9rem; border-left: 3px solid var(--accent);
-    font-style: italic; animation: fadeIn 0.3s ease;
+    font-style: italic;
 }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .shake { animation: shake 0.4s ease; }
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
     75% { transform: translateX(5px); }
 }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
