@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Squad Training : La Phrase</title>
+    <style>
+        /* DESIGN SYSTEM - UNIVERS GAMING/SPORT (LOVYC) */
+        :root {
+            --bg: #06050a;
+            --card: #15141b;
+            --accent: #ff4757;      /* Rouge Sport/Vibrant */
+            --accent-glow: rgba(255, 71, 87, 0.3);
+            --success: #2ed573;
+            --error: #ff4757;
+            --text-main: #ffffff;
+            --text-dim: #a4b0be;
+            --border: #2f3542;
+            --font: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 12px;
+            overflow: hidden; 
+        }
+
+        /* APP CONTAINER - UX MOBILE FIRST */
+        #app {
+            width: 100%;
+            max-width: 480px;
+            height: calc(100vh - 24px);
+            background: var(--card);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* PROGRESS BAR */
+        .progress-header {
+            padding: 16px 20px 8px;
+        }
+
+        .progress-container {
+            height: 6px;
+            background: var(--border);
+            border-radius: 10px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* CONTENT SCROLLABLE AREA */
+        .viewport {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+            padding-bottom: 100px; 
+        }
+
+        .header-meta {
+            margin-bottom: 24px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        /* LESSON CARDS */
+        .content-card {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .content-card strong {
+            color: var(--text-main);
+        }
+
+        .box-warning {
+            background: rgba(255, 71, 87, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            border-radius: 12px;
+            margin: 20px 0;
+            color: var(--text-main);
+            font-style: italic;
+        }
+
+        /* QUIZ SYSTEM */
+        .quiz-view {
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 18px;
+            border-radius: 16px;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:active {
+            transform: scale(0.96);
+        }
+
+        .option-btn.correct {
+            background: var(--success);
+            border-color: var(--success);
+            color: #000;
+            font-weight: 700;
+        }
+
+        .option-btn.wrong {
+            background: var(--error);
+            border-color: var(--error);
+            animation: shake 0.4s;
+        }
+
+        /* FEEDBACK AREA */
+        #feedback {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 12px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        /* FIXED NAVIGATION FOOTER */
+        .nav-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(0deg, var(--card) 60%, transparent);
+        }
+
+        .btn-action {
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transition: 0.2s;
+        }
+
+        .btn-action:disabled {
+            opacity: 0.3;
+            filter: grayscale(1);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="progress-header">
+        <div class="progress-container"><div id="progress-bar"></div></div>
+    </div>
+
+    <div class="viewport">
+        <div class="header-meta">
+            <span class="tag" id="day-tag">Jour 1</span>
+            <h1 id="screen-title">Chargement...</h1>
+        </div>
+
+        <div id="lesson-screen" class="content-card"></div>
+
+        <div id="quiz-screen" class="quiz-view">
+            <p class="question-text" id="q-text"></p>
+            <div class="options-grid" id="options-box"></div>
+            <div id="feedback"></div>
+        </div>
+    </div>
+
+    <div class="nav-footer">
+        <button id="main-btn" class="btn-action">C'est parti !</button>
+    </div>
+</div>
+
+<script>
+    const courseData = {
+        theme: "Squad Communication",
+        semaine: [
+            {
+                jour: 1,
+                titre: "Le Starter Pack de la Phrase",
+                cours: `<p>Dans une équipe de <strong>Basket</strong>, si personne ne tire, il n'y a pas de point. En français, c'est pareil.</p>
+                        <p>Une phrase a besoin de deux joueurs clés : le <strong>Sujet</strong> (qui ?) et le <strong>Verbe</strong> (fait quoi ?).</p>
+                        <div class="box-warning">
+                            ❌ "Le pro gamer sur le chat." (Pas de verbe, on s'ennuie !)<br>
+                            ✅ "Le pro gamer <strong>écrit</strong> sur le chat."
+                        </div>
+                        <p>Sans verbe, ton message "lag" et personne ne comprend l'action.</p>`,
+                quiz: [
+                    {
+                        q: "Lequel de ces messages va faire 'crash' la compréhension de ton équipe ?",
+                        o: ["Je vais chercher Axel.", "Le ballon sort du terrain.", "Moi avec mes potes hier."],
+                        a: 2,
+                        e: "Exact ! 'Moi avec mes potes hier' n'a pas de verbe. On ne sait pas ce que tu as fait !"
+                    }
+                ]
+            },
+            {
+                jour: 2,
+                titre: "Anti-Lag : Le Point",
+                cours: `<p>Écrire sans point, c'est comme jouer avec un <strong>Ping de 999</strong> : tout s'emmêle.</p>
+                        <p>Le point (.) sert de serveur : il valide une idée avant de passer à la suivante.</p>
+                        <div class="box-warning">
+                            ❌ "Le gardien saute le ballon rentre." (Incompréhensible)<br>
+                            ✅ "Le gardien saute. Le ballon rentre."
+                        </div>`,
+                quiz: [
+                    {
+                        q: "Où faut-il placer le point ici : 'Mon perso avance je tire' ?",
+                        o: ["Mon perso avance je. Tire", "Mon perso avance. Je tire", "Mon perso. Avance je tire"],
+                        a: 1,
+                        e: "Bien joué ! Deux idées = Deux phrases."
+                    }
+                ]
+            },
+            {
+                jour: 3,
+                titre: "Le 'S' du Multiplayer",
+                cours: `<p>Quand tu joues en <strong>Squad</strong>, le verbe change de forme. C'est l'accord.</p>
+                        <p>Si ton sujet est au pluriel (les joueurs, mes amis), le verbe prend souvent <strong>-ent</strong> à la fin.</p>
+                        <div class="box-warning">
+                            Solo : Le joueur <strong>tire</strong>.<br>
+                            Squad : Les joueurs <strong>tirent</strong>.
+                        </div>`,
+                quiz: [
+                    {
+                        q: "Choisis la phrase qui respecte le règlement du serveur :",
+                        o: ["Mes amis parlent sur Snap.", "Mes amis parle sur Snap.", "Mes amis parlent sur snap"],
+                        a: 0,
+                        e: "MVP ! 'Mes amis' sont plusieurs, donc 'parlent' prend -ent."
+                    }
+                ]
+            },
+            {
+                jour: 4,
+                titre: "Nettoyer le Chat vocal",
+                cours: `<p>À l'oral, on dit <strong>'J'ai été'</strong> au foot. Mais le français écrit est plus précis.</p>
+                        <p>Remplace les tics de langage par des verbes d'action. Ça montre que c'est toi le capitaine.</p>
+                        <div class="box-warning">
+                            Oral : "J'ai été sur Valorant."<br>
+                            Écrit : "Je <strong>joue</strong> à Valorant."
+                        </div>`,
+                quiz: [
+                    {
+                        q: "Comment corriger : 'Lui je veut acheter' ?",
+                        o: ["Je veux acheter ce skin.", "C'est à lui que je veux acheter.", "Je veux l'acheter."],
+                        a: 0,
+                        e: "Parfait. 'Je veux acheter ce skin' est beaucoup plus clair."
+                    }
+                ]
+            },
+            {
+                jour: 5,
+                titre: "Le Signal de Départ",
+                cours: `<p>La <strong>Majuscule</strong> en début de phrase, c'est le voyant 'ON' de ta manette.</p>
+                        <p>Elle indique que l'action commence. Sans elle, on est perdu au milieu du texte.</p>`,
+                quiz: [
+                    {
+                        q: "Quelle ligne est parfaitement configurée ?",
+                        o: ["le match commence.", "Le match commence", "Le match commence."],
+                        a: 2,
+                        e: "Nickel ! Majuscule au début, Point à la fin. Le combo gagnant."
+                    }
+                ]
+            }
+        ]
+    };
+
+    let currentDay = 0;
+    let isLessonMode = true;
+    let currentQuizIdx = 0;
+    let canProceed = false;
+
+    const el = {
+        bar: document.getElementById('progress-bar'),
+        tag: document.getElementById('day-tag'),
+        title: document.getElementById('screen-title'),
+        lesson: document.getElementById('lesson-screen'),
+        quiz: document.getElementById('quiz-screen'),
+        qText: document.getElementById('q-text'),
+        options: document.getElementById('options-box'),
+        feedback: document.getElementById('feedback'),
+        mainBtn: document.getElementById('main-btn')
+    };
+
+    function init() {
+        render();
+        el.mainBtn.addEventListener('click', handleMainAction);
+    }
+
+    function render() {
+        const data = courseData.semaine[currentDay];
+        el.tag.innerText = `Jour ${data.jour}`;
+        el.title.innerText = data.titre;
+        
+        if (isLessonMode) {
+            el.lesson.innerHTML = data.cours;
+            el.lesson.style.display = 'block';
+            el.quiz.style.display = 'none';
+            el.mainBtn.innerText = "Prêt pour le test";
+            el.mainBtn.disabled = false;
+        } else {
+            el.lesson.style.display = 'none';
+            el.quiz.style.display = 'block';
+            showQuestion();
+        }
+        updateProgress();
+    }
+
+    function showQuestion() {
+        const q = courseData.semaine[currentDay].quiz[currentQuizIdx];
+        el.qText.innerText = q.q;
+        el.options.innerHTML = '';
+        el.feedback.style.display = 'none';
+        el.mainBtn.disabled = true;
+        canProceed = false;
+
+        q.o.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(idx, q.a, q.e);
+            el.options.appendChild(btn);
+        });
+        el.mainBtn.innerText = "Question Suivante";
+    }
+
+    function checkAnswer(selected, correct, exp) {
+        if (canProceed) return;
+        const btns = el.options.querySelectorAll('.option-btn');
+        
+        if (selected === correct) {
+            btns[selected].classList.add('correct');
+            el.feedback.innerHTML = `<strong>MVP !</strong> ${exp}`;
+            el.feedback.style.color = 'var(--success)';
+            el.feedback.style.display = 'block';
+            canProceed = true;
+            el.mainBtn.disabled = false;
+        } else {
+            btns[selected].classList.add('wrong');
+            setTimeout(() => btns[selected].classList.remove('wrong'), 400);
+        }
+    }
+
+    function handleMainAction() {
+        if (isLessonMode) {
+            isLessonMode = false;
+            render();
+        } else {
+            if (currentDay < courseData.semaine.length - 1) {
+                currentDay++;
+                isLessonMode = true;
+                currentQuizIdx = 0;
+                render();
+            } else {
+                finish();
+            }
+        }
+    }
+
+    function updateProgress() {
+        const total = courseData.semaine.length;
+        const current = currentDay + (isLessonMode ? 0 : 1);
+        const percent = (current / total) * 100;
+        el.bar.style.width = `${percent}%`;
+    }
+
+    function finish() {
+        document.getElementById('app').innerHTML = `
+            <div class="viewport" style="text-align:center; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%;">
+                <h1 style="font-size:4rem; margin-bottom:20px;">🏆</h1>
+                <h1 style="color:var(--accent);">LEVEL UP !</h1>
+                <p style="margin:20px 0; color:var(--text-dim);">Ton chat est maintenant 'Pro Level'. Ton équipe te remercie.</p>
+                <button class="btn-action" onclick="location.reload()">Rejouer la semaine</button>
+            </div>
+        `;
+    }
+
+    init();
+</script>
+
+</body>
+</html>
