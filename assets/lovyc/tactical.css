@@ -21,6 +21,7 @@ body {
     font-family: var(--font-main);
     overflow: hidden; 
     height: 100vh;
+    height: 100dvh;
 }
 
 /* TACTICAL OVERLAY */
@@ -34,7 +35,7 @@ body::before {
 }
 
 #app {
-    width: 100%; max-width: 480px; height: 100vh;
+    width: 100%; max-width: 480px; height: 100vh; height: 100dvh;
     margin: auto; background: var(--card); overflow-y: auto;
     position: relative; display: flex; flex-direction: column;
     border-left: 1px solid var(--border);
@@ -168,8 +169,10 @@ h2#step-title {
 .btn-opt.wrong { background: var(--danger) !important; color: #fff; border-color: var(--danger); }
 
 .footer-nav { 
-    margin-top: auto; padding: 25px 20px; 
-    background: linear-gradient(to top, #0f111a, transparent);
+    margin-top: auto; padding: 25px 20px 45px 20px; 
+    background: #0f111a;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
 }
 .btn-main { 
     width: 100%; padding: 22px; 
