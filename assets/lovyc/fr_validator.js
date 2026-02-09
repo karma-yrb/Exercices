@@ -104,20 +104,36 @@
                 }
             }
 
-            let hasAllKeywords = true;
+            let keywordsValidated = false;
             let missingKeywords = [];
             
             if (keywords.length > 0) {
                 const cleanText = normalizeText(trimmed);
-                missingKeywords = keywords.filter(k => !cleanText.includes(normalizeText(k)));
-                hasAllKeywords = missingKeywords.length === 0;
+                const normKeywords = keywords.map(k => normalizeText(k));
+                
+                // Fonction pour vérifier la présence d'un mot exact (whole word)
+                // Comme normalizeText peut supprimer des caractères, on utilise une simulation de \b
+                const hasWord = (word) => ` ${cleanText} `.includes(` ${word} `);
 
-                if (reqs.enforceKeywords && !hasAllKeywords) {
-                    return { handled: true, ok: false, msg: 'Objectif non atteint. Il te manque : ' + missingKeywords.join(', ') + '.' };
+                if (reqs.enforceKeywords) {
+                    // Logique AND : Tous les mots requis
+                    missingKeywords = keywords.filter((k, i) => !hasWord(normKeywords[i]));
+                    keywordsValidated = missingKeywords.length === 0;
+
+                    if (!keywordsValidated) {
+                        return { handled: true, ok: false, msg: 'Objectif non atteint. Il te manque : ' + missingKeywords.join(', ') + '.' };
+                    }
+                } else {
+                    // Logique OR : Au moins un mot requis
+                    keywordsValidated = normKeywords.some(hasWord);
+
+                    if (!keywordsValidated) {
+                        return { handled: true, ok: false, msg: 'Objectif non atteint. Tu dois utiliser : ' + keywords.join(' ou ') + '.' };
+                    }
                 }
                 
                 // Si on n'est pas en sentence mode, on valide directement si keywords ok
-                if (hasAllKeywords && mode === 'keywords') {
+                if (keywordsValidated && mode === 'keywords') {
                     const grammar = await checkGrammar(trimmed);
                     if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
                     return { handled: true, ok: true, msg: 'Parfait. Vocabulaire precis.' };
@@ -153,7 +169,7 @@
                 const grammar = await checkGrammar(trimmed);
                 if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
 
-                if (hasAllKeywords) {
+                if (keywordsValidated) {
                     return { handled: true, ok: true, msg: 'Parfait. Vocabulaire precis.' };
                 }
 

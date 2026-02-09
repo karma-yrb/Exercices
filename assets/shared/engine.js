@@ -440,9 +440,26 @@ async function validateTactical(text, reqs) {
 
     if (reqs.keywords) {
         const cleanText = normalizeText(text);
-        const missing = reqs.keywords.filter(k => !cleanText.includes(normalizeText(k)));
-        if (missing.length > 0) {
-            return { ok: false, msg: 'Objectif non atteint. Il te manque : ' + missing.join(', ') + '.' };
+        const normKeywords = reqs.keywords.map(k => normalizeText(k));
+        
+        // Fonction pour vérifier la présence d'un mot exact (\b)
+        const hasWord = (word) => {
+            const regex = new RegExp(`\\b${word}\\b`, 'i');
+            return regex.test(cleanText);
+        };
+
+        if (reqs.enforceKeywords) {
+            // Mode "Strict" : TOUS les mots sont requis
+            const missing = reqs.keywords.filter((k, i) => !hasWord(normKeywords[i]));
+            if (missing.length > 0) {
+                return { ok: false, msg: 'Objectif non atteint. Il te manque : ' + missing.join(', ') + '.' };
+            }
+        } else {
+            // Mode "Souple" : AU MOINS UN des mots est requis (pour les synonymes ou conjugaisons)
+            const found = normKeywords.some(hasWord);
+            if (!found) {
+                return { ok: false, msg: 'Objectif non atteint. Tu dois utiliser le verbe demandé (ex: ' + reqs.keywords[0] + ').' };
+            }
         }
     }
 
