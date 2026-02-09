@@ -113,17 +113,27 @@
                                   <text x="48" y="35" style="fill: var(--accent); font-size: 10px; font-weight: bold; font-family: monospace;">,</text>
                                 </svg>
                               </div>
-                              <p>Comme dans un texte de <b>Gaël Faye</b>, la virgule n'est pas qu'un signe technique, c'est ton <b>souffle</b>.</p>
-                              <p>Elle sert à séparer des éléments dans une liste ou à marquer une courte pause sans couper le signal.</p>
-                              <div class="box-concept">
-                                ✅ J'ai pris mon casque<b>,</b> mes gants et ma souris.
+                              
+                              <div class="content-chunk">
+                                <p>Comme dans un texte de <b>Gaël Faye</b> ou un morceau d'<b>Oxmo Puccino</b>, la virgule n'est pas qu'un signe technique, c'est ton <b>souffle</b>.</p>
+                                
+                                <p>Elle sert à séparer des éléments dans une liste ou à marquer une courte pause sans couper le signal. C'est elle qui donne du "groove" à ta phrase.</p>
                               </div>
-                              <p><b>Alerte Hack :</b> Ne place JAMAIS de virgule entre le Sujet et le Verbe. C'est comme débrancher ta manette en plein move.</p>`
+
+                              <div class="box-concept">
+                                ✅ J'ai pris mon casque<b>,</b> mes gants et ma souris.<br><br>
+                                <b>Exemple de Flaubert :</b><br>
+                                <i>"Elle était pâle, elle marchait vite, elle semblait chercher quelqu'un."</i>
+                              </div>
+
+                              <div class="content-chunk">
+                                <p><b>Alerte Hack :</b> Ne place JAMAIS de virgule entre le Sujet et le Verbe. C'est comme débrancher ta manette en plein move : ça casse l'exécution.</p>
+                              </div>`
                 },
                 {
                     type: "interactive",
                     title: "Détection de Micro-coupure",
-                    question: "Où manque-t-il une virgule pour que la phrase soit fluide ? <br><br><i>'Le capitaine Lovyc analyse la map il déploie ses drones.'</i>",
+                    question: "Où manque-t-il une virgule pour que la phrase soit fluide ? <br><br><i>Le capitaine Lovyc analyse la map il déploie ses drones.</i>",
                     options: ["Après 'Lovyc'", "Après 'map'", "Après 'déploie'"],
                     answer: 1,
                     feedback: "Correct. La pause se fait entre deux actions distinctes."
@@ -131,10 +141,10 @@
                 {
                     type: "write",
                     title: "Saisie Rythmique",
-                    question: "Réécris cette phrase en ajoutant les <b>deux</b> virgules nécessaires : <br><br><i>'Le serveur sature les pings montent et le lag arrive.'</i>",
+                    question: "Réécris cette phrase en ajoutant les <b>deux</b> virgules nécessaires : <br><br><i>lag - sature - ping - le - montent - les - et - arrive - serveur - le</i>",
                     requirements: {
                         mode: "sentence",
-                        keywords: [","]
+                        keywords: [",", "serveur", "ping", "lag"]
                     },
                     hint: "Il y a trois actions. Sépare les deux premières par des virgules.",
                     feedback: "Bravo. Ton flow est désormais ininterrompu."
@@ -176,7 +186,7 @@
                 {
                     type: "interactive",
                     title: "Identification de Source",
-                    question: "Dans cette phrase, quelle partie est l'incise ? <br><br><i>'— Le patch arrive demain, murmura le développeur.'</i>",
+                    question: "Dans cette phrase, quelle partie est l'incise ? <br><br><i>— Le patch arrive demain, murmura le développeur.</i>",
                     options: ["— Le patch arrive demain", "murmura le développeur", "le développeur"],
                     answer: 1,
                     feedback: "Exactement. L'incise donne le ton et l'auteur de la parole."
@@ -184,7 +194,7 @@
                 {
                     type: "write",
                     title: "Codage de Dialogue",
-                    question: "Complète ce dialogue avec une incise de ton choix (ex: s'exclama Zyvah, répondit le chef) : <br><br><i>'— Attention au sniper à gauche, _______.'</i>",
+                    question: "Complète ce dialogue avec une incise de ton choix (ex: s'exclama Zyvah, répondit le chef) : <br><br><i>— Attention au sniper à gauche, _______.</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["Lovyc", "Zyvah", "chef", "agent", "dit", "répondit", "s'exclama", "hurla", "murmura"]
@@ -240,7 +250,7 @@
                 {
                     type: "write",
                     title: "Nuance Tactique",
-                    question: "Transforme cet ordre neutre en une question inquiète : <br><br><i>'Le drone est encore en vol.'</i>",
+                    question: "Transforme cet ordre neutre en une question inquiète : <br><br><i>Le drone est encore en vol.</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["?"]
@@ -296,7 +306,7 @@
                 {
                     type: "write",
                     title: "Saisie de Précision",
-                    question: "Ajoute une précision entre parenthèses sur la map (ex: map de nuit) dans cette phrase : <br><br><i>'Nous arrivons sur la map.'</i>",
+                    question: "Ajoute une précision entre parenthèses sur la map (ex: map de nuit) dans cette phrase : <br><br><i>Nous arrivons sur la map.</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["(", ")"]
@@ -338,7 +348,7 @@
                 {
                     type: "interactive",
                     title: "Revue de Code",
-                    question: "Quelle ponctuation est incorrecte ici : <br><i>'L'agent (Lovyc) déploie : ses deux, drones'</i>",
+                    question: "Quelle ponctuation est incorrecte ici : <br><i>L'agent (Lovyc) déploie : ses deux, drones</i>",
                     options: ["La parenthèse", "Les deux-points", "La virgule entre 'deux' et 'drones'"],
                     answer: 2,
                     feedback: "Correct. On n'isole pas l'adjectif du nom avec une virgule."

@@ -300,7 +300,23 @@ function renderStep() {
         el.stepBody.innerHTML = body;
     } else if (step.type === 'write' || step.type === 'challenge') {
         let hintHtml = '';
-        let bossIcon = isBoss ? '<span class="boss-icon">👾</span>' : '';
+        let bossIcon = isBoss ? `
+            <div class="boss-visual-container">
+                <svg viewBox="0 0 100 100" class="boss-svg" style="color: var(--danger);">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2" opacity="0.3" />
+                    <path d="M25 40 L50 20 L75 40 L75 70 L50 90 L25 70 Z" fill="none" stroke="currentColor" stroke-width="3" />
+                    <rect x="35" y="45" width="10" height="4" fill="currentColor">
+                        <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="55" y="45" width="10" height="4" fill="currentColor">
+                        <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite" />
+                    </rect>
+                    <path d="M40 70 L60 70" fill="none" stroke="currentColor" stroke-width="2" />
+                    <path d="M20 50 L10 50 M90 50 L80 50 M50 10 L50 20 M50 90 L50 80" stroke="currentColor" stroke-width="1" />
+                </svg>
+                <div class="boss-label">MENACE DÉTECTÉE</div>
+            </div>
+        ` : '';
         
         // Dynamic Question Formatting (Extracting text inside <i> and wrapping it)
         let formattedQ = q.replace(/<i>(.*?)<\/i>/g, '<div class="tactical-data">$1</div>');
@@ -424,8 +440,10 @@ async function validateTactical(text, reqs) {
 
     if (reqs.keywords) {
         const cleanText = normalizeText(text);
-        const found = reqs.keywords.some(k => cleanText.includes(normalizeText(k)));
-        if (!found) return { ok: false, msg: 'Objectif non atteint. N\'oublie pas d\'utiliser : ' + reqs.keywords.join(', ') + '.' };
+        const missing = reqs.keywords.filter(k => !cleanText.includes(normalizeText(k)));
+        if (missing.length > 0) {
+            return { ok: false, msg: 'Objectif non atteint. Il te manque : ' + missing.join(', ') + '.' };
+        }
     }
 
     try {

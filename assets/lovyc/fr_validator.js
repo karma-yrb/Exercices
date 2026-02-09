@@ -104,14 +104,20 @@
                 }
             }
 
-            let hasKeyword = false;
+            let hasAllKeywords = true;
+            let missingKeywords = [];
+            
             if (keywords.length > 0) {
                 const cleanText = normalizeText(trimmed);
-                hasKeyword = keywords.some(k => cleanText.includes(normalizeText(k)));
-                if (reqs.enforceKeywords && !hasKeyword) {
-                    return { handled: true, ok: false, msg: 'Objectif non atteint. N\'oublie pas d\'utiliser : ' + keywords.join(', ') + '.' };
+                missingKeywords = keywords.filter(k => !cleanText.includes(normalizeText(k)));
+                hasAllKeywords = missingKeywords.length === 0;
+
+                if (reqs.enforceKeywords && !hasAllKeywords) {
+                    return { handled: true, ok: false, msg: 'Objectif non atteint. Il te manque : ' + missingKeywords.join(', ') + '.' };
                 }
-                if (hasKeyword && mode === 'keywords') {
+                
+                // Si on n'est pas en sentence mode, on valide directement si keywords ok
+                if (hasAllKeywords && mode === 'keywords') {
                     const grammar = await checkGrammar(trimmed);
                     if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
                     return { handled: true, ok: true, msg: 'Parfait. Vocabulaire precis.' };
@@ -147,7 +153,7 @@
                 const grammar = await checkGrammar(trimmed);
                 if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
 
-                if (hasKeyword) {
+                if (hasAllKeywords) {
                     return { handled: true, ok: true, msg: 'Parfait. Vocabulaire precis.' };
                 }
 

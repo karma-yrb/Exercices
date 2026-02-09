@@ -115,41 +115,28 @@
                                   <!-- Right Sidekick -->
                                   <circle cx="80" cy="25" r="5" opacity="0.4" />
                                   <path d="M70 50 L70 47 C70 42 75 40 80 40 C85 40 90 42 90 47 L90 50" opacity="0.4" />
-                                  <!-- Tactical Elements -->
-                                  <path d="M45 5 L55 5 M50 2 L50 8" stroke-width="1" />
                                 </svg>
                               </div>
-                              <p>Agent Lovyc, une phrase c'est comme ta Squad dans <b>Valorant</b> ou <b>Rocket League</b>. Si ton perso n'a pas d'<b>Action</b> (Verbe), tu ne peux pas gagner la game.</p>
+                              <div class="content-chunk">
+                                <p>Agent Lovyc, une phrase, c'est comme ta Squad dans <b>Valorant</b> ou un équipage dans un roman de <b>Maupassant</b> : chaque membre a un rôle vital. Si ton perso n'a pas d'<b>Action</b> (Verbe), tu ne peux pas gagner la game.</p>
+                                
+                                <p>Pour transmettre un ordre clair, tu as besoin de trois éléments inséparables :</p>
+                              </div>
+
                               <div class="box-concept">
-                                <b>L'Agent</b> (Sujet) + <b>L'Action</b> (Verbe) + <b>L'Objectif</b> (Complément)
+                                [1] <b>L'Agent</b> (Sujet) : Qui lance l'action ?<br>
+                                [2] <b>L'Action</b> (Verbe) : Que fait-on ?<br>
+                                [3] <b>L'Objectif</b> (Complément) : Quel est le but ?
                               </div>
-                              <p>Sans verbe, ton perso est <b>AFK</b>. Personne ne comprend tes intentions et ton message finit en <i>Error 404</i>.</p>
-                              
-                              <div class="visual-anchor" style="margin-top: 20px;">
-                                <svg viewBox="0 0 200 120" style="width: 100%; max-width: 250px; height: auto;">
-                                  <!-- Background Card -->
-                                  <rect x="10" y="10" width="180" height="100" rx="15" fill="rgba(0, 252, 244, 0.03)" stroke="var(--border)" stroke-width="1" />
-                                  
-                                  <!-- AFK Signal -->
-                                  <path d="M40 80 L40 70 M50 80 L50 60 M60 80 L60 50 M70 80 L70 40" stroke="var(--text-dim)" stroke-width="3" stroke-linecap="round" opacity="0.3" />
-                                  <line x1="35" y1="40" x2="75" y2="80" stroke="var(--danger)" stroke-width="2" />
-                                  
-                                  <!-- Agent Outline (Ghostly/AFK) -->
-                                  <g opacity="0.4">
-                                    <circle cx="130" cy="45" r="10" stroke="var(--text-dim)" fill="none" />
-                                    <path d="M110 85 L110 75 C110 65 120 60 130 60 C140 60 150 65 150 75 L150 85" stroke="var(--text-dim)" fill="none" />
-                                  </g>
-                                  
-                                  <!-- Error Text -->
-                                  <text x="100" y="105" text-anchor="middle" style="fill: var(--danger); font-family: var(--font-mono); font-size: 10px; font-weight: bold; letter-spacing: 2px;">CONNECTION LOST</text>
-                                  <text x="100" y="25" text-anchor="middle" style="fill: var(--text-dim); font-family: var(--font-mono); font-size: 7px; text-transform: uppercase;">Status: No Action Detected</text>
-                                </svg>
+
+                              <div class="content-chunk">
+                                <p>Sans verbe, ton perso est <b>AFK</b> (Away From Keyboard). Le message est figé, le temps s'arrête, et personne ne comprend tes intentions. En littérature comme en gaming, le verbe est le moteur du mouvement.</p>
                               </div>`
                 },
                 {
                     type: "interactive",
                     title: "Scan de Zone 1",
-                    question: "Dans cette phrase, quel mot est <b>L'Agent</b> (celui qui fait l'action) ? <br><br><i>'Le pro-gamer lance une attaque parfaite.'</i>",
+                    question: "Dans cette phrase, quel mot est <b>L'Agent</b> (celui qui fait l'action) ? <br><br><i>Le pro-gamer lance une attaque parfaite.</i>",
                     options: ["l'attaque", "Le pro-gamer", "parfaite"],
                     answer: 1,
                     feedback: "Correct ! C'est le pro-gamer qui est aux commandes."
@@ -157,7 +144,7 @@
                 {
                     type: "interactive",
                     title: "Scan de Zone 2",
-                    question: "Trouve maintenant le <b>Verbe</b> (l'action) : <br><br><i>'Le pro-gamer lance une attaque parfaite.'</i>",
+                    question: "Trouve maintenant le <b>Verbe</b> (l'action) : <br><br><i>Le pro-gamer lance une attaque parfaite.</i>",
                     options: ["lance", "une attaque", "pro-gamer"],
                     answer: 0,
                     feedback: "Exact ! 'Lance' est le mouvement, l'action."
@@ -165,7 +152,7 @@
                 {
                     type: "write",
                     title: "Saisie Tactique",
-                    question: "Écris le mot qui manque (le Verbe) pour que la phrase fonctionne : <br><br><i>'Lovyc ____ son écran de jeu.'</i>",
+                    question: "Écris le mot qui manque (le Verbe) pour que la phrase fonctionne : <br><br><i>Lovyc ____ son écran de jeu.</i>",
                     requirements: {
                         keywords: ["regarde", "allume", "fixe", "nettoie", "prépare"],
                         mode: "verb"
@@ -181,22 +168,30 @@
                                 <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
                                   <!-- Shield Base -->
                                   <path d="M30 10 L70 10 L70 40 C70 50 50 55 50 55 C50 55 30 50 30 40 Z" />
-                                  <!-- State Symbol (A simple line instead of energy) -->
                                   <line x1="40" y1="30" x2="60" y2="30" stroke-width="3" opacity="0.3" />
-                                  <text x="42" y="32" style="fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;">STATE</text>
                                 </svg>
                               </div>
-                              <p>Attention au tic de langage : <b>'Je suis en appel'</b> ou <b>'Je suis au foot'</b>.</p>
-                              <p>C'est correct, mais on cherche des verbes plus riches pour montrer que tu es le leader (Boss de guilde).</p>
+                              <div class="content-chunk">
+                                <p>Attention au tic de langage fréquent dans le chat ou sur Discord : <b>'Je suis en appel'</b> ou <b>'Je suis au foot'</b>. C'est correct, mais c'est un signal "plat".</p>
+                                
+                                <p>En littérature, on utilise des verbes d'état (être, paraître, sembler), mais les grands maîtres comme <b>Hugo</b> ou <b>Zola</b> préfèrent les verbes d'action pour donner de la force au récit.</p>
+                              </div>
+
                               <div class="box-concept">
-                                Passif : Je suis sur mon vélo.<br>
-                                <b>Actif :</b> Je <b>pédale</b> sur mon vélo.
+                                <b>Signal Passif :</b> Je suis sur mon vélo.<br>
+                                <b>Signal Actif :</b> Je <b>pédale</b> sur mon vélo.<br><br>
+                                <b>Signal Passif :</b> Lovyc est devant l'écran.<br>
+                                <b>Signal Actif :</b> Lovyc <b>scrute</b> son écran.
+                              </div>
+
+                              <div class="content-chunk">
+                                <p>Pour être un leader de guilde ou un écrivain respecté, utilise des verbes riches. Ils décrivent ton mouvement avec précision.</p>
                               </div>`
                 },
                 {
                     type: "write",
                     title: "Optimisation de Signal",
-                    question: "Remplace 'suis' par un verbe d'action plus précis : <br><br><i>'Je suis dans ma chambre.'</i>",
+                    question: "Remplace 'suis' par un verbe d'action plus précis : <br><br><i>Je suis dans ma chambre.</i>",
                     requirements: {
                         mode: "sentence",
                         forbidden: ["suis"]
@@ -215,7 +210,7 @@
                 {
                     type: "write",
                     title: "Récupération de Données",
-                    question: "Réécris la phrase en ajoutant un verbe d'action et une circonstance : <br><br><i>'demain - le gros tournoi national - malgré la pluie - commencer'</i>",
+                    question: "Réécris la phrase en ajoutant un verbe d'action et une circonstance : <br><br><i>commencer - le - pluie - tournoi - demain - malgré - national - la - gros</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["tournoi", "pluie"],
@@ -227,17 +222,39 @@
                 {
                     type: "lesson",
                     title: "L'Ordre Tactique",
-                    content: `<p>En français, on ne commence pas par le complément si on veut être compris en 1ms.</p>
-                    <div class="box-concept">
-                      ❌ Un skin je veux acheter.<br>
-                      ✅ <b>Je veux acheter</b> un skin.
-                    </div>
-                    <p>Garde l'ordre S+V+C : Sujet puis Verbe puis Complément.</p>`
+                    content: `
+                              <div class="visual-anchor">
+                                <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                                  <!-- DNA/Chain link for sequence -->
+                                  <path d="M20 30 Q35 15 50 30 T80 30" opacity="0.4" />
+                                  <circle cx="20" cy="30" r="4" fill="var(--accent)" />
+                                  <circle cx="50" cy="30" r="4" fill="var(--accent)" />
+                                  <circle cx="80" cy="30" r="4" fill="var(--accent)" />
+                                </svg>
+                              </div>
+
+                              <div class="content-chunk">
+                                <p>En français, si on veut être compris en 1ms, on suit un flux de données précis : <b>S</b>ujet → <b>V</b>erbe → <b>C</b>omplément.</p>
+                                
+                                <p>C'est ce qu'on appelle la <b>phrase simple</b>. Des auteurs comme <b>Gaël Faye</b> utilisent souvent cette structure courte et percutante pour donner du rythme au texte.</p>
+                              </div>
+
+                              <div class="box-concept">
+                                <p><b>❌ Flux Corrompu :</b> Un skin je veux acheter.<br>
+                                <b>✅ Flux Optimisé :</b> <b>Je veux acheter</b> un skin.</p>
+                                
+                                <p><b>❌ Flux Corrompu :</b> Sous l'arbre le loup dort.<br>
+                                <b>✅ Flux Optimisé :</b> <b>Le loup dort</b> sous l'arbre.</p>
+                              </div>
+
+                              <div class="content-chunk">
+                                <p>Évite de "parler comme Yoda" ou de traduire littéralement du chat anglais. Garde l'ordre S+V+C pour une clarté maximale.</p>
+                              </div>`
                 },
                 {
                     type: "write",
                     title: "Réorganisation de Comm",
-                    question: "Réécris cette phrase dans le bon ordre tactique (S+V+C) en conjuguant le verbe et en plaçant les éléments de précision : <br><br><i>'sa stratégie - malgré la pression - déployer - l'agent Lovyc'</i>",
+                    question: "Réécris cette phrase dans le bon ordre tactique (S+V+C) en conjuguant le verbe et en plaçant les éléments de précision : <br><br><i>pression - Lovyc - déployer - la - agent - stratégie - l' - malgré - sa</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["agent", "Lovyc", "déploie", "stratégie", "pression"],
@@ -286,17 +303,28 @@
                                   <text x="38" y="55" style="fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;">-ENT</text>
                                 </svg>
                               </div>
-                              <p>Quand tu es en solo, le verbe finit souvent par 'e' ou 's'. Mais en Squad (Pluriel), le système change.</p>
-                              <p>Le code secret du pluriel pour les verbes, c'est <b>-ENT</b>.</p>
+
+                              <div class="content-chunk">
+                                <p>Quand tu es en solo, le verbe finit souvent par <b>'e'</b> ou <b>'s'</b>. Mais dès que tu passes en mode <b>Squad (Pluriel)</b>, le système change radicalement.</p>
+                                
+                                <p>Le code secret du pluriel pour les verbes du 1er groupe (ceux en -ER comme <i>marcher, tirer, gagner</i>), c'est l'extension <b>-ENT</b>.</p>
+                              </div>
+
                               <div class="box-concept">
-                                Solo : Le joueur <b>tire</b>.<br>
-                                Squad : Les joueurs <b>tirent</b>.
+                                <b>Mode Solo :</b> Le joueur <b>tire</b>.<br>
+                                <b>Mode Squad :</b> Les joueurs <b>tirent</b>.<br><br>
+                                <b>Exemple Littéraire (Hugo) :</b><br>
+                                <i>"Les enfants <b>jouent</b>, les mères <b>veillent</b>."</i>
+                              </div>
+
+                              <div class="content-chunk">
+                                <p>Attention : on ne prononce jamais ce <b>-ENT</b> à l'oral. C'est un marqueur visuel pour le cerveau du lecteur, un peu comme une icône de statut dans un HUD.</p>
                               </div>`
                 },
                 {
                     type: "interactive",
                     title: "Patch Correctif 1",
-                    question: "Choisis la bonne terminaison : <br><br><i>'Mes coéquipiers ____ la zone.'</i>",
+                    question: "Choisis la bonne terminaison : <br><br><i>Mes coéquipiers ____ la zone.</i>",
                     options: ["sécurise", "sécurisent", "sécurises"],
                     answer: 1,
                     feedback: "Bien joué ! Plusieurs coéquipiers = terminaison -ent."
@@ -304,7 +332,7 @@
                 {
                     type: "write",
                     title: "Codage Manuel",
-                    question: "Réécris la phrase au pluriel correctement : <br><br><i>'Les membres de ma guilde gagner tout le temps.'</i>",
+                    question: "Réécris la phrase au pluriel correctement : <br><br><i>temps - guilde - le - les - gagner - ma - tout - membres - de</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["membres", "guilde", "gagnent"],
@@ -324,7 +352,7 @@
                 {
                     type: "write",
                     title: "Infiltration",
-                    question: "Réécris la phrase correctement : <br><br><i>'On jouer souvent ensemble.'</i>",
+                    question: "Réécris la phrase correctement : <br><br><i>ensemble - jouer - on - souvent</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["on", "joue", "ensemble"],
@@ -343,7 +371,7 @@
                 {
                     type: "write",
                     title: "Correction de Bug",
-                    question: "Réécris la phrase sans erreur : <br><br><i>'Mes parents regarde mon match.'</i>",
+                    question: "Réécris la phrase sans erreur : <br><br><i>match - parents - mon - regarde - mes</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["parents", "regardent", "match"],
@@ -362,7 +390,7 @@
                 {
                     type: "write",
                     title: "Liaison Radio",
-                    question: "Réécris la phrase sans erreur : <br><br><i>'Mon cousin et moi courir vers le but.'</i>",
+                    question: "Réécris la phrase sans erreur : <br><br><i>but - moi - courir - mon - le - et - cousin - vers</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["cousin", "moi", "courons", "but"],
@@ -373,7 +401,7 @@
                 {
                     type: "challenge",
                     title: "Boss de Fin - Jour 2",
-                    question: "Réécris toute cette phrase sans aucune erreur : <br><br><i>'Les joueurs saute sur le terrain.'</i>",
+                    question: "Réécris toute cette phrase sans aucune erreur : <br><br><i>terrain - sur - le - saute - joueurs - les</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["joueurs", "sautent", "terrain"],
@@ -402,36 +430,56 @@
                                   <rect x="48" y="40" width="4" height="4" fill="var(--accent)" />
                                 </svg>
                               </div>
-                              <p>Un mur de texte sans points, c'est comme un jeu qui freeze. Ton interlocuteur perd le fil.</p>
+
+                              <div class="content-chunk">
+                                <p>Un mur de texte sans points, c'est comme un serveur qui sature : ton interlocuteur perd le fil et finit par "déconnecter".</p>
+                                
+                                <p>Le <b>Point (.)</b> marque la fin d'une transmission complète. On l'appelle souvent le "point final", mais c'est surtout un signal de respiration pour le lecteur.</p>
+                              </div>
+
                               <div class="box-concept">
-                                Point (.) = Fin d'action.<br>
-                                Virgule (,) = Pause ou Liste.
+                                <b>Le Point (.) :</b> Fin d'action / Pause totale.<br>
+                                <b>La Virgule (,) :</b> Micro-pause / Liste de composants.
+                              </div>
+
+                              <div class="content-chunk">
+                                <p>Dans les romans d'aventures (comme ceux de <b>Jules Verne</b>), la ponctuation crée du suspense. Elle ralentit ou accélère ton rythme cardiaque selon l'endroit où elle est placée.</p>
                               </div>`
                 },
                 {
                     type: "write",
                     title: "Split de Signal",
-                    question: "Sépare ces deux actions par un point : <br><br><i>'Le match commence Lovyc se prépare.'</i>",
+                    question: "Sépare ces deux actions par un point : <br><br><i>se - commence - Lovyc - prépare - match - le</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["match", "Lovyc", "prépare"],
                         enforceKeywords: true,
                         mustInclude: ["."]
                     },
-                    feedback: "Parfait. Deux actions, deux phrases."
+                    feedback: "Parfait. Deux actions, deux phrases distinctes."
                 },
                 {
                     type: "lesson",
                     title: "La Virgule (Le Boost)",
-                    content: `<p>La virgule sert à lister des objets ou donner un détail sans couper le courant.</p>
+                    content: `
+                              <div class="content-chunk">
+                                <p>La virgule sert à lister des objets ou à donner un détail sans couper le courant. C'est le "boost" qui permet d'ajouter des infos sans redémarrer une phrase.</p>
+                              </div>
+
                               <div class="box-concept">
-                                Dans mon sac, j'ai une raquette, une gourde et des balles.
+                                <b>Liste :</b> Dans mon inventaire, j'ai <i>un skin, une potion, et un bouclier</i>.<br><br>
+                                <b>Exemple de Georges Sand :</b><br>
+                                <i>"Le vent siffle, l'eau gronde, la terre tremble."</i>
+                              </div>
+
+                              <div class="content-chunk">
+                                <p>Attention : on ne place jamais de virgule juste avant le mot "et" dans une liste simple. Le "et" suffit à faire la liaison finale.</p>
                               </div>`
                 },
                 {
                     type: "write",
                     title: "Inventaire Tactical",
-                    question: "Ajoute les virgules manquantes pour lister ton stuff : <br><br><i>'J'aime le basket le badminton et Valorant.'</i>",
+                    question: "Ajoute les virgules manquantes pour lister ton stuff : <br><br><i>badminton - j' - basket - Valorant - et - aime - le - le</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["basket", "badminton", "Valorant"],
@@ -455,7 +503,7 @@
                 {
                     type: "interactive",
                     title: "Correction de Chat",
-                    question: "Où placer la virgule ? <br><br><i>'Si tu gagnes je te rejoins.'</i>",
+                    question: "Où placer la virgule ? <br><br><i>Si tu gagnes je te rejoins.</i>",
                     options: ["Si tu gagnes, je te rejoins.", "Si tu, gagnes je te rejoins.", "Si tu gagnes je te, rejoins."],
                     answer: 0,
                     feedback: "Correct ! La virgule marque la condition."
@@ -463,7 +511,7 @@
                 {
                     type: "write",
                     title: "Echo Tactique",
-                    question: "Transforme cette question en affirmation pointée : <br><br><i>'Est-ce que le serveur est ouvert ?'</i>",
+                    question: "Transforme cette question en affirmation pointée : <br><br><i>ouvert - est - est - que - le - ce - serveur - ?</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["serveur", "est", "ouvert"],
@@ -495,7 +543,7 @@
                 {
                     type: "challenge",
                     title: "Boss de Fin - Jour 3",
-                    question: "Réécris proprement ce message buggé : <br><br><i>'y'a plus de batterie j'arrête l'appel'</i>",
+                    question: "Réécris proprement ce message buggé : <br><br><i>appel - plus - d' - l' - j' - batterie - arrête - y'a - de</i>",
                     requirements: {
                         keywords: ["batterie", "appel"]
                     },
@@ -522,44 +570,62 @@
                                   <text x="65" y="35" style="fill:var(--accent); font-weight:bold;">à</text>
                                 </svg>
                               </div>
-                              <p>C'est l'erreur la plus fréquente sur le chat. Pour ne plus te tromper :</p>
+
+                              <div class="content-chunk">
+                                <p>C'est l'erreur la plus fréquente dans les transmissions (chat, emails, devoirs). Si tu la laisses passer, ton grade d'agent baisse instantanément.</p>
+                                
+                                <p>Pour filtrer ce bug, utilise le <b>Test du Passé</b>. Si tu peux remplacer le mot par "AVAIT", c'est qu'il s'agit du verbe avoir.</p>
+                              </div>
+
                               <div class="box-concept">
-                                Si tu peux dire <b>AVAIT</b>, c'est le verbe : <b>a</b>.<br>
-                                Sinon, c'est la destination : <b>à</b>.
+                                <b>a (sans accent) :</b> On peut dire <i>"avait"</i>. (Il a gagné → Il avait gagné).<br>
+                                <b>à (avec accent) :</b> On ne peut pas. C'est une direction (Il va à Paris).
+                              </div>
+
+                              <div class="content-chunk">
+                                <p>Astuce tactique : mémorise la phrase de <b>Colette</b> : <i>"Le temps <b>a</b> laissé son manteau <b>à</b> la porte."</i></p>
                               </div>`
                 },
                 {
                     type: "interactive",
                     title: "Test de Signal 1",
-                    question: "Choisis le bon code : <br><br><i>'Lovyc ____ gagné son match.'</i>",
+                    question: "Choisis le bon code : <br><br><i>Lovyc ____ gagné son match.</i>",
                     options: ["a (avait)", "à"],
                     answer: 0,
-                    feedback: "Bravo. On peut dire 'Lovyc avait gagné'."
+                    feedback: "Bravo. On peut dire 'Lovyc avait gagné', donc c'est le verbe."
                 },
                 {
                     type: "write",
                     title: "Saisie de Destination",
-                    question: "Réécris la phrase sans erreur : <br><br><i>'Je vais a la salle de sport.'</i>",
+                    question: "Réécris la phrase sans erreur : <br><br><i>sport - a - vais - la - de - salle - je</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["vais", "à", "salle", "sport"],
                         enforceKeywords: true
                     },
-                    feedback: "Correct. On ne peut pas dire 'avait la salle'."
+                    feedback: "Correct. On ne peut pas dire 'avait la salle', l'accent est obligatoire."
                 },
                 {
                     type: "lesson",
                     title: "Le Scan EST vs ET",
                     content: `
+                              <div class="content-chunk">
+                                <p>C'est la même logique de filtrage ici. On distingue le verbe de la simple addition de données.</p>
+                              </div>
+
                               <div class="box-concept">
-                                <b>Est</b> = Verbe Être (On peut dire <b>ÉTAIT</b>).<br>
-                                <b>Et</b> = Addition (On peut dire <b>ET PUIS</b>).
+                                <b>est :</b> Verbe Être. Test : <i>"était"</i>. (Il est fort → Il était fort).<br>
+                                <b>et :</b> Addition. Test : <i>"et puis"</i>. (Toi et moi → Toi et puis moi).
+                              </div>
+
+                              <div class="content-chunk">
+                                <p>Dans <i>Le Petit Prince</i>, <b>Saint-Exupéry</b> écrit : <i>"Droit devant soi, on ne peut pas aller bien loin."</i> Si tu ajoutes : <i>"C'<b>est</b> vrai <b>et</b> triste"</i>, tu as les deux filtres !</p>
                               </div>`
                 },
                 {
                     type: "interactive",
                     title: "Test de Signal 2",
-                    question: "Choisis le bon lien : <br><br><i>'Le serveur ____ en maintenance.'</i>",
+                    question: "Choisis le bon lien : <br><br><i>Le serveur ____ en maintenance.</i>",
                     options: ["est", "et"],
                     answer: 0,
                     feedback: "Exact. Le serveur 'était' en maintenance."
@@ -567,7 +633,7 @@
                 {
                     type: "write",
                     title: "Combo Tactique",
-                    question: "Réécris la phrase sans erreur : <br><br><i>'Le pro-gamer est rapide et precis.'</i>",
+                    question: "Réécris la phrase sans erreur : <br><br><i>et - est - rapide - le - pro-gamer - precis</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["est", "rapide", "et", "précis"],
@@ -578,7 +644,7 @@
                 {
                     type: "challenge",
                     title: "Boss de Fin - Jour 4",
-                    question: "Corrige cette phrase pleine de parasites : <br><br><i>'Il a une raquette et il va a la salle.'</i>",
+                    question: "Corrige cette phrase pleine de parasites : <br><br><i>va - a - il - raquette - a - salle - la - et - une - il</i>",
                     requirements: {
                         keywords: ["a", "et", "à"]
                     },
@@ -595,26 +661,43 @@
                 {
                     type: "msg",
                     title: "Examen de Grade",
-                    body: "<p>Agent Lovyc, c'est l'heure du test final. Pour valider ta Semaine 1, tu dois prouver que tu maîtrises tout l'équipement.</p>"
+                    body: `
+                        <div class="visual-anchor">
+                          <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                            <!-- Graduation / Badge -->
+                            <polygon points="50,10 90,25 50,40 10,25" />
+                            <path d="M10,25 L10,40 Q10,50 50,55 Q90,50 90,40 L90,25" />
+                            <line x1="50" y1="40" x2="50" y2="55" />
+                          </svg>
+                        </div>
+                        <div class="content-chunk">
+                          <p>Agent Lovyc, c'est l'heure du <b>déploiement final</b>. Pour valider ta Semaine 1 et obtenir ton premier badge d'Expert Linguistique, tu dois prouver que tu maîtrises tout l'équipement tactique.</p>
+                          
+                          <p>Comme dans une mission d'infiltration, chaque mot compte. Un bug de ponctuation ou un mauvais accord peut compromettre toute l'opération.</p>
+                        </div>`
                 },
                 {
                     type: "interactive",
                     title: "Module 1 : Structure S+V+C",
-                    question: "Réorganise mentalement : <i>'la cible - l'agent - verrouille'</i>. Quel est le bon ordre ?",
-                    options: ["La cible verrouille l'agent.", "L'agent verrouille la cible.", "Verrouille l'agent la cible."],
+                    question: "Dans <i>Bel-Ami</i> de Maupassant, quel flux de données respecte l'ordre S+V+C ?",
+                    options: [
+                        "Dujardin la rue descendait.",
+                        "Dujardin descendait la rue.",
+                        "La rue descendait Dujardin."
+                    ],
                     answer: 1,
-                    feedback: "Structure verrouillée."
+                    feedback: "Structure littéraire verrouillée. L'ordre S+V+C est la base de la clarté."
                 },
                 {
                     type: "write",
                     title: "Module 2 : Accord Squad",
-                    question: "Réécris la phrase sans erreur : <br><br><i>'Tes amis attendre ton signal.'</i>",
+                    question: "Corrige cette phrase buggée (Hugo) en respectant le code -ENT : <br><br><i>marcher - les - ombre - dans - l' - hommes</i>",
                     requirements: {
                         mode: "sentence",
-                        keywords: ["amis", "attendent", "signal"],
+                        keywords: ["hommes", "marchent", "ombre"],
                         enforceKeywords: true
                     },
-                    feedback: "Liaison squad établie (-ent)."
+                    feedback: "Liaison squad établie. Les hommes (ils) -> marchent."
                 },
                 {
                     type: "interactive",
@@ -627,7 +710,7 @@
                 {
                     type: "write",
                     title: "Module 4 : Correction",
-                    question: "Saisis la phrase sans erreur : <br><br><i>'Il est a l'heure.'</i>",
+                    question: "Saisis la phrase sans erreur : <br><br><i>Il est a l'heure.</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["est", "à", "heure"],
