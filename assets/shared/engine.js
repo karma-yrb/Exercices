@@ -5,6 +5,11 @@ let el = {};
 let state = null;
 let appData = [];
 
+// Helper pour une validation robuste (ignore les accents et la ponctuation)
+const normalizeText = (t) => t ? t.toString().toLowerCase().trim()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, "") 
+    .replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, "") : "";
+
 function init() {
     if (window.engineInitialized) {
         console.log('Engine already initialized, skipping.');
@@ -345,9 +350,9 @@ function renderStep() {
                         setTimeout(() => input.classList.remove('shake'), 400);
                     }
                 } else {
-                    const cleanVal = val.toLowerCase().replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, '');
+                    const cleanVal = normalizeText(val);
                     const sols = Array.isArray(a) ? a : [a];
-                    const ok = sols.some(s => s.toString().toLowerCase().trim().replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, '') === cleanVal);
+                    const ok = sols.some(s => normalizeText(s) === cleanVal);
                     
                     if (ok) {
                         input.disabled = true; 
@@ -390,7 +395,8 @@ async function validateTactical(text, reqs) {
     if (!text || text.length < 5) return { ok: false, msg: 'Message trop court pour être valide.' };
 
     if (reqs.keywords) {
-        const found = reqs.keywords.some(k => text.toLowerCase().includes(k.toLowerCase()));
+        const cleanText = normalizeText(text);
+        const found = reqs.keywords.some(k => cleanText.includes(normalizeText(k)));
         if (!found) return { ok: false, msg: 'Objectif non atteint. N\'oublie pas d\'utiliser : ' + reqs.keywords.join(', ') + '.' };
     }
 
