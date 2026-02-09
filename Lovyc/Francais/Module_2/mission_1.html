@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 1 | Module 2</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">POINT DE SOUFFLE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a été mis à jour. La transmission est fluide et rythmée.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js"></script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w2_v2",
+        SINGLE_MISSION_MODE: 1
+    };
+
+    const weekData = [{
+        id: 1,
+        title: "Le Souffle : La Virgule",
+        steps: [
+            {
+                type: "lesson",
+                title: "Briefing : Respiration Slam",
+                content: `
+                    <div class="visual-anchor">
+                    <svg viewBox="0 0 100 40" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                        <path d="M10 20 Q30 5 50 20 T90 20" stroke-dasharray="2,2"/>
+                        <circle cx="50" cy="20" r="3" fill="var(--accent)"/>
+                        <text x="48" y="35" style="fill: var(--accent); font-size: 10px; font-weight: bold; font-family: monospace;">,</text>
+                    </svg>
+                    </div>
+                    <div class="content-chunk">
+                    <p>Comme dans un texte de <b>Gaël Faye</b> ou un morceau d'<b>Oxmo Puccino</b>, la virgule n'est pas qu'un signe technique, c'est ton <b>souffle</b>.</p>
+                    <p>Elle sert à séparer des éléments dans une liste ou à marquer une courte pause sans couper le signal. C'est elle qui donne du "groove" à ta phrase.</p>
+                    </div>
+                    <div class="box-concept">
+                    ✅ J'ai pris mon casque<b>,</b> mes gants et ma souris.<br><br>
+                    <b>Exemple de Flaubert :</b><br>
+                    <i>"Elle était pâle, elle marchait vite, elle semblait chercher quelqu'un."</i>
+                    </div>`
+            },
+            {
+                type: "interactive",
+                title: "Détection de Micro-coupure",
+                question: "Où manque-t-il une virgule pour que la phrase soit fluide ? <br><br><i>Le capitaine Lovyc analyse la map il déploie ses drones.</i>",
+                options: ["Après 'Lovyc'", "Après 'map'", "Après 'déploie'"],
+                answer: 1,
+                feedback: "Correct. La pause se fait entre deux actions distinctes."
+            },
+            {
+                type: "write",
+                title: "Saisie Rythmique",
+                question: "Réécris cette phrase en ajoutant les <b>deux</b> virgules nécessaires : <br><br><i>lag - sature - ping - le - montent - les - et - arrive - serveur - le</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [",", "serveur", "ping", "lag"]
+                },
+                hint: "Il y a trois actions. Sépare les deux premières par des virgules.",
+                feedback: "Bravo. Ton flow est désormais ininterrompu."
+            },
+            {
+                type: "challenge",
+                title: "Boss de Fin - Mission 1",
+                question: "Rédige une phrase listant 3 équipements tactiques (ex: radar, drone, radio) en utilisant correctement les virgules et le mot 'et' :",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [",", "et"]
+                },
+                hint: "Objet 1, Objet 2 et Objet 3.",
+                feedback: "Transmission reçue. Ton inventaire est clair, Agent."
+            }
+        ]
+    }];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

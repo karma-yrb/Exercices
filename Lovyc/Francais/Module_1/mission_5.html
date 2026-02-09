@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 5</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="progress-meta"><span id="progress-text">DÉPLOIEMENT FINAL</span><span id="session-tag">MISSION 5</span></div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 140px; height: 140px;">
+                    <filter id="glow"><feGaussianBlur stdDeviation="5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow)"/>
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900;">MODULE 1 COMPLÉTÉ !</h1>
+            <p style="text-align: center; color: var(--text-dim);">Félicitations Agent. Grade Expert Linguistique débloqué.</p>
+            <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
+        </div>
+    </div>
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+<script>
+    window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w1_v2', SINGLE_MISSION_MODE: true };
+    var weekData = [
+        {
+            id: 5,
+            title: "L'Ultime Déploiement",
+            steps: [
+                {
+                    type: "msg",
+                    title: "Examen de Grade",
+                    body: `<p>Agent Lovyc, c'est l'heure du <b>déploiement final</b>. Prouve que tu maîtrises tout l'équipement tactique.</p>`
+                },
+                {
+                    type: "interactive",
+                    title: "Module 1 : Structure S+V+C",
+                    question: "Quel flux de données respecte l'ordre S+V+C ?",
+                    options: ["Dujardin la rue descendait.", "Dujardin descendait la rue.", "La rue descendait Dujardin."],
+                    answer: 1,
+                    feedback: "Structure littéraire verrouillée."
+                },
+                {
+                    type: "write",
+                    title: "Module 2 : Accord Squad",
+                    question: "Corrige cette phrase (Hugo) en respectant le code -ENT : <br><br><i>marcher - les - ombre - dans - l' - hommes</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["hommes", "marchent", "ombre"],
+                        enforceKeywords: true
+                    },
+                    feedback: "Liaison squad établie."
+                },
+                {
+                    type: "challenge",
+                    title: "ULtime Boss - Module 1",
+                    question: "Rédige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au présent, et le mot 'TACTIQUE'.",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["réussissent", "réussit", "réussis", "réussissons", "réussissez"],
+                        mustInclude: [",", "tactique"]
+                    },
+                    hint: "Exemple : Tes missions réussissent, c'est une victoire tactique.",
+                    feedback: "CODE ROUGE TERMINÉ. Félicitations Agent Lovyc !"
+                }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script src="../../../assets/shared/engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Module 1 : Protocoles</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">CHARGEMENT DU MODULE...</span>
+            <span id="session-tag">CENTRE DE COMMANDE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <!-- LOBBY VIEW -->
+    <div id="view-lobby" class="view active">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+            <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--accent-glow);">
+                <svg viewBox="0 0 24 24" style="width: 30px; fill: #000;"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>
+            </div>
+            <h1 class="lobby-title" style="margin-bottom: 0;">MODULE 1 : Protocoles</h1>
+        </div>
+        <p class="lobby-intro">Agent Lovyc, la clarté est ton arme principale. Maîtrise la syntaxe pour coordonner tes missions et dominer le terrain.</p>
+        
+        <div class="days-grid" id="days-grid">
+            <!-- Les missions seront générées ici par le moteur -->
+        </div>
+
+        <a href="../../index.html" class="btn-nav" style="margin-top: 30px; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1);">RETOUR AU CENTRE DE COMMANDE</a>
+    </div>
+</div>
+
+<script>
+    // Configuration du Module
+    window.APP_CONFIG = {
+        STORAGE_KEY: 'lovyc_fr_w1_v2',
+        MODULE_NAME: 'MODULE 1',
+        MISSION_LABEL: 'MISSION',
+        BASE_PATH: './' // Pour pointer vers les fichiers mission_X.html
+    };
+
+    // Données pour l'index du module
+    var weekData = [
+        { 
+            id: 1, 
+            title: "Le Noyau : S + V + C", 
+            intro: "Identifier les agents essentiels d'une phrase pour une transmission parfaite.",
+            icon: "🏗️"
+        },
+        { 
+            id: 2, 
+            title: "Accord Multi-joueurs", 
+            intro: "Maîtriser le pluriel et le code -ENT pour éviter les bugs de lecture.",
+            icon: "👥"
+        },
+        { 
+            id: 3, 
+            title: "Le Flux Dynamique", 
+            intro: "Rythmer ses messages avec la ponctuation pour ne pas s'essouffler.",
+            icon: "🌊"
+        },
+        { 
+            id: 4, 
+            title: "Filtres de Précision", 
+            intro: "Utiliser les homophones a/à et est/et pour un signal sans friture.",
+            icon: "💎"
+        },
+        { 
+            id: 5, 
+            title: "L'Ultime Déploiement", 
+            intro: "Vérification finale des acquis avant le passage au niveau supérieur.",
+            icon: "🚀"
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

@@ -10,11 +10,26 @@ const normalizeText = (t) => t ? t.toString().toLowerCase().trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, "") 
     .replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, "") : "";
 
-function init() {
+// Alias for external calls - Defined early to avoid race conditions
+window.initEngine = (data) => {
+    console.log("External initEngine called.");
+    if (data) window.weekData = data;
+    
+    // Refresh appData from window.weekData
+    const findData = () => {
+        return window.weekData || window.missionData || (typeof weekData !== 'undefined' ? weekData : []);
+    };
+    appData = findData();
+
     if (window.engineInitialized) {
-        console.log('Engine already initialized, skipping.');
-        return;
+        boot(); 
+    } else {
+        init();
     }
+};
+
+function init() {
+    if (window.engineInitialized) return;
     window.engineInitialized = true;
     console.log('Engine Booting - Robust Mode...');
     
@@ -35,8 +50,8 @@ function init() {
             stepBody: document.getElementById('step-body')
         };
 
-        if (!el.lobby) {
-            console.error('Critical: el.lobby (view-lobby) not found in DOM');
+        if (!el.lobby && !el.content) {
+            console.error('Critical: No view-lobby or view-content found in DOM.');
             return;
         }
 
@@ -88,7 +103,19 @@ function boot() {
     }
 
     // 4. Initial Rendering
-    if (state.currentDay) {
+    if (config.SINGLE_MISSION_MODE && appData.length > 0) {
+        const dayId = appData[0].id.toString();
+        // Force le démarrage de la mission unique présente sur la page
+        if (state.currentDay !== dayId) {
+            state.currentDay = dayId;
+            state.currentStep = 0;
+            state.startTime = new Date().toISOString();
+            saveState();
+        }
+    }
+
+    const currentDayData = appData.find(d => d.id.toString() === state.currentDay);
+    if (state.currentDay && currentDayData && currentDayData.steps) {
         renderStep();
     } else {
         renderLobby();
@@ -267,23 +294,33 @@ function renderLobby() {
 
         appData.forEach((day, index) => {
             const dayIdStr = day.id.toString();
+            // Match the state's completedDays (which are strings)
             const isDone = state.completedDays.includes(dayIdStr);
             const isLocked = index > 0 && !state.completedDays.includes(appData[index-1].id.toString());
             
             const card = document.createElement('div');
             card.className = `day-card ${isLocked ? 'locked' : ''} ${isDone ? 'completed' : ''}`;
             
-            let iconContent = isDone ? '✓' : (day.icon || index + 1);
-            if (!isDone && window.icons && window.icons[index]) iconContent = window.icons[index];
+            let iconContent = isDone ? '✓' : (day.icon || (index + 1));
 
             card.innerHTML = `
                 <div class="icon">${iconContent}</div>
                 <div class="day-info">
-                    <h3>${missionLabel.toUpperCase()} ${index + 1} : ${day.title}</h3>
-                    <p>${day.intro}</p>
+                    <h3>${day.title}</h3>
+                    <p>${day.intro || day.description || ''}</p>
                 </div>
             `;
-            if (!isLocked) card.onclick = () => startDay(dayIdStr);
+            
+            if (!isLocked) {
+                card.onclick = () => {
+                    // If BASE_PATH is set, we are on an index page and want to redirect
+                    if (config.BASE_PATH) {
+                        window.location.href = `${config.BASE_PATH}mission_${day.id}.html`;
+                    } else {
+                        startDay(dayIdStr);
+                    }
+                };
+            }
             el.grid.appendChild(card);
         });
     }
@@ -299,13 +336,19 @@ function startDay(dayIdStr) {
 
 function renderStep() {
     const day = appData.find(d => d.id.toString() === state.currentDay);
-    if (!day) {
+    if (!day || !day.steps) {
         state.currentDay = null;
         renderLobby();
         return;
     }
     
     const step = day.steps[state.currentStep];
+    if (!step) {
+        state.currentStep = 0;
+        renderLobby();
+        return;
+    }
+    
     const isBoss = step.type === 'challenge';
     
     if (el.lobby) el.lobby.classList.remove('active');
@@ -569,8 +612,15 @@ function abandonMission() {
 
     state.currentDay = null;
     state.currentStep = 0;
-    renderLobby();
-    updateGlobalProgress();
+    saveState();
+
+    const config = window.APP_CONFIG || {};
+    if (config.SINGLE_MISSION_MODE) {
+        window.location.href = 'index.html';
+    } else {
+        renderLobby();
+        updateGlobalProgress();
+    }
 }
 
 async function syncWithParent(dayId, status = 'TERMINÉ') {

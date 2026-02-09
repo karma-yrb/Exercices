@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 4</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="progress-meta"><span id="progress-text">MISSION EN COURS</span><span id="session-tag">MISSION 4</span></div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 140px; height: 140px;">
+                    <filter id="glow"><feGaussianBlur stdDeviation="5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow)"/>
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim);">Filtres de précision calibrés. Ton grade a été mis à jour.</p>
+            <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
+        </div>
+    </div>
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+<script>
+    window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w1_v2', SINGLE_MISSION_MODE: true };
+    var weekData = [
+        {
+            id: 4,
+            title: "Filtres de Précision",
+            steps: [
+                {
+                    type: "lesson",
+                    title: "Le Scan A vs À",
+                    content: `
+                              <div class="box-concept">
+                                <b>a (sans accent) :</b> On peut dire <i>"avait"</i>. (Il a gagné → Il avait gagné).<br>
+                                <b>à (avec accent) :</b> On ne peut pas. C'est une direction (Il va à Paris).
+                              </div>`
+                },
+                {
+                    type: "interactive",
+                    title: "Test de Signal 1",
+                    question: "Choisis le bon code : <br><br><i>Lovyc ____ gagné son match.</i>",
+                    options: ["a (avait)", "à"],
+                    answer: 0,
+                    feedback: "Bravo !"
+                },
+                {
+                    type: "write",
+                    title: "Combo Tactique",
+                    question: "Réécris la phrase sans erreur : <br><br><i>et - est - rapide - le - pro-gamer - precis</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["est", "rapide", "et", "précis"],
+                        enforceKeywords: true
+                    },
+                    feedback: "Parfait ! Il 'était' rapide 'et puis' précis."
+                },
+                {
+                    type: "challenge",
+                    title: "Boss de Fin - Mission 4",
+                    question: "Corrige cette phrase pleine de parasites : <br><br><i>va - a - il - raquette - a - salle - la - et - une - il</i>",
+                    requirements: {
+                        keywords: ["a", "et", "à"]
+                    },
+                    hint: "Utilise les tests : avait, et puis, avait.",
+                    feedback: "Filtres activés. Ton message est cristallin."
+                }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script src="../../../assets/shared/engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 4 | Module 2</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">SCANNER DE PRÉCISION</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Logistique impeccable. Tu es prêt pour le déploiement final.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js"></script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w2_v2",
+        SINGLE_MISSION_MODE: 4
+    };
+
+    const weekData = [{
+        id: 4,
+        title: "Précision Technique",
+        steps: [
+            {
+                type: "lesson",
+                title: "Le Briefing Expert",
+                content: `
+                    <div class="visual-anchor">
+                    <svg viewBox="0 0 100 40" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                        <text x="30" y="25" style="fill: var(--border); font-size: 15px;">( )</text>
+                        <text x="60" y="25" style="fill: var(--accent); font-size: 15px;">:</text>
+                    </svg>
+                    </div>
+                    <p>Pour être un maître de la comm, utilise les outils des pros :</p>
+                    <ul>
+                    <li><b>Les deux-points (:)</b> : Pour introduire une liste ou une explication.</li>
+                    <li><b>Les parenthèses ()</b> : Pour ajouter une précision technique sans casser le rythme.</li>
+                    </ul>
+                    <div class="box-concept">
+                    Rapport : Lovyc a 3 items (rare, épique, légendaire).
+                    </div>`
+            },
+            {
+                type: "interactive",
+                title: "Logistique de Phrase",
+                question: "Que permettent d'introduire les deux-points (:) ?",
+                options: ["Une pause pour respirer", "Une liste ou une explication", "Le nom de l'auteur"],
+                answer: 1,
+                feedback: "Exactement. C'est le signal de l'inventaire ou de la preuve."
+            },
+            {
+                type: "write",
+                title: "Saisie de Précision",
+                question: "Ajoute une précision entre parenthèses sur la map (ex: map de nuit) dans cette phrase : <br><br><i>Nous arrivons sur la map.</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["(", ")"]
+                },
+                hint: "Insère tes parenthèses juste après le mot 'map'.",
+                feedback: "Donnée enregistrée. L'escouade connaît désormais les détails."
+            },
+            {
+                type: "challenge",
+                title: "Boss de Fin - Mission 4",
+                question: "Écris une phrase utilisant les deux-points (:) pour lister deux choses nécessaires à ta mission :",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [":"]
+                },
+                hint: "Ex: J'ai besoin de deux choses : mon clavier et mon casque.",
+                feedback: "Logistique impeccable. Tu es prêt pour le déploiement final."
+            }
+        ]
+    }];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

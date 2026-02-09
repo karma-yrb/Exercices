@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Tactical Comms | Module 2</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO TACTIQUE : 0%</span>
+            <span id="session-tag">CENTRE DE COMMANDE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-lobby" class="view active">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+            <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--accent-glow);">
+                <svg viewBox="0 0 24 24" style="width: 30px; fill: #000;"><path d="M14,10H19.5L14,4.5V10M5,2H15L21,8V20A2,2 0 0,1 19,22H5C3.89,22 3,21.1 3,20V4C3,2.89 3.89,2 5,2M5,4V20H19V12H12V4H5Z"/></svg>
+            </div>
+            <h1 class="lobby-title" style="margin-bottom: 0;">Tactical Comms</h1>
+        </div>
+        <p class="lobby-intro">Agent Lovyc, après la structure, place au rythme. La ponctuation est le code qui dicte la vitesse de tes transmissions.</p>
+        
+        <div class="days-grid" id="days-grid">
+            <!-- Dynamiquement généré par engine.js -->
+        </div>
+
+        <a href="../../index.html" class="btn-nav" style="margin-top: 30px; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1);">RETOUR AU CENTRE DE COMMANDE</a>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w2_v2",
+        PREREQUISITE_KEY: "lovyc_fr_w1_v2",
+        PREREQUISITE_MIN: 5,
+        MODULE_NAME: "MODULE 2",
+        MISSION_LABEL: "MISSION",
+        BASE_PATH: './'
+    };
+
+    const weekData = [
+        { id: 1, title: "Le Souffle : La Virgule", intro: "Rythmer ses transmissions pour ne pas perdre l'attention.", icon: "🌬️" },
+        { id: 2, title: "Dialogue & Incises", intro: "Rendre les rapports vivants en citant tes alliés.", icon: "📻" },
+        { id: 3, title: "L'Intensité (Points !?...)", intro: "Donner de la force à tes ordres.", icon: "💥" },
+        { id: 4, title: "Précision Technique", intro: "Deux-points et parenthèses pour les détails.", icon: "🔭" },
+        { id: 5, title: "L'Ultime Déploiement", intro: "Synthèse finale : Rapport de terrain complet.", icon: "🎖️" }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

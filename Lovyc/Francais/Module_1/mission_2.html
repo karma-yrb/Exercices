@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 2</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="progress-meta"><span id="progress-text">MISSION EN COURS</span><span id="session-tag">MISSION 2</span></div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 140px; height: 140px;">
+                    <filter id="glow"><feGaussianBlur stdDeviation="5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow)"/>
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim);">Liaison squad établie. Ton grade a été mis à jour.</p>
+            <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
+        </div>
+    </div>
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+<script>
+    window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w1_v2', SINGLE_MISSION_MODE: true };
+    var weekData = [
+        {
+            id: 2,
+            title: "Accord Multi-joueurs",
+            steps: [
+                {
+                    type: "lesson",
+                    title: "Le Serveur Squad",
+                    content: `
+                              <div class="visual-anchor">
+                                <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                                  <circle cx="30" cy="25" r="5" />
+                                  <circle cx="50" cy="20" r="6" />
+                                  <circle cx="70" cy="25" r="5" />
+                                  <path d="M20 50 L40 50 M60 50 L80 50" opacity="0.5" />
+                                  <path d="M40 45 L60 45" stroke-width="3" />
+                                  <text x="38" y="55" style="fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;">-ENT</text>
+                                </svg>
+                              </div>
+                              <div class="content-chunk">
+                                <p>Le code secret du pluriel pour les verbes du 1er groupe (en -ER), c'est l'extension <b>-ENT</b>.</p>
+                              </div>
+                              <div class="box-concept">
+                                <b>Mode Solo :</b> Le joueur <b>tire</b>.<br>
+                                <b>Mode Squad :</b> Les joueurs <b>tirent</b>.
+                              </div>`
+                },
+                {
+                    type: "interactive",
+                    title: "Patch Correctif 1",
+                    question: "Choisis la bonne terminaison : <br><br><i>Mes coéquipiers ____ la zone.</i>",
+                    options: ["sécurise", "sécurisent", "sécurises"],
+                    answer: 1,
+                    feedback: "Bien joué ! Plusieurs coéquipiers = terminaison -ent."
+                },
+                {
+                    type: "write",
+                    title: "Correction de Bug",
+                    question: "Réécris la phrase sans erreur : <br><br><i>match - parents - mon - regarde - mes</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["parents", "regardent", "match"],
+                        enforceKeywords: true
+                    },
+                    feedback: "Fix réussi ! Tes parents (ils) = regardent."
+                },
+                {
+                    type: "challenge",
+                    title: "Boss de Fin - Mission 2",
+                    question: "Réécris toute cette phrase sans aucune erreur : <br><br><i>terrain - sur - le - saute - joueurs - les</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["joueurs", "sautent", "terrain"],
+                        enforceKeywords: true
+                    },
+                    feedback: "L'accord de la squad est parfait."
+                }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script src="../../../assets/shared/engine.js"></script>
+</body>
+</html>

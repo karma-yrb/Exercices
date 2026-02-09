@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 5 | Module 2</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">DÉPLOIEMENT FINAL</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MODULE 2 VALIDÉ !</h1>
+            <p class="success-text">Félicitations Agent Lovyc. Ton grade 'Maître des Comms' est officiellement validé.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LE PROCHAIN MODULE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js"></script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w2_v2",
+        SINGLE_MISSION_MODE: 5
+    };
+
+    const weekData = [{
+        id: 5,
+        title: "L'Ultime Déploiement",
+        steps: [
+            {
+                type: "lesson",
+                title: "Briefing : Fusion de Styles",
+                content: `
+                    <p>Agent Lovyc, tu maîtrises maintenant :</p>
+                    <ul>
+                    <li>La respiration (virgules).</li>
+                    <li>Le dialogue (tirets & incises).</li>
+                    <li>L'intensité (points !?...).</li>
+                    <li>La précision (deux-points & parenthèses).</li>
+                    </ul>
+                    <p>C'est dire que ton signal est clean.</p>`
+            },
+            {
+                type: "interactive",
+                title: "Revue de Code",
+                question: "Quelle ponctuation est incorrecte ici : <br><i>L'agent (Lovyc) déploie : ses deux, drones</i>",
+                options: ["La parenthèse", "Les deux-points", "La virgule entre 'deux' et 'drones'"],
+                answer: 2,
+                feedback: "Correct. On n'isole pas l'adjectif du nom avec une virgule."
+            },
+            {
+                type: "write",
+                title: "Rapport Tactique 1",
+                question: "Rédige une phrase avec un dialogue court (—...) et une incise au présent :",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["—", "Lovyc"]
+                },
+                hint: "Ex: — Je passe à droite, dit Lovyc.",
+                feedback: "Communication claire."
+            },
+            {
+                type: "write",
+                title: "Rapport Tactique 2",
+                question: "Rédige une phrase contenant une liste de deux éléments séparés par deux-points (:) :",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [":"]
+                },
+                hint: "Ex: La zone contient deux menaces : un sniper et un char.",
+                feedback: "Cible identifiée."
+            },
+            {
+                type: "challenge",
+                title: "Boss de Fin - Module 2",
+                question: "Rédige ton rapport final de 3 lignes (au moins 15 mots) incluant : une virgule, une parenthèse et un point d'exclamation. Sois héroïque !",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [",", "(", ")", "!"],
+                    minWords: 15
+                },
+                hint: "Utilise le textarea pour raconter ta victoire finale.",
+                feedback: "Félicitations Agent Lovyc. Ton grade 'Maître des Comms' est officiellement validé. À demain pour de nouveaux défis !"
+            }
+        ]
+    }];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

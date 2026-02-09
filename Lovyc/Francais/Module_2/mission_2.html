@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 2 | Module 2</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">CANAL DE DIALOGUE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Le rapport est vivant. Les citations sont précises.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js"></script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w2_v2",
+        SINGLE_MISSION_MODE: 2
+    };
+
+    const weekData = [{
+        id: 2,
+        title: "Dialogue & Incises",
+        steps: [
+            {
+                type: "lesson",
+                title: "Le Rapport de George Sand",
+                content: `
+                    <div class="visual-anchor">
+                    <svg viewBox="0 0 100 40" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                        <path d="M10 10 L30 10 M10 30 L30 30" opacity="0.5"/>
+                        <text x="40" y="25" style="fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;">— DIT-IL</text>
+                    </svg>
+                    </div>
+                    <p>Quand tu rapportes un dialogue, utilise le <b>tiret cadratin</b> (—) pour montrer qui parle. C'est la base de la précision littéraire.</p>
+                    <p>L'<b>incise</b> (ex: <i>dit l'agent</i>, <i>répond le coach</i>) permet de savoir qui a transmis l'info sans alourdir le texte.</p>
+                    <div class="box-concept">
+                    — La zone est sécurisée, <b>affirma Lovyc</b>.
+                    </div>`
+            },
+            {
+                type: "interactive",
+                title: "Identification de Source",
+                question: "Dans cette phrase, quelle partie est l'incise ? <br><br><i>— Le patch arrive demain, murmura le développeur.</i>",
+                options: ["— Le patch arrive demain", "murmura le développeur", "le développeur"],
+                answer: 1,
+                feedback: "Exactement. L'incise donne le ton et l'auteur de la parole."
+            },
+            {
+                type: "write",
+                title: "Codage de Dialogue",
+                question: "Complète ce dialogue avec une incise de ton choix (ex: s'exclama Zyvah, répondit le chef) : <br><br><i>— Attention au sniper à gauche, _______.</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["Lovyc", "Zyvah", "chef", "agent", "dit", "disent", "répondit", "répondent", "s'exclama", "s'exclament", "hurla", "hurlent", "murmura", "murmurent"]
+                },
+                hint: "Utilise un verbe de parole et un nom de personnage.",
+                feedback: "Parfait. On sait maintenant d'où vient l'alerte."
+            },
+            {
+                type: "challenge",
+                title: "Boss de Fin - Mission 2",
+                question: "Écris une courte ligne de dialogue commençant par un tiret cadratin (—) et finissant par une incise (ex: dit-il, répondit Lovyc) :",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["—"]
+                },
+                hint: "N'oublie pas le tiret au début et la virgule avant l'incise si nécessaire.",
+                feedback: "Dialogue validé. La communication entre agents est fluide."
+            }
+        ]
+    }];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 3</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="progress-meta"><span id="progress-text">MISSION EN COURS</span><span id="session-tag">MISSION 3</span></div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 140px; height: 140px;">
+                    <filter id="glow"><feGaussianBlur stdDeviation="5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow)"/>
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim);">Flux tactique validé. Ton grade a été mis à jour.</p>
+            <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
+        </div>
+    </div>
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+<script>
+    window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w1_v2', SINGLE_MISSION_MODE: true };
+    var weekData = [
+        {
+            id: 3,
+            title: "Le Flux Dynamique",
+            steps: [
+                {
+                    type: "lesson",
+                    title: "Le Scan de Ponctuation",
+                    content: `
+                              <div class="visual-anchor">
+                                <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                                  <path d="M10 30 Q 25 10, 40 30" />
+                                  <circle cx="50" cy="30" r="3" fill="var(--accent)" />
+                                  <path d="M60 30 Q 75 50, 90 30" />
+                                </svg>
+                              </div>
+                              <div class="box-concept">
+                                <b>Le Point (.) :</b> Fin d'action / Pause totale.<br>
+                                <b>La Virgule (,) :</b> Micro-pause / Liste de composants.
+                              </div>`
+                },
+                {
+                    type: "write",
+                    title: "Split de Signal",
+                    question: "Sépare ces deux actions par un point : <br><br><i>se - commence - Lovyc - prépare - match - le</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["match", "Lovyc", "prépare"],
+                        enforceKeywords: true,
+                        mustInclude: ["."]
+                    },
+                    feedback: "Parfait. Deux actions, deux phrases distinctes."
+                },
+                {
+                    type: "interactive",
+                    title: "Correction de Chat",
+                    question: "Où placer la virgule ? <br><br><i>Si tu gagnes je te rejoins.</i>",
+                    options: ["Si tu gagnes, je te rejoins.", "Si tu, gagnes je te rejoins.", "Si tu gagnes je te, rejoins."],
+                    answer: 0,
+                    feedback: "Correct !"
+                },
+                {
+                    type: "challenge",
+                    title: "Boss de Fin - Mission 3",
+                    question: "Réécris proprement ce message buggé : <br><br><i>appel - plus - d' - l' - j' - batterie - arrête - y'a - de</i>",
+                    requirements: {
+                        keywords: ["batterie", "appel"]
+                    },
+                    hint: "N'oublie pas de séparer les deux idées par une virgule ou un point.",
+                    feedback: "Le flux est fluide."
+                }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script src="../../../assets/shared/engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 3 | Module 2</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">FRÉQUENCE D'INTENSITÉ</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Tes ordres ont du poids. Le signal est clair.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js"></script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w2_v2",
+        SINGLE_MISSION_MODE: 3
+    };
+
+    const weekData = [{
+        id: 3,
+        title: "L'Intensité (Points !?...)",
+        steps: [
+            {
+                type: "lesson",
+                title: "Briefing : Signaux de Fin",
+                content: `
+                    <div class="visual-anchor">
+                    <svg viewBox="0 0 100 40" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                        <circle cx="20" cy="20" r="1.5" fill="var(--accent)"/>
+                        <text x="45" y="25" style="fill: var(--accent); font-size: 15px; font-weight: 900;">!</text>
+                        <text x="75" y="25" style="fill: var(--accent); font-size: 15px; font-weight: 900;">?</text>
+                    </svg>
+                    </div>
+                    <p>Le point final (.) est neutre. Mais en situation critique, tu as besoin de plus :</p>
+                    <ul>
+                    <li><b>!</b> (Exclamation) : Pour l'urgence ou l'ordre.</li>
+                    <li><b>?</b> (Interrogation) : Pour le doute ou le scan.</li>
+                    <li><b>...</b> (Suspension) : Pour le suspens ou l'attente.</li>
+                    </ul>
+                    <p>Attention à ne pas en abuser, sinon ton signal devient illisible.</p>`
+            },
+            {
+                type: "interactive",
+                title: "Analyse de Signal",
+                question: "Quelle ponctuation choisirais-tu pour une alerte imminente ?",
+                options: ["Le point simple (.)", "Le point d'exclamation (!)", "Les points de suspension (...)"],
+                answer: 1,
+                feedback: "Correct. L'urgence demande une exclamation."
+            },
+            {
+                type: "write",
+                title: "Nuance Tactique",
+                question: "Transforme cet ordre neutre en une question inquiète : <br><br><i>Le drone est encore en vol.</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["?"]
+                },
+                hint: "Change juste le point final par un point d'interrogation.",
+                feedback: "Le doute est transmis. L'escouade va vérifier."
+            },
+            {
+                type: "challenge",
+                title: "Boss de Fin - Mission 3",
+                question: "Écris une phrase d'action se terminant par des points de suspension (...) pour montrer que quelque chose arrive :",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["..."]
+                },
+                hint: "Ex: Les ombres approchent doucement...",
+                feedback: "Suspens réussi. Tes troupes sont en alerte."
+            }
+        ]
+    }];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

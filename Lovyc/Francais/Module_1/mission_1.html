@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 1</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">MISSION 1</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <!-- CONTENT VIEW -->
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 140px; height: 140px;">
+                    <filter id="glow"><feGaussianBlur stdDeviation="5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow)"/>
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim);">Données synchronisées. Ton grade a été mis à jour.</p>
+            <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: 'lovyc_fr_w1_v2',
+        SINGLE_MISSION_MODE: true
+    };
+
+    var weekData = [
+        {
+            id: 1,
+            title: "Le Noyau : S + V + C",
+            steps: [
+                {
+                    type: "lesson",
+                    title: "Briefing : La Squad de Base",
+                    content: `
+                              <div class="visual-anchor">
+                                <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
+                                  <circle cx="50" cy="20" r="8" />
+                                  <path d="M35 50 L35 45 C35 38 42 34 50 34 C58 34 65 38 65 45 L65 50" />
+                                  <circle cx="20" cy="25" r="5" opacity="0.4" />
+                                  <path d="M10 50 L10 47 C10 42 15 40 20 40 C25 40 30 42 30 47 L30 50" opacity="0.4" />
+                                  <circle cx="80" cy="25" r="5" opacity="0.4" />
+                                  <path d="M70 50 L70 47 C70 42 75 40 80 40 C85 40 90 42 90 47 L90 50" opacity="0.4" />
+                                </svg>
+                              </div>
+                              <div class="content-chunk">
+                                <p>Agent Lovyc, une phrase, c'est comme ta Squad dans <b>Valorant</b> : chaque membre a un rôle vital. Si ton perso n'a pas d'<b>Action</b> (Verbe), tu ne peux pas gagner la game.</p>
+                                <p>Tu as besoin de trois éléments :</p>
+                              </div>
+                              <div class="box-concept">
+                                [1] <b>L'Agent</b> (Sujet) : Qui lance l'action ?<br>
+                                [2] <b>L'Action</b> (Verbe) : Que fait-on ?<br>
+                                [3] <b>L'Objectif</b> (Complément) : Quel est le but ?
+                              </div>`
+                },
+                {
+                    type: "interactive",
+                    title: "Scan de Zone 1",
+                    question: "Dans cette phrase, quel mot est <b>L'Agent</b> ? <br><br><i>Le pro-gamer lance une attaque parfaite.</i>",
+                    options: ["l'attaque", "Le pro-gamer", "parfaite"],
+                    answer: 1,
+                    feedback: "Correct ! C'est le pro-gamer qui est aux commandes."
+                },
+                {
+                    type: "interactive",
+                    title: "Scan de Zone 2",
+                    question: "Trouve maintenant le <b>Verbe</b> : <br><br><i>Le pro-gamer lance une attaque parfaite.</i>",
+                    options: ["lance", "une attaque", "pro-gamer"],
+                    answer: 0,
+                    feedback: "Exact ! 'Lance' est le mouvement, l'action."
+                },
+                {
+                    type: "write",
+                    title: "Saisie Tactique",
+                    question: "Écris le mot qui manque (le Verbe) : <br><br><i>Lovyc ____ son écran de jeu.</i>",
+                    requirements: {
+                        keywords: ["regarde", "allume", "fixe", "nettoie", "prépare"],
+                        mode: "verb"
+                    },
+                    hint: "Cherche une action concrète (regarde, allume, fixe...)",
+                    feedback: "Bien !"
+                },
+                {
+                    type: "challenge",
+                    title: "Boss de Fin - Mission 1",
+                    question: "Rédige une phrase complète (S+V+C) au <b>présent</b> avec le verbe 'ÉLIMINER' :",
+                    requirements: {
+                        keywords: ["élimine", "élimines", "éliminent", "éliminons", "éliminez"]
+                    },
+                    hint: "Rappel : Sujet + Verbe + Complément.",
+                    feedback: "Mission 1 accomplie à 100%."
+                }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/lovyc/fr_validator.js"></script>
+<script src="../../../assets/shared/engine.js"></script>
+</body>
+</html>
