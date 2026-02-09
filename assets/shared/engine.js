@@ -593,14 +593,14 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
     const startTime = state.startTime ? new Date(state.startTime) : endTime;
     const durationMin = Math.round((endTime - startTime) / 60000); // Différence en minutes
 
-    // Récupération IP
-    let userIp = 'Inconnue';
+    // Récupération de l'IP (optionnel)
+    let clientIP = 'Inconnue';
     try {
         const ipRes = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipRes.json();
-        userIp = ipData.ip;
+        const ipJson = await ipRes.json();
+        clientIP = ipJson.ip;
     } catch (e) {
-        console.warn("Récupération IP échouée");
+        console.log('Impossible de récupérer l\'IP');
     }
 
     const baseUrl = 'https://script.google.com/macros/s/AKfycbyNHvhCg9mtYfhuPKdy89iaFaKMGtfzRMHNlzB5nqXpC_DRIRnpMj7VjgnTjTpdvV9R/exec';
@@ -611,11 +611,11 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
         mission_id: missionId,
         mission_title: missionTitle,
         status: status,
-        ip: userIp,
         date: endTime.toLocaleDateString('fr-FR'),
         start_time: startTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
         end_time: endTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
-        duration: durationMin + ' min'
+        duration: durationMin + ' min',
+        ip: clientIP
     };
 
     try {
