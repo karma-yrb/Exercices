@@ -593,6 +593,16 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
     const startTime = state.startTime ? new Date(state.startTime) : endTime;
     const durationMin = Math.round((endTime - startTime) / 60000); // Différence en minutes
 
+    // Récupération IP
+    let userIp = 'Inconnue';
+    try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        userIp = ipData.ip;
+    } catch (e) {
+        console.warn("Récupération IP échouée");
+    }
+
     const baseUrl = 'https://script.google.com/macros/s/AKfycbyNHvhCg9mtYfhuPKdy89iaFaKMGtfzRMHNlzB5nqXpC_DRIRnpMj7VjgnTjTpdvV9R/exec';
     const payload = {
         child: childName,
@@ -601,6 +611,7 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
         mission_id: missionId,
         mission_title: missionTitle,
         status: status,
+        ip: userIp,
         date: endTime.toLocaleDateString('fr-FR'),
         start_time: startTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
         end_time: endTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
