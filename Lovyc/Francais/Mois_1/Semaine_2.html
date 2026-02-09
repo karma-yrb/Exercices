@@ -91,9 +91,13 @@
 <script src="../../../assets/lovyc/fr_validator.js"></script>
 
 <script>
-    // Configuration spécifique au module
-    var APP_CONFIG = {
-        STORAGE_KEY: "lovyc_fr_w2"
+    // Configuration dynamique
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w2_v2",
+        PREREQUISITE_KEY: "lovyc_fr_w1_v2",
+        PREREQUISITE_MIN: 5,
+        MODULE_NAME: "MODULE 2",
+        MISSION_LABEL: "MISSION"
     };
 
     var weekData = [
@@ -151,7 +155,7 @@
                 },
                 {
                     type: "challenge",
-                    title: "Boss de Fin - Jour 1",
+                    title: "Boss de Fin - Mission 1",
                     question: "Rédige une phrase listant 3 équipements tactiques (ex: radar, drone, radio) en utilisant correctement les virgules et le mot 'et' :",
                     requirements: {
                         mode: "sentence",
@@ -197,14 +201,14 @@
                     question: "Complète ce dialogue avec une incise de ton choix (ex: s'exclama Zyvah, répondit le chef) : <br><br><i>— Attention au sniper à gauche, _______.</i>",
                     requirements: {
                         mode: "sentence",
-                        keywords: ["Lovyc", "Zyvah", "chef", "agent", "dit", "répondit", "s'exclama", "hurla", "murmura"]
+                        keywords: ["Lovyc", "Zyvah", "chef", "agent", "dit", "disent", "répondit", "répondent", "s'exclama", "s'exclament", "hurla", "hurlent", "murmura", "murmurent"]
                     },
                     hint: "Utilise un verbe de parole et un nom de personnage.",
                     feedback: "Parfait. On sait maintenant d'où vient l'alerte."
                 },
                 {
                     type: "challenge",
-                    title: "Boss de Fin - Jour 2",
+                    title: "Boss de Fin - Mission 2",
                     question: "Écris une courte ligne de dialogue commençant par un tiret cadratin (—) et finissant par une incise (ex: dit-il, répondit Lovyc) :",
                     requirements: {
                         mode: "sentence",
@@ -260,7 +264,7 @@
                 },
                 {
                     type: "challenge",
-                    title: "Boss de Fin - Jour 3",
+                    title: "Boss de Fin - Mission 3",
                     question: "Écris une phrase d'action se terminant par des points de suspension (...) pour montrer que quelque chose arrive :",
                     requirements: {
                         mode: "sentence",
@@ -316,7 +320,7 @@
                 },
                 {
                     type: "challenge",
-                    title: "Boss de Fin - Jour 4",
+                    title: "Boss de Fin - Mission 4",
                     question: "Écris une phrase utilisant les deux-points (:) pour lister deux choses nécessaires à ta mission :",
                     requirements: {
                         mode: "sentence",
@@ -343,7 +347,7 @@
                                 <li>L'intensité (points !?...).</li>
                                 <li>La précision (deux-points & parenthèses).</li>
                               </ul>
-                              <p>C'est l'heure de compiler tout ça dans ton rapport final. Sois précis, sois tactique.</p>`
+                              <p>C'veut dire que ton signal est clean.</p>`
                 },
                 {
                     type: "interactive",
@@ -377,7 +381,7 @@
                 },
                 {
                     type: "challenge",
-                    title: "L'ULITME MISSION ACCOMPLIE",
+                    title: "Boss de Fin - Module 2",
                     question: "Rédige ton rapport final de 3 lignes (au moins 20 mots) incluant : une virgule, une parenthèse et un point d'exclamation. Sois héroïque !",
                     requirements: {
                         mode: "sentence",

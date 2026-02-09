@@ -199,10 +199,16 @@ function updateGlobalProgress() {
     
     const count = state.completedDays.length;
     const percent = Math.round((count / total) * 100);
+    const config = window.APP_CONFIG || { STORAGE_KEY: 'default_v1' };
     
     if (el.bar) el.bar.style.width = percent + '%';
     if (el.progText) {
-        const prefix = window.weekData ? 'SYNCHRO TACTIQUE : ' : 'PROGRESSION : ';
+        let prefix = 'PROGRESSION : ';
+        if (config.MODULE_NAME) {
+            prefix = `SYNCHRO ${config.MODULE_NAME} : `;
+        } else if (window.weekData) {
+            prefix = 'SYNCHRO TACTIQUE : ';
+        }
         el.progText.innerText = prefix + percent + '%';
     }
 }
@@ -214,10 +220,48 @@ function renderLobby() {
     if (el.success) el.success.classList.remove('active');
     if (el.footer) el.footer.classList.add('hidden');
     
+    const config = window.APP_CONFIG || { STORAGE_KEY: 'default_v1' };
+    const missionLabel = config.MISSION_LABEL || (window.weekData ? 'JOUR' : 'MISSION');
+    
+    // Check if whole module is locked by prerequisite
+    let moduleLocked = false;
+    let prerequisiteName = "le module précédent";
+    if (config.PREREQUISITE_KEY) {
+        const preReq = localStorage.getItem(config.PREREQUISITE_KEY);
+        // We consider it locked if the prerequisite key exists but doesn't have enough progress, 
+        // or simply if the key isn't there (for cross-file dependencies).
+        // Since we don't know the exact content of the key, we check if it's "completed"
+        // In our engine, a module is complete when state.completedDays.length == appData.length
+        // But for simplicity between files, we'll check if the key exists AND has some data.
+        if (!preReq) {
+            moduleLocked = true;
+        } else {
+            try {
+                const preData = JSON.parse(preReq);
+                const minRequired = config.PREREQUISITE_MIN || 1;
+                if (!preData.completedDays || preData.completedDays.length < minRequired) {
+                    moduleLocked = true;
+                }
+            } catch(e) { moduleLocked = true; }
+        }
+    }
+
     if (el.grid) {
         el.grid.innerHTML = '';
         if (appData.length === 0) {
             el.grid.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:20px;">Aucune mission disponible.</p>';
+            return;
+        }
+
+        if (moduleLocked) {
+            el.grid.innerHTML = `
+                <div class="lock-overlay-lobby" style="grid-column: 1 / -1; padding: 40px 20px; text-align: center; background: rgba(255,71,87,0.05); border: 2px dashed var(--danger); border-radius: 20px; margin: 20px 0;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
+                    <h3 style="color: var(--danger); margin-bottom: 10px; font-weight: 800;">ACCÈS REFUSÉ</h3>
+                    <p style="color: var(--text-dim);">Agent Lovyc, tu dois d'abord terminer <b>${config.PREREQUISITE_KEY.includes('w1') ? 'le MODULE 1' : 'le module précédent'}</b> pour déverrouiller ces transmissions.</p>
+                    <a href="../../../index.html" class="btn-main" style="margin-top:20px; display:inline-block; padding: 10px 30px;">RETOUR AU HUB</a>
+                </div>
+            `;
             return;
         }
 
@@ -235,7 +279,7 @@ function renderLobby() {
             card.innerHTML = `
                 <div class="icon">${iconContent}</div>
                 <div class="day-info">
-                    <h3>${day.title}</h3>
+                    <h3>${missionLabel.toUpperCase()} ${index + 1} : ${day.title}</h3>
                     <p>${day.intro}</p>
                 </div>
             `;

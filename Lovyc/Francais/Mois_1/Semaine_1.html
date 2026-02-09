@@ -273,10 +273,10 @@
                 },
                 {
                     type: "challenge",
-                    title: "Boss de Fin - Jour 1",
+                    title: "Boss de Fin - Mission 1",
                     question: "Rédige une phrase complète (S+V+C) au <b>présent</b> avec le verbe 'ÉLIMINER' :",
                     requirements: {
-                        keywords: ["élimine", "éliminent"]
+                        keywords: ["élimine", "élimines", "éliminent", "éliminons", "éliminez"]
                     },
                     hint: "Rappel : Sujet (Qui?) + Verbe (Quelle action?) + Complément (Quoi?).",
                     feedback: "Félicitations Agent ! Mission 1 accomplie à 100%. Ton noyau est stable."
@@ -400,7 +400,7 @@
                 },
                 {
                     type: "challenge",
-                    title: "Boss de Fin - Jour 2",
+                    title: "Boss de Fin - Mission 2",
                     question: "Réécris toute cette phrase sans aucune erreur : <br><br><i>terrain - sur - le - saute - joueurs - les</i>",
                     requirements: {
                         mode: "sentence",
@@ -542,7 +542,7 @@
                 },
                 {
                     type: "challenge",
-                    title: "Boss de Fin - Jour 3",
+                    title: "Boss de Fin - Mission 3",
                     question: "Réécris proprement ce message buggé : <br><br><i>appel - plus - d' - l' - j' - batterie - arrête - y'a - de</i>",
                     requirements: {
                         keywords: ["batterie", "appel"]
@@ -643,7 +643,7 @@
                 },
                 {
                     type: "challenge",
-                    title: "Boss de Fin - Jour 4",
+                    title: "Boss de Fin - Mission 4",
                     question: "Corrige cette phrase pleine de parasites : <br><br><i>va - a - il - raquette - a - salle - la - et - une - il</i>",
                     requirements: {
                         keywords: ["a", "et", "à"]
@@ -720,11 +720,11 @@
                 },
                 {
                     type: "challenge",
-                    title: "ULtime Boss - Semaine 1",
+                    title: "ULtime Boss - Module 1",
                     question: "Rédige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au présent, et le mot 'TACTIQUE'.",
                     requirements: {
                         mode: "sentence",
-                        keywords: ["réussissent", "réussit", "réussis"],
+                        keywords: ["réussissent", "réussit", "réussis", "réussissons", "réussissez"],
                         mustInclude: [",", "tactique"]
                     },
                     hint: "Exemple : Tes missions réussissent, c'est une victoire tactique.",
@@ -733,6 +733,12 @@
             ]
         }
     ];
+
+    window.APP_CONFIG = {
+        STORAGE_KEY: 'lovyc_fr_w1_v2',
+        MODULE_NAME: 'MODULE 1',
+        MISSION_LABEL: 'MISSION'
+    };
 
 </script>
 <!-- Moteur partagé -->
