@@ -23,6 +23,7 @@ function init() {
         el = {
             lobby: document.getElementById('view-lobby'),
             content: document.getElementById('view-content'),
+            success: document.getElementById('view-success'),
             grid: document.getElementById('days-grid'),
             bar: document.getElementById('main-bar'),
             progText: document.getElementById('progress-text'),
@@ -210,6 +211,7 @@ function renderLobby() {
     if (!el.lobby) return;
     el.lobby.classList.add('active');
     if (el.content) el.content.classList.remove('active');
+    if (el.success) el.success.classList.remove('active');
     if (el.footer) el.footer.classList.add('hidden');
     
     if (el.grid) {
@@ -300,6 +302,9 @@ function renderStep() {
         let hintHtml = '';
         let bossIcon = isBoss ? '<span class="boss-icon">👾</span>' : '';
         
+        // Dynamic Question Formatting (Extracting text inside <i> and wrapping it)
+        let formattedQ = q.replace(/<i>(.*?)<\/i>/g, '<div class="tactical-data">$1</div>');
+
         if (step.hint) {
             hintHtml = `
                 <button class="hint-btn" onclick="this.nextElementSibling.classList.toggle('hidden')">💡 INDICE</button>
@@ -308,11 +313,11 @@ function renderStep() {
         }
         el.stepBody.innerHTML = `
             ${bossIcon}
-            <p class="content-chunk">${q}</p>
+            <p class="content-chunk" style="font-size: 1.15rem; line-height: 1.6; color: var(--text); background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid var(--accent);">${formattedQ}</p>
             <div style="margin-top:20px; display: flex; flex-direction: column; gap: 15px;">
                 ${hintHtml}
-                <input type="text" id="input-write" placeholder="Tape ta réponse ici..." class="btn-opt" 
-                       style="background: rgba(255,255,255,0.05); border-style: dashed; width: 100%; cursor: text; margin-bottom: 0;">
+                <textarea id="input-write" placeholder="Tape ta réponse ici..." class="btn-opt" 
+                       style="background: rgba(255,255,255,0.05); border-style: dashed; width: 100%; cursor: text; margin-bottom: 0; min-height: 100px; padding: 15px; resize: none; overflow-y: auto; text-transform: none;"></textarea>
                 <button id="btn-check-write" class="btn-main">VÉRIFIER</button>
                 <div id="write-feedback"></div>
             </div>
@@ -326,13 +331,36 @@ function renderStep() {
             check.onclick = async () => {
                 const val = input.value.trim();
                 const feedArea = feedback;
-                
+
+                if (window.FrValidator && typeof window.FrValidator.validate === 'function') {
+                    const pluginResult = await window.FrValidator.validate({ text: val, step, normalizeText });
+                    if (pluginResult && pluginResult.handled) {
+                        if (pluginResult.ok) {
+                            input.disabled = true;
+                            check.classList.add('hidden');
+                            feedArea.innerHTML = `
+                                <div class="success-badge">
+                                    <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> ${pluginResult.msg || feed}</p>
+                                </div>
+                            `;
+                            if (el.btnNext) el.btnNext.disabled = false;
+                        } else {
+                            check.disabled = false;
+                            check.innerText = 'RÉESSAYER LE SCAN';
+                            input.classList.add('shake');
+                            feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ' + pluginResult.msg + '</p>';
+                            setTimeout(() => input.classList.remove('shake'), 400);
+                        }
+                        return;
+                    }
+                }
+
                 if (step.requirements) {
                     check.disabled = true;
                     check.innerText = 'SCAN EN COURS...';
-                    
+
                     const result = await validateTactical(val, step.requirements);
-                    
+
                     if (result.ok) {
                         input.disabled = true;
                         check.classList.add('hidden');
@@ -353,7 +381,7 @@ function renderStep() {
                     const cleanVal = normalizeText(val);
                     const sols = Array.isArray(a) ? a : [a];
                     const ok = sols.some(s => normalizeText(s) === cleanVal);
-                    
+
                     if (ok) {
                         input.disabled = true; 
                         check.disabled = true;
@@ -436,8 +464,21 @@ function completeDay() {
 
     state.currentDay = null; 
     state.currentStep = 0;
-    renderLobby(); 
-    updateGlobalProgress();
+    saveState();
+    
+    if (el.success) {
+        renderSuccess();
+    } else {
+        renderLobby(); 
+        updateGlobalProgress();
+    }
+}
+
+function renderSuccess() {
+    if (el.lobby) el.lobby.classList.remove('active');
+    if (el.content) el.content.classList.remove('active');
+    if (el.footer) el.footer.classList.add('hidden');
+    if (el.success) el.success.classList.add('active');
 }
 
 function abandonMission() {

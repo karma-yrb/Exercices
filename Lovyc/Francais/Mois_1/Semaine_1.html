@@ -43,6 +43,43 @@
         <div id="step-body"></div>
     </div>
 
+    <!-- SUCCESS VIEW -->
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <defs>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <!-- Trophy/Medal Shape -->
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow)"/>
+                    <path d="M80 40 L80 20 M120 40 L120 20" stroke="var(--accent)" stroke-width="2"/>
+                    <circle cx="100" cy="75" r="20" fill="var(--accent)" opacity="0.2"/>
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                    
+                    <!-- Tactical HUD elements -->
+                    <path d="M20 20 L40 20 M20 20 L20 40" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+                    <path d="M180 20 L160 20 M180 20 L180 40" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+                    <path d="M20 180 L40 180 M20 180 L20 160" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+                    <path d="M180 180 L160 180 M180 180 L180 160" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Ton grade a été mis à jour. Le terrain est sécurisé pour aujourd'hui.</p>
+            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,136,0.05); border-color: var(--success);">
+                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
+                POUR LA PROCHAINE MISSION TACTIQUE.
+            </div>
+            <button onclick="location.reload()" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU CENTRE DE COMMANDE</button>
+        </div>
+    </div>
+
     <div class="footer-nav hidden" id="footer">
         <div class="btn-group">
             <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
@@ -130,7 +167,8 @@
                     title: "Saisie Tactique",
                     question: "Écris le mot qui manque (le Verbe) pour que la phrase fonctionne : <br><br><i>'Lovyc ____ son écran de jeu.'</i>",
                     requirements: {
-                        keywords: ["regarde", "allume", "fixe", "nettoie", "prépare"]
+                        keywords: ["regarde", "allume", "fixe", "nettoie", "prépare"],
+                        mode: "verb"
                     },
                     hint: "Cherche une action concrète (regarde, allume, fixe...)",
                     feedback: "Bien ! N'importe lequel de ces verbes d'action valide la phrase."
@@ -159,7 +197,10 @@
                     type: "write",
                     title: "Optimisation de Signal",
                     question: "Remplace 'suis' par un verbe d'action plus précis : <br><br><i>'Je suis dans ma chambre.'</i>",
-                    answer: ["je range ma chambre", "je dors dans ma chambre", "je joue dans ma chambre", "je travaille dans ma chambre", "je range", "je dors", "je joue"],
+                    requirements: {
+                        mode: "sentence",
+                        forbidden: ["suis"]
+                    },
                     hint: "Que fais-tu dans ta chambre ? (dors, joue, range...)",
                     feedback: "Gagné ! Un leader utilise des verbes précis pour ses ordres."
                 },
@@ -174,9 +215,13 @@
                 {
                     type: "write",
                     title: "Récupération de Données",
-                    question: "Ajoute un verbe pour réparer la phrase cassée : <br><br><i>'Demain, le gros tournoi national ____.'</i>",
-                    answer: ["commence", "débute", "arrive", "stoppe"],
-                    hint: "Le tournoi va-t-il bientôt commencer ? (8 lettres : commence / 6 lettres : débute)",
+                    question: "Réécris la phrase en ajoutant un verbe d'action et une circonstance : <br><br><i>'demain - le gros tournoi national - malgré la pluie - commencer'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["tournoi", "pluie"],
+                        enforceKeywords: true
+                    },
+                    hint: "Commence par le sujet, ajoute le verbe, puis la circonstance (malgré la pluie).",
                     feedback: "Phrase réparée ! Le signal est maintenant complet."
                 },
                 {
@@ -192,9 +237,14 @@
                 {
                     type: "write",
                     title: "Réorganisation de Comm",
-                    question: "Réécris cette phrase dans le bon ordre (S+V+C) : <br><br><i>'le ballon - Lovyc - lance'</i>",
-                    answer: "Lovyc lance le ballon",
-                    feedback: "Ordre rétabli. Transmission claire."
+                    question: "Réécris cette phrase dans le bon ordre tactique (S+V+C) en conjuguant le verbe et en plaçant les éléments de précision : <br><br><i>'sa stratégie - malgré la pression - déployer - l'agent Lovyc'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["agent", "Lovyc", "déploie", "stratégie", "pression"],
+                        enforceKeywords: true
+                    },
+                    hint: "Commence par le sujet (L'agent Lovyc...), conjugue 'déployer' au présent (déploie...), puis ajoute l'objectif et la circonstance.",
+                    feedback: "Ordre rétabli. Ta communication est désormais digne d'un officier de terrain."
                 },
                 {
                     type: "interactive",
@@ -207,7 +257,7 @@
                 {
                     type: "challenge",
                     title: "Boss de Fin - Jour 1",
-                    question: "Rédige une phrase complète (S+V+C) avec le verbe 'ÉLIMINER' :",
+                    question: "Rédige une phrase complète (S+V+C) au <b>présent</b> avec le verbe 'ÉLIMINER' :",
                     requirements: {
                         keywords: ["élimine", "éliminent"]
                     },
@@ -254,8 +304,12 @@
                 {
                     type: "write",
                     title: "Codage Manuel",
-                    question: "Écris le verbe GAGNER correctement ici : <br><br><i>'Les membres de ma guilde ____ tout le temps.'</i>",
-                    answer: "gagnent",
+                    question: "Réécris la phrase au pluriel correctement : <br><br><i>'Les membres de ma guilde gagner tout le temps.'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["membres", "guilde", "gagnent"],
+                        enforceKeywords: true
+                    },
                     feedback: "Le code -ENT est bien appliqué."
                 },
                 {
@@ -270,8 +324,12 @@
                 {
                     type: "write",
                     title: "Infiltration",
-                    question: "Accorde le verbe JOUER : <br><br><i>'On ____ souvent ensemble.'</i>",
-                    answer: "joue",
+                    question: "Réécris la phrase correctement : <br><br><i>'On jouer souvent ensemble.'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["on", "joue", "ensemble"],
+                        enforceKeywords: true
+                    },
                     feedback: "Exact ! 'On' se comporte comme 'Il' au singulier."
                 },
                 {
@@ -285,8 +343,12 @@
                 {
                     type: "write",
                     title: "Correction de Bug",
-                    question: "Corrige le verbe de cette phrase : <br><br><i>'Mes parents regarde mon match.'</i>",
-                    answer: "regardent",
+                    question: "Réécris la phrase sans erreur : <br><br><i>'Mes parents regarde mon match.'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["parents", "regardent", "match"],
+                        enforceKeywords: true
+                    },
                     feedback: "Fix réussi ! Tes parents (ils) = regardent."
                 },
                 {
@@ -300,15 +362,23 @@
                 {
                     type: "write",
                     title: "Liaison Radio",
-                    question: "Accorde le verbe COURIR : <br><br><i>'Mon cousin et moi ____ vers le but.'</i>",
-                    answer: "courons",
+                    question: "Réécris la phrase sans erreur : <br><br><i>'Mon cousin et moi courir vers le but.'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["cousin", "moi", "courons", "but"],
+                        enforceKeywords: true
+                    },
                     feedback: "Bien ! Lui + Moi = Nous."
                 },
                 {
                     type: "challenge",
                     title: "Boss de Fin - Jour 2",
                     question: "Réécris toute cette phrase sans aucune erreur : <br><br><i>'Les joueurs saute sur le terrain.'</i>",
-                    answer: "Les joueurs sautent sur le terrain",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["joueurs", "sautent", "terrain"],
+                        enforceKeywords: true
+                    },
                     feedback: "Mission accomplie ! L'accord de la squad est parfait."
                 }
             ]
@@ -342,7 +412,12 @@
                     type: "write",
                     title: "Split de Signal",
                     question: "Sépare ces deux actions par un point : <br><br><i>'Le match commence Lovyc se prépare.'</i>",
-                    answer: "Le match commence. Lovyc se prépare",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["match", "Lovyc", "prépare"],
+                        enforceKeywords: true,
+                        mustInclude: ["."]
+                    },
                     feedback: "Parfait. Deux actions, deux phrases."
                 },
                 {
@@ -357,14 +432,24 @@
                     type: "write",
                     title: "Inventaire Tactical",
                     question: "Ajoute les virgules manquantes pour lister ton stuff : <br><br><i>'J'aime le basket le badminton et Valorant.'</i>",
-                    answer: "J'aime le basket, le badminton et Valorant",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["basket", "badminton", "Valorant"],
+                        enforceKeywords: true,
+                        mustInclude: [","]
+                    },
                     feedback: "Exact. On ne met pas de virgule avant le 'et', il fait déjà le lien."
                 },
                 {
                     type: "write",
                     title: "Saisie de Précision",
                     question: "Écris une phrase où tu listes 3 jeux que tu aimes, avec les virgules au bon endroit :",
-                    answer: ["j'aime", "joue", "jeux"],
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["j'aime", "joue"],
+                        enforceKeywords: true,
+                        mustInclude: [","]
+                    },
                     feedback: "Signal validé. Ta liste est bien structurée."
                 },
                 {
@@ -379,7 +464,11 @@
                     type: "write",
                     title: "Echo Tactique",
                     question: "Transforme cette question en affirmation pointée : <br><br><i>'Est-ce que le serveur est ouvert ?'</i>",
-                    answer: "Le serveur est ouvert",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["serveur", "est", "ouvert"],
+                        enforceKeywords: true
+                    },
                     feedback: "Transmission claire et directe."
                 },
                 {
@@ -395,7 +484,12 @@
                     type: "write",
                     title: "Alerte Squad",
                     question: "Écris un message d'alerte pour tes coéquipiers avec un point d'exclamation :",
-                    answer: ["!", "attention", "danger", "vite"],
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["attention", "danger", "vite"],
+                        enforceKeywords: true,
+                        mustInclude: ["!"]
+                    },
                     feedback: "Alerte reçue 5/5."
                 },
                 {
@@ -445,8 +539,12 @@
                 {
                     type: "write",
                     title: "Saisie de Destination",
-                    question: "Complète la phrase : <br><br><i>'Je vais ____ la salle de sport.'</i>",
-                    answer: "à",
+                    question: "Réécris la phrase sans erreur : <br><br><i>'Je vais a la salle de sport.'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["vais", "à", "salle", "sport"],
+                        enforceKeywords: true
+                    },
                     feedback: "Correct. On ne peut pas dire 'avait la salle'."
                 },
                 {
@@ -469,8 +567,12 @@
                 {
                     type: "write",
                     title: "Combo Tactique",
-                    question: "Complète : <br><br><i>'Le pro-gamer ____ rapide ____ précis.'</i>",
-                    answer: "est et",
+                    question: "Réécris la phrase sans erreur : <br><br><i>'Le pro-gamer est rapide et precis.'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["est", "rapide", "et", "précis"],
+                        enforceKeywords: true
+                    },
                     feedback: "Parfait ! Il 'était' rapide 'et puis' précis."
                 },
                 {
@@ -506,8 +608,12 @@
                 {
                     type: "write",
                     title: "Module 2 : Accord Squad",
-                    question: "Accorde le verbe : <br><br><i>'Tes amis (attendre) ____ ton signal.'</i>",
-                    answer: "attendent",
+                    question: "Réécris la phrase sans erreur : <br><br><i>'Tes amis attendre ton signal.'</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["amis", "attendent", "signal"],
+                        enforceKeywords: true
+                    },
                     feedback: "Liaison squad établie (-ent)."
                 },
                 {
@@ -522,7 +628,11 @@
                     type: "write",
                     title: "Module 4 : Correction",
                     question: "Saisis la phrase sans erreur : <br><br><i>'Il est a l'heure.'</i>",
-                    answer: "Il est à l'heure",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["est", "à", "heure"],
+                        enforceKeywords: true
+                    },
                     feedback: "Scan de précision 100%."
                 },
                 {
@@ -530,7 +640,10 @@
                     title: "ULtime Boss - Semaine 1",
                     question: "Rédige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au pluriel, et le mot 'TACTIQUE'.",
                     requirements: {
-                        keywords: ["réussissent", "tactique", ","]
+                        mode: "sentence",
+                        keywords: ["réussissent", "tactique"],
+                        enforceKeywords: true,
+                        mustInclude: [","]
                     },
                     hint: "Exemple : Tes missions réussissent, c'est une victoire tactique.",
                     feedback: "CODE ROUGE TERMINÉ. Félicitations Agent Lovyc, tu passes au grade supérieur !"
@@ -541,6 +654,7 @@
 
 </script>
 <!-- Moteur partagé -->
+<script src="../../../assets/lovyc/fr_validator.js"></script>
 <script src="../../../assets/shared/engine.js"></script>
 </body>
 </html>

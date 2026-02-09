@@ -42,6 +42,41 @@
         <div id="step-body" class="content-body"></div>
     </div>
 
+    <!-- SUCCESS VIEW -->
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <defs>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow)"/>
+                    <path d="M80 40 L80 20 M120 40 L120 20" stroke="var(--accent)" stroke-width="2"/>
+                    <circle cx="100" cy="75" r="20" fill="var(--accent)" opacity="0.2"/>
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                    
+                    <path d="M20 20 L40 20 M20 20 L20 40" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+                    <path d="M180 20 L160 20 M180 20 L180 40" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+                    <path d="M20 180 L40 180 M20 180 L20 160" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+                    <path d="M180 180 L160 180 M180 180 L180 160" stroke="var(--accent)" stroke-width="1" opacity="0.5"/>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">SESSION TERMINÉE !</h1>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Ton mixage est validé. Le studio est prêt pour la suite.</p>
+            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,136,0.05); border-color: var(--success);">
+                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
+                POUR UNE NOUVELLE SESSION DE MIXAGE.
+            </div>
+            <button onclick="location.reload()" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU STUDIO</button>
+        </div>
+    </div>
+
     <div class="footer hidden" id="footer">
         <div class="btn-group">
             <button id="btn-prev" class="btn-nav hidden">RETOUR</button>

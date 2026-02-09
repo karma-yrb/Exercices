@@ -188,7 +188,35 @@ h2#step-title {
 
 .hidden { display: none !important; }
 b { color: var(--accent); font-weight: 800; }
-i { color: var(--text-dim); }
+i { color: var(--text-dim); font-style: italic; }
+
+.tactical-data {
+    display: block;
+    margin-top: 15px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    box-shadow: inset 0 0 20px rgba(0, 252, 244, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.tactical-data::before {
+    content: 'DATA CHUNK';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    opacity: 0.4;
+}
 
 @keyframes slideIn { 
     from { opacity: 0; transform: translateX(20px); } 
