@@ -68,12 +68,73 @@
                               </div>`
                 },
                 {
+                    type: "lesson",
+                    title: "Radar du Sujet",
+                    content: `
+                              <div class="content-chunk">
+                                <p>Avant de choisir la terminaison du verbe, tu dois trouver <b>qui fait l'action</b>.</p>
+                                <p>Si le sujet est <b>au pluriel</b> (ils/elles, mes amis, les joueurs...), le verbe prend souvent <b>-ent</b>.</p>
+                              </div>
+                              <div class="box-concept">
+                                <b>Les agents</b> avancent.<br>
+                                <b>Mon agent</b> avance.
+                              </div>`
+                },
+                {
+                    type: "interactive",
+                    title: "Scan de Sujet",
+                    question: "Qui est le <b>sujet</b> dans cette phrase ? <br><br><i>Les soldats protègent la zone.</i>",
+                    options: ["la zone", "protègent", "Les soldats"],
+                    answer: 2,
+                    feedback: "Exact. Le sujet, c'est qui fait l'action : Les soldats."
+                },
+                {
                     type: "interactive",
                     title: "Patch Correctif 1",
                     question: "Choisis la bonne terminaison : <br><br><i>Mes coéquipiers ____ la zone.</i>",
                     options: ["sécurise", "sécurisent", "sécurises"],
                     answer: 1,
                     feedback: "Bien joué ! Plusieurs coéquipiers = terminaison -ent."
+                },
+                {
+                    type: "interactive",
+                    title: "Patch Correctif 2",
+                    question: "Choisis la bonne forme : <br><br><i>Les drones ____ le terrain.</i>",
+                    options: ["survole", "survolent", "survoles"],
+                    answer: 1,
+                    feedback: "Les drones = pluriel -> survolent."
+                },
+                {
+                    type: "write",
+                    title: "Réparation Express",
+                    question: "Corrige la terminaison : <br><br><i>Mes amis traverse la rue.</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["amis", "traversent", "rue"],
+                        enforceKeywords: true
+                    },
+                    hint: "Sujet pluriel = verbe en -ent.",
+                    feedback: "Bien vu. Mes amis traversent."
+                },
+                {
+                    type: "interactive",
+                    title: "Verbes Irreguliers",
+                    question: "Choisis la bonne forme : <br><br><i>Ils ____ prêts.</i>",
+                    options: ["sont", "son", "est"],
+                    answer: 0,
+                    feedback: "Avec ils, on dit: ils sont."
+                },
+                {
+                    type: "write",
+                    title: "Transmission Clairement",
+                    question: "Ecris une phrase correcte avec ces mots : <br><br><i>ils - l'extraction - avancent - vers</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["ils", "avancent", "l'extraction"],
+                        enforceKeywords: true
+                    },
+                    hint: "Commence par 'Ils...'.",
+                    feedback: "Transmission fluide."
                 },
                 {
                     type: "write",
@@ -101,7 +162,7 @@
         }
     ];
 </script>
-<script src="../../../assets/lovyc/fr_validator.js"></script>
-<script src="../../../assets/shared/engine.js"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
 </body>
 </html>

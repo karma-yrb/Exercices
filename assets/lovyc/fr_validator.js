@@ -65,6 +65,13 @@
                 if (filteredMatches.length > 0) {
                     const error = filteredMatches[0];
                     const token = text.substr(error.offset, error.length);
+                    const ruleId = (error.rule && error.rule.id) ? error.rule.id : '';
+                    if (ruleId.includes('PUNCTUATION_PARAGRAPH_END')) {
+                        return { ok: true, msg: '' };
+                    }
+                    if (error.rule && error.rule.issueType && error.rule.issueType !== 'misspelling') {
+                        return { ok: false, msg: 'Verifie la grammaire ou la ponctuation autour de: ' + (token || 'cette partie') + '.' };
+                    }
                     return { ok: false, msg: 'Orthographe a corriger: ' + (token || 'erreur detectee') + '.' };
                 }
             }
@@ -121,6 +128,35 @@
                     keywordsValidated = missingKeywords.length === 0;
 
                     if (!keywordsValidated) {
+                        const tokens = cleanText.split(' ').filter(Boolean);
+                        const isEditDistanceOne = (a, b) => {
+                            if (a === b) return false;
+                            if (Math.abs(a.length - b.length) > 1) return false;
+                            let i = 0;
+                            let j = 0;
+                            let diff = 0;
+                            while (i < a.length && j < b.length) {
+                                if (a[i] === b[j]) {
+                                    i++;
+                                    j++;
+                                } else {
+                                    diff++;
+                                    if (diff > 1) return false;
+                                    if (a.length > b.length) i++;
+                                    else if (a.length < b.length) j++;
+                                    else { i++; j++; }
+                                }
+                            }
+                            if (i < a.length || j < b.length) diff++;
+                            return diff === 1;
+                        };
+                        const nearTypo = missingKeywords.find(k => {
+                            const norm = normalizeText(k);
+                            return tokens.some(t => isEditDistanceOne(t, norm));
+                        });
+                        if (nearTypo) {
+                            return { handled: true, ok: false, msg: 'Orthographe a corriger: ' + nearTypo + '.' };
+                        }
                         return { handled: true, ok: false, msg: 'Objectif non atteint. Il te manque : ' + missingKeywords.join(', ') + '.' };
                     }
                 } else {
