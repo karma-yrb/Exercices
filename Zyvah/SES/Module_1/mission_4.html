@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - SES | Mission 4</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/manager.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span>THE MANAGER V1.0</span>
+            <span id="session-tag">STAGIAIRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view">
+        <div class="step-header">
+            <h2 id="step-title"></h2>
+        </div>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <defs>
+                        <filter id="glow-ses">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow-ses)"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="30" fill="var(--accent)" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="5" fill="var(--accent)"/>
+                    <rect x="110" y="150" width="10" height="20" fill="var(--accent)" opacity="0.5">
+                        <animate attributeName="height" values="10;30;10" dur="1.5s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="130" y="140" width="10" height="30" fill="var(--accent)" opacity="0.8">
+                        <animate attributeName="height" values="20;40;20" dur="0.9s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="150" y="130" width="10" height="40" fill="var(--accent)">
+                        <animate attributeName="height" values="30;50;30" dur="1.3s" repeatCount="indefinite" />
+                    </rect>
+                    <text x="100" y="115" text-anchor="middle" style="fill: var(--accent); font-weight: 900; font-size: 14px; letter-spacing: 2px;">MANAGER ACADEMY</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Ton rapport de management est valide. Tu geres ton label comme une pro.</p>
+            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,204,0.05); border-color: var(--success);">
+                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
+                POUR CONTINUER TON ASCENSION.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU STUDIO</button>
+        </div>
+    </div>
+
+    <div class="footer hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_ses_w1_v2",
+        SINGLE_MISSION_MODE: true
+    };
+
+    const weekData = [
+        {
+            id: 4,
+            title: "L'Entreprise & son Image",
+            steps: [
+                { type: "msg", title: "Status de l'Entreprise", body: "<p>Une entreprise n'est pas qu'une machine a cash. C'est une organisation sociale avec une culture.</p><div class='data-box'>Identite = Logo + Valeurs + Comportement.</div>" },
+                { type: "interactive", title: "Culture Studio", question: "Laquelle de ces actions renforce la 'Culture d'Entreprise' d'un label ?", options: ["Augmenter les prix", "Organiser un team-building", "Acheter des machines"], answer: 1, feedback: "Le team-building renforce les liens entre les agents (socialisation)." },
+                { type: "write", title: "Image de Marque", question: "Quel mot designe la perception d'une entreprise par le public ?", answer: ["image", "reputation", "notoriete"], hint: "C'est ce que les gens pensent de toi (5 lettres : image).", feedback: "L'image de marque est capitale pour un manager." },
+                { type: "challenge", title: "Boss de Mission 4", question: "Pourquoi une entreprise doit-elle respecter les normes sociales ?", requirements: { keywords: ["image", "confiance"] }, hint: "Pense au lien entre le respect des regles et ce que pensent les clients.", feedback: "Transmission recue. L'image de marque est protegee." }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - SES | Mission 5</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/manager.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span>THE MANAGER V1.0</span>
+            <span id="session-tag">STAGIAIRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view">
+        <div class="step-header">
+            <h2 id="step-title"></h2>
+        </div>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <defs>
+                        <filter id="glow-ses">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow-ses)"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="30" fill="var(--accent)" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="5" fill="var(--accent)"/>
+                    <rect x="110" y="150" width="10" height="20" fill="var(--accent)" opacity="0.5">
+                        <animate attributeName="height" values="10;30;10" dur="1.5s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="130" y="140" width="10" height="30" fill="var(--accent)" opacity="0.8">
+                        <animate attributeName="height" values="20;40;20" dur="0.9s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="150" y="130" width="10" height="40" fill="var(--accent)">
+                        <animate attributeName="height" values="30;50;30" dur="1.3s" repeatCount="indefinite" />
+                    </rect>
+                    <text x="100" y="115" text-anchor="middle" style="fill: var(--accent); font-weight: 900; font-size: 14px; letter-spacing: 2px;">MANAGER ACADEMY</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Ton rapport de management est valide. Tu geres ton label comme une pro.</p>
+            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,204,0.05); border-color: var(--success);">
+                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
+                POUR CONTINUER TON ASCENSION.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU STUDIO</button>
+        </div>
+    </div>
+
+    <div class="footer hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_ses_w1_v2",
+        SINGLE_MISSION_MODE: true
+    };
+
+    const weekData = [
+        {
+            id: 5,
+            title: "Le Grand Audit",
+            steps: [
+                { type: "msg", title: "Examen de Grade", body: "<p>Zyvah, c'est l'heure du test final. Pour valider ta Semaine 1, tu dois prouver que tu maitrises les mecanismes de base du marche et de la production.</p>" },
+                { type: "interactive", title: "Module 1 : Signal de Marche", question: "Si la demande baisse mais que l'offre reste forte, que risque de faire le prix ?", options: ["Monter (Penurie)", "Baisser (Surplus)", "Ne pas bouger"], answer: 1, feedback: "Surplus = Baisse des prix pour ecouler les stocks." },
+                { type: "write", title: "Module 2 : Calcul Profit", question: "Une artiste vend pour 5000€ de merch. Ses couts sont de 3200€. Quel est son <b>Profit</b> ?", answer: "1800", feedback: "Calcul valide (5000 - 3200 = 1800)." },
+                { type: "interactive", title: "Module 3 : Production", question: "En SES, que designe la lettre <b>K</b> ?", options: ["Le Kilos d'or", "Le Capital (les machines)", "Le Karma"], answer: 1, feedback: "Code K = Capital." },
+                { type: "challenge", title: "ULtime Boss - Semaine 1", question: "Redige une courte analyse expliquant pourquoi un manager doit attirer la demande s'il veut vendre ses stocks.", requirements: { keywords: ["demande", "vendre"] }, hint: "Utilise les mots : 'attirer la demande' ou 'pour mieux vendre'.", feedback: "STRATEGIE VALIDEE. Felicitations Zyvah, ton grade de Manager est confirme !" }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+
+</body>
+</html>

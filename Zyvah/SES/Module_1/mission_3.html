@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - SES | Mission 3</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/manager.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span>THE MANAGER V1.0</span>
+            <span id="session-tag">STAGIAIRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view">
+        <div class="step-header">
+            <h2 id="step-title"></h2>
+        </div>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <defs>
+                        <filter id="glow-ses">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow-ses)"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="30" fill="var(--accent)" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="5" fill="var(--accent)"/>
+                    <rect x="110" y="150" width="10" height="20" fill="var(--accent)" opacity="0.5">
+                        <animate attributeName="height" values="10;30;10" dur="1.5s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="130" y="140" width="10" height="30" fill="var(--accent)" opacity="0.8">
+                        <animate attributeName="height" values="20;40;20" dur="0.9s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="150" y="130" width="10" height="40" fill="var(--accent)">
+                        <animate attributeName="height" values="30;50;30" dur="1.3s" repeatCount="indefinite" />
+                    </rect>
+                    <text x="100" y="115" text-anchor="middle" style="fill: var(--accent); font-weight: 900; font-size: 14px; letter-spacing: 2px;">MANAGER ACADEMY</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Ton rapport de management est valide. Tu geres ton label comme une pro.</p>
+            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,204,0.05); border-color: var(--success);">
+                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
+                POUR CONTINUER TON ASCENSION.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU STUDIO</button>
+        </div>
+    </div>
+
+    <div class="footer hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_ses_w1_v2",
+        SINGLE_MISSION_MODE: true
+    };
+
+    const weekData = [
+        {
+            id: 3,
+            title: "Identite & Socialisation",
+            steps: [
+                { type: "msg", title: "Briefing Sociologie", body: "<p>La <b>socialisation</b>, c'est le processus par lequel tu apprends les regles (normes) et les valeurs de ton groupe.</p><div class='data-box'>• <b>Normes :</b> Les regles (ex: arriver a l'heure au studio).<br>• <b>Valeurs :</b> Les ideaux (ex: le respect des collaborateurs).</div>" },
+                { type: "interactive", title: "Norme ou Valeur ?", question: "'Dire bonjour a son equipe' est une :", options: ["Norme", "Valeur"], answer: 0, feedback: "Correct. C'est une regle de politesse apprise." },
+                { type: "write", title: "Agents de Socialisation", question: "Citez l'agent de socialisation qui vous apprend les regles a l'ecole :", answer: ["professeurs", "enseignants", "ecole", "profs"], hint: "Ce sont les personnes qui t'enseignent en classe.", feedback: "L'ecole et les profs sont des agents majeurs." },
+                { type: "interactive", title: "Challenge Reputation", question: "Si une manager ne respecte jamais ses rendez-vous, elle subit une <b>sanction</b>. Laquelle ?", options: ["Pecuniaire (amende)", "Sociale (mauvaise image)", "Les deux"], answer: 2, feedback: "Exact ! Le marche et la societe sanctionnent les comportements hors-normes." }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+
+</body>
+</html>

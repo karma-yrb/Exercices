@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - SES | Mission 2</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/manager.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span>THE MANAGER V1.0</span>
+            <span id="session-tag">STAGIAIRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view">
+        <div class="step-header">
+            <h2 id="step-title"></h2>
+        </div>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <defs>
+                        <filter id="glow-ses">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow-ses)"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="30" fill="var(--accent)" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="5" fill="var(--accent)"/>
+                    <rect x="110" y="150" width="10" height="20" fill="var(--accent)" opacity="0.5">
+                        <animate attributeName="height" values="10;30;10" dur="1.5s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="130" y="140" width="10" height="30" fill="var(--accent)" opacity="0.8">
+                        <animate attributeName="height" values="20;40;20" dur="0.9s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="150" y="130" width="10" height="40" fill="var(--accent)">
+                        <animate attributeName="height" values="30;50;30" dur="1.3s" repeatCount="indefinite" />
+                    </rect>
+                    <text x="100" y="115" text-anchor="middle" style="fill: var(--accent); font-weight: 900; font-size: 14px; letter-spacing: 2px;">MANAGER ACADEMY</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">MISSION ACCOMPLIE !</h1>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Ton rapport de management est valide. Tu geres ton label comme une pro.</p>
+            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,204,0.05); border-color: var(--success);">
+                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
+                POUR CONTINUER TON ASCENSION.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU STUDIO</button>
+        </div>
+    </div>
+
+    <div class="footer hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_ses_w1_v2",
+        SINGLE_MISSION_MODE: true
+    };
+
+    const weekData = [
+        {
+            id: 2,
+            title: "Couts & Profit",
+            steps: [
+                { type: "msg", title: "Facteurs de Production", body: `<p>Pour produire, il faut :</p><div class="data-box">1. <b>Travail (L) :</b> Les humains.<br>2. <b>Capital (K) :</b> Les machines/outils.</div>` },
+                { type: "quiz", title: "Inventaire", q: "L'ordinateur du studio, c'est quel facteur ?", opts: ["Travail", "Capital"], a: 1, feed: "C'est un outil, donc du Capital." },
+                { type: "write", title: "Facteur Humain", q: "Comment appelle-t-on le facteur represente par l'ingenieur du son ?", a: "travail", hint: "C'est l'activite de l'humain pour produire (7 lettres).", feed: "C'est l'effort humain." },
+                { type: "msg", title: "Cout Fixe vs Variable", body: `<p>• <b>Fixe :</b> Loyer (ne change pas avec la prod).<br>• <b>Variable :</b> Matiere premiere (change selon la prod).</p>` },
+                { type: "quiz", title: "Type de Cout", q: "L'electricite du studio qui tourne 24h/24 pour tes machines est un...", opts: ["Cout fixe", "Cout variable"], a: 1, feed: "Plus tu produis, plus tu consommes : c'est variable." },
+                { type: "write", title: "Calcul Business", q: "CA = Prix x Quantite. Si tu vends 100 places a 20€, quel est ton CA ?", a: "2000", hint: "Fais l'operation 100 multiplie par 20.", feed: "2000€ de chiffre d'affaires !" },
+                { type: "msg", title: "La Profitabilite", body: `<p><b>Profit = CA - Couts Totaux.</b> Ne confonds jamais l'argent qui rentre (CA) et ce qu'il te reste (Profit).</p>` },
+                { type: "write", title: "Verdict Profit", q: "CA = 2000€. Couts = 1500€. Quel est ton profit ?", a: "500", hint: "Fais la soustraction : 2000 - 1500.", feed: "Il te reste 500€ de gain reel." }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+
+</body>
+</html>

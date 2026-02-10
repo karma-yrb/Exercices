@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - SES | Module 1</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/manager.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span>THE MANAGER V1.0</span>
+            <span id="session-tag">STAGIAIRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-lobby" class="view active">
+        <h1 class="lobby-title">Manager : Zyvah</h1>
+        <p class="lobby-intro">Gere ta carriere comme une pro. Apprends comment fonctionne l'economie pour dominer le marche.</p>
+        <div class="days-grid" id="days-grid"></div>
+        <a href="../../index.html" class="btn-nav" style="margin-top: 30px; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1);">RETOUR AU STUDIO</a>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_ses_w1_v2",
+        MISSION_LABEL: "MISSION",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+        { id: 1, title: "Le Marche du Son", intro: "Maitrise les bases de l'Offre et de la Demande pour fixer tes prix.", icon: "📈" },
+        { id: 2, title: "Couts & Profit", intro: "Gere ton budget studio et calcule tes benefices reels.", icon: "💸" },
+        { id: 3, title: "Identite & Socialisation", intro: "Comprendre comment on devient une manager (ou une artiste) influente.", icon: "🧠" },
+        { id: 4, title: "L'Entreprise & son Image", intro: "Comprendre pourquoi un label ou une artiste soigne sa communication.", icon: "🏢" },
+        { id: 5, title: "Le Grand Audit", intro: "Bilan des competences du mois. Validation du grade Manager.", icon: "✅" }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

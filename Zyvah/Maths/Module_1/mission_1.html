@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - Studio Maths | Mission 1</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">PROGRESSION STUDIO : 0%</span>
+            <span id="session-tag">CABINE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view">
+        <div class="step-header"><h2 id="step-title"></h2></div>
+        <div id="step-body" class="content-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <defs>
+                        <filter id="glow-zy">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow-zy)"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="30" fill="var(--accent)" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="5" fill="var(--accent)"/>
+                    <rect x="40" y="150" width="10" height="20" fill="var(--accent)" opacity="0.5">
+                        <animate attributeName="height" values="10;30;10" dur="1s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="60" y="140" width="10" height="30" fill="var(--accent)" opacity="0.8">
+                        <animate attributeName="height" values="20;40;20" dur="1.2s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="80" y="130" width="10" height="40" fill="var(--accent)">
+                        <animate attributeName="height" values="30;50;30" dur="0.8s" repeatCount="indefinite" />
+                    </rect>
+                    <text x="100" y="115" text-anchor="middle" style="fill: var(--accent); font-weight: 900; font-size: 14px; letter-spacing: 2px;">GOLD RECORD</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">SESSION VALIDEE !</h1>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Tes calculs sont parfaits. Le mixage est pret pour le pressage.</p>
+            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,204,0.05); border-color: var(--success);">
+                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
+                POUR UNE NOUVELLE SESSION AU STUDIO.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU STUDIO</button>
+        </div>
+    </div>
+
+    <div class="footer hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w1_v2",
+        SINGLE_MISSION_MODE: true
+    };
+
+    const weekData = [
+        {
+            id: 1,
+            title: "L'Ordre du Mixage",
+            steps: [
+                { type: "msg", title: "Le Code du Studio", body: `<p>Zyvah, pour que le son soit bon, il y a un ordre. En maths, c'est pareil : on appelle ca les <b>Priorites</b>.</p><div class="studio-box"><p>1. Les <b>Parentheses ( )</b> : On s'en occupe TOUJOURS en premier. C'est le signal direct qui ne doit pas etre filtre.</p></div>` },
+                { type: "quiz", title: "Test Cabine 1", q: "Dans le calcul <b>5 + (2 × 3)</b>, par quoi commences-tu ?", opts: ["5 + 2", "2 × 3", "5 + 3"], a: 1, feed: "Exact ! Le Master ( ) passe avant tout le reste." },
+                { type: "quiz", title: "Test Cabine 2", q: "Calcule le contenu de la parenthese : <b>10 - (2 + 3)</b>", opts: ["5", "8", "11"], a: 0, feed: "Exact. 2 + 3 = 5." },
+                { type: "write", title: "Saisie de Gain", q: "Calcule le resultat final de : <b>10 - (2 + 3)</b>", a: "5", hint: "Tu as deja trouve 5 pour la parenthese. Fais maintenant 10 - 5.", feed: "Master ( ) gere. 10 - 5 = 5." },
+                { type: "msg", title: "L'Imbrication (Double Deck)", body: `<p>Parfois, tu as des parentheses dans des parentheses. On commence par <b>la plus profonde</b>.</p><div class="studio-box"><p>10 + [ 2 × (3 + 1) ]<br>D'abord (3 + 1) = 4.<br>Ensuite [ 2 × 4 ] = 8.<br>Enfin 10 + 8 = 18.</p></div>` },
+                { type: "write", title: "Deep Mix", q: "Calcule la parenthese interieure : <b>5 × (2 + (3 - 1))</b>", a: "2", hint: "Regarde bien le moteur le plus au centre : (3 - 1).", feed: "Bien ! 3 - 1 = 2." },
+                { type: "write", title: "Deep Mix Final", q: "Maintenant, calcule le total : <b>5 × (2 + 2)</b>", a: "20", hint: "Priorite a la parenthese (2 + 2), puis multiplie le resultat par 5.", feed: "5 × 4 = 20. Mixage propre." },
+                { type: "quiz", title: "Le Piege du Master", q: "Que vaut <b>20 - (5 + 5)</b> ?", opts: ["20", "10", "15"], a: 1, feed: "On fait 5+5=10 d'abord. 20-10=10." },
+                { type: "write", title: "Mastering", q: "Calcule : <b>(15 - 5) × 2</b>", a: "20", hint: "D'abord la soustraction dans les parentheses, puis multiplie par 2.", feed: "10 × 2 = 20." },
+                { type: "challenge", title: "Session Finale Jour 1", q: "Calcule ce mix complet : <b>(3 + 7) × (2 + 2)</b>", a: "40", hint: "Calcule chaque parenthese separement, puis multiplie les deux resultats entre eux.", feed: "10 × 4 = 40. Mixage parfait !" }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - Studio Maths | Mission 3</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">PROGRESSION STUDIO : 0%</span>
+            <span id="session-tag">CABINE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view">
+        <div class="step-header"><h2 id="step-title"></h2></div>
+        <div id="step-body" class="content-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <defs>
+                        <filter id="glow-zy">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow-zy)"/>
+                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
+                    <circle cx="100" cy="100" r="30" fill="var(--accent)" opacity="0.2"/>
+                    <circle cx="100" cy="100" r="5" fill="var(--accent)"/>
+                    <rect x="40" y="150" width="10" height="20" fill="var(--accent)" opacity="0.5">
+                        <animate attributeName="height" values="10;30;10" dur="1s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="60" y="140" width="10" height="30" fill="var(--accent)" opacity="0.8">
+                        <animate attributeName="height" values="20;40;20" dur="1.2s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="80" y="130" width="10" height="40" fill="var(--accent)">
+                        <animate attributeName="height" values="30;50;30" dur="0.8s" repeatCount="indefinite" />
+                    </rect>
+                    <text x="100" y="115" text-anchor="middle" style="fill: var(--accent); font-weight: 900; font-size: 14px; letter-spacing: 2px;">GOLD RECORD</text>
+                </svg>
+            </div>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">SESSION VALIDEE !</h1>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Tes calculs sont parfaits. Le mixage est pret pour le pressage.</p>
+            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,204,0.05); border-color: var(--success);">
+                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
+                POUR UNE NOUVELLE SESSION AU STUDIO.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU STUDIO</button>
+        </div>
+    </div>
+
+    <div class="footer hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w1_v2",
+        SINGLE_MISSION_MODE: true
+    };
+
+    const weekData = [
+        {
+            id: 3,
+            title: "Le Combo Gain/Soustraction",
+            steps: [
+                { type: "msg", title: "Le Filtre Negatif", body: "<p>Attention Zyvah : le signe moins (<b>-</b>) est un reducteur de gain. Mais la multiplication reste prioritaire !</p><div class='studio-box'>10 - 2 × 3 = 10 - 6 = 4</div>" },
+                { type: "quiz", title: "Reglage Precision", q: "Calcule : <b>20 - 5 × 3</b>", opts: ["45", "5", "15"], a: 1, feed: "Exact ! 20 - 15 = 5." },
+                { type: "write", title: "Saisie Quick", q: "Calcule : <b>15 + 10 ÷ 2</b>", a: "20", hint: "Divise 10 par 2 en premier.", feed: "10/2 = 5, 15+5 = 20." },
+                { type: "challenge", title: "Boss de Session 3", q: "Trouve le resultat : <b>30 - 10 × 2 + 5</b>", a: "15", hint: "Fais d'abord 10 × 2, puis soustrais du debut et ajoute 5.", feedback: "Mixage equilibre !" }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js"></script>
+
+</body>
+</html>
