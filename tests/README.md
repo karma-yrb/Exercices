@@ -39,14 +39,16 @@ node tests/test-runner.js lovyc_fr_module_1
 ## 🔍 Ce qui est Testé
 
 ### 1. **Validation Markdown** (drafts)
-- Structure complète (15 écrans par mission)
+- Structure complète (par défaut 15 écrans par mission)
+- Support `Missions:` et `ScreensPerMission:` dans la section Meta
 - Pas d'options dupliquées dans les MCQ
 - Keywords présents dans les `write`/`challenge`
 - Format cohérent (titre, question, feedback)
 
 ### 2. **Validation HTML** (fichiers missions)
 - Synchronisation avec le draft
-- Tableau `weekData` valide (15 steps)
+- Tableau `weekData` valide (par défaut 15 steps)
+- Support `expectedSteps` dans `weekData`
 - Pas d'options identiques dans `interactive`
 - Réponses (`answer`) dans la plage valide
 
@@ -62,6 +64,9 @@ node tests/test-runner.js lovyc_fr_module_1
 - Réponses valides (avec keywords) acceptées
 - Réponses invalides (sans keywords) rejetées
 - Vérification mode `verb` vs `sentence`
+
+### 5. **Validation des chemins de navigation**
+- Bloque tout lien vers `../Exercices/`
 
 ## 📊 Format du Rapport
 

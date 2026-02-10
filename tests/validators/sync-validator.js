@@ -12,14 +12,16 @@ class SyncValidator {
         this.htmlDir = htmlDir;
         this.errors = [];
         this.warnings = [];
+        this.expectedMissions = 5;
     }
 
     validate() {
         try {
             const draftContent = fs.readFileSync(this.draftPath, 'utf-8');
+            this.loadExpectations(draftContent);
             const missions = this.extractMissionsFromDraft(draftContent);
 
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= this.expectedMissions; i++) {
                 const htmlPath = path.join(this.htmlDir, `mission_${i}.html`);
                 if (!fs.existsSync(htmlPath)) {
                     this.errors.push(`Mission ${i}: Fichier HTML manquant`);
@@ -85,6 +87,14 @@ class SyncValidator {
         });
 
         return missions;
+    }
+
+    loadExpectations(content) {
+        const metaMatch = content.split('## Meta')[1];
+        if (!metaMatch) return;
+
+        const missionsMatch = metaMatch.match(/-\s*Missions:\s*(\d+)/i);
+        if (missionsMatch) this.expectedMissions = parseInt(missionsMatch[1], 10);
     }
 
     extractWeekDataFromHtml(content) {

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Initiation</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+    <style>
+        .story-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+            animation: storyIn 0.35s ease;
+        }
+
+        .story-illustration {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+            border-radius: 22px;
+            background: radial-gradient(circle at top, rgba(0, 255, 231, 0.3), rgba(0, 0, 0, 0));
+            display: grid;
+            place-items: center;
+        }
+
+        .story-illustration svg {
+            width: 90px;
+            height: 90px;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 2.2;
+        }
+
+        .story-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .story-text {
+            font-size: 1.15rem;
+            line-height: 1.55;
+        }
+
+        .story-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .story-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .story-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 14px var(--accent-glow);
+            transform: scale(1.1);
+        }
+
+        .story-hint {
+            margin-top: 14px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        #step-title {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+        }
+
+        @keyframes storyIn {
+            from { transform: translateY(14px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="progress-meta"><span id="progress-text">MISSION EN COURS</span><span id="session-tag">INITIATION</span></div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+        <div id="story-dots" class="story-dots"></div>
+        <div class="story-hint">Glisse pour passer a la regle suivante.</div>
+    </div>
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 140px; height: 140px;">
+                    <filter id="glow"><feGaussianBlur stdDeviation="5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow)"/>
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">INITIATION TERMINEE !</h1>
+            <p class="success-text">Les regles sont chargees. Tu peux lancer le Module 1.</p>
+            <button onclick="window.location.href='../Module_1/index.html'" class="btn-main" style="width: 100%;">COMMENCER MODULE 1</button>
+            <button onclick="window.location.href='../../index.html'" class="btn-nav" style="width: 100%; margin-top: 12px;">RETOUR AU CENTRE DE COMMANDE</button>
+        </div>
+    </div>
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+<script>
+    window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w0_v1', SINGLE_MISSION_MODE: true };
+    var weekData = [
+        {
+            id: 1,
+            title: "Initiation - Regles d'ecriture",
+            expectedSteps: 5,
+            steps: [
+                {
+                    type: "lesson",
+                    title: "Regle 1 : Majuscule",
+                    content: `
+                              <div class="story-card">
+                                <div class="story-illustration">
+                                  <svg viewBox="0 0 120 120">
+                                    <path d="M20 90 L60 30 L100 90" />
+                                    <path d="M35 70 L85 70" />
+                                    <text x="60" y="106" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-size: 18px;">A</text>
+                                  </svg>
+                                </div>
+                                <div class="story-title">Majuscule</div>
+                                <div class="story-text">Commence chaque phrase par une majuscule.</div>
+                              </div>`
+                },
+                {
+                    type: "lesson",
+                    title: "Regle 2 : Point final",
+                    content: `
+                              <div class="story-card">
+                                <div class="story-illustration">
+                                  <svg viewBox="0 0 120 120">
+                                    <path d="M25 40 L95 40" />
+                                    <circle cx="90" cy="80" r="6" fill="var(--accent)" />
+                                  </svg>
+                                </div>
+                                <div class="story-title">Point final</div>
+                                <div class="story-text">Termine chaque phrase par un point.</div>
+                              </div>`
+                },
+                {
+                    type: "lesson",
+                    title: "Regle 3 : Une idee",
+                    content: `
+                              <div class="story-card">
+                                <div class="story-illustration">
+                                  <svg viewBox="0 0 120 120">
+                                    <circle cx="60" cy="50" r="22" />
+                                    <path d="M50 75 L70 75" />
+                                    <path d="M55 85 L65 85" />
+                                  </svg>
+                                </div>
+                                <div class="story-title">Une idee</div>
+                                <div class="story-text">Une phrase = une seule idee.</div>
+                              </div>`
+                },
+                {
+                    type: "lesson",
+                    title: "Regle 4 : Verbe obligatoire",
+                    content: `
+                              <div class="story-card">
+                                <div class="story-illustration">
+                                  <svg viewBox="0 0 120 120">
+                                    <path d="M30 30 L90 60 L30 90 Z" />
+                                  </svg>
+                                </div>
+                                <div class="story-title">Verbe obligatoire</div>
+                                <div class="story-text">Chaque phrase doit contenir un verbe.</div>
+                              </div>`
+                },
+                {
+                    type: "lesson",
+                    title: "Regle 5 : Pas de SMS",
+                    content: `
+                              <div class="story-card">
+                                <div class="story-illustration">
+                                  <svg viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="30" />
+                                    <path d="M42 42 L78 78" />
+                                  </svg>
+                                </div>
+                                <div class="story-title">Pas de SMS</div>
+                                <div class="story-text">Pas de langage SMS dans les phrases.</div>
+                              </div>`
+                }
+            ]
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+
+    // Swipe support for story navigation
+    (function setupStorySwipe() {
+        const area = document.getElementById('view-content');
+        if (!area) return;
+
+        let startX = 0;
+        let startY = 0;
+        let startTime = 0;
+
+        area.addEventListener('touchstart', (e) => {
+            const touch = e.changedTouches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+            startTime = Date.now();
+        }, { passive: true });
+
+        area.addEventListener('touchend', (e) => {
+            const touch = e.changedTouches[0];
+            const deltaX = touch.clientX - startX;
+            const deltaY = touch.clientY - startY;
+            const elapsed = Date.now() - startTime;
+
+            if (elapsed > 650) return;
+            if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+            if (deltaX < 0) {
+                document.getElementById('btn-next')?.click();
+            } else {
+                document.getElementById('btn-prev')?.click();
+            }
+        }, { passive: true });
+    })();
+
+    (function setupStoryDots() {
+        const dots = document.getElementById('story-dots');
+        if (!dots || !weekData[0] || !weekData[0].steps) return;
+
+        const total = weekData[0].steps.length;
+
+        function getCurrentStep() {
+            try {
+                const saved = localStorage.getItem(window.APP_CONFIG.STORAGE_KEY);
+                const parsed = saved ? JSON.parse(saved) : null;
+                if (parsed && parsed.currentDay === '1' && typeof parsed.currentStep === 'number') {
+                    return parsed.currentStep;
+                }
+            } catch (e) {
+                return 0;
+            }
+            return 0;
+        }
+
+        function renderDots() {
+            const current = Math.max(0, Math.min(total - 1, getCurrentStep()));
+            let html = '';
+            for (let i = 0; i < total; i++) {
+                html += `<span class="story-dot ${i === current ? 'active' : ''}"></span>`;
+            }
+            dots.innerHTML = html;
+        }
+
+        renderDots();
+        setInterval(renderDots, 300);
+    })();
+</script>
+</body>
+</html>

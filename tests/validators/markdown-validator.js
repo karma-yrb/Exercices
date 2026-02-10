@@ -12,11 +12,14 @@ class MarkdownValidator {
         this.content = '';
         this.errors = [];
         this.warnings = [];
+        this.expectedMissions = 5;
+        this.expectedScreens = 15;
     }
 
     validate() {
         try {
             this.content = fs.readFileSync(this.filePath, 'utf-8');
+            this.loadExpectations();
             
             this.checkStructure();
             this.checkMissions();
@@ -43,8 +46,8 @@ class MarkdownValidator {
 
         // Vérifier présence des missions
         const missionMatches = this.content.match(/## Mission \d+/g);
-        if (!missionMatches || missionMatches.length !== 5) {
-            this.errors.push(`Nombre de missions incorrect: ${missionMatches?.length || 0}/5`);
+        if (!missionMatches || missionMatches.length !== this.expectedMissions) {
+            this.errors.push(`Nombre de missions incorrect: ${missionMatches?.length || 0}/${this.expectedMissions}`);
         }
     }
 
@@ -61,18 +64,29 @@ class MarkdownValidator {
 
             // Compter les écrans
             const screens = mission.match(/### Ecran \d+/g);
-            if (!screens || screens.length !== 15) {
-                this.errors.push(`Mission ${missionNum}: ${screens?.length || 0} écrans au lieu de 15`);
+            if (!screens || screens.length !== this.expectedScreens) {
+                this.errors.push(`Mission ${missionNum}: ${screens?.length || 0} écrans au lieu de ${this.expectedScreens}`);
             }
 
             // Vérifier que le dernier écran est un Boss
-            if (screens && screens.length > 0) {
+            if (screens && screens.length > 0 && this.expectedScreens >= 15) {
                 const lastScreenContent = mission.split(/### Ecran \d+/).pop();
                 if (!lastScreenContent.includes('challenge') && !lastScreenContent.includes('Boss')) {
                     this.warnings.push(`Mission ${missionNum}: Écran 15 devrait être un Boss/challenge`);
                 }
             }
         });
+    }
+
+    loadExpectations() {
+        const metaMatch = this.content.split('## Meta')[1];
+        if (!metaMatch) return;
+
+        const missionsMatch = metaMatch.match(/-\s*Missions:\s*(\d+)/i);
+        const screensMatch = metaMatch.match(/-\s*ScreensPerMission:\s*(\d+)/i);
+
+        if (missionsMatch) this.expectedMissions = parseInt(missionsMatch[1], 10);
+        if (screensMatch) this.expectedScreens = parseInt(screensMatch[1], 10);
     }
 
     checkDuplicateOptions() {

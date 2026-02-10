@@ -286,7 +286,6 @@ function renderLobby() {
                     <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
                     <h3 style="color: var(--danger); margin-bottom: 10px; font-weight: 800;">ACCÈS REFUSÉ</h3>
                     <p style="color: var(--text-dim);">Agent Lovyc, tu dois d'abord terminer <b>${config.PREREQUISITE_KEY.includes('w1') ? 'le MODULE 1' : 'le module précédent'}</b> pour déverrouiller ces transmissions.</p>
-                    <a href="../../../index.html" class="btn-main" style="margin-top:20px; display:inline-block; padding: 10px 30px;">RETOUR AU HUB</a>
                 </div>
             `;
             return;

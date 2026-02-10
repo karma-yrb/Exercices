@@ -13,6 +13,7 @@ class HtmlValidator {
         this.errors = [];
         this.warnings = [];
         this.weekData = null;
+        this.expectedSteps = 15;
     }
 
     validate() {
@@ -58,6 +59,9 @@ class HtmlValidator {
             // weekData est un tableau avec un objet contenant steps
             if (Array.isArray(data) && data[0] && Array.isArray(data[0].steps)) {
                 this.weekData = data[0].steps;
+                if (Number.isInteger(data[0].expectedSteps)) {
+                    this.expectedSteps = data[0].expectedSteps;
+                }
             } else if (Array.isArray(data)) {
                 // Si c'est déjà un tableau de steps directement
                 this.weekData = data;
@@ -72,8 +76,8 @@ class HtmlValidator {
     checkStepsCount() {
         if (!this.weekData) return;
         
-        if (this.weekData.length !== 15) {
-            this.errors.push(`Nombre de steps incorrect: ${this.weekData.length}/15`);
+        if (this.weekData.length !== this.expectedSteps) {
+            this.errors.push(`Nombre de steps incorrect: ${this.weekData.length}/${this.expectedSteps}`);
         }
     }
 

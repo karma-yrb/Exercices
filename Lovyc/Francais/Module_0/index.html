@@ -4,7 +4,7 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lovyc - Module 1 : Protocoles</title>
+    <title>Lovyc - Initiation</title>
     <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
 </head>
 <body>
@@ -25,12 +25,12 @@
             <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--accent-glow);">
                 <svg viewBox="0 0 24 24" style="width: 30px; fill: #000;"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>
             </div>
-            <h1 class="lobby-title" style="margin-bottom: 0;">MODULE 1 : Protocoles</h1>
+            <h1 class="lobby-title" style="margin-bottom: 0;">INITIATION</h1>
         </div>
-        <p class="lobby-intro">Agent Lovyc, la clarté est ton arme principale. Maîtrise la syntaxe pour coordonner tes missions et dominer le terrain.</p>
+        <p class="lobby-intro">Un sas rapide avant le module 1. Ici, tu verrouilles les 5 regles d'ecriture.</p>
         
         <div class="days-grid" id="days-grid">
-            <!-- Les missions seront générées ici par le moteur -->
+            <!-- Les missions seront generees ici par le moteur -->
         </div>
 
         <a href="../../index.html" class="btn-nav" style="margin-top: auto; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1); flex: 0 0 auto; max-height: 56px;">RETOUR AU CENTRE DE COMMANDE</a>
@@ -40,51 +40,28 @@
 <script>
     // Configuration du Module
     window.APP_CONFIG = {
-        STORAGE_KEY: 'lovyc_fr_w1_v2',
-        MODULE_NAME: 'MODULE 1',
+        STORAGE_KEY: 'lovyc_fr_w0_v1',
+        MODULE_NAME: 'INITIATION',
         MISSION_LABEL: 'MISSION',
-        PREREQUISITE_KEY: 'lovyc_fr_w0_v1',
-        PREREQUISITE_MIN: 1,
-        BASE_PATH: './' // Pour pointer vers les fichiers mission_X.html
+        BASE_PATH: './'
     };
 
-    // Données pour l'index du module
+    // Donnees pour l'index du module
     var weekData = [
-        { 
-            id: 1, 
-            title: "Le Noyau : S + V + C", 
-            intro: "Identifier les agents essentiels d'une phrase pour une transmission parfaite.",
-            icon: "🏗️"
-        },
-        { 
-            id: 2, 
-            title: "Accord Multi-joueurs", 
-            intro: "Maîtriser le pluriel et le code -ENT pour éviter les bugs de lecture.",
-            icon: "👥"
-        },
-        { 
-            id: 3, 
-            title: "Le Flux Dynamique", 
-            intro: "Rythmer ses messages avec la ponctuation pour ne pas s'essouffler.",
-            icon: "🌊"
-        },
-        { 
-            id: 4, 
-            title: "Filtres de Précision", 
-            intro: "Utiliser les homophones a/à et est/et pour un signal sans friture.",
-            icon: "💎"
-        },
-        { 
-            id: 5, 
-            title: "L'Ultime Déploiement", 
-            intro: "Vérification finale des acquis avant le passage au niveau supérieur.",
-            icon: "🚀"
+        {
+            id: 1,
+            title: "Initiation : Regles d'ecriture",
+            intro: "5 regles rapides avant le Module 1.",
+            icon: "🎯"
         }
     ];
 </script>
 <script src="../../../assets/shared/engine.js?v=20260210"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+    document.addEventListener('DOMContentLoaded', () => {
+        initEngine(weekData);
+        window.location.replace('./mission_1.html');
+    });
 </script>
 
 </body>

@@ -10,6 +10,7 @@ const MarkdownValidator = require('./validators/markdown-validator');
 const HtmlValidator = require('./validators/html-validator');
 const SyncValidator = require('./validators/sync-validator');
 const WriteResponseValidator = require('./validators/write-response-validator');
+const PathValidator = require('./validators/path-validator');
 
 class TestRunner {
     constructor() {
@@ -94,6 +95,8 @@ class TestRunner {
         console.log(`📦 MODULE: ${module.name.toUpperCase()}`);
         console.log(`${'═'.repeat(60)}\n`);
 
+        const expectedMissions = this.getExpectedMissions(module.draftPath);
+
         // Test 1: Validation Draft Markdown
         console.log('🔍 Test 1/3: Validation Draft Markdown...');
         const mdValidator = new MarkdownValidator(module.draftPath);
@@ -101,12 +104,12 @@ class TestRunner {
         this.printResult('Draft Markdown', mdResult);
 
         // Test 2: Validation HTML (chaque mission)
-        console.log('\n🔍 Test 2/3: Validation Fichiers HTML...');
+        console.log('\n🔍 Test 2/5: Validation Fichiers HTML...');
         if (!fs.existsSync(module.htmlDir)) {
             console.log(`  ⚠️  Dossier HTML introuvable: ${module.htmlDir}`);
             this.results.warnings++;
         } else {
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= expectedMissions; i++) {
                 const htmlPath = path.join(module.htmlDir, `mission_${i}.html`);
                 if (fs.existsSync(htmlPath)) {
                     const htmlValidator = new HtmlValidator(htmlPath);
@@ -120,7 +123,7 @@ class TestRunner {
         }
 
         // Test 3: Synchronisation Draft ↔ HTML
-        console.log('\n🔍 Test 3/4: Synchronisation Draft ↔ HTML...');
+        console.log('\n🔍 Test 3/5: Synchronisation Draft ↔ HTML...');
         if (fs.existsSync(module.htmlDir)) {
             const syncValidator = new SyncValidator(module.draftPath, module.htmlDir);
             const syncResult = syncValidator.validate();
@@ -130,7 +133,7 @@ class TestRunner {
         }
 
         // Test 4: Validation Réponses Write (10+ propositions)
-        console.log('\n🔍 Test 4/4: Tests Réponses Write (10+ propositions)...');
+        console.log('\n🔍 Test 4/5: Tests Réponses Write (10+ propositions)...');
         if (fs.existsSync(module.htmlDir)) {
             const writeValidator = new WriteResponseValidator(module.htmlDir, module.draftPath);
             const writeResult = writeValidator.validate();
@@ -138,6 +141,27 @@ class TestRunner {
         } else {
             console.log('  ⏭️  Skipped (dossier HTML manquant)');
         }
+
+        // Test 5: Validation chemins interdits
+        console.log('\n🔍 Test 5/5: Validation des chemins de navigation...');
+        const pathValidator = new PathValidator(module.htmlDir);
+        const pathResult = pathValidator.validate();
+        this.printResult('Chemins', pathResult);
+    }
+
+    getExpectedMissions(draftPath) {
+        try {
+            const content = fs.readFileSync(draftPath, 'utf-8');
+            const metaMatch = content.split('## Meta')[1];
+            if (!metaMatch) return 5;
+
+            const missionsMatch = metaMatch.match(/-\s*Missions:\s*(\d+)/i);
+            if (missionsMatch) return parseInt(missionsMatch[1], 10);
+        } catch (e) {
+            return 5;
+        }
+
+        return 5;
     }
 
     printResult(label, result) {

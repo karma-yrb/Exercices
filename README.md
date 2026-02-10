@@ -12,5 +12,16 @@ Ils decrivent le deroule ecran par ecran (textes, options, reponses, feedbacks).
 
 Regle: Toute modification de contenu doit d'abord mettre a jour le draft `.md`, puis le HTML.
 
+## Navigation standard (tous profils)
+- Interdit: tout lien vers `../Exercices/`.
+- Retour Hub:
+	- Lovyc -> `../Lovyc/index.html`
+	- Zyvah -> `../Zyvah/index.html`
+
+## Mini-module Initiation (Module_0)
+- Utilise un Module_0 (1 mission) avant le Module_1 si besoin.
+- Verrouille Module_1 avec `PREREQUISITE_KEY` sur le storage du Module_0.
+- Draft: `Missions:` et `ScreensPerMission:` dans la section Meta.
+
 ---
 *Ce projet utilise des Micro-Apps SPA en Vanilla JS.*
