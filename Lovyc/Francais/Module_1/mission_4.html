@@ -55,12 +55,45 @@
                               </div>`
                 },
                 {
+                    type: "lesson",
+                    title: "Le Scan et / est",
+                    content: `
+                              <div class="box-concept">
+                                <b>et :</b> on peut dire <i>"et puis"</i>.<br>
+                                <b>est :</b> on peut dire <i>"etait"</i>.
+                              </div>`
+                },
+                {
                     type: "interactive",
-                    title: "Test de Signal 1",
+                    title: "Test a 1",
                     question: "Choisis le bon code : <br><br><i>Lovyc ____ gagné son match.</i>",
                     options: ["a (avait)", "à"],
                     answer: 0,
                     feedback: "Bravo !"
+                },
+                {
+                    type: "interactive",
+                    title: "Test a 2",
+                    question: "Choisis le bon code : <br><br><i>Il va ____ la base.</i>",
+                    options: ["a (avait)", "à"],
+                    answer: 1,
+                    feedback: "Direction -> a avec accent."
+                },
+                {
+                    type: "interactive",
+                    title: "Test et 1",
+                    question: "Choisis la bonne forme : <br><br><i>Le coach ____ calme.</i>",
+                    options: ["et", "est"],
+                    answer: 1,
+                    feedback: "On peut dire etait."
+                },
+                {
+                    type: "interactive",
+                    title: "Test est 1",
+                    question: "Choisis la bonne forme : <br><br><i>Il parle ____ il explique.</i>",
+                    options: ["et", "est"],
+                    answer: 0,
+                    feedback: "On peut dire et puis."
                 },
                 {
                     type: "write",
@@ -68,17 +101,81 @@
                     question: "Réécris la phrase sans erreur : <br><br><i>et - est - rapide - le - pro-gamer - precis</i>",
                     requirements: {
                         mode: "sentence",
-                        keywords: ["est", "rapide", "et", "précis"],
+                        keywords: ["est", "rapide", "et", "precis"],
                         enforceKeywords: true
                     },
-                    feedback: "Parfait ! Il 'était' rapide 'et puis' précis."
+                    feedback: "Parfait ! Il 'etait' rapide 'et puis' precis."
+                },
+                {
+                    type: "write",
+                    title: "Correction Simple",
+                    question: "Corrige : <br><br><i>il a la finale et il a fier</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["a", "et", "est"]
+                    },
+                    feedback: "Correctif applique."
+                },
+                {
+                    type: "interactive",
+                    title: "Variante a / a",
+                    question: "Choisis la bonne forme : <br><br><i>Elle ____ raison.</i>",
+                    options: ["a", "à"],
+                    answer: 0,
+                    feedback: "Test 'avait'."
+                },
+                {
+                    type: "interactive",
+                    title: "Variante et / est",
+                    question: "Choisis la bonne forme : <br><br><i>Le signal ____ clair.</i>",
+                    options: ["et", "est"],
+                    answer: 1,
+                    feedback: "Test 'etait'."
+                },
+                {
+                    type: "write",
+                    title: "Phrase Mixte",
+                    question: "Ecris une phrase avec a et est correctement.",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["a", "est"]
+                    },
+                    feedback: "Phrase clean."
+                },
+                {
+                    type: "write",
+                    title: "Phrase Mixte 2",
+                    question: "Ecris une phrase avec et et a correctement.",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["et", "a"]
+                    },
+                    feedback: "Validation ok."
+                },
+                {
+                    type: "interactive",
+                    title: "Relecture Rapide",
+                    question: "Quelle phrase est correcte ?",
+                    options: ["Il a rapide et il est tard.", "Il est rapide et il a tard.", "Il est rapide et il a la finale."],
+                    answer: 2,
+                    feedback: "Lecture valide."
+                },
+                {
+                    type: "write",
+                    title: "Rapport Court",
+                    question: "Ecris deux phrases courtes avec a et est.",
+                    requirements: {
+                        mode: "sentence",
+                        minWords: 8
+                    },
+                    feedback: "Rapport en regle."
                 },
                 {
                     type: "challenge",
                     title: "Boss de Fin - Mission 4",
                     question: "Corrige cette phrase pleine de parasites : <br><br><i>va - a - il - raquette - a - salle - la - et - une - il</i>",
                     requirements: {
-                        keywords: ["a", "et", "à"]
+                        keywords: ["a", "à", "et"]
                     },
                     hint: "Utilise les tests : avait, et puis, avait.",
                     feedback: "Filtres activés. Ton message est cristallin."

@@ -81,12 +81,27 @@
                     <p>Attention à ne pas en abuser, sinon ton signal devient illisible.</p>`
             },
             {
+                type: "lesson",
+                title: "Nuances d'Intention",
+                content: `
+                    <p>Le signe change la force de ton message.</p>
+                    <div class="box-concept">Tu viens. / Tu viens ? / Tu viens !</div>`
+            },
+            {
                 type: "interactive",
                 title: "Analyse de Signal",
                 question: "Quelle ponctuation choisirais-tu pour une alerte imminente ?",
                 options: ["Le point simple (.)", "Le point d'exclamation (!)", "Les points de suspension (...)"],
                 answer: 1,
                 feedback: "Correct. L'urgence demande une exclamation."
+            },
+            {
+                type: "interactive",
+                title: "Signal d'Urgence",
+                question: "Quelle ponctuation convient ? <br><br><i>Attention au drone ____</i>",
+                options: ["!", "?", "."],
+                answer: 0,
+                feedback: "Alerte -> exclamation."
             },
             {
                 type: "write",
@@ -98,6 +113,89 @@
                 },
                 hint: "Change juste le point final par un point d'interrogation.",
                 feedback: "Le doute est transmis. L'escouade va vérifier."
+            },
+            {
+                type: "write",
+                title: "Exclamation",
+                question: "Transforme la phrase en alerte forte : <br><br><i>Les ennemis arrivent.</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["!"]
+                },
+                feedback: "Alerte envoyee."
+            },
+            {
+                type: "interactive",
+                title: "Point ou Question",
+                question: "Quelle phrase est une question ?",
+                options: ["Tu viens.", "Tu viens ?", "Tu viens !"],
+                answer: 0,
+                feedback: "Scan reussi."
+            },
+            {
+                type: "interactive",
+                title: "Suspension",
+                question: "Quel signe indique l'attente ?",
+                options: ["...", "!", "?"],
+                answer: 0,
+                feedback: "Suspens active."
+            },
+            {
+                type: "write",
+                title: "Phrase en Question",
+                question: "Ecris une question sur la mission en cours.",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["?"]
+                },
+                feedback: "Question valide."
+            },
+            {
+                type: "write",
+                title: "Phrase en Exclamation",
+                question: "Ecris une phrase d'action finissant par !",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["!"]
+                },
+                feedback: "Impact fort."
+            },
+            {
+                type: "interactive",
+                title: "Choix Correct",
+                question: "Quel signe est le plus adapte pour un doute ?",
+                options: ["?", "!", "."],
+                answer: 0,
+                feedback: "Doute -> interrogation."
+            },
+            {
+                type: "write",
+                title: "Mini Rapport",
+                question: "Ecris trois phrases avec . ? ! (une de chaque).",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [".", "?", "!"] ,
+                    minWords: 12
+                },
+                feedback: "Rapport riche."
+            },
+            {
+                type: "write",
+                title: "Reecriture Express",
+                question: "Reecris avec un ton inquiet : <br><br><i>Le signal est coupe.</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["?"]
+                },
+                feedback: "Inquietude transmise."
+            },
+            {
+                type: "interactive",
+                title: "Dernier Check",
+                question: "Quelle phrase montre une urgence ?",
+                options: ["On arrive.", "On arrive ?", "On arrive !"],
+                answer: 0,
+                feedback: "Urgence claire."
             },
             {
                 type: "challenge",

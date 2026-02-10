@@ -83,6 +83,15 @@
                     </div>`
             },
             {
+                type: "lesson",
+                title: "Rythme et Liste",
+                content: `
+                    <div class="box-concept">
+                    J'ai pris mon casque, mes gants et ma souris.<br><br>
+                    Elle etait pale, elle marchait vite, elle semblait chercher quelqu'un.
+                    </div>`
+            },
+            {
                 type: "interactive",
                 title: "Détection de Micro-coupure",
                 question: "Où manque-t-il une virgule pour que la phrase soit fluide ? <br><br><i>Le capitaine Lovyc analyse la map il déploie ses drones.</i>",
@@ -91,15 +100,105 @@
                 feedback: "Correct. La pause se fait entre deux actions distinctes."
             },
             {
+                type: "interactive",
+                title: "Pause Juste",
+                question: "Où placer la virgule ? <br><br><i>Quand le match commence on reste groupés.</i>",
+                options: ["Quand le match commence, on reste groupes.", "Quand le match, commence on reste groupes.", "Quand le match commence on, reste groupes."],
+                answer: 0,
+                feedback: "La virgule vient apres la subordonnee."
+            },
+            {
                 type: "write",
                 title: "Saisie Rythmique",
-                question: "Réécris cette phrase en ajoutant les <b>deux</b> virgules nécessaires : <br><br><i>lag - sature - ping - le - montent - les - et - arrive - serveur - le</i>",
+                question: "Réécris cette phrase en ajoutant les <b>deux</b> virgules nécessaires : <br><br><i>Le serveur sature le ping monte et le lag arrive.</i>",
                 requirements: {
                     mode: "sentence",
                     keywords: [",", "serveur", "ping", "lag"]
                 },
                 hint: "Il y a trois actions. Sépare les deux premières par des virgules.",
                 feedback: "Bravo. Ton flow est désormais ininterrompu."
+            },
+            {
+                type: "write",
+                title: "Liste Claire",
+                question: "Ecris une phrase avec une liste de trois objets et une virgule.",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [",", "et"]
+                },
+                feedback: "Liste propre."
+            },
+            {
+                type: "interactive",
+                title: "Virgule ou Point",
+                question: "Quel signe convient ? <br><br><i>Il ouvre la map ____ il repere la zone.</i>",
+                options: [",", ".", "rien"],
+                answer: 0,
+                feedback: "Deux actions proches -> virgule."
+            },
+            {
+                type: "interactive",
+                title: "Virgule Avant Mais",
+                question: "Ou placer la virgule ? <br><br><i>Il attaque mais il recule.</i>",
+                options: ["Il attaque, mais il recule.", "Il attaque mais, il recule.", "Il attaque mais il, recule."],
+                answer: 0,
+                feedback: "Virgule avant mais."
+            },
+            {
+                type: "write",
+                title: "Virgule dans une Phrase Longue",
+                question: "Ajoute une virgule pour mieux respirer : <br><br><i>Le coach explique la strat et la team ecoute.</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [","]
+                },
+                feedback: "Respiration ok."
+            },
+            {
+                type: "write",
+                title: "Virgule avec Apposition",
+                question: "Ajoute une virgule apres 'Lovyc' : <br><br><i>Lovyc le capitaine donne l'ordre.</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [","]
+                },
+                feedback: "Apposition isolee."
+            },
+            {
+                type: "interactive",
+                title: "Choix Correct",
+                question: "Quelle phrase est correcte ?",
+                options: ["Je charge, je tire.", "Je charge je, tire.", "Je charge, je tire,"],
+                answer: 0,
+                feedback: "Virgule juste."
+            },
+            {
+                type: "write",
+                title: "Mini Rapport",
+                question: "Ecris deux phrases avec une virgule dans chacune.",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 10
+                },
+                feedback: "Rapport rythme."
+            },
+            {
+                type: "write",
+                title: "Reecriture Live",
+                question: "Reecris avec virgules : <br><br><i>dans la base Lovyc prepare le match il verifie la map</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [","]
+                },
+                feedback: "Message fluide."
+            },
+            {
+                type: "interactive",
+                title: "Dernier Check",
+                question: "Quelle phrase est la plus claire ?",
+                options: ["Le drone arrive, il scanne.", "Le drone arrive il scanne.", "Le drone arrive, il scanne,"],
+                answer: 0,
+                feedback: "Clarte obtenue."
             },
             {
                 type: "challenge",

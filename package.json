@@ -1,0 +1,13 @@
+{
+  "name": "centre-apprentissage-tests",
+  "version": "1.0.0",
+  "description": "Tests automatisés pour les modules pédagogiques",
+  "scripts": {
+    "test": "node tests/test-runner.js",
+    "test:lovyc": "node tests/test-runner.js lovyc",
+    "test:zyvah": "node tests/test-runner.js zyvah"
+  },
+  "keywords": ["pedagogie", "tests", "qa"],
+  "author": "",
+  "license": "ISC"
+}

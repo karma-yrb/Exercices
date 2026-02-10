@@ -78,6 +78,13 @@
                     </div>`
             },
             {
+                type: "lesson",
+                title: "Incise en Action",
+                content: `
+                    <p>L'incise est un petit bloc qui suit la parole et precise l'auteur.</p>
+                    <div class="box-concept">— On avance, <b>murmura l'agent</b>.</div>`
+            },
+            {
                 type: "interactive",
                 title: "Identification de Source",
                 question: "Dans cette phrase, quelle partie est l'incise ? <br><br><i>— Le patch arrive demain, murmura le développeur.</i>",
@@ -86,15 +93,105 @@
                 feedback: "Exactement. L'incise donne le ton et l'auteur de la parole."
             },
             {
+                type: "interactive",
+                title: "Dialogue Ou Incise",
+                question: "Ou se trouve la parole ? <br><br><i>— On tient la zone, dit Lovyc.</i>",
+                options: ["— On tient la zone", "dit Lovyc", "zone"],
+                answer: 0,
+                feedback: "Le dialogue commence avec le tiret."
+            },
+            {
                 type: "write",
                 title: "Codage de Dialogue",
                 question: "Complète ce dialogue avec une incise de ton choix (ex: s'exclama Zyvah, répondit le chef) : <br><br><i>— Attention au sniper à gauche, _______.</i>",
                 requirements: {
                     mode: "sentence",
-                    keywords: ["Lovyc", "Zyvah", "chef", "agent", "dit", "disent", "répondit", "répondent", "s'exclama", "s'exclament", "hurla", "hurlent", "murmura", "murmurent"]
+                    keywords: ["Lovyc", "Zyvah", "chef", "agent", "dit", "repondit", "s'exclama", "murmura", "hurla"]
                 },
                 hint: "Utilise un verbe de parole et un nom de personnage.",
                 feedback: "Parfait. On sait maintenant d'où vient l'alerte."
+            },
+            {
+                type: "write",
+                title: "Incise Courte",
+                question: "Ecris une incise courte (ex: dit l'agent).",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["dit", "repondit", "murmura", "hurla"]
+                },
+                feedback: "Incise valide."
+            },
+            {
+                type: "interactive",
+                title: "Verbe de Parole",
+                question: "Quel mot est un verbe de parole ?",
+                options: ["murmura", "rapide", "casque"],
+                answer: 0,
+                feedback: "Verbe de parole detecte."
+            },
+            {
+                type: "write",
+                title: "Dialogue + Incise",
+                question: "Ecris une ligne complete de dialogue avec tiret et incise.",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["—"]
+                },
+                feedback: "Dialogue valide."
+            },
+            {
+                type: "interactive",
+                title: "Placement Virgule",
+                question: "Ou place-t-on la virgule ? <br><br><i>— On part ____ dit Lovyc.</i>",
+                options: ["avant dit", "apres dit", "pas de virgule"],
+                answer: 0,
+                feedback: "La virgule precede l'incise."
+            },
+            {
+                type: "write",
+                title: "Dialogue Rapide",
+                question: "Ecris un dialogue court avec un ordre (ex: Avance).",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["—"]
+                },
+                feedback: "Ordre transmis."
+            },
+            {
+                type: "interactive",
+                title: "Ligne Correcte",
+                question: "Quelle ligne est correcte ?",
+                options: ["— On avance, dit Lovyc.", "— On avance dit, Lovyc.", "On avance, — dit Lovyc."],
+                answer: 0,
+                feedback: "Format propre."
+            },
+            {
+                type: "write",
+                title: "Micro Dialogue",
+                question: "Ecris deux lignes de dialogue (deux phrases).",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 10
+                },
+                feedback: "Communication valide."
+            },
+            {
+                type: "write",
+                title: "Rapport de Mission",
+                question: "Ecris une phrase avec une incise mais sans dialogue.",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [","]
+                },
+                feedback: "Incise integree."
+            },
+            {
+                type: "interactive",
+                title: "Derniere Validation",
+                question: "Quel element est obligatoire pour montrer le dialogue ?",
+                options: ["Le tiret cadratin", "Les deux-points", "La parenthese"],
+                answer: 0,
+                feedback: "Correct."
             },
             {
                 type: "challenge",

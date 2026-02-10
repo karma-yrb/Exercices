@@ -8,24 +8,15 @@
     <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
 </head>
 <body>
-
 <div id="app">
-    <!-- HEADER -->
     <div class="header">
-        <div class="progress-meta">
-            <span id="progress-text">MISSION EN COURS</span>
-            <span id="session-tag">MISSION 1</span>
-        </div>
+        <div class="progress-meta"><span id="progress-text">MISSION EN COURS</span><span id="session-tag">MISSION 1</span></div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
-
-    <!-- CONTENT VIEW -->
     <div id="view-content" class="view active">
         <h2 id="step-title" style="margin-bottom:20px;"></h2>
         <div id="step-body"></div>
     </div>
-
-    <!-- SUCCESS VIEW -->
     <div id="view-success" class="view">
         <div class="success-card">
             <div class="visual-anchor">
@@ -36,12 +27,10 @@
                 </svg>
             </div>
             <h1 style="color: var(--success); text-align: center; font-weight: 900;">MISSION ACCOMPLIE !</h1>
-            <p style="text-align: center; color: var(--text-dim);">Données synchronisées. Ton grade a été mis à jour.</p>
+            <p style="text-align: center; color: var(--text-dim);">Structure verrouillée. Ton grade a été mis à jour.</p>
             <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
         </div>
     </div>
-
-    <!-- FOOTER -->
     <div class="footer-nav hidden" id="footer">
         <div class="btn-group">
             <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
@@ -49,13 +38,8 @@
         </div>
     </div>
 </div>
-
 <script>
-    window.APP_CONFIG = {
-        STORAGE_KEY: 'lovyc_fr_w1_v2',
-        SINGLE_MISSION_MODE: true
-    };
-
+    window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w1_v2', SINGLE_MISSION_MODE: true };
     var weekData = [
         {
             id: 1,
@@ -76,48 +60,147 @@
                                 </svg>
                               </div>
                               <div class="content-chunk">
-                                <p>Agent Lovyc, une phrase, c'est comme ta Squad dans <b>Valorant</b> : chaque membre a un rôle vital. Si ton perso n'a pas d'<b>Action</b> (Verbe), tu ne peux pas gagner la game.</p>
+                                <p>Agent Lovyc, une phrase, c'est comme ta squad : chaque membre a un rôle vital. Sans Action (verbe), la mission ne bouge pas.</p>
                                 <p>Tu as besoin de trois éléments :</p>
                               </div>
                               <div class="box-concept">
-                                [1] <b>L'Agent</b> (Sujet) : Qui lance l'action ?<br>
-                                [2] <b>L'Action</b> (Verbe) : Que fait-on ?<br>
-                                [3] <b>L'Objectif</b> (Complément) : Quel est le but ?
+                                <b>[1] L'Agent (Sujet)</b> : Qui lance l'action ?<br>
+                                <b>[2] L'Action (Verbe)</b> : Que fait-on ?<br>
+                                <b>[3] L'Objectif (Complément)</b> : Quel est le but ?
+                              </div>`
+                },
+                {
+                    type: "lesson",
+                    title: "Carte Tactique SVC",
+                    content: `
+                              <div class="content-chunk">
+                                <p>Pour trouver le <b>Sujet</b>, demande : <b>Qui est-ce qui ... ?</b></p>
+                                <p>Pour le <b>Verbe</b> : <b>Qu'est-ce qu'il fait ?</b></p>
+                                <p>Pour le <b>Complément</b> : <b>Quoi ? Où ? À qui ?</b></p>
                               </div>`
                 },
                 {
                     type: "interactive",
-                    title: "Scan de Zone 1",
+                    title: "Scan de Zone : Sujet",
                     question: "Dans cette phrase, quel mot est <b>L'Agent</b> ? <br><br><i>Le pro-gamer lance une attaque parfaite.</i>",
                     options: ["l'attaque", "Le pro-gamer", "parfaite"],
                     answer: 1,
-                    feedback: "Correct ! C'est le pro-gamer qui est aux commandes."
+                    feedback: "Correct ! C'est le pro-gamer qui agit."
                 },
                 {
                     type: "interactive",
-                    title: "Scan de Zone 2",
-                    question: "Trouve maintenant le <b>Verbe</b> : <br><br><i>Le pro-gamer lance une attaque parfaite.</i>",
+                    title: "Scan de Zone : Verbe",
+                    question: "Trouve le <b>Verbe</b> : <br><br><i>Le pro-gamer lance une attaque parfaite.</i>",
                     options: ["lance", "une attaque", "pro-gamer"],
                     answer: 0,
-                    feedback: "Exact ! 'Lance' est le mouvement, l'action."
+                    feedback: "Exact ! 'Lance' est l'action."
+                },
+                {
+                    type: "interactive",
+                    title: "Scan de Zone : Complément",
+                    question: "Quel est le <b>Complément</b> ? <br><br><i>Le pro-gamer lance une attaque parfaite.</i>",
+                    options: ["pro-gamer", "lance", "une attaque parfaite"],
+                    answer: 2,
+                    feedback: "Bien vu. C'est l'objectif de l'action."
                 },
                 {
                     type: "write",
-                    title: "Saisie Tactique",
+                    title: "Saisie Tactique : Verbe",
                     question: "Écris le mot qui manque (le Verbe) : <br><br><i>Lovyc ____ son écran de jeu.</i>",
                     requirements: {
-                        keywords: ["regarde", "allume", "fixe", "nettoie", "prépare"],
-                        mode: "verb"
+                        mode: "verb",
+                        keywords: ["regarde", "allume", "fixe", "nettoie", "prepare"]
                     },
                     hint: "Cherche une action concrète (regarde, allume, fixe...)",
                     feedback: "Bien !"
+                },
+                {
+                    type: "write",
+                    title: "Saisie Tactique : Complément",
+                    question: "Complète la phrase avec un complément simple : <br><br><i>L'agent surveille ____.</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["zone", "map", "terrain", "couloir", "base"]
+                    },
+                    hint: "Un complément indique quoi il surveille.",
+                    feedback: "Cible verrouillée."
+                },
+                {
+                    type: "interactive",
+                    title: "Ordre de Mission",
+                    question: "Quelle phrase respecte l'ordre S + V + C ?",
+                    options: ["Le drone la zone surveille.", "Le drone surveille la zone.", "Surveille le drone la zone."],
+                    answer: 1,
+                    feedback: "Structure claire et efficace."
+                },
+                {
+                    type: "write",
+                    title: "Phrase SVC Contrôlée",
+                    question: "Écris une phrase S + V + C avec ces mots : <br><br><i>coach - explique - strategie</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["coach", "explique", "strategie"],
+                        enforceKeywords: true
+                    },
+                    hint: "Place d'abord le sujet.",
+                    feedback: "Flux valide."
+                },
+                {
+                    type: "interactive",
+                    title: "Sujet Caché",
+                    question: "Quel est le <b>Sujet</b> ? <br><br><i>Dans le lobby, les joueurs discutent.</i>",
+                    options: ["le lobby", "les joueurs", "discutent"],
+                    answer: 1,
+                    feedback: "Oui. Ce sont eux qui agissent."
+                },
+                {
+                    type: "write",
+                    title: "Réordonnancement Express",
+                    question: "Remets dans l'ordre pour former une phrase : <br><br><i>zone - securise - l'agent - la</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["l'agent", "securise", "zone"],
+                        enforceKeywords: true
+                    },
+                    feedback: "Ordre confirmé."
+                },
+                {
+                    type: "interactive",
+                    title: "Verbe ou Nom ?",
+                    question: "Quel mot indique l'action dans cette phrase ? <br><br><i>L'agent attaque la zone.</i>",
+                    options: ["agent", "attaque", "zone"],
+                    answer: 1,
+                    feedback: "Oui. C'est l'action effectuée par l'agent."
+                },
+                {
+                    type: "write",
+                    title: "Ajoute le Complément",
+                    question: "Ajoute un complément pour compléter la phrase : <br><br><i>Lovyc lance.</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["strategie", "attaque", "drone", "signal"]
+                    },
+                    hint: "Ajoute quoi ou vers quoi.",
+                    feedback: "Phrase complète."
+                },
+                {
+                    type: "write",
+                    title: "Mini Rapport",
+                    question: "Écris deux phrases S+V+C sur une préparation de match.",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["."],
+                        minWords: 8
+                    },
+                    hint: "Deux actions différentes, deux phrases.",
+                    feedback: "Rapport clair."
                 },
                 {
                     type: "challenge",
                     title: "Boss de Fin - Mission 1",
                     question: "Rédige une phrase complète (S+V+C) au <b>présent</b> avec le verbe 'ÉLIMINER' :",
                     requirements: {
-                        keywords: ["élimine", "élimines", "éliminent", "éliminons", "éliminez"]
+                        keywords: ["elimine", "elimines", "eliminent", "eliminons", "eliminez"]
                     },
                     hint: "Rappel : Sujet + Verbe + Complément.",
                     feedback: "Mission 1 accomplie à 100%."

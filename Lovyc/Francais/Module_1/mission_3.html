@@ -62,8 +62,33 @@
                               </div>`
                 },
                 {
+                    type: "lesson",
+                    title: "Point ou Virgule",
+                    content: `
+                              <div class="content-chunk">
+                                <p>Si tu passes a une nouvelle action, utilise le <b>point</b>.</p>
+                                <p>Si tu restes dans la meme action, utilise la <b>virgule</b>.</p>
+                              </div>`
+                },
+                {
+                    type: "interactive",
+                    title: "Choix de Coupure 1",
+                    question: "Quelle ponctuation convient ? <br><br><i>Lovyc vise la cible ____ il tire.</i>",
+                    options: [",", ".", "rien"],
+                    answer: 0,
+                    feedback: "Deux actions separees -> point."
+                },
+                {
+                    type: "interactive",
+                    title: "Choix de Coupure 2",
+                    question: "Quelle ponctuation convient ? <br><br><i>Il ouvre la map ____ repere la zone.</i>",
+                    options: [",", ".", "rien"],
+                    answer: 0,
+                    feedback: "Deux actions proches -> virgule."
+                },
+                {
                     type: "write",
-                    title: "Split de Signal",
+                    title: "Split de Signal 1",
                     question: "Sépare ces deux actions par un point : <br><br><i>se - commence - Lovyc - prépare - match - le</i>",
                     requirements: {
                         mode: "sentence",
@@ -74,12 +99,88 @@
                     feedback: "Parfait. Deux actions, deux phrases distinctes."
                 },
                 {
+                    type: "write",
+                    title: "Split de Signal 2",
+                    question: "Ajoute une virgule pour rendre la phrase plus fluide : <br><br><i>La team avance elle reste groupée.</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: [","]
+                    },
+                    feedback: "Flux ajuste."
+                },
+                {
                     type: "interactive",
                     title: "Correction de Chat",
                     question: "Où placer la virgule ? <br><br><i>Si tu gagnes je te rejoins.</i>",
                     options: ["Si tu gagnes, je te rejoins.", "Si tu, gagnes je te rejoins.", "Si tu gagnes je te, rejoins."],
                     answer: 0,
                     feedback: "Correct !"
+                },
+                {
+                    type: "interactive",
+                    title: "Pause Utile",
+                    question: "Quel signe fait une pause courte ?",
+                    options: ["Le point", "La virgule", "Le point d'exclamation"],
+                    answer: 1,
+                    feedback: "La micro-pause."
+                },
+                {
+                    type: "write",
+                    title: "Ajout de Virgule",
+                    question: "Ajoute une virgule : <br><br><i>En match Lovyc reste calme.</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: [","]
+                    },
+                    feedback: "Respiration ok."
+                },
+                {
+                    type: "write",
+                    title: "Ajout de Point",
+                    question: "Ajoute un point pour separer les actions : <br><br><i>Il monte le son il commence le stream</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["."]
+                    },
+                    feedback: "Actions separees."
+                },
+                {
+                    type: "interactive",
+                    title: "Phrase Longue",
+                    question: "Quel choix est le plus clair ? <br><br><i>Il charge il tire il avance</i>",
+                    options: ["Il charge, il tire, il avance.", "Il charge il tire il avance.", "Il charge. il tire. il avance."],
+                    answer: 0,
+                    feedback: "Liste d'actions -> virgules."
+                },
+                {
+                    type: "write",
+                    title: "Message Clair",
+                    question: "Reecris avec ponctuation : <br><br><i>je - check - le - radar - je - bouge</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: [","]
+                    },
+                    hint: "Deux actions proches -> virgule.",
+                    feedback: "Message clair."
+                },
+                {
+                    type: "write",
+                    title: "Micro Rapport",
+                    question: "Ecris deux phrases courtes sur ton entrainement.",
+                    requirements: {
+                        mode: "sentence",
+                        minWords: 8,
+                        mustInclude: ["."]
+                    },
+                    feedback: "Rapport propre."
+                },
+                {
+                    type: "interactive",
+                    title: "Derniere Verification",
+                    question: "Quelle phrase est correcte ?",
+                    options: ["Je prends le casque, je pars.", "Je prends le casque. je pars.", "Je prends le casque je pars."],
+                    answer: 0,
+                    feedback: "La virgule relie deux actions proches."
                 },
                 {
                     type: "challenge",

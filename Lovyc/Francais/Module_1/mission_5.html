@@ -59,9 +59,27 @@
                     feedback: "Structure littéraire verrouillée."
                 },
                 {
+                    type: "interactive",
+                    title: "Accord Squad",
+                    question: "Choisis la bonne forme : <br><br><i>Les joueurs ____ la zone.</i>",
+                    options: ["securise", "securisent", "securises"],
+                    answer: 1,
+                    feedback: "Pluriel -> -ent."
+                },
+                {
                     type: "write",
-                    title: "Module 2 : Accord Squad",
-                    question: "Corrige cette phrase (Hugo) en respectant le code -ENT : <br><br><i>marcher - les - ombre - dans - l' - hommes</i>",
+                    title: "S+V+C Libre",
+                    question: "Ecris une phrase S+V+C au present.",
+                    requirements: {
+                        mode: "sentence",
+                        minWords: 6
+                    },
+                    feedback: "Bonne structure."
+                },
+                {
+                    type: "write",
+                    title: "Accord Pluriel",
+                    question: "Corrige cette phrase (Hugo) en respectant le code -ENT : <br><br><i>Les hommes marche dans l'ombre.</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["hommes", "marchent", "ombre"],
@@ -70,12 +88,94 @@
                     feedback: "Liaison squad établie."
                 },
                 {
+                    type: "interactive",
+                    title: "Ponctuation Simple",
+                    question: "Quelle phrase est la plus claire ?",
+                    options: ["Je charge, je tire.", "Je charge. je tire.", "Je charge je tire."],
+                    answer: 0,
+                    feedback: "Virgule utile."
+                },
+                {
+                    type: "write",
+                    title: "Point et Virgule",
+                    question: "Ajoute une virgule et un point : <br><br><i>je - check - la - map - je - pars - vite</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: [",", "."]
+                    },
+                    feedback: "Ponctuation appliquee."
+                },
+                {
+                    type: "interactive",
+                    title: "Homophones Rapides",
+                    question: "Choisis la phrase correcte :",
+                    options: ["Il a rapide et il est fier.", "Il est rapide et il a la finale.", "Il et rapide et il a la finale."],
+                    answer: 1,
+                    feedback: "Homophones ok."
+                },
+                {
+                    type: "write",
+                    title: "Phrase Mixte 1",
+                    question: "Ecris une phrase avec a, et, est.",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["a", "et", "est"]
+                    },
+                    feedback: "Mix valide."
+                },
+                {
+                    type: "write",
+                    title: "Phrase Mixte 2",
+                    question: "Ecris une phrase au pluriel avec une virgule.",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: [","]
+                    },
+                    feedback: "Bon rythme."
+                },
+                {
+                    type: "interactive",
+                    title: "Verification Finale 1",
+                    question: "Quelle phrase est correcte ? <br><br><i>Les agents avance.</i>",
+                    options: ["Les agents avance.", "Les agents avancent.", "Les agents avançe."],
+                    answer: 1,
+                    feedback: "Accord valide."
+                },
+                {
+                    type: "interactive",
+                    title: "Verification Finale 2",
+                    question: "Quelle phrase respecte S+V+C ?",
+                    options: ["La zone protege l'agent.", "L'agent protege la zone.", "Protege l'agent la zone."],
+                    answer: 1,
+                    feedback: "Structure valide."
+                },
+                {
+                    type: "write",
+                    title: "Micro Rapport",
+                    question: "Ecris deux phrases S+V+C avec un sujet pluriel dans l'une.",
+                    requirements: {
+                        mode: "sentence",
+                        minWords: 12
+                    },
+                    feedback: "Rapport clair."
+                },
+                {
+                    type: "write",
+                    title: "Rapport Global",
+                    question: "Redige 3 phrases sur un match termine.",
+                    requirements: {
+                        mode: "sentence",
+                        minWords: 18
+                    },
+                    feedback: "Rapport complet."
+                },
+                {
                     type: "challenge",
-                    title: "ULtime Boss - Module 1",
+                    title: "Ultime Boss - Module 1",
                     question: "Rédige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au présent, et le mot 'TACTIQUE'.",
                     requirements: {
                         mode: "sentence",
-                        keywords: ["réussissent", "réussit", "réussis", "réussissons", "réussissez"],
+                        keywords: ["reussissent", "reussit", "reussis", "reussissons", "reussissez"],
                         mustInclude: [",", "tactique"]
                     },
                     hint: "Exemple : Tes missions réussissent, c'est une victoire tactique.",

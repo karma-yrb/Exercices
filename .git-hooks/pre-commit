@@ -1,0 +1,30 @@
+#!/bin/bash
+# Pre-commit Hook - Tests Automatiques
+# Ce hook empêche les commits si les tests échouent
+
+echo "🔍 Lancement des tests automatiques..."
+echo ""
+
+# Lancer les tests Node.js
+node tests/test-runner.js
+
+# Capturer le code de sortie
+TEST_EXIT_CODE=$?
+
+if [ $TEST_EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "❌ COMMIT BLOQUÉ : Les tests ont échoué."
+    echo ""
+    echo "Corrige les erreurs avant de commiter :"
+    echo "  1. Vérifie les erreurs ci-dessus"
+    echo "  2. Corrige les fichiers concernés"
+    echo "  3. Relance : npm test"
+    echo "  4. Réessaye : git commit"
+    echo ""
+    exit 1
+fi
+
+echo ""
+echo "✅ Tous les tests sont passés. Commit autorisé."
+echo ""
+exit 0

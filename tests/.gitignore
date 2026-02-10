@@ -1,0 +1,4 @@
+# Test outputs
+test-results/
+coverage/
+*.log

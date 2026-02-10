@@ -126,7 +126,7 @@
                 },
                 {
                     type: "write",
-                    title: "Transmission Clairement",
+                    title: "Transmission Claire",
                     question: "Ecris une phrase correcte avec ces mots : <br><br><i>ils - l'extraction - avancent - vers</i>",
                     requirements: {
                         mode: "sentence",
@@ -139,13 +139,63 @@
                 {
                     type: "write",
                     title: "Correction de Bug",
-                    question: "Réécris la phrase sans erreur : <br><br><i>match - parents - mon - regarde - mes</i>",
+                    question: "Réécris la phrase sans erreur : <br><br><i>Mes parents regarde mon match.</i>",
                     requirements: {
                         mode: "sentence",
                         keywords: ["parents", "regardent", "match"],
                         enforceKeywords: true
                     },
                     feedback: "Fix réussi ! Tes parents (ils) = regardent."
+                },
+                {
+                    type: "interactive",
+                    title: "Faux Ami",
+                    question: "Quel verbe est correct ? <br><br><i>Les coequipiers ____ la defense.</i>",
+                    options: ["ameliore", "ameliorent", "ameliores"],
+                    answer: 1,
+                    feedback: "Pluriel -> ameliorent."
+                },
+                {
+                    type: "write",
+                    title: "Accord Cache",
+                    question: "Complete la phrase : <br><br><i>Les joueurs ____ la finale ce soir.</i>",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["joueurs", "gagnent", "finale"],
+                        enforceKeywords: true
+                    },
+                    hint: "Sujet pluriel = verbe en -ent.",
+                    feedback: "Parfait."
+                },
+                {
+                    type: "interactive",
+                    title: "Pluriel Repere",
+                    question: "Quel mot montre que le sujet est pluriel ? <br><br><i>Mes freres avancent vite.</i>",
+                    options: ["vite", "mes", "avancent"],
+                    answer: 1,
+                    feedback: "Oui. 'Mes' indique plusieurs."
+                },
+                {
+                    type: "write",
+                    title: "Phrase Plurielle Libre",
+                    question: "Ecris une phrase avec un sujet pluriel et un verbe au present.",
+                    requirements: {
+                        mode: "sentence",
+                        keywords: ["ils", "elles", "mes", "les"]
+                    },
+                    hint: "Commence par un groupe de plusieurs personnes.",
+                    feedback: "Accord valide."
+                },
+                {
+                    type: "write",
+                    title: "Rapport Squad",
+                    question: "Redige deux phrases avec un sujet pluriel dans chacune.",
+                    requirements: {
+                        mode: "sentence",
+                        minWords: 10
+                    },
+                    hint: "Deux actions, deux accords.",
+                    feedback: "Rapport synchronise."
                 },
                 {
                     type: "challenge",

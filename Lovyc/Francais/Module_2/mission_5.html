@@ -83,6 +83,14 @@
                 feedback: "Correct. On n'isole pas l'adjectif du nom avec une virgule."
             },
             {
+                type: "interactive",
+                title: "Choix de Ponctuation",
+                question: "Quel signe sert a introduire une liste ?",
+                options: [":", ",", "!"],
+                answer: 0,
+                feedback: "Exact."
+            },
+            {
                 type: "write",
                 title: "Rapport Tactique 1",
                 question: "Rédige une phrase avec un dialogue court (—...) et une incise au présent :",
@@ -103,6 +111,91 @@
                 },
                 hint: "Ex: La zone contient deux menaces : un sniper et un char.",
                 feedback: "Cible identifiée."
+            },
+            {
+                type: "write",
+                title: "Rapport Tactique 3",
+                question: "Redige une phrase contenant des parentheses pour une precision :",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["(", ")"]
+                },
+                feedback: "Precision ajoutee."
+            },
+            {
+                type: "interactive",
+                title: "Dialogue Check",
+                question: "Quel element est obligatoire pour un dialogue ?",
+                options: ["Le tiret cadratin", "Les deux-points", "La parenthese"],
+                answer: 0,
+                feedback: "Correct."
+            },
+            {
+                type: "write",
+                title: "Dialogue + Incise",
+                question: "Ecris une ligne de dialogue avec incise.",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["—"]
+                },
+                feedback: "Dialogue valide."
+            },
+            {
+                type: "interactive",
+                title: "Deux-points Check",
+                question: "Quelle phrase est correcte ?",
+                options: ["Je prends : casque et micro.", "Je prends deux choses : casque et micro.", "Je prends deux choses: casque et micro."],
+                answer: 1,
+                feedback: "Espace avant et apres les deux-points."
+            },
+            {
+                type: "write",
+                title: "Parentheses",
+                question: "Ajoute une precision entre parentheses : <br><br><i>La zone est active.</i>",
+                requirements: {
+                    mode: "sentence",
+                    keywords: ["(", ")"]
+                },
+                feedback: "Ok."
+            },
+            {
+                type: "interactive",
+                title: "Virgule Check",
+                question: "Quelle phrase respire le mieux ?",
+                options: ["Je vise, je tire.", "Je vise je, tire.", "Je vise je tire."],
+                answer: 0,
+                feedback: "Virgule propre."
+            },
+            {
+                type: "write",
+                title: "Mix Ponctuation",
+                question: "Ecris une phrase avec une virgule et un point d'exclamation.",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [",", "!"]
+                },
+                feedback: "Mix valide."
+            },
+            {
+                type: "write",
+                title: "Micro Rapport",
+                question: "Ecris trois phrases avec au moins deux signes de ponctuation differents.",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 15
+                },
+                feedback: "Rapport solide."
+            },
+            {
+                type: "write",
+                title: "Rapport Long",
+                question: "Redige un petit paragraphe (au moins 20 mots) avec virgule, deux-points et parentheses.",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 20,
+                    keywords: [",", ":", "(", ")"]
+                },
+                feedback: "Rapport complet."
             },
             {
                 type: "challenge",
