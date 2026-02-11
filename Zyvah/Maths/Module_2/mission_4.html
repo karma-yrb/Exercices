@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mission 4 - Les Équations</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO : 0%</span>
+            <span id="session-tag">MISSION 4/5</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <div id="step-container"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 24 24" style="width:100px;height:100px;fill:var(--accent);filter: drop-shadow(0 0 10px var(--accent-glow));">
+                    <path d="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"/>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION 4 TERMINÉE !</h1>
+            <p class="success-text">Maîtrise totale des équations ! Tu sais isoler une variable, utiliser le produit-nul et mettre en équation des problèmes concrets. Badge débloqué : 🎯 Equation Solver</p>
+            <div class="box-concept next-mission-call">
+                <span>CHECKPOINT</span><br>
+                80% BOUCLÉ
+            </div>
+            <button onclick="window.location.href='checkpoint_2.html'" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w2_v1",
+        MISSION_ID: 4,
+        TOTAL_MISSIONS: 5,
+        MISSION_NAME: "Les Équations",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+    {
+        "type": "msg",
+        "title": "L'Équation : Trouver le Réglage",
+        "text": "Zyvah, une **équation**, c'est une **balance** : ce qui est à gauche = ce qui est à droite.\n\n**Résoudre**, c'est trouver la valeur de <code>x</code> (l'inconnue) qui **équilibre** la balance.\n\n**Exemple :**  \n<code>x + 3 = 7</code>\n\nQuelle valeur de <code>x</code> rend cette égalité vraie ?  \n→ <code>x = 4</code> (car <code>4 + 3 = 7</code>)\n\n**En studio :** Si le gain <code>x</code> plus 3 dB donne 7 dB total, quel est le gain de base ?  \n→ Résoudre l'équation !"
+    },
+    {
+        "type": "quiz",
+        "q": "Si je fais **+5** à gauche de l'égalité, que dois-je faire à droite pour garder l'équilibre ?",
+        "opts": [
+            "+ 5",
+            "- 5",
+            "Rien"
+        ],
+        "correct": 0,
+        "feed": "Exact ! Tout ce qu'on fait d'un côté, on doit le faire de l'autre pour **préserver l'égalité**.",
+        "title": "Principe de l'équilibre"
+    },
+    {
+        "type": "write",
+        "q": "Trouve la valeur de <code>x</code> :<br><br><code>x + 5 = 12</code>",
+        "requirements": {
+            "keywords": [
+                "7"
+            ],
+            "minWords": 2,
+            "validationType": "equation",
+            "expectNumbers": true
+        },
+        "hint": "Pour isoler <code>x</code>, enlève <code>5</code> des deux côtés : <code>x + 5 - 5 = 12 - 5</code>.",
+        "feed": "Parfait ! <code>x = 7</code>. Vérification : <code>7 + 5 = 12</code> ✅",
+        "title": "Résoudre x + 5 = 12"
+    },
+    {
+        "type": "quiz",
+        "q": "Pour résoudre <code>2x = 10</code>, quelle opération faire ?",
+        "opts": [
+            "Diviser par 2 des deux côtés",
+            "Soustraire 10",
+            "Multiplier par 2"
+        ],
+        "correct": 0,
+        "feed": "Exact ! <code>2x ÷ 2 = 10 ÷ 2</code> → <code>x = 5</code>.",
+        "title": "Isoler la variable"
+    },
+    {
+        "type": "write",
+        "q": "Résous cette équation (détaille les étapes) :<br><br><code>3x - 7 = 11</code>",
+        "requirements": {
+            "keywords": [
+                "6"
+            ],
+            "minWords": 2,
+            "validationType": "equation",
+            "expectNumbers": true
+        },
+        "hint": "Étape 1 : Ajoute <code>7</code> des deux côtés. Étape 2 : Divise par <code>3</code>.",
+        "feed": "Bien ! <code>3x = 18</code> puis <code>x = 6</code>. Vérif : <code>3×6 - 7 = 11</code> ✅",
+        "title": "Résoudre 3x - 7 = 11"
+    },
+    {
+        "type": "msg",
+        "title": "Le Produit-Nul",
+        "text": "**Règle ultra-puissante :**\n\nSi <code>A × B = 0</code>, alors **forcément** <code>A = 0</code> OU <code>B = 0</code> (ou les deux).\n\n**Exemple :**  \n<code>(x + 3)(x - 5) = 0</code>\n\nSoit <code>x + 3 = 0</code> → <code>x = -3</code>  \nSoit <code>x - 5 = 0</code> → <code>x = 5</code>\n\n**2 solutions !**\n\nCette règle s'appelle le **produit-nul** et elle est fondamentale pour résoudre les équations factorisées."
+    },
+    {
+        "type": "quiz",
+        "q": "Si <code>(x - 2)(x + 7) = 0</code>, quelles sont les solutions ?",
+        "opts": [
+            "x = 2 ou x = -7",
+            "x = -2 ou x = 7",
+            "x = 9"
+        ],
+        "correct": 0,
+        "feed": "Exact ! <code>x - 2 = 0</code> → <code>x = 2</code> et <code>x + 7 = 0</code> → <code>x = -7</code>.",
+        "title": "Règle du produit-nul"
+    },
+    {
+        "type": "write",
+        "q": "Résous avec la règle du produit-nul :<br><br><code>(x + 3)(x - 5) = 0</code><br><br>Donne les **2 solutions** séparées par une virgule.",
+        "requirements": {
+            "keywords": [
+                "-3",
+                "5"
+            ],
+            "minWords": 3,
+            "enforceKeywords": true,
+            "validationType": "equation",
+            "expectNumbers": true
+        },
+        "hint": "Résous <code>x + 3 = 0</code> et <code>x - 5 = 0</code> séparément.",
+        "feed": "Parfait ! Les deux solutions sont <code>x = -3</code> et <code>x = 5</code>.",
+        "title": "Résoudre (x + 3)(x - 5) = 0"
+    },
+    {
+        "type": "msg",
+        "title": "Factoriser pour résoudre",
+        "text": "Parfois, l'équation n'est **pas factorisée**. Il faut d'abord la factoriser !\n\n**Exemple :**  \n<code>x² - 9 = 0</code>\n\nÉtape 1 : Reconnaître <code>a² - b²</code> → Factoriser  \n<code>(x + 3)(x - 3) = 0</code>\n\nÉtape 2 : Produit-nul  \n<code>x = -3</code> ou <code>x = 3</code>\n\n**Stratégie :**  \n1️⃣ Tout ramener à gauche (= 0 à droite)  \n2️⃣ Factoriser  \n3️⃣ Produit-nul"
+    },
+    {
+        "type": "write",
+        "q": "Résous en factorisant d'abord :<br><br><code>x² - 9 = 0</code><br><br>Donne les 2 solutions.",
+        "requirements": {
+            "keywords": [
+                "-3",
+                "3"
+            ],
+            "minWords": 3,
+            "enforceKeywords": true,
+            "validationType": "equation",
+            "expectNumbers": true
+        },
+        "hint": "C'est une différence de carrés : <code>(x + 3)(x - 3) = 0</code>.",
+        "feed": "Excellent ! <code>x² - 9 = (x + 3)(x - 3) = 0</code> → <code>x = -3</code> ou <code>x = 3</code>.",
+        "title": "Résoudre x² - 9 = 0"
+    },
+    {
+        "type": "interactive",
+        "q": "Pour résoudre <code>x² + 5x = 0</code>, quelle est la **première** étape ?",
+        "opts": [
+            "Développer",
+            "Factoriser",
+            "Calculer x²"
+        ],
+        "correct": 1,
+        "feed": "Exact ! On factorise par <code>x</code> : <code>x(x + 5) = 0</code>, puis produit-nul.",
+        "title": "Stratégie de résolution"
+    },
+    {
+        "type": "write",
+        "q": "Résous par factorisation :<br><br><code>x² + 5x = 0</code><br><br>Donne les 2 solutions.",
+        "requirements": {
+            "keywords": [
+                "0",
+                "-5"
+            ],
+            "minWords": 3,
+            "enforceKeywords": true,
+            "validationType": "equation",
+            "expectNumbers": true
+        },
+        "hint": "Facteur commun : <code>x(x + 5) = 0</code>. Produit-nul : <code>x = 0</code> ou <code>x + 5 = 0</code>.",
+        "feed": "Parfait ! <code>x = 0</code> ou <code>x = -5</code>.",
+        "title": "Résoudre x² + 5x = 0"
+    },
+    {
+        "type": "write",
+        "q": "Un studio facture <code>50 + 20x</code> euros pour <code>x</code> heures d'enregistrement.<br><br>Un client paie **130 euros**. Combien d'heures a-t-il enregistré ?<br><br>Écris l'équation et résous.",
+        "requirements": {
+            "keywords": [
+                "4"
+            ],
+            "minWords": 2,
+            "validationType": "equation",
+            "expectNumbers": true
+        },
+        "hint": "Équation : <code>50 + 20x = 130</code>. Isole <code>x</code>.",
+        "feed": "Bravo ! <code>20x = 80</code> → <code>x = 4</code>. Il a enregistré **4 heures**.",
+        "title": "Problème : durée d'enregistrement"
+    },
+    {
+        "type": "quiz",
+        "q": "Une console coûte 3 fois le prix d'un micro (<code>x</code> euros). Si le total = 800 €, l'équation est :",
+        "opts": [
+            "x + 3x = 800",
+            "x + 3 = 800",
+            "3x = 800"
+        ],
+        "correct": 0,
+        "feed": "Exact ! Micro = <code>x</code>, Console = <code>3x</code>, Total = <code>x + 3x = 800</code>.",
+        "title": "Mise en équation"
+    },
+    {
+        "type": "challenge",
+        "q": "Un ingénieur modélise le signal d'un compresseur par :<br><br><code>x² + 7x = 0</code><br><br>Quelles sont les **valeurs de x** (réglages du compresseur) qui annulent le signal ?<br><br>Résous cette équation. Donne les 2 solutions.",
+        "requirements": {
+            "keywords": [
+                "0",
+                "-7"
+            ],
+            "minWords": 2,
+            "validationType": "equation",
+            "expectNumbers": true
+        },
+        "hint": "Factorise d'abord par <code>x</code>, puis applique le produit-nul.",
+        "feed": "**MISSION 4 TERMINÉE** ✅<br><br>Maîtrise totale des équations ! Tu sais isoler une variable, utiliser le produit-nul et mettre en équation des problèmes concrets.<br><br>Dernière mission : le **Studio Master Challenge** !<br><br>**Badge débloqué :** 🎯 Equation Solver",
+        "title": "Boss Équation Complète"
+    }
+];
+</script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
+
+</body>
+</html>

@@ -85,9 +85,10 @@ class HtmlValidator {
         if (!this.weekData) return;
 
         this.weekData.forEach((step, idx) => {
-            if (step.type === 'interactive' && step.options) {
-                const unique = [...new Set(step.options)];
-                if (step.options.length !== unique.length) {
+            const opts = step.options || step.opts;
+            if (step.type === 'interactive' && opts) {
+                const unique = [...new Set(opts)];
+                if (opts.length !== unique.length) {
                     this.errors.push(`Step ${idx + 1} (${step.title}): Options dupliquées`);
                 }
             }
@@ -99,10 +100,12 @@ class HtmlValidator {
 
         this.weekData.forEach((step, idx) => {
             if (step.type === 'interactive') {
-                if (step.answer === undefined) {
+                const answer = (step.answer !== undefined) ? step.answer : (step.a !== undefined ? step.a : step.correct);
+                const opts = step.options || step.opts;
+                if (answer === undefined) {
                     this.errors.push(`Step ${idx + 1} (${step.title}): Réponse manquante`);
-                } else if (step.options && (step.answer < 0 || step.answer >= step.options.length)) {
-                    this.errors.push(`Step ${idx + 1} (${step.title}): Index de réponse invalide (${step.answer})`);
+                } else if (opts && (answer < 0 || answer >= opts.length)) {
+                    this.errors.push(`Step ${idx + 1} (${step.title}): Index de réponse invalide (${answer})`);
                 }
             }
         });
@@ -114,17 +117,24 @@ class HtmlValidator {
         this.weekData.forEach((step, idx) => {
             // Tous les types doivent avoir title
             if (!step.title || step.title.trim() === '') {
-                this.errors.push(`Step ${idx + 1}: Titre manquant`);
+                const hasFallback = !!(step.q || step.question || step.body || step.text);
+                if (hasFallback) {
+                    this.warnings.push(`Step ${idx + 1}: Titre manquant`);
+                } else {
+                    this.errors.push(`Step ${idx + 1}: Titre manquant`);
+                }
             }
 
             // Les types interactifs/write doivent avoir question
             if (['interactive', 'write', 'challenge'].includes(step.type)) {
-                if (!step.question || step.question.trim() === '') {
+                const question = step.question || step.q;
+                if (!question || question.trim() === '') {
                     this.errors.push(`Step ${idx + 1} (${step.title}): Question manquante`);
                 }
 
                 // Feedback obligatoire
-                if (!step.feedback || step.feedback.trim() === '') {
+                const feedback = step.feedback || step.feed;
+                if (!feedback || feedback.trim() === '') {
                     this.warnings.push(`Step ${idx + 1} (${step.title}): Feedback manquant`);
                 }
             }

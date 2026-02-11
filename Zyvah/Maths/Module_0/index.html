@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zyvah - Studio Maths | Module 1 - Warm-Up</title>
+    <title>Zyvah - Initiation Maths</title>
     <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
 </head>
 <body>
@@ -12,17 +12,17 @@
 <div id="app">
     <div class="header">
         <div class="progress-meta">
-            <span id="progress-text">SYNCHRO WARM-UP : 0%</span>
-            <span id="session-tag">MODULE 1</span>
+            <span id="progress-text">PROGRESSION STUDIO : 0%</span>
+            <span id="session-tag">INITIATION</span>
         </div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
 
-    <div id="view-lobby" class="view active">
+    <div id="view-lobby" class="view active" style="padding-bottom: 24px;">
         <div style="display:flex; justify-content: space-between; align-items: flex-start;">
             <div>
-                <h1 class="lobby-title">Studio Warm-Up</h1>
-                <p class="lobby-intro">Zyvah, vérifie tes bases avant d'attaquer le vrai studio. Révision rapide des priorités opératoires.</p>
+                <h1 class="lobby-title">Initiation Maths</h1>
+                <p class="lobby-intro">Avant de mixer les calculs, tu poses les bases. 5 regles rapides.</p>
             </div>
             <div style="margin-top: 5px;">
                 <svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:var(--accent);filter: drop-shadow(0 0 5px var(--accent-glow));">
@@ -31,33 +31,30 @@
             </div>
         </div>
         <div class="days-grid" id="days-grid"></div>
-        <a href="../../index.html" class="btn-nav" style="margin-top: 30px; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1);">RETOUR STUDIO</a>
+        <a href="../../index.html" class="btn-nav" style="margin-top: auto; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1); flex: 0 0 auto; max-height: 56px;">RETOUR AU STUDIO</a>
     </div>
 </div>
 
 <script>
     window.APP_CONFIG = {
-        STORAGE_KEY: "zyvah_maths_w1_v1",
-        MODULE_NAME: "Warm-Up",
-        MISSION_LABEL: "CHECK",
-        PREREQUISITE_KEY: "zyvah_maths_w0_v1",
-        PREREQUISITE_MIN: 1,
+        STORAGE_KEY: "zyvah_maths_w0_v1",
+        MISSION_LABEL: "MISSION",
         BASE_PATH: "./"
     };
 
     const weekData = [
-        { 
-            id: 1, 
-            icon: "🎚️",
-            title: "Studio Check", 
-            intro: "Révision rapide : parenthèses, multiplication, priorités. ~8 min" 
+        {
+            id: 1,
+            title: "Initiation : Regles de calcul",
+            intro: "5 regles rapides avant le Module 1.",
+            icon: "🎛️"
         }
     ];
 </script>
-
-<script src="../../../assets/shared/engine_math.js"></script>
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        initEngine(weekData);
         window.location.replace('./mission_1.html');
     });
 </script>

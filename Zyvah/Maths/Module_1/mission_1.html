@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zyvah - Studio Maths | Mission 1</title>
+    <title>Studio Check - Zyvah Maths</title>
     <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
 </head>
 <body>
@@ -12,90 +12,239 @@
 <div id="app">
     <div class="header">
         <div class="progress-meta">
-            <span id="progress-text">PROGRESSION STUDIO : 0%</span>
-            <span id="session-tag">CABINE</span>
+            <span id="progress-text">MISSION 1 : 0%</span>
+            <span id="session-tag">STUDIO CHECK</span>
         </div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
 
     <div id="view-content" class="view">
-        <div class="step-header"><h2 id="step-title"></h2></div>
-        <div id="step-body" class="content-body"></div>
+        <h2 id="step-title"></h2>
+        <div id="step-body"></div>
+        <div id="footer" class="footer">
+            <button id="btn-prev" class="btn-nav">RETOUR</button>
+            <button id="btn-next" class="btn-nav">ÉTAPE SUIVANTE</button>
+        </div>
     </div>
 
     <div id="view-success" class="view">
         <div class="success-card">
             <div class="visual-anchor">
-                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
-                    <defs>
-                        <filter id="glow-zy">
-                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
-                            <feMerge>
-                                <feMergeNode in="coloredBlur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="4" filter="url(#glow-zy)"/>
-                    <circle cx="100" cy="100" r="70" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.3"/>
-                    <circle cx="100" cy="100" r="30" fill="var(--accent)" opacity="0.2"/>
-                    <circle cx="100" cy="100" r="5" fill="var(--accent)"/>
-                    <rect x="40" y="150" width="10" height="20" fill="var(--accent)" opacity="0.5">
-                        <animate attributeName="height" values="10;30;10" dur="1s" repeatCount="indefinite" />
-                    </rect>
-                    <rect x="60" y="140" width="10" height="30" fill="var(--accent)" opacity="0.8">
-                        <animate attributeName="height" values="20;40;20" dur="1.2s" repeatCount="indefinite" />
-                    </rect>
-                    <rect x="80" y="130" width="10" height="40" fill="var(--accent)">
-                        <animate attributeName="height" values="30;50;30" dur="0.8s" repeatCount="indefinite" />
-                    </rect>
-                    <text x="100" y="115" text-anchor="middle" style="fill: var(--accent); font-weight: 900; font-size: 14px; letter-spacing: 2px;">GOLD RECORD</text>
+                <svg viewBox="0 0 100 100" style="width: 120px; height: 120px;">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4" opacity="0.3">
+                        <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite"/>
+                    </circle>
+                    <path d="M35 50 L45 60 L65 35" fill="none" stroke="var(--success)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                        <animate attributeName="stroke-dasharray" from="0,100" to="100,0" dur="0.6s" fill="freeze"/>
+                    </path>
                 </svg>
             </div>
-            <h1 style="color: var(--success); text-align: center; font-weight: 900; margin-bottom: 10px;">SESSION VALIDEE !</h1>
-            <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Tes calculs sont parfaits. Le mixage est pret pour le pressage.</p>
-            <div class="box-concept" style="text-align: center; border-style: solid; background: rgba(0,255,204,0.05); border-color: var(--success);">
-                <span style="color: var(--success); font-weight: 800;">REVIENS DEMAIN</span><br>
-                POUR UNE NOUVELLE SESSION AU STUDIO.
+            <h1 class="success-title">WARM-UP TERMINÉ !</h1>
+            <p class="success-text">Bien joué Zyvah ! Les bases sont solides.</p>
+            <div class="box-concept next-mission-call">
+                <span style="color: var(--accent); font-weight: 800;">🎚️ BADGE DÉBLOQUÉ</span><br>
+                <b>STUDIO CHECK</b>
             </div>
-            <button onclick="location.href='index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU STUDIO</button>
-        </div>
-    </div>
-
-    <div class="footer hidden" id="footer">
-        <div class="btn-group">
-            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
-            <button id="btn-next" class="btn-main">CONTINUER</button>
+            <p style="color: var(--text-dim); font-size: 0.9rem; margin: 20px 0;">Direction le <b>Module 2</b> pour attaquer le vrai calcul littéral de Seconde !</p>
+            <a href="../Module_2/index.html" class="btn-main">CONTINUER</a>
         </div>
     </div>
 </div>
 
 <script>
     window.APP_CONFIG = {
-        STORAGE_KEY: "zyvah_maths_w1_v2",
+        STORAGE_KEY: "zyvah_maths_w1_v1",
+        MODULE_NAME: "Warm-Up",
         SINGLE_MISSION_MODE: true
     };
 
     const weekData = [
         {
             id: 1,
-            title: "L'Ordre du Mixage",
+            title: "Studio Check",
             steps: [
-                { type: "msg", title: "Le Code du Studio", body: `<p>Zyvah, pour que le son soit bon, il y a un ordre. En maths, c'est pareil : on appelle ca les <b>Priorites</b>.</p><div class="studio-box"><p>1. Les <b>Parentheses ( )</b> : On s'en occupe TOUJOURS en premier. C'est le signal direct qui ne doit pas etre filtre.</p></div>` },
-                { type: "quiz", title: "Test Cabine 1", q: "Dans le calcul <b>5 + (2 × 3)</b>, par quoi commences-tu ?", opts: ["5 + 2", "2 × 3", "5 + 3"], a: 1, feed: "Exact ! Le Master ( ) passe avant tout le reste." },
-                { type: "quiz", title: "Test Cabine 2", q: "Calcule le contenu de la parenthese : <b>10 - (2 + 3)</b>", opts: ["5", "8", "11"], a: 0, feed: "Exact. 2 + 3 = 5." },
-                { type: "write", title: "Saisie de Gain", q: "Calcule le resultat final de : <b>10 - (2 + 3)</b>", a: "5", hint: "Tu as deja trouve 5 pour la parenthese. Fais maintenant 10 - 5.", feed: "Master ( ) gere. 10 - 5 = 5." },
-                { type: "msg", title: "L'Imbrication (Double Deck)", body: `<p>Parfois, tu as des parentheses dans des parentheses. On commence par <b>la plus profonde</b>.</p><div class="studio-box"><p>10 + [ 2 × (3 + 1) ]<br>D'abord (3 + 1) = 4.<br>Ensuite [ 2 × 4 ] = 8.<br>Enfin 10 + 8 = 18.</p></div>` },
-                { type: "write", title: "Deep Mix", q: "Calcule la parenthese interieure : <b>5 × (2 + (3 - 1))</b>", a: "2", hint: "Regarde bien le moteur le plus au centre : (3 - 1).", feed: "Bien ! 3 - 1 = 2." },
-                { type: "write", title: "Deep Mix Final", q: "Maintenant, calcule le total : <b>5 × (2 + 2)</b>", a: "20", hint: "Priorite a la parenthese (2 + 2), puis multiplie le resultat par 5.", feed: "5 × 4 = 20. Mixage propre." },
-                { type: "quiz", title: "Le Piege du Master", q: "Que vaut <b>20 - (5 + 5)</b> ?", opts: ["20", "10", "15"], a: 1, feed: "On fait 5+5=10 d'abord. 20-10=10." },
-                { type: "write", title: "Mastering", q: "Calcule : <b>(15 - 5) × 2</b>", a: "20", hint: "D'abord la soustraction dans les parentheses, puis multiplie par 2.", feed: "10 × 2 = 20." },
-                { type: "challenge", title: "Session Finale Jour 1", q: "Calcule ce mix complet : <b>(3 + 7) × (2 + 2)</b>", a: "40", hint: "Calcule chaque parenthese separement, puis multiplie les deux resultats entre eux.", feed: "10 × 4 = 40. Mixage parfait !" }
+                {
+                    type: "msg",
+                    title: "Le Code du Studio (rappel)",
+                    body: `
+                        <p class="content-chunk">Zyvah, avant d'attaquer les formules de mixage avancées, on révise rapidement les <b>priorités de calcul</b>. C'est la base pour tout ce qui va suivre.</p>
+                        <div class="box-concept">
+                            <b>Les 3 règles du Studio :</b><br><br>
+                            1️⃣ <b>Parenthèses ( )</b> → Traitement prioritaire absolu<br>
+                            2️⃣ <b>Multiplication × et Division ÷</b> → Avant addition/soustraction<br>
+                            3️⃣ <b>Lecture gauche → droite</b> → Si même priorité
+                        </div>
+                    `
+                },
+                {
+                    type: "quiz",
+                    title: "Priorité Parenthèses",
+                    q: "Dans l'expression <code>5 + (2 × 3)</code>, quelle opération traites-tu EN PREMIER ?",
+                    opts: [
+                        "5 + 2",
+                        "2 × 3",
+                        "5 + 3"
+                    ],
+                    a: 1,
+                    feed: "Exact ! Les parenthèses ( ) sont le <b>Master</b> : elles passent toujours avant tout le reste."
+                },
+                {
+                    type: "write",
+                    title: "Calcul avec parenthèses simples",
+                    q: "Calcule le résultat final de : <code>10 - (2 + 3)</code>",
+                    requirements: {
+                        keywords: ["5"],
+                        minWords: 1
+                    },
+                    hint: "D'abord calcule <code>(2 + 3)</code>, puis soustrais le résultat de <code>10</code>.",
+                    feed: "Bien ! <code>(2 + 3) = 5</code>, puis <code>10 - 5 = 5</code>. Les parenthèses gèrent tout."
+                },
+                {
+                    type: "quiz",
+                    title: "Parenthèses imbriquées",
+                    q: "Dans <code>10 + [2 × (3 + 1)]</code>, quelle parenthèse calcules-tu EN PREMIER ?",
+                    opts: [
+                        "10 + 2",
+                        "(3 + 1)",
+                        "2 × 4"
+                    ],
+                    a: 1,
+                    feed: "Exact ! On commence toujours par la parenthèse <b>la plus profonde</b> (au centre)."
+                },
+                {
+                    type: "write",
+                    title: "Deep Mix (parenthèses dans parenthèses)",
+                    q: "Calcule ce mix complet : <code>10 + [2 × (3 + 1)]</code>",
+                    requirements: {
+                        keywords: ["18"],
+                        minWords: 1
+                    },
+                    hint: "Étape 1 : <code>(3 + 1) = 4</code>. Étape 2 : <code>2 × 4 = 8</code>. Étape 3 : <code>10 + 8 = ?</code>",
+                    feed: "Parfait ! <code>(3+1)=4</code> → <code>2×4=8</code> → <code>10+8=18</code>. Mixage propre."
+                },
+                {
+                    type: "msg",
+                    title: "Multiplication & Division avant Addition",
+                    body: `
+                        <p class="content-chunk">Après les parenthèses, les <b>multiplications</b> (×) et <b>divisions</b> (÷) sont <b>plus fortes</b> que les additions (+) et soustractions (−).</p>
+                        <div class="box-concept">
+                            <b>Exemple :</b><br>
+                            <code>2 + 5 × 2 = ?</code><br><br>
+                            ⚠️ <span style="color: var(--danger);">Piège :</span> Ne fais PAS <code>7 × 2 = 14</code> !<br><br>
+                            ✅ <span style="color: var(--success);">Correct :</span> D'abord <code>5 × 2 = 10</code>, puis <code>2 + 10 = 12</code>.
+                        </div>
+                    `
+                },
+                {
+                    type: "quiz",
+                    title: "Priorité multiplication",
+                    q: "Calcule : <code>10 - 2 × 4</code>",
+                    opts: [
+                        "32",
+                        "2",
+                        "8"
+                    ],
+                    a: 1,
+                    feed: "Bien ! D'abord <code>2 × 4 = 8</code>, puis <code>10 - 8 = 2</code>. La multiplication est prioritaire."
+                },
+                {
+                    type: "write",
+                    title: "Priorité division",
+                    q: "Calcule : <code>20 - 10 ÷ 2</code>",
+                    requirements: {
+                        keywords: ["15"],
+                        minWords: 1
+                    },
+                    hint: "La division (÷) est prioritaire sur la soustraction (−). Calcule <code>10 ÷ 2</code> d'abord.",
+                    feed: "Exact ! <code>10 ÷ 2 = 5</code>, puis <code>20 - 5 = 15</code>."
+                },
+                {
+                    type: "quiz",
+                    title: "Opérations mélangées",
+                    q: "Calcule : <code>6 + 4 × 3 - 2</code>",
+                    opts: [
+                        "28",
+                        "16",
+                        "22"
+                    ],
+                    a: 1,
+                    feed: "Parfait ! D'abord <code>4 × 3 = 12</code>, puis <code>6 + 12 - 2 = 16</code>."
+                },
+                {
+                    type: "write",
+                    title: "Lecture gauche→droite",
+                    q: "Calcule : <code>5 × 4 ÷ 2</code>",
+                    requirements: {
+                        keywords: ["10"],
+                        minWords: 1
+                    },
+                    hint: "× et ÷ ont la <b>même priorité</b>, donc lis de <b>gauche à droite</b> : calcule <code>5 × 4</code> d'abord, puis divise par 2.",
+                    feed: "Génial ! <code>5 × 4 = 20</code>, puis <code>20 ÷ 2 = 10</code>. Flow respecté."
+                },
+                {
+                    type: "msg",
+                    title: "Forcer l'ordre avec parenthèses",
+                    body: `
+                        <p class="content-chunk">Si tu veux qu'une <b>addition soit faite AVANT</b> une multiplication, tu dois utiliser les <b>parenthèses</b>.</p>
+                        <div class="box-concept">
+                            <b>Comparaison :</b><br><br>
+                            • Sans parenthèses : <code>5 + 5 × 2 = 5 + 10 = 15</code><br>
+                            • Avec parenthèses : <code>(5 + 5) × 2 = 10 × 2 = 20</code><br><br>
+                            Les parenthèses <b>forcent</b> le traitement prioritaire.
+                        </div>
+                    `
+                },
+                {
+                    type: "quiz",
+                    title: "Comparaison avec/sans parenthèses",
+                    q: "Lequel de ces mix donne <b>20</b> ?",
+                    opts: [
+                        "(5 + 5) × 2",
+                        "5 + 5 × 2"
+                    ],
+                    a: 0,
+                    feed: "Oui ! Avec parenthèses : <code>10 × 2 = 20</code>. Sans : <code>5 + 10 = 15</code>."
+                },
+                {
+                    type: "write",
+                    title: "Master Mix complet",
+                    q: "Calcule ce signal complexe : <code>10 × (15 - 5) + 5</code>",
+                    requirements: {
+                        keywords: ["105"],
+                        minWords: 1
+                    },
+                    hint: "Étape 1 : Parenthèse. Étape 2 : Multiplication. Étape 3 : Addition.",
+                    feed: "Précision chirurgicale ! <code>(15-5)=10</code> → <code>10×10=100</code> → <code>100+5=105</code>."
+                },
+                {
+                    type: "quiz",
+                    title: "QCM de validation",
+                    q: "Dans <code>100 - (20 + 30)</code>, quelle partie est traitée EN PREMIER ?",
+                    opts: [
+                        "100 - 20",
+                        "20 + 30",
+                        "100 - 30"
+                    ],
+                    a: 1,
+                    feed: "Verrouillé ! Les parenthèses passent toujours en premier."
+                },
+                {
+                    type: "challenge",
+                    title: "Boss Warm-Up",
+                    q: "Calcule cette équation finale pour valider ton <b>warm-up</b> :<br><br><code>50 - (2 × 5 + 5)</code>",
+                    requirements: {
+                        keywords: ["35"],
+                        minWords: 1
+                    },
+                    hint: "Calcule d'abord <b>l'intérieur</b> de la parenthèse (attention : le × est prioritaire à l'intérieur !), puis soustrais le résultat de 50.",
+                    feed: "**WARM-UP TERMINÉ** ✅<br>Bien joué Zyvah ! Les bases sont solides. Maintenant, direction le **Module 2** pour attaquer le **vrai calcul littéral de Seconde** : développement, identités remarquables, factorisation et équations.<br><b>Badge débloqué :</b> 🎚️ Studio Check"
+                }
             ]
         }
     ];
 </script>
-<script src="../../../assets/shared/engine.js?v=20260210"></script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
 
 </body>
 </html>

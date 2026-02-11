@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - Initiation SES</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/manager.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span>THE MANAGER V1.0</span>
+            <span id="session-tag">INITIATION</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-lobby" class="view active" style="padding-bottom: 24px;">
+        <h1 class="lobby-title">Initiation SES</h1>
+        <p class="lobby-intro">5 regles pour analyser un cas sans te perdre.</p>
+        <div class="days-grid" id="days-grid"></div>
+        <a href="../../../index.html" class="btn-nav" style="margin-top: auto; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1); flex: 0 0 auto; max-height: 56px;">RETOUR AU STUDIO</a>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_ses_w0_v1",
+        MISSION_LABEL: "MISSION",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+        {
+            id: 1,
+            title: "Initiation : Regles SES",
+            intro: "5 regles rapides avant le Module 1.",
+            icon: "💼"
+        }
+    ];
+</script>
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        initEngine(weekData);
+        window.location.replace('./mission_1.html');
+    });
+</script>
+
+</body>
+</html>

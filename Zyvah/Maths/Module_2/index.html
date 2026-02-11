@@ -4,7 +4,7 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zyvah - Studio Maths | Module 1 - Warm-Up</title>
+    <title>Zyvah - Studio Maths | Module 2 - Calcul Littéral</title>
     <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
 <div id="app">
     <div class="header">
         <div class="progress-meta">
-            <span id="progress-text">SYNCHRO WARM-UP : 0%</span>
-            <span id="session-tag">MODULE 1</span>
+            <span id="progress-text">SYNCHRO STUDIO MATHS : 0%</span>
+            <span id="session-tag">MODULE 2</span>
         </div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
@@ -21,8 +21,8 @@
     <div id="view-lobby" class="view active">
         <div style="display:flex; justify-content: space-between; align-items: flex-start;">
             <div>
-                <h1 class="lobby-title">Studio Warm-Up</h1>
-                <p class="lobby-intro">Zyvah, vérifie tes bases avant d'attaquer le vrai studio. Révision rapide des priorités opératoires.</p>
+                <h1 class="lobby-title">Studio Calcul Littéral</h1>
+                <p class="lobby-intro">Zyvah, transforme les variables comme tes tracks. Niveau Seconde GT - Programme officiel 2019.</p>
             </div>
             <div style="margin-top: 5px;">
                 <svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:var(--accent);filter: drop-shadow(0 0 5px var(--accent-glow));">
@@ -37,10 +37,10 @@
 
 <script>
     window.APP_CONFIG = {
-        STORAGE_KEY: "zyvah_maths_w1_v1",
-        MODULE_NAME: "Warm-Up",
-        MISSION_LABEL: "CHECK",
-        PREREQUISITE_KEY: "zyvah_maths_w0_v1",
+        STORAGE_KEY: "zyvah_maths_w2_v1",
+        MODULE_NAME: "Calcul Littéral",
+        MISSION_LABEL: "MISSION",
+        PREREQUISITE_KEY: "zyvah_maths_w1_v1",
         PREREQUISITE_MIN: 1,
         BASE_PATH: "./"
     };
@@ -48,19 +48,38 @@
     const weekData = [
         { 
             id: 1, 
-            icon: "🎚️",
-            title: "Studio Check", 
-            intro: "Révision rapide : parenthèses, multiplication, priorités. ~8 min" 
+            icon: "🎛️",
+            title: "Le Développement", 
+            intro: "Mixage de variables. Distributivité simple et double. ~12 min" 
+        },
+        { 
+            id: 2, 
+            icon: "✨",
+            title: "Identités Remarquables", 
+            intro: "Les presets magiques : (a+b)², (a-b)², (a+b)(a-b). ~12 min" 
+        },
+        { 
+            id: 3, 
+            icon: "📦",
+            title: "La Factorisation", 
+            intro: "Fermer les parenthèses. Facteur commun + identités. ~12 min" 
+        },
+        { 
+            id: 4, 
+            icon: "⚖️",
+            title: "Les Équations", 
+            intro: "Trouver l'inconnue. Isoler x, produit-nul, résolution. ~12 min" 
+        },
+        { 
+            id: 5, 
+            icon: "🏆",
+            title: "Synthèse Master", 
+            intro: "Mix complet. Tous les outils combinés. Boss final. ~12 min" 
         }
     ];
 </script>
 
 <script src="../../../assets/shared/engine_math.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        window.location.replace('./mission_1.html');
-    });
-</script>
 
 </body>
 </html>

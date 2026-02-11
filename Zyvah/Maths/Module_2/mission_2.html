@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mission 2 - Identités Remarquables</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO : 0%</span>
+            <span id="session-tag">MISSION 2/5</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <div id="step-container"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 24 24" style="width:100px;height:100px;fill:var(--accent);filter: drop-shadow(0 0 10px var(--accent-glow));">
+                    <path d="M7,2V4H8V18A4,4 0 0,0 12,22A4,4 0 0,0 16,18V4H17V2H7M11,16C10.4,16 10,15.6 10,15C10,14.4 10.4,14 11,14C11.6,14 12,14.4 12,15C12,15.6 11.6,16 11,16M13,12C12.4,12 12,11.6 12,11C12,10.4 12.4,10 13,10C13.6,10 14,10.4 14,11C14,11.6 13.6,12 13,12M11,8C10.4,8 10,7.6 10,7C10,6.4 10.4,6 11,6C11.6,6 12,6.4 12,7C12,7.6 11.6,8 11,8Z"/>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION 2 TERMINÉE !</h1>
+            <p class="success-text">Les 3 identités remarquables sont dans ta tête ! Tu peux maintenant développer des expressions complexes en un éclair. Badge débloqué : ⚡ Preset Master</p>
+            <div class="box-concept next-mission-call">
+                <span>CHECKPOINT</span><br>
+                40% BOUCLÉ
+            </div>
+            <button onclick="window.location.href='checkpoint_1.html'" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w2_v1",
+        MISSION_ID: 2,
+        TOTAL_MISSIONS: 5,
+        MISSION_NAME: "Identités Remarquables",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+    {
+        "type": "msg",
+        "title": "Les Patterns du Studio",
+        "text": "Zyvah, certains développements reviennent **tout le temps**. Les mathématiciens ont créé des **raccourcis** : les **identités remarquables**.\n\nCe sont les **presets** du calcul littéral : tu les reconnais, tu les appliques instantanément.\n\n**Les 3 formules magiques :**  \n1️⃣ <code>(a + b)² = a² + 2ab + b²</code>  \n2️⃣ <code>(a - b)² = a² - 2ab + b²</code>  \n3️⃣ <code>(a + b)(a - b) = a² - b²</code>"
+    },
+    {
+        "type": "quiz",
+        "q": "L'expression <code>(x + 2)²</code> signifie :",
+        "opts": [
+            "x² + 2²",
+            "(x + 2)(x + 2)",
+            "x² + 4"
+        ],
+        "correct": 1,
+        "feed": "Exact ! Le carré <code>²</code> signifie **multiplier par soi-même**. Donc <code>(x + 2)² = (x + 2)(x + 2)</code>.",
+        "title": "Reconnaissance carré d'une somme"
+    },
+    {
+        "type": "write",
+        "q": "Développe **à la main** (méthode classique) :<br><br><code>(x + 3)²</code><br><br>(On verra ensuite le raccourci !)",
+        "requirements": {
+            "keywords": [
+                "x²",
+                "6x",
+                "9",
+                "+"
+            ],
+            "minWords": 4,
+            "validationType": "algebraic"
+        },
+        "hint": "C'est <code>(x + 3)(x + 3)</code>. Applique la double distributivité.",
+        "feed": "Bien ! <code>x² + 3x + 3x + 9 = x² + 6x + 9</code>. Maintenant, regarde le pattern...",
+        "title": "Développer (x + 3)²"
+    },
+    {
+        "type": "msg",
+        "title": "Formule (a + b)² expliquée",
+        "text": "Tu viens de faire <code>(x + 3)² = x² + 6x + 9</code>.\n\nObserve le **pattern** :\n- Premier terme au carré : <code>x²</code>\n- Deux fois le produit des deux : <code>2 × x × 3 = 6x</code>\n- Deuxième terme au carré : <code>3² = 9</code>\n\n**Formule universelle :**  \n<code>(a + b)² = a² + 2ab + b²</code>\n\n**Exemple :** <code>(x + 5)²</code>\n- <code>a = x</code>, <code>b = 5</code>\n- Résultat direct : <code>x² + 2(x)(5) + 5² = x² + 10x + 25</code>\n\nC'est le **preset n°1** !"
+    },
+    {
+        "type": "write",
+        "q": "Utilise la formule <code>(a + b)² = a² + 2ab + b²</code> pour développer **instantanément** :<br><br><code>(x + 5)²</code>",
+        "requirements": {
+            "keywords": [
+                "x²",
+                "10x",
+                "25",
+                "+"
+            ],
+            "minWords": 4,
+            "validationType": "algebraic"
+        },
+        "hint": "<code>a = x</code>, <code>b = 5</code>. Applique : <code>a²</code>, <code>+2ab</code>, <code>+b²</code>.",
+        "feed": "Instantané ! <code>x² + 10x + 25</code>. Le preset fonctionne parfaitement.",
+        "title": "Appliquer (x + 5)²"
+    },
+    {
+        "type": "quiz",
+        "q": "Quelle formule utiliser pour développer <code>(x - 4)²</code> ?",
+        "opts": [
+            "(a + b)²",
+            "(a - b)²",
+            "(a + b)(a - b)"
+        ],
+        "correct": 1,
+        "feed": "Exact ! Il y a un signe **−**, donc c'est le **preset n°2** : <code>(a - b)²</code>.",
+        "title": "Reconnaissance carré d'une différence"
+    },
+    {
+        "type": "write",
+        "q": "Utilise la formule <code>(a - b)² = a² - 2ab + b²</code> :<br><br><code>(x - 4)²</code>",
+        "requirements": {
+            "keywords": [
+                "x²",
+                "-8x",
+                "16",
+                "+"
+            ],
+            "minWords": 4,
+            "validationType": "algebraic"
+        },
+        "hint": "<code>a = x</code>, <code>b = 4</code>. Formule : <code>a² - 2ab + b²</code>.",
+        "feed": "Parfait ! <code>x² - 8x + 16</code>. Attention au **−** devant <code>2ab</code>.",
+        "title": "Développer (x - 4)²"
+    },
+    {
+        "type": "msg",
+        "title": "Formule (a - b)² expliquée",
+        "text": "**Différence entre les deux presets :**\n\n**Preset n°1 :** <code>(a + b)² = a² **+ 2ab** + b²</code>  \n**Preset n°2 :** <code>(a - b)² = a² **- 2ab** + b²</code>\n\n**Seul le signe du terme central change !**\n\n**Exemples :**\n- <code>(x + 3)²</code> → <code>x² **+ 6x** + 9</code>\n- <code>(x - 3)²</code> → <code>x² **- 6x** + 9</code>\n\n**Piège classique :**  \n<code>(x - 3)² ≠ x² - 9</code> ❌  \n<code>(x - 3)² = x² - 6x + 9</code> ✅"
+    },
+    {
+        "type": "write",
+        "q": "Développe avec le preset n°2 :<br><br><code>(2x - 3)²</code>",
+        "requirements": {
+            "keywords": [
+                "4x²",
+                "-12x",
+                "9",
+                "+"
+            ],
+            "minWords": 4,
+            "validationType": "algebraic"
+        },
+        "hint1": "Identifie <code>a</code> et <code>b</code> dans l'expression, puis applique la formule <code>(a - b)² = a² - 2ab + b²</code>.",
+        "hint2": "<code>a = 2x</code>, <code>b = 3</code>. Pense à calculer <code>(2x)²</code>, puis <code>2(2x)(3)</code>, puis <code>3²</code>. Assemble les résultats.",
+        "feed": "Maîtrise ! <code>4x² - 12x + 9</code>. Les coefficients sont bien gérés.",
+        "title": "Appliquer (2x - 3)²"
+    },
+    {
+        "type": "msg",
+        "title": "Différence de carrés",
+        "text": "**Le preset n°3** est encore plus puissant :\n\n<code>(a + b)(a - b) = a² - b²</code>\n\n**Magie :** Les termes croisés **s'annulent** !\n\n**Démonstration :**  \n<code>(x + 5)(x - 5)</code>  \n= <code>x² - 5x + 5x - 25</code>  \n= <code>x² - 25</code> (les <code>±5x</code> disparaissent)\n\n**Reconnaissance :**  \nSi tu vois <code>(truc + machin)(truc - machin)</code>, c'est le preset n°3 !"
+    },
+    {
+        "type": "quiz",
+        "q": "L'expression <code>(x + 8)(x - 8)</code> donne directement :",
+        "opts": [
+            "x² - 64",
+            "x² + 64",
+            "x² - 16x + 64"
+        ],
+        "correct": 0,
+        "feed": "Exact ! Preset n°3 : <code>(x)² - (8)² = x² - 64</code>. Les termes croisés s'annulent.",
+        "title": "Reconnaissance (a + b)(a - b)"
+    },
+    {
+        "type": "write",
+        "q": "Utilise le preset n°3 pour développer instantanément :<br><br><code>(x + 7)(x - 7)</code>",
+        "requirements": {
+            "keywords": [
+                "x²",
+                "-49",
+                "49"
+            ],
+            "minWords": 4,
+            "enforceKeywords": true,
+            "validationType": "algebraic"
+        },
+        "hint": "Formule : <code>a² - b²</code>. Ici <code>a = x</code>, <code>b = 7</code>.",
+        "feed": "Instantané ! <code>x² - 49</code>. Le preset n°3 est ultra rapide.",
+        "title": "Développer (x + 7)(x - 7)"
+    },
+    {
+        "type": "write",
+        "q": "Développe avec le preset n°3 :<br><br><code>(3x + 2)(3x - 2)</code>",
+        "requirements": {
+            "keywords": [
+                "9x²",
+                "-4",
+                "4"
+            ],
+            "minWords": 4,
+            "enforceKeywords": true,
+            "validationType": "algebraic"
+        },
+        "hint": "<code>a = 3x</code>, <code>b = 2</code>. Résultat : <code>(3x)² - (2)²</code>.",
+        "feed": "Parfait ! <code>9x² - 4</code>. Gain de temps maximal.",
+        "title": "Appliquer (3x + 2)(3x - 2)"
+    },
+    {
+        "type": "interactive",
+        "q": "Quel preset utiliser pour développer <code>(2x - 5)²</code> ?",
+        "opts": [
+            "Preset n°1 : (a + b)²",
+            "Preset n°2 : (a - b)²",
+            "Preset n°3 : (a + b)(a - b)"
+        ],
+        "correct": 1,
+        "feed": "Exact ! Il y a un carré <code>²</code> et un signe **−**, donc c'est le preset n°2.",
+        "title": "Choix de l'identité adaptée"
+    },
+    {
+        "type": "challenge",
+        "q": "Un ingénieur calcule la surface d'une zone carrée de côté <code>(x + 12)</code> mètres.<br><br>Quelle est l'aire **développée** ?<br><br>Utilise le preset adapté.",
+        "requirements": {
+            "keywords": [
+                "x²",
+                "24x",
+                "144",
+                "+"
+            ],
+            "minWords": 4,
+            "validationType": "algebraic"
+        },
+        "hint": "Aire d'un carré = côté × côté = <code>(x + 12)²</code>. Utilise le preset n°1.",
+        "feed": "**MISSION 2 TERMINÉE** ✅<br><br>Les 3 identités remarquables sont dans ta tête ! Tu peux maintenant développer des expressions complexes en un éclair.<br><br>**Badge débloqué :** ⚡ Preset Master",
+        "title": "Boss Identités Remarquables"
+    }
+];
+</script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
+
+</body>
+</html>

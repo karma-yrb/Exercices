@@ -83,11 +83,136 @@
             id: 5,
             title: "Le Grand Audit",
             steps: [
-                { type: "msg", title: "Examen de Grade", body: "<p>Zyvah, c'est l'heure du test final. Pour valider ta Semaine 1, tu dois prouver que tu maitrises les mecanismes de base du marche et de la production.</p>" },
-                { type: "interactive", title: "Module 1 : Signal de Marche", question: "Si la demande baisse mais que l'offre reste forte, que risque de faire le prix ?", options: ["Monter (Penurie)", "Baisser (Surplus)", "Ne pas bouger"], answer: 1, feedback: "Surplus = Baisse des prix pour ecouler les stocks." },
-                { type: "write", title: "Module 2 : Calcul Profit", question: "Une artiste vend pour 5000€ de merch. Ses couts sont de 3200€. Quel est son <b>Profit</b> ?", answer: "1800", feedback: "Calcul valide (5000 - 3200 = 1800)." },
-                { type: "interactive", title: "Module 3 : Production", question: "En SES, que designe la lettre <b>K</b> ?", options: ["Le Kilos d'or", "Le Capital (les machines)", "Le Karma"], answer: 1, feedback: "Code K = Capital." },
-                { type: "challenge", title: "ULtime Boss - Semaine 1", question: "Redige une courte analyse expliquant pourquoi un manager doit attirer la demande s'il veut vendre ses stocks.", requirements: { keywords: ["demande", "vendre"] }, hint: "Utilise les mots : 'attirer la demande' ou 'pour mieux vendre'.", feedback: "STRATEGIE VALIDEE. Felicitations Zyvah, ton grade de Manager est confirme !" }
+                {
+                    type: "msg",
+                    title: "Examen de Grade",
+                    body: `<p>Zyvah, c'est l'heure du test final. Tu dois prouver que tu maitrises le marche, les couts et la socialisation.</p>`
+                },
+                {
+                    type: "quiz",
+                    title: "Signal de Marche",
+                    q: "Si la demande baisse mais que l'offre reste forte, que risque de faire le prix ?",
+                    opts: ["Monter (penurie)", "Baisser (surplus)", "Ne pas bouger"],
+                    a: 1,
+                    feed: "Surplus = baisse des prix pour ecouler les stocks."
+                },
+                {
+                    type: "write",
+                    title: "Calcul Profit",
+                    q: "Une artiste vend pour 5000 de merch. Ses couts sont de 3200. Quel est son profit ?",
+                    requirements: {
+                        keywords: ["1800"],
+                        minWords: 1
+                    },
+                    hint: "Fais 5000 - 3200.",
+                    feed: "Calcul valide : 1800."
+                },
+                {
+                    type: "quiz",
+                    title: "Capital K",
+                    q: "En SES, que designe la lettre K ?",
+                    opts: ["Le capital", "Le karma", "Le kilo"],
+                    a: 0,
+                    feed: "K = capital (machines, outils)."
+                },
+                {
+                    type: "msg",
+                    title: "Rappel Equilibre",
+                    body: `<p>Le prix d'equilibre est le point ou offre et demande se rencontrent.</p>`
+                },
+                {
+                    type: "quiz",
+                    title: "Cout Fixe ou Variable",
+                    q: "Le loyer du studio est un cout...",
+                    opts: ["Fixe", "Variable"],
+                    a: 0,
+                    feed: "Il ne depend pas du volume."
+                },
+                {
+                    type: "write",
+                    title: "Mot Equilibre",
+                    q: "Quel mot complete la phrase : Offre = Demande = ... ?",
+                    requirements: {
+                        keywords: ["equilibre"],
+                        minWords: 1
+                    },
+                    hint: "C'est le mot cle du marche.",
+                    feed: "Oui : l'equilibre."
+                },
+                {
+                    type: "quiz",
+                    title: "Norme ou Valeur",
+                    q: "Le respect des horaires en studio est une...",
+                    opts: ["Norme", "Valeur"],
+                    a: 0,
+                    feed: "C'est une regle de comportement."
+                },
+                {
+                    type: "write",
+                    title: "Agent de Socialisation",
+                    q: "Cite un agent de socialisation secondaire.",
+                    requirements: {
+                        keywords: ["amis", "reseaux", "ecole"],
+                        minWords: 1
+                    },
+                    hint: "Exemple : ton groupe proche.",
+                    feed: "Oui. Les amis ou l'ecole influencent."
+                },
+                {
+                    type: "quiz",
+                    title: "Image de Marque",
+                    q: "L'image de marque, c'est...",
+                    opts: ["Ce que le public pense", "Le nombre de ventes", "Le prix"],
+                    a: 0,
+                    feed: "Exact. C'est la perception."
+                },
+                {
+                    type: "msg",
+                    title: "Strategie Manager",
+                    body: `<p>Un bon manager ajuste prix, couts et communication pour garder la confiance.</p>`
+                },
+                {
+                    type: "write",
+                    title: "Stock Invendu",
+                    q: "Si tu as trop de stock invendu, quelle action prends-tu sur le prix ?",
+                    requirements: {
+                        keywords: ["baisser"],
+                        minWords: 1
+                    },
+                    hint: "Pour vendre plus, on rend plus accessible.",
+                    feed: "Oui. Baisser attire la demande."
+                },
+                {
+                    type: "quiz",
+                    title: "Profit vs CA",
+                    q: "Le profit correspond a...",
+                    opts: ["CA seulement", "CA - couts", "Couts + taxes"],
+                    a: 1,
+                    feed: "Exact. Le profit tient compte des couts."
+                },
+                {
+                    type: "write",
+                    title: "Confiance Clients",
+                    q: "Ecris un mot qui relie image et ventes.",
+                    requirements: {
+                        keywords: ["confiance", "clients"],
+                        minWords: 1
+                    },
+                    hint: "Quand elle est haute, les clients achetent.",
+                    feed: "Oui. La confiance fait vendre."
+                },
+                {
+                    type: "challenge",
+                    title: "Audit Final",
+                    q: "Explique comment un manager peut augmenter le profit sans casser l'image du label.",
+                    requirements: {
+                        keywords: ["prix", "couts", "image"],
+                        minWords: 6,
+                        enforceKeywords: true
+                    },
+                    hint: "Parle de prix justes, couts maitrises et confiance.",
+                    feed: "Audit valide. Tu relies economie et image."
+                }
             ]
         }
     ];

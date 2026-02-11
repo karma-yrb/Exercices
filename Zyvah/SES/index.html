@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - SES</title>
+    <link rel="stylesheet" href="../../assets/zyvah/manager.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span>TABLEAU SES</span>
+            <span id="session-tag">MANAGER</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-lobby" class="view active" style="padding-bottom: 24px;">
+        <div style="display:flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h1 class="lobby-title">S.E.S.</h1>
+                <p class="lobby-intro">Choisis ta session. L'initiation doit etre terminee avant le Module 1.</p>
+            </div>
+            <div style="margin-top: 5px;">
+                <svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:var(--accent);filter: drop-shadow(0 0 5px var(--accent-glow));">
+                    <path d="M16 11V3H8V11H2V21H22V11H16M10 5H14V11H10V5M4 19V13H8V19H4M14 19H10V13H14V19M20 19H16V13H20V19Z"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="days-grid">
+            <div class="day-card" id="card-ses-init">
+                <div class="icon">💼</div>
+                <div class="day-info">
+                    <h3>Initiation SES</h3>
+                    <p>Regles de lecture et d'analyse.</p>
+                </div>
+            </div>
+
+            <div class="day-card" id="card-ses-1">
+                <div class="icon">1</div>
+                <div class="day-info">
+                    <h3>Module 1 : Manager</h3>
+                    <p>Marche, couts, socialisation et image.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="../index.html" class="btn-nav" style="margin-top: auto; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1); flex: 0 0 auto; max-height: 56px;">RETOUR AU STUDIO</a>
+    </div>
+</div>
+
+<script>
+    (function setupSesHub() {
+        const initCard = document.getElementById('card-ses-init');
+        const mod1Card = document.getElementById('card-ses-1');
+        const bar = document.getElementById('main-bar');
+
+        const readDone = (key) => {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return 0;
+                const data = JSON.parse(raw);
+                return (data.completedDays || []).length;
+            } catch (e) {
+                return 0;
+            }
+        };
+
+        const initDone = readDone('zyvah_ses_w0_v1');
+        const mod1Done = readDone('zyvah_ses_w1_v2');
+        const percent = Math.round(((initDone / 1) + (mod1Done / 5)) / 2 * 100);
+        if (bar) bar.style.width = percent + '%';
+
+        if (initCard) {
+            initCard.onclick = () => {
+                window.location.href = './Module_0/index.html';
+            };
+        }
+
+        if (mod1Card) {
+            if (initDone < 1) {
+                mod1Card.classList.add('locked');
+                mod1Card.style.pointerEvents = 'none';
+            } else {
+                mod1Card.onclick = () => {
+                    window.location.href = './Module_1/index.html';
+                };
+            }
+        }
+    })();
+</script>
+
+</body>
+</html>

@@ -83,14 +83,133 @@
             id: 2,
             title: "Couts & Profit",
             steps: [
-                { type: "msg", title: "Facteurs de Production", body: `<p>Pour produire, il faut :</p><div class="data-box">1. <b>Travail (L) :</b> Les humains.<br>2. <b>Capital (K) :</b> Les machines/outils.</div>` },
-                { type: "quiz", title: "Inventaire", q: "L'ordinateur du studio, c'est quel facteur ?", opts: ["Travail", "Capital"], a: 1, feed: "C'est un outil, donc du Capital." },
-                { type: "write", title: "Facteur Humain", q: "Comment appelle-t-on le facteur represente par l'ingenieur du son ?", a: "travail", hint: "C'est l'activite de l'humain pour produire (7 lettres).", feed: "C'est l'effort humain." },
-                { type: "msg", title: "Cout Fixe vs Variable", body: `<p>• <b>Fixe :</b> Loyer (ne change pas avec la prod).<br>• <b>Variable :</b> Matiere premiere (change selon la prod).</p>` },
-                { type: "quiz", title: "Type de Cout", q: "L'electricite du studio qui tourne 24h/24 pour tes machines est un...", opts: ["Cout fixe", "Cout variable"], a: 1, feed: "Plus tu produis, plus tu consommes : c'est variable." },
-                { type: "write", title: "Calcul Business", q: "CA = Prix x Quantite. Si tu vends 100 places a 20€, quel est ton CA ?", a: "2000", hint: "Fais l'operation 100 multiplie par 20.", feed: "2000€ de chiffre d'affaires !" },
-                { type: "msg", title: "La Profitabilite", body: `<p><b>Profit = CA - Couts Totaux.</b> Ne confonds jamais l'argent qui rentre (CA) et ce qu'il te reste (Profit).</p>` },
-                { type: "write", title: "Verdict Profit", q: "CA = 2000€. Couts = 1500€. Quel est ton profit ?", a: "500", hint: "Fais la soustraction : 2000 - 1500.", feed: "Il te reste 500€ de gain reel." }
+                {
+                    type: "msg",
+                    title: "Facteurs de Production",
+                    body: `<p>Pour produire, il faut deux grands facteurs : travail (L) et capital (K).</p><div class="data-box">Travail = humains<br>Capital = machines/outils</div>`
+                },
+                {
+                    type: "quiz",
+                    title: "Inventaire",
+                    q: "L'ordinateur du studio, c'est quel facteur ?",
+                    opts: ["Travail", "Capital"],
+                    a: 1,
+                    feed: "C'est un outil, donc du capital."
+                },
+                {
+                    type: "write",
+                    title: "Facteur Humain",
+                    q: "Comment appelle-t-on le facteur represente par l'ingenieur du son ?",
+                    requirements: {
+                        keywords: ["travail"],
+                        minWords: 1
+                    },
+                    hint: "C'est l'activite de l'humain pour produire.",
+                    feed: "Exact. L'effort humain, c'est le travail."
+                },
+                {
+                    type: "msg",
+                    title: "Cout Fixe vs Variable",
+                    body: `<p>Un cout fixe ne change pas avec la production. Un cout variable depend du volume.</p><div class="data-box">Fixe = loyer<br>Variable = matiere premiere</div>`
+                },
+                {
+                    type: "quiz",
+                    title: "Type de Cout",
+                    q: "L'electricite du studio qui tourne 24h/24 est un...",
+                    opts: ["Cout fixe", "Cout variable"],
+                    a: 1,
+                    feed: "Plus tu produis, plus tu consommes : c'est variable."
+                },
+                {
+                    type: "write",
+                    title: "Calcul CA",
+                    q: "CA = Prix x Quantite. Si tu vends 100 places a 20, quel est ton CA ?",
+                    requirements: {
+                        keywords: ["2000"],
+                        minWords: 1
+                    },
+                    hint: "Fais l'operation 100 multiplie par 20.",
+                    feed: "2000 de chiffre d'affaires."
+                },
+                {
+                    type: "msg",
+                    title: "Profitabilite",
+                    body: `<p>Profit = CA - Couts totaux. Ne confonds jamais l'argent qui rentre (CA) et ce qu'il te reste (profit).</p>`
+                },
+                {
+                    type: "write",
+                    title: "Verdict Profit",
+                    q: "CA = 2000. Couts = 1500. Quel est ton profit ?",
+                    requirements: {
+                        keywords: ["500"],
+                        minWords: 1
+                    },
+                    hint: "Fais la soustraction : 2000 - 1500.",
+                    feed: "Il te reste 500 de gain reel."
+                },
+                {
+                    type: "quiz",
+                    title: "Exemple Cout Fixe",
+                    q: "Le loyer du studio est un cout...",
+                    opts: ["Fixe", "Variable"],
+                    a: 0,
+                    feed: "Tu le paies meme si tu produis peu."
+                },
+                {
+                    type: "write",
+                    title: "Exemple Cout Variable",
+                    q: "Donne un exemple de cout variable en studio.",
+                    requirements: {
+                        keywords: ["electricite"],
+                        minWords: 1
+                    },
+                    hint: "C'est ce qui augmente quand les machines tournent plus.",
+                    feed: "Oui ! L'electricite varie avec la production."
+                },
+                {
+                    type: "msg",
+                    title: "Seuil de Rentabilite",
+                    body: `<p>Le seuil de rentabilite est le moment ou le profit devient positif.</p><div class="data-box">Avant = perte | Apres = gain</div>`
+                },
+                {
+                    type: "quiz",
+                    title: "CA vs Profit",
+                    q: "Le CA et le profit, c'est la meme chose ?",
+                    opts: ["Oui", "Non"],
+                    a: 1,
+                    feed: "Le profit tient compte des couts."
+                },
+                {
+                    type: "write",
+                    title: "Mini Calcul Profit",
+                    q: "Tu vends 50 places a 30 (CA) et tes couts sont 1200. Quel est ton profit ?",
+                    requirements: {
+                        keywords: ["300"],
+                        minWords: 1
+                    },
+                    hint: "CA = 50 x 30 = 1500. Puis 1500 - 1200.",
+                    feed: "Profit = 300. Bien calcule."
+                },
+                {
+                    type: "quiz",
+                    title: "Capital ou Travail",
+                    q: "La table de mixage est du...",
+                    opts: ["Travail", "Capital"],
+                    a: 1,
+                    feed: "C'est un outil, donc du capital."
+                },
+                {
+                    type: "challenge",
+                    title: "Synthese Profit",
+                    q: "Explique en 2 phrases comment augmenter le profit d'un label.",
+                    requirements: {
+                        keywords: ["augmenter", "couts", "prix"],
+                        minWords: 6,
+                        enforceKeywords: true
+                    },
+                    hint: "Parle de faire monter le CA ou de faire baisser les couts.",
+                    feed: "Synthese valide. Tu relies CA, couts et profit."
+                }
             ]
         }
     ];

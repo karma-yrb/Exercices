@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - Maths</title>
+    <link rel="stylesheet" href="../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">TABLEAU MATHS</span>
+            <span id="session-tag">STUDIO</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-lobby" class="view active" style="padding-bottom: 24px;">
+        <div style="display:flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h1 class="lobby-title">Maths</h1>
+                <p class="lobby-intro">Choisis ta session. L'initiation doit etre terminee avant le Module 1 (Warm-Up), puis chaque module de suite.</p>
+            </div>
+            <div style="margin-top: 5px;">
+                <svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:var(--accent);filter: drop-shadow(0 0 5px var(--accent-glow));">
+                    <path d="M12,4L12,14.71C11.53,14.26 10.89,14 10.19,14A2.69,2.69 0 0,0 7.5,16.69C7.5,18.18 8.7,19.38 10.19,19.38C11.68,19.38 12.88,18.18 12.88,16.69V7H17.31V4H12M10.19,18.13C9.4,18.13 8.75,17.48 8.75,16.69C8.75,15.9 9.4,15.25 10.19,15.25C10.97,15.25 11.63,15.9 11.63,16.69C11.63,17.48 10.97,18.13 10.19,18.13Z"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="days-grid">
+            <div class="day-card" id="card-math-init">
+                <div class="icon">🎛️</div>
+                <div class="day-info">
+                    <h3>Initiation Maths</h3>
+                    <p>Regles de calcul (5 regles rapides).</p>
+                </div>
+            </div>
+
+            <div class="day-card" id="card-math-1">
+                <div class="icon">1</div>
+                <div class="day-info">
+                    <h3>Module 1 : Warm-Up</h3>
+                    <p>Revision rapide : priorites de calcul et mixage des operations.</p>
+                </div>
+            </div>
+
+            <div class="day-card" id="card-math-2">
+                <div class="icon">2</div>
+                <div class="day-info">
+                    <h3>Module 2 : Calcul Litteral</h3>
+                    <p>Developpement, identites remarquables, factorisation, equations.</p>
+                </div>
+            </div>
+
+            <div class="day-card" id="card-math-3">
+                <div class="icon">3</div>
+                <div class="day-info">
+                    <h3>Module 3 : Fractions & Partage</h3>
+                    <p>Sommes, simplification, partages et situations concretes.</p>
+                </div>
+            </div>
+
+            <div class="day-card" id="card-math-4">
+                <div class="icon">4</div>
+                <div class="day-info">
+                    <h3>Module 4 : Puissances & Multiplicateurs</h3>
+                    <p>Regles des puissances et calculs rapides.</p>
+                </div>
+            </div>
+
+            <div class="day-card" id="card-math-5">
+                <div class="icon">5</div>
+                <div class="day-info">
+                    <h3>Module 5 : Pythagore</h3>
+                    <p>Distances, triangles rectangles, applications concretes.</p>
+                </div>
+            </div>
+
+            <div class="day-card" id="card-math-6">
+                <div class="icon">6</div>
+                <div class="day-info">
+                    <h3>Module 6 : Synthese</h3>
+                    <p>Problemes mixtes et consolidation generale.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="../index.html" class="btn-nav" style="margin-top: auto; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1); flex: 0 0 auto; max-height: 56px;">RETOUR AU STUDIO</a>
+    </div>
+</div>
+
+<script>
+    (function setupMathsHub() {
+        const initCard = document.getElementById('card-math-init');
+        const mod1Card = document.getElementById('card-math-1');
+        const bar = document.getElementById('main-bar');
+
+        const readDone = (key) => {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return 0;
+                const data = JSON.parse(raw);
+                return (data.completedDays || []).length;
+            } catch (e) {
+                return 0;
+            }
+        };
+
+        const initDone = readDone('zyvah_maths_w0_v1');
+        const mod1Done = readDone('zyvah_maths_w1_v1');
+        const mod2Done = readDone('zyvah_maths_w2_v1');
+        const mod3Done = readDone('zyvah_maths_w3_v1');
+        const mod4Done = readDone('zyvah_maths_w4_v1');
+        const mod5Done = readDone('zyvah_maths_w5_v1');
+        const mod6Done = readDone('zyvah_maths_w6_v1');
+        const percent = Math.round(((initDone / 1) + (mod1Done / 1) + (mod2Done / 5) + (mod3Done / 5) + (mod4Done / 5) + (mod5Done / 5) + (mod6Done / 5)) / 7 * 100);
+        if (bar) bar.style.width = percent + '%';
+
+        if (initCard) {
+            initCard.onclick = () => {
+                window.location.href = './Module_0/index.html';
+            };
+        }
+
+        if (mod1Card) {
+            if (initDone < 1) {
+                mod1Card.classList.add('locked');
+                mod1Card.style.pointerEvents = 'none';
+            } else {
+                mod1Card.onclick = () => {
+                    window.location.href = './Module_1/index.html';
+                };
+            }
+        }
+
+        const mod2Card = document.getElementById('card-math-2');
+        if (mod2Card) {
+            if (mod1Done < 1) {
+                mod2Card.classList.add('locked');
+                mod2Card.style.pointerEvents = 'none';
+            } else {
+                mod2Card.onclick = () => {
+                    window.location.href = './Module_2/index.html';
+                };
+            }
+        }
+
+        const mod3Card = document.getElementById('card-math-3');
+        if (mod3Card) {
+            if (mod2Done < 5) {
+                mod3Card.classList.add('locked');
+                mod3Card.style.pointerEvents = 'none';
+            } else {
+                mod3Card.onclick = () => {
+                    window.location.href = './Module_3/index.html';
+                };
+            }
+        }
+
+        const mod4Card = document.getElementById('card-math-4');
+        if (mod4Card) {
+            if (mod3Done < 5) {
+                mod4Card.classList.add('locked');
+                mod4Card.style.pointerEvents = 'none';
+            } else {
+                mod4Card.onclick = () => {
+                    window.location.href = './Module_4/index.html';
+                };
+            }
+        }
+
+        const mod5Card = document.getElementById('card-math-5');
+        if (mod5Card) {
+            if (mod4Done < 5) {
+                mod5Card.classList.add('locked');
+                mod5Card.style.pointerEvents = 'none';
+            } else {
+                mod5Card.onclick = () => {
+                    window.location.href = './Module_5/index.html';
+                };
+            }
+        }
+
+        const mod6Card = document.getElementById('card-math-6');
+        if (mod6Card) {
+            if (mod5Done < 5) {
+                mod6Card.classList.add('locked');
+                mod6Card.style.pointerEvents = 'none';
+            } else {
+                mod6Card.onclick = () => {
+                    window.location.href = './Module_6/index.html';
+                };
+            }
+        }
+    })();
+</script>
+
+</body>
+</html>

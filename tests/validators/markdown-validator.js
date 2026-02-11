@@ -63,7 +63,7 @@ class MarkdownValidator {
             }
 
             // Compter les écrans
-            const screens = mission.match(/### Ecran \d+/g);
+            const screens = mission.match(/### (?:Ecran|Écran) \d+/g);
             if (!screens || screens.length !== this.expectedScreens) {
                 this.errors.push(`Mission ${missionNum}: ${screens?.length || 0} écrans au lieu de ${this.expectedScreens}`);
             }
@@ -90,7 +90,7 @@ class MarkdownValidator {
     }
 
     checkDuplicateOptions() {
-        const interactiveBlocks = this.content.split(/### Ecran \d+ - interactive/);
+        const interactiveBlocks = this.content.split(/### (?:Ecran|Écran) \d+ - interactive/);
         
         interactiveBlocks.forEach((block, idx) => {
             if (idx === 0) return; // Skip avant premier écran
@@ -110,13 +110,13 @@ class MarkdownValidator {
     }
 
     checkKeywords() {
-        const writeBlocks = this.content.split(/### Ecran \d+ - (write|challenge)/);
+        const writeBlocks = this.content.split(/### (?:Ecran|Écran) \d+ - (write|challenge)/);
         
         for (let i = 1; i < writeBlocks.length; i += 2) {
             const block = writeBlocks[i + 1];
             if (!block) continue;
 
-            const hasKeywords = block.includes('- Requirements:') && 
+            const hasKeywords = block.includes('Requirements:') && 
                                (block.includes('keywords:') || block.includes('minWords:'));
             
             if (!hasKeywords) {

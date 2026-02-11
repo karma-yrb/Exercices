@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mission 3 - La Factorisation</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO : 0%</span>
+            <span id="session-tag">MISSION 3/5</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <div id="step-container"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 24 24" style="width:100px;height:100px;fill:var(--accent);filter: drop-shadow(0 0 10px var(--accent-glow));">
+                    <path d="M12,8A3,3 0 0,0 9,11A3,3 0 0,0 12,14A3,3 0 0,0 15,11A3,3 0 0,0 12,8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"/>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION 3 TERMINÉE !</h1>
+            <p class="success-text">La factorisation n'a plus de secrets pour toi. Tu sais maintenant « refermer » les parenthèses et reconnaître les patterns. Badge débloqué : 🔄 Reverse Engineer</p>
+            <div class="box-concept next-mission-call">
+                <span>DIRECTION</span><br>
+                MISSION 4
+            </div>
+            <button onclick="window.location.href='index.html'" class="btn-main">RETOUR MISSIONS</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w2_v1",
+        MISSION_ID: 3,
+        TOTAL_MISSIONS: 5,
+        MISSION_NAME: "La Factorisation",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+    {
+        "type": "msg",
+        "title": "Le Reverse du Développement",
+        "text": "Zyvah, **factoriser**, c'est l'inverse de développer. On remet les parenthèses !\n\n**Développer :** <code>3(x + 5)</code> → <code>3x + 15</code> (on ouvre)  \n**Factoriser :** <code>3x + 15</code> → <code>3(x + 5)</code> (on ferme)\n\n**Pourquoi c'est utile ?**\n- Résoudre des équations plus facilement\n- Simplifier des expressions complexes\n- Calculer plus vite (en mettant un facteur en évidence)\n\nC'est le **reverse engineering** du calcul littéral !"
+    },
+    {
+        "type": "quiz",
+        "q": "Dans l'expression <code>2x + 8</code>, quel est le **facteur commun** (ce qui est présent dans les deux termes) ?",
+        "opts": [
+            "x",
+            "2",
+            "8"
+        ],
+        "correct": 1,
+        "feed": "Exact ! On peut écrire <code>2x = 2 × x</code> et <code>8 = 2 × 4</code>. Le facteur commun est <code>2</code>.",
+        "title": "Reconnaissance facteur commun"
+    },
+    {
+        "type": "write",
+        "q": "Factorise (mets le facteur commun devant une parenthèse) :<br><br><code>3x + 6</code>",
+        "requirements": {
+            "keywords": [
+                "3",
+                "(",
+                "x",
+                "2",
+                ")"
+            ],
+            "minWords": 3,
+            "validationType": "algebraic"
+        },
+        "hint": "Le facteur commun est <code>3</code>. Écris <code>3(...)</code> et mets ce qui reste dans la parenthèse.",
+        "feed": "Parfait ! <code>3x + 6 = 3(x + 2)</code>. Tu as « sorti » le <code>3</code> !",
+        "title": "Factoriser 3x + 6"
+    },
+    {
+        "type": "quiz",
+        "q": "Dans <code>5x + 15x²</code>, quel est le **plus grand** facteur commun ?",
+        "opts": [
+            "x",
+            "5",
+            "5x"
+        ],
+        "correct": 2,
+        "feed": "Exact ! Les deux termes contiennent <code>5</code> ET <code>x</code>. On peut sortir <code>5x</code>.",
+        "title": "Facteur commun avec variable"
+    },
+    {
+        "type": "write",
+        "q": "Factorise en sortant le facteur commun :<br><br><code>5x + 10x²</code>",
+        "requirements": {
+            "keywords": [
+                "5x",
+                "(",
+                "1",
+                "2x",
+                ")"
+            ],
+            "minWords": 3,
+            "validationType": "algebraic"
+        },
+        "hint": "Le facteur commun est <code>5x</code>. Dans la parenthèse : <code>5x ÷ 5x = 1</code> et <code>10x² ÷ 5x = 2x</code>.",
+        "feed": "Parfait ! <code>5x(1 + 2x)</code>. Tu as bien pensé au <code>1</code> (car <code>5x ÷ 5x = 1</code>). C'est une erreur fréquente d'oublier ce <code>1</code> !",
+        "title": "Factoriser 5x + 10x²"
+    },
+    {
+        "type": "msg",
+        "title": "Factoriser = identifier le pattern",
+        "text": "Parfois, il n'y a **pas de facteur commun évident**. Mais tu peux reconnaître une **identité remarquable** !\n\n**Exemple :**  \n<code>x² + 6x + 9</code>\n\nRegarde le pattern :\n- Premier terme : carré (<code>x²</code>)\n- Dernier terme : carré (<code>9 = 3²</code>)\n- Terme du milieu : <code>6x = 2 × x × 3</code>\n\nC'est le preset n°1 ! <code>(a + b)² = a² + 2ab + b²</code>\n\n**Factorisation :** <code>x² + 6x + 9 = (x + 3)²</code>"
+    },
+    {
+        "type": "quiz",
+        "q": "L'expression <code>x² + 10x + 25</code> peut se factoriser avec :",
+        "opts": [
+            "(a + b)²",
+            "(a - b)²",
+            "(a + b)(a - b)"
+        ],
+        "correct": 0,
+        "feed": "Exact ! <code>x²</code>, <code>25 = 5²</code>, et <code>10x = 2 × x × 5</code>. C'est <code>(x + 5)²</code>.",
+        "title": "Reconnaître a² + 2ab + b²"
+    },
+    {
+        "type": "write",
+        "q": "Factorise en reconnaissant l'identité remarquable :<br><br><code>x² + 6x + 9</code>",
+        "requirements": {
+            "keywords": [
+                "(",
+                "x",
+                "+",
+                "3",
+                ")²"
+            ],
+            "minWords": 3,
+            "validationType": "algebraic"
+        },
+        "hint": "<code>x²</code> + <code>2×x×3</code> + <code>3²</code> → c'est <code>(x + 3)²</code>.",
+        "feed": "Parfait ! <code>x² + 6x + 9 = (x + 3)²</code>. Pattern reconnu !",
+        "title": "Factoriser x² + 6x + 9"
+    },
+    {
+        "type": "quiz",
+        "q": "L'expression <code>x² - 49</code> peut se factoriser avec :",
+        "opts": [
+            "(a + b)²",
+            "(a - b)²",
+            "(a + b)(a - b)"
+        ],
+        "correct": 2,
+        "feed": "Exact ! C'est une **différence de carrés** : <code>x²</code> et <code>49 = 7²</code>. Formule : <code>(x + 7)(x - 7)</code>.",
+        "title": "Reconnaître a² - b²"
+    },
+    {
+        "type": "write",
+        "q": "Factorise (différence de carrés) :<br><br><code>x² - 25</code>",
+        "requirements": {
+            "keywords": [
+                "(",
+                "x",
+                "+",
+                "5",
+                ")",
+                "(",
+                "x",
+                "-",
+                "5",
+                ")"
+            ],
+            "minWords": 5,
+            "validationType": "algebraic"
+        },
+        "hint": "<code>25 = 5²</code>. Formule : <code>a² - b² = (a + b)(a - b)</code>.",
+        "feed": "Instantané ! <code>x² - 25 = (x + 5)(x - 5)</code>.",
+        "title": "Factoriser x² - 25"
+    },
+    {
+        "type": "interactive",
+        "q": "Pour factoriser <code>x² - 8x + 16</code>, quelle méthode utiliser ?",
+        "opts": [
+            "Facteur commun",
+            "Identité remarquable"
+        ],
+        "correct": 1,
+        "feed": "Exact ! C'est <code>(x - 4)²</code> car <code>x²</code>, <code>16 = 4²</code>, et <code>8x = 2 × x × 4</code>.",
+        "title": "Choix de méthode"
+    },
+    {
+        "type": "write",
+        "q": "Factorise :<br><br><code>4x² + 12x + 9</code>",
+        "requirements": {
+            "keywords": [
+                "(",
+                "2x",
+                "+",
+                "3",
+                ")²"
+            ],
+            "minWords": 3,
+            "validationType": "algebraic"
+        },
+        "hint": "<code>4x² = (2x)²</code>, <code>9 = 3²</code>, <code>12x = 2 × 2x × 3</code>. C'est <code>(a + b)²</code>.",
+        "feed": "Parfait ! <code>4x² + 12x + 9 = (2x + 3)²</code>.",
+        "title": "Factoriser 4x² + 12x + 9"
+    },
+    {
+        "type": "write",
+        "q": "Factorise (différence de carrés avec coefficients) :<br><br><code>9x² - 16</code>",
+        "requirements": {
+            "keywords": [
+                "(",
+                "3x",
+                "+",
+                "4",
+                ")",
+                "(",
+                "3x",
+                "-",
+                "4",
+                ")"
+            ],
+            "minWords": 5,
+            "validationType": "algebraic"
+        },
+        "hint": "<code>9x² = (3x)²</code>, <code>16 = 4²</code>. Formule : <code>(a + b)(a - b)</code>.",
+        "feed": "Excellent ! <code>9x² - 16 = (3x + 4)(3x - 4)</code>.",
+        "title": "Factoriser 9x² - 16"
+    },
+    {
+        "type": "quiz",
+        "q": "L'expression <code>x² - 12x + 36</code> se factorise en :",
+        "opts": [
+            "(x + 6)²",
+            "(x - 6)²",
+            "(x + 6)(x - 6)"
+        ],
+        "correct": 1,
+        "feed": "Bien ! Le signe **−** devant <code>12x</code> indique le preset n°2 : <code>(a - b)²</code>.",
+        "title": "Piège : reconnaître la bonne identité"
+    },
+    {
+        "type": "challenge",
+        "q": "Un studio calcule ses coûts avec la formule :<br><br><code>Coût = x² + 20x + 100</code> €<br><br>Le comptable veut **simplifier** cette expression en la factorisant.<br><br>Quelle est la **forme factorisée** ?",
+        "requirements": {
+            "keywords": [
+                "(",
+                "x",
+                "+",
+                "10",
+                ")²"
+            ],
+            "minWords": 3,
+            "validationType": "algebraic"
+        },
+        "hint": "Reconnaître : <code>x²</code>, <code>100 = 10²</code>, <code>20x = 2 × x × 10</code>. C'est quelle identité ?",
+        "feed": "**MISSION 3 TERMINÉE** ✅<br><br>Bravo ! La factorisation n'a plus de secrets pour toi. Tu sais maintenant « refermer » les parenthèses et reconnaître les patterns.<br><br>Direction Mission 4 : les **équations** !<br><br>**Badge débloqué :** 🔄 Reverse Engineer",
+        "title": "Boss Factorisation"
+    }
+];
+</script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
+
+</body>
+</html>

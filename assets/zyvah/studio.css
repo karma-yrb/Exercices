@@ -40,10 +40,20 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     animation: slideUp 0.4s ease; 
 }
 .view.active { display: flex !important; flex-direction: column; }
+#view-content { display: flex; flex-direction: column; gap: 16px; }
+#step-body { flex: 1; }
+#footer { margin-top: auto; display: flex; gap: 12px; }
 
 .lobby-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: var(--accent); }
 .lobby-intro { color: var(--text-dim); margin-bottom: 45px; line-height: 1.5; font-size: 1rem; }
 .days-grid { display: grid; gap: 15px; }
+#view-lobby .days-grid {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#view-lobby .btn-nav { margin-top: auto; flex: 0 0 auto; }
 .day-card { 
     background: #241d3d; border: 1px solid var(--border); padding: 20px; 
     border-radius: 20px; display: flex; align-items: center; gap: 15px;
@@ -69,6 +79,8 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 .studio-box::before { content: ' MIXER'; position: absolute; top: -12px; left: 15px; background: var(--accent); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 800; }
 
 .opt-list { margin-top: 20px; display: grid; gap: 12px; }
+.interactive-area { display: flex; flex-direction: column; gap: 12px; }
+.interactive-area .btn-opt { width: 100%; }
 .btn-opt { 
     padding: 18px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); border-radius: 16px; 
     color: #fff; text-align: left; font-size: 1rem; cursor: pointer; transition: 0.2s;
