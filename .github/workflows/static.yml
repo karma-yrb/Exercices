@@ -1,9 +1,13 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# CI + deploy workflow for static content to GitHub Pages
+name: CI and Deploy Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Run CI on pushes to main
   push:
+    branches: ["main"]
+
+  # Run CI on pull requests targeting main (for required status checks)
+  pull_request:
     branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -22,8 +26,23 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run test runner
+        run: node tests/test-runner.js
+
   deploy:
+    name: Deploy Pages
+    needs: tests
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
