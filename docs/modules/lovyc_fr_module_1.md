@@ -1,4 +1,4 @@
-# Draft - Lovyc Francais Module 1
+﻿# Draft - Lovyc Francais Module 1
 
 ## Meta
 - Theme: Tactical Comms - structure de phrase et accords
@@ -386,7 +386,7 @@
 - Appliquer ces distinctions dans des phrases courtes.
 
 ### Index technique (ordre des steps)
-1. lesson - Le Scan a / a
+1. lesson - Le Scan a vs à
 2. lesson - Le Scan et / est
 3. interactive - Test a 1
 4. interactive - Test a 2
@@ -394,7 +394,7 @@
 6. interactive - Test est 1
 7. write - Combo Tactique
 8. write - Correction Simple
-9. interactive - Variante a / a
+9. interactive - Variante a / à
 10. interactive - Variante et / est
 11. write - Phrase Mixte
 12. write - Phrase Mixte 2
@@ -402,7 +402,7 @@
 14. write - Rapport Court
 15. challenge - Boss de Fin - Mission 4
 
-### Ecran 1 - lesson - Le Scan a / a
+### Ecran 1 - lesson - Le Scan a vs à
 - Encadre: "a (sans accent) : On peut dire 'avait'." / "a (avec accent) : On ne peut pas. C'est une direction."
 
 ### Ecran 2 - lesson - Le Scan et / est
@@ -447,7 +447,7 @@
   - keywords: "a", "et", "est"
 - Feedback: "Correctif applique."
 
-### Ecran 9 - interactive - Variante a / a
+### Ecran 9 - interactive - Variante a / à
 - Question: "Choisis la bonne forme :" (Elle ____ raison.)
 - Options: "a" / "à"
 - Reponse: "a"
@@ -581,7 +581,7 @@
 
 ### Ecran 11 - interactive - Verification Finale 1
 - Question: "Quelle phrase est correcte ?" (Les agents avance.)
-- Options: "Les agents avance." / "Les agents avancent." / "Les agents avançe."
+- Options: "Les agents avance." / "Les agents avancent." / "Les agents avancer."
 - Reponse: "Les agents avancent."
 - Feedback: "Accord valide."
 
@@ -613,3 +613,4 @@
   - mustInclude: ",", "tactique"
 - Hint: "Exemple : Tes missions reussissent, c'est une victoire tactique."
 - Feedback: "CODE ROUGE TERMINE. Felicitations Agent Lovyc !"
+

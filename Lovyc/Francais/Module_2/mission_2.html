@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -32,7 +32,7 @@
                 </svg>
             </div>
             <h1 class="success-title">MISSION ACCOMPLIE !</h1>
-            <p class="success-text">Le rapport est vivant. Les citations sont précises.</p>
+            <p class="success-text">Le rapport est vivant. Les citations sont precises.</p>
             <div class="box-concept next-mission-call">
                 <span>REVIENS DEMAIN</span><br>
                 POUR LA SUITE.
@@ -71,10 +71,10 @@
                         <text x="40" y="25" style="fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;">— DIT-IL</text>
                     </svg>
                     </div>
-                    <p>Quand tu rapportes un dialogue, utilise le <b>tiret cadratin</b> (—) pour montrer qui parle. C'est la base de la précision littéraire.</p>
-                    <p>L'<b>incise</b> (ex: <i>dit l'agent</i>, <i>répond le coach</i>) permet de savoir qui a transmis l'info sans alourdir le texte.</p>
+                    <p>Quand tu rapportes un dialogue, utilise le <b>tiret cadratin</b> (—) pour montrer qui parle. C'est la base de la precision litteraire.</p>
+                    <p>L'<b>incise</b> (ex: <i>dit l'agent</i>, <i>repond le coach</i>) permet de savoir qui a transmis l'info sans alourdir le texte.</p>
                     <div class="box-concept">
-                    — La zone est sécurisée, <b>affirma Lovyc</b>.
+                    — La zone est securisee, <b>affirma Lovyc</b>.
                     </div>`
             },
             {
@@ -87,8 +87,8 @@
             {
                 type: "interactive",
                 title: "Identification de Source",
-                question: "Dans cette phrase, quelle partie est l'incise ? <br><br><i>— Le patch arrive demain, murmura le développeur.</i>",
-                options: ["— Le patch arrive demain", "murmura le développeur", "le développeur"],
+                question: "Dans cette phrase, quelle partie est l'incise ? <br><br><i>— Le patch arrive demain, murmura le developpeur.</i>",
+                options: ["— Le patch arrive demain", "murmura le developpeur", "le developpeur"],
                 answer: 1,
                 feedback: "Exactement. L'incise donne le ton et l'auteur de la parole."
             },
@@ -103,13 +103,13 @@
             {
                 type: "write",
                 title: "Codage de Dialogue",
-                question: "Complète ce dialogue avec une incise de ton choix (ex: s'exclama Zyvah, répondit le chef) : <br><br><i>— Attention au sniper à gauche, _______.</i>",
+                question: "Complete ce dialogue avec une incise de ton choix (ex: s'exclama Zyvah, repondit le chef) : <br><br><i>— Attention au sniper a gauche, _______.</i>",
                 requirements: {
                     mode: "sentence",
                     keywords: ["Lovyc", "Zyvah", "chef", "agent", "dit", "repondit", "s'exclama", "murmura", "hurla"]
                 },
                 hint: "Utilise un verbe de parole et un nom de personnage.",
-                feedback: "Parfait. On sait maintenant d'où vient l'alerte."
+                feedback: "Parfait. On sait maintenant d'ou vient l'alerte."
             },
             {
                 type: "write",
@@ -171,7 +171,9 @@
                 question: "Ecris deux lignes de dialogue (deux phrases).",
                 requirements: {
                     mode: "sentence",
-                    minWords: 10
+                    minWords: 12,
+                    keywords: ["-"],
+                    enforceKeywords: true
                 },
                 feedback: "Communication valide."
             },
@@ -196,13 +198,13 @@
             {
                 type: "challenge",
                 title: "Boss de Fin - Mission 2",
-                question: "Écris une courte ligne de dialogue commençant par un tiret cadratin (—) et finissant par une incise (ex: dit-il, répondit Lovyc) :",
+                question: "Ecris une courte ligne de dialogue commencant par un tiret cadratin (—) et finissant par une incise (ex: dit-il, repondit Lovyc) :",
                 requirements: {
                     mode: "sentence",
                     keywords: ["—"]
                 },
-                hint: "N'oublie pas le tiret au début et la virgule avant l'incise si nécessaire.",
-                feedback: "Dialogue validé. La communication entre agents est fluide."
+                hint: "N'oublie pas le tiret au debut et la virgule avant l'incise si necessaire.",
+                feedback: "Dialogue valide. La communication entre agents est fluide."
             }
         ]
     }];
@@ -212,3 +214,4 @@
 
 </body>
 </html>
+

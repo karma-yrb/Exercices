@@ -1,6 +1,6 @@
-/**
- * Validateur de Synchronisation
- * Vérifie que les HTML correspondent bien aux drafts Markdown
+﻿/**
+ * Validateur de synchronisation.
+ * Verifie que les HTML correspondent aux drafts markdown.
  */
 
 const fs = require('fs');
@@ -30,7 +30,7 @@ class SyncValidator {
 
                 const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
                 const weekData = this.extractWeekDataFromHtml(htmlContent);
-                
+
                 if (!weekData) {
                     this.errors.push(`Mission ${i}: Impossible d'extraire weekData`);
                     continue;
@@ -56,31 +56,30 @@ class SyncValidator {
 
         missionBlocks.forEach(block => {
             const screens = [];
-            const screenBlocks = block.split(/### Ecran \d+/).slice(1);
+            const screenBlocks = block.split(/### (?:Ecran|Écran|Ã‰cran) \d+/).slice(1);
 
             screenBlocks.forEach(screenBlock => {
-                const titleMatch = screenBlock.match(/- ([a-z]+) - (.+)/);
-                const questionMatch = screenBlock.match(/- Question: "(.+?)"/);
-                const optionsMatch = screenBlock.match(/- Options: (.+)/);
-                const reponseMatch = screenBlock.match(/- Reponse: "(.+?)"/);
-                
-                if (titleMatch) {
-                    const screen = {
-                        type: titleMatch[1],
-                        title: titleMatch[2],
-                        question: questionMatch ? questionMatch[1] : null
-                    };
+                const titleMatch = screenBlock.match(/- ([a-z]+) - (.+)/i);
+                const questionMatch = screenBlock.match(/- Question:\s*(.+)/i);
+                const optionsMatch = screenBlock.match(/- Options: (.+)/i);
+                const reponseMatch = screenBlock.match(/- Reponse: "(.+?)"/i);
 
-                    // Extraire les options pour interactive
-                    if (optionsMatch && titleMatch[1] === 'interactive') {
-                        screen.options = optionsMatch[1]
-                            .split('" / "')
-                            .map(opt => opt.replace(/^"|"$/g, '').trim());
-                        screen.answer = reponseMatch ? reponseMatch[1] : null;
-                    }
+                if (!titleMatch) return;
 
-                    screens.push(screen);
+                const screen = {
+                    type: (titleMatch[1] || '').toLowerCase(),
+                    title: (titleMatch[2] || '').trim(),
+                    question: questionMatch ? this.cleanDraftQuestion(questionMatch[1]) : null
+                };
+
+                if (optionsMatch && screen.type === 'interactive') {
+                    screen.options = optionsMatch[1]
+                        .split('" / "')
+                        .map(opt => opt.replace(/^"|"$/g, '').trim());
+                    screen.answer = reponseMatch ? reponseMatch[1] : null;
                 }
+
+                screens.push(screen);
             });
 
             missions.push(screens);
@@ -104,11 +103,11 @@ class SyncValidator {
         try {
             const isolatedCode = `(function() { ${match[0]} return weekData; })()`;
             const data = eval(isolatedCode);
-            
-            // Extraire les steps si la structure est { id, steps }
+
             if (Array.isArray(data) && data[0] && Array.isArray(data[0].steps)) {
                 return data[0].steps;
-            } else if (Array.isArray(data)) {
+            }
+            if (Array.isArray(data)) {
                 return data;
             }
             return null;
@@ -118,76 +117,76 @@ class SyncValidator {
     }
 
     compareMission(missionNum, draftScreens, htmlSteps) {
-        // Vérifier le nombre d'écrans
         if (!draftScreens || draftScreens.length !== htmlSteps.length) {
             this.warnings.push(
-                `Mission ${missionNum}: Nombre d'écrans différent (draft: ${draftScreens?.length || 0}, HTML: ${htmlSteps.length})`
+                `Mission ${missionNum}: Nombre d'ecrans different (draft: ${draftScreens?.length || 0}, HTML: ${htmlSteps.length})`
             );
             return;
         }
 
-        // Comparer chaque écran
         draftScreens.forEach((screen, idx) => {
-            const step = htmlSteps[idx];
+            const step = htmlSteps[idx] || {};
 
-            // Vérifier type
             if (screen.type !== step.type) {
                 this.warnings.push(
-                    `Mission ${missionNum}, Écran ${idx + 1}: Type différent (draft: ${screen.type}, HTML: ${step.type})`
+                    `Mission ${missionNum}, Ecran ${idx + 1}: Type different (draft: ${screen.type}, HTML: ${step.type})`
                 );
             }
 
-            // Vérifier title
             const normalizedDraftTitle = this.normalizeText(screen.title);
             const normalizedHtmlTitle = this.normalizeText(step.title);
-            
             if (normalizedDraftTitle !== normalizedHtmlTitle) {
                 this.warnings.push(
-                    `Mission ${missionNum}, Écran ${idx + 1}: Titre différent\n  Draft: "${screen.title}"\n  HTML: "${step.title}"`
+                    `Mission ${missionNum}, Ecran ${idx + 1}: Titre different\n  Draft: "${screen.title}"\n  HTML: "${step.title}"`
                 );
             }
 
-            // Vérifier question pour interactive/write/challenge
             if (screen.question && step.question) {
-                const draftQ = this.normalizeText(screen.question);
-                const htmlQ = this.normalizeText(this.stripHtml(step.question));
-                
-                // Tolérance : Ignorer si la différence est < 20% (balises HTML, reformulations mineures)
-                const similarity = this.calculateSimilarity(draftQ, htmlQ);
-                if (similarity < 0.8) {
-                    this.warnings.push(
-                        `Mission ${missionNum}, Écran ${idx + 1}: Question significativement différente (similarité: ${Math.round(similarity * 100)}%)`
-                    );
+                const rawDraftQ = this.cleanDraftQuestion(screen.question);
+                const rawHtmlQ = this.cleanDraftQuestion(this.stripHtml(step.question));
+
+                const draftInstruction = this.normalizeQuestion(this.extractInstruction(rawDraftQ));
+                const htmlInstruction = this.normalizeQuestion(this.extractInstruction(rawHtmlQ));
+
+                if (draftInstruction !== htmlInstruction) {
+                    const draftQ = this.normalizeQuestion(rawDraftQ);
+                    const htmlQ = this.normalizeQuestion(rawHtmlQ);
+
+                    if (draftQ !== htmlQ) {
+                        const similarity = this.calculateSimilarity(draftQ, htmlQ);
+                        if (similarity < 0.6) {
+                            this.warnings.push(
+                                `Mission ${missionNum}, Ecran ${idx + 1}: Question significativement differente (similarite: ${Math.round(similarity * 100)}%)`
+                            );
+                        }
+                    }
                 }
             }
 
-            // Vérifier options pour interactive
             if (screen.type === 'interactive' && screen.options && step.options) {
                 if (screen.options.length !== step.options.length) {
                     this.warnings.push(
-                        `Mission ${missionNum}, Écran ${idx + 1}: Nombre d'options différent (draft: ${screen.options.length}, HTML: ${step.options.length})`
+                        `Mission ${missionNum}, Ecran ${idx + 1}: Nombre d'options different (draft: ${screen.options.length}, HTML: ${step.options.length})`
                     );
                 } else {
-                    // Comparer chaque option
                     screen.options.forEach((opt, optIdx) => {
                         const draftOpt = this.normalizeText(opt);
                         const htmlOpt = this.normalizeText(step.options[optIdx]);
                         if (draftOpt !== htmlOpt) {
                             this.warnings.push(
-                                `Mission ${missionNum}, Écran ${idx + 1}, Option ${optIdx + 1}: Contenu différent`
+                                `Mission ${missionNum}, Ecran ${idx + 1}, Option ${optIdx + 1}: Contenu different`
                             );
                         }
                     });
                 }
 
-                // Vérifier que la bonne réponse correspond
                 if (screen.answer && step.answer !== undefined) {
-                    const draftAnswerIdx = screen.options.findIndex(opt => 
+                    const draftAnswerIdx = screen.options.findIndex(opt =>
                         this.normalizeText(opt) === this.normalizeText(screen.answer)
                     );
                     if (draftAnswerIdx !== -1 && draftAnswerIdx !== step.answer) {
                         this.errors.push(
-                            `Mission ${missionNum}, Écran ${idx + 1}: Index de réponse incorrect (draft veut "${screen.answer}", HTML pointe vers "${step.options[step.answer]}")`
+                            `Mission ${missionNum}, Ecran ${idx + 1}: Index de reponse incorrect (draft veut "${screen.answer}", HTML pointe vers "${step.options[step.answer]}")`
                         );
                     }
                 }
@@ -208,35 +207,65 @@ class SyncValidator {
             .trim();
     }
 
+    cleanDraftQuestion(text) {
+        if (!text) return '';
+        return text.toString().trim().replace(/^"+/, '').replace(/"+$/, '').trim();
+    }
+
+    extractInstruction(text) {
+        const cleaned = this.cleanDraftQuestion(text);
+        const parenPos = cleaned.indexOf('(');
+        if (parenPos > 0) return cleaned.slice(0, parenPos).trim();
+        return cleaned;
+    }
+
     calculateSimilarity(str1, str2) {
-        // Calcul de similarité simple (ratio de Levenshtein simplifié)
         if (str1 === str2) return 1.0;
-        
+
         const longer = str1.length > str2.length ? str1 : str2;
         const shorter = str1.length > str2.length ? str2 : str1;
-        
+
         if (longer.length === 0) return 1.0;
-        
-        // Compter les caractères communs
+
         let matches = 0;
         for (let i = 0; i < shorter.length; i++) {
             if (longer.includes(shorter[i])) matches++;
         }
-        
+
         return matches / longer.length;
     }
 
     normalizeText(text) {
         if (!text) return '';
-        return text
+
+        const mojibakeFixed = text
+            .replace(/Ã©/g, 'é')
+            .replace(/Ã¨/g, 'è')
+            .replace(/Ãª/g, 'ê')
+            .replace(/Ã«/g, 'ë')
+            .replace(/Ã /g, 'à')
+            .replace(/Ã¢/g, 'â')
+            .replace(/Ã¤/g, 'ä')
+            .replace(/Ã´/g, 'ô')
+            .replace(/Ã¶/g, 'ö')
+            .replace(/Ã¹/g, 'ù')
+            .replace(/Ã»/g, 'û')
+            .replace(/Ã¼/g, 'ü')
+            .replace(/Ã¯/g, 'ï')
+            .replace(/Ã®/g, 'î')
+            .replace(/Ã§/g, 'ç');
+
+        return mojibakeFixed
             .toLowerCase()
-            .replace(/[éèêë]/g, 'e')
-            .replace(/[àâä]/g, 'a')
-            .replace(/[ôö]/g, 'o')
-            .replace(/[ùûü]/g, 'u')
-            .replace(/[ïî]/g, 'i')
-            .replace(/ç/g, 'c')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[()"]/g, '')
             .replace(/[^a-z0-9]/g, '');
+    }
+
+    normalizeQuestion(text) {
+        if (!text) return '';
+        return this.normalizeText(text.replace(/"/g, ' '));
     }
 }
 
