@@ -25,3 +25,5 @@ Regle: Toute modification de contenu doit d'abord mettre a jour le draft `.md`, 
 
 ---
 *Ce projet utilise des Micro-Apps SPA en Vanilla JS.*
+
+[ci-check-trigger] temporary branch to expose required status checks.
