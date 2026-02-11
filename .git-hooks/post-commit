@@ -1,0 +1,34 @@
+#!/bin/bash
+# Post-commit Hook - Push automatique
+# Le pre-commit a deja valide les tests. Ici on pousse automatiquement.
+
+if [ "$SKIP_AUTO_PUSH" = "1" ]; then
+    echo "??  Push automatique ignore (SKIP_AUTO_PUSH=1)."
+    exit 0
+fi
+
+echo "?? Push automatique en cours..."
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+if [ -z "$BRANCH_NAME" ] || [ "$BRANCH_NAME" = "HEAD" ]; then
+    echo "??  Branche non detectee (detached HEAD). Push automatique annule."
+    exit 0
+fi
+
+# Si une upstream existe deja, push classique. Sinon, creation upstream origin/<branche>.
+if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
+    git push
+else
+    git push -u origin "$BRANCH_NAME"
+fi
+
+PUSH_EXIT_CODE=$?
+
+if [ $PUSH_EXIT_CODE -ne 0 ]; then
+    echo "? Push automatique echoue. Lance manuellement: git push"
+    exit $PUSH_EXIT_CODE
+fi
+
+echo "? Push automatique termine."
+exit 0

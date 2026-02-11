@@ -1,102 +1,88 @@
-# Workflow Git avec Tests Automatiques
+﻿# Workflow Git avec tests + push automatiques
 
-## 🔒 Règle Absolue
+## Regle absolue
 
-**AUCUN commit ne doit être poussé sans que les tests passent à 100%.**
+Aucun changement ne part en remote sans validation automatique des tests.
 
-## 📋 Processus Standard
+## Ce que fait `git commit` dans ce projet
 
-### 1. Créer/Modifier un Module
+1. Hook `pre-commit` : lance `node tests/test-runner.js`.
+2. Si les tests echouent : commit bloque.
+3. Si les tests passent : commit cree.
+4. Hook `post-commit` : lance `git push` automatiquement.
+
+Donc, dans ce repo, `git commit` = tests + commit + push (sauf exception explicite).
+
+## Processus standard
+
+### 1) Modifier
+
+- Modifier d'abord les drafts `docs/modules/*.md` (source de verite).
+- Synchroniser ensuite les HTML.
+
+### 2) Verifier localement (recommande)
 
 ```bash
-# Éditer les drafts
-vim docs/modules/lovyc_fr_module_3.md
-
-# Synchroniser HTML
-# (manuellement ou via script)
-```
-
-### 2. Tester Localement
-
-```bash
-# Test complet
 npm test
-
-# Ou test spécifique
-npm run test:lovyc
-node tests/test-runner.js lovyc_fr_module_3
+# ou
+node tests/test-runner.js <module>
 ```
 
-### 3. Corriger les Erreurs
-
-Si des tests échouent :
-- ❌ **Options dupliquées** → Corriger le draft ET le HTML
-- ❌ **Draft/HTML désynchronisés** → Régénérer le HTML depuis le draft
-- ❌ **Keywords manquants** → Ajouter aux requirements
-- ❌ **Moins de 10 tests Write** → Ajouter des keywords variés
-
-### 4. Commit & Push
+### 3) Commit
 
 ```bash
-# Une fois TOUS les tests ✅
 git add .
-git commit -m "feat: Ajout Module 3 Français"
-
-# Le hook pre-commit lance automatiquement les tests
-# Si échec → commit bloqué
-
-git push
+git commit -m "feat: ..."
 ```
 
-## 🚨 En Cas d'Urgence
+Le commit declenche automatiquement les hooks:
+- pre-commit (tests)
+- post-commit (push)
 
-Si tu DOIS bypasser les tests (cas exceptionnel) :
+## Cas particuliers
+
+### Bypass test urgent
 
 ```bash
 git commit --no-verify -m "fix: hotfix critique"
 ```
 
-⚠️ **À utiliser UNIQUEMENT pour des urgences** (serveur en panne, bug critique en prod).
+Attention: `--no-verify` saute le pre-commit (tests), mais le post-commit pousse toujours.
 
-## 🔧 Installation Hook Git
+### Desactiver temporairement le push auto
 
 ```bash
-# Copier le hook
+SKIP_AUTO_PUSH=1 git commit -m "chore: commit local sans push"
+```
+
+Ensuite push manuel:
+
+```bash
+git push
+```
+
+## Installation hooks
+
+```bash
+# Linux/Mac
 cp .git-hooks/pre-commit .git/hooks/pre-commit
-
-# Linux/Mac : Rendre exécutable
+cp .git-hooks/post-commit .git/hooks/post-commit
 chmod +x .git/hooks/pre-commit
+chmod +x .git/hooks/post-commit
 
-# Windows : Utiliser Git Bash
+# Windows (Git Bash)
+cp .git-hooks/pre-commit .git/hooks/pre-commit
+cp .git-hooks/post-commit .git/hooks/post-commit
 ```
 
-## 📊 Quels Tests Sont Lancés ?
+## Tests lances
 
-1. **Draft Markdown** : Structure, options dupliquées, keywords
-2. **HTML** : weekData valide, steps count, answer index
-3. **Sync** : Questions, options, réponses identiques entre draft/HTML
-4. **Write** : 10+ propositions testées par exercice
+1. Draft Markdown
+2. HTML
+3. Sync Draft <-> HTML
+4. Reponses write (10+ propositions)
+5. Chemins de navigation
 
-## ✅ État Actuel
+## Objectif
 
-```bash
-# Vérifier l'état global
-npm test
-
-# Résultat attendu :
-# ✅ Réussis: XX
-# ❌ Échoués: 0
-# ⚠️ Warnings: Y (tolérés)
-```
-
-## 📝 Ajouter un Module au Projet
-
-1. Créer le draft `.md` dans `docs/modules/`
-2. Générer les 5 missions HTML
-3. **Lancer les tests** : `npm test`
-4. Corriger jusqu'à 100% ✅
-5. Commit + push
-
-## 🎯 Objectif
-
-**Zéro régression. Zéro bug pédagogique en production.**
+Zero regression. Zero bug pedagogique en production.
