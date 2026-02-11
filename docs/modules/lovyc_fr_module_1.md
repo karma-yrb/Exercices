@@ -100,6 +100,7 @@
   - mode: "sentence"
   - keywords: "l'agent", "securise", "zone"
   - enforceKeywords: true
+- Hint: "Relis la consigne, garde une phrase claire et verifie l'accord sujet-verbe."
 - Feedback: "Ordre confirme."
 
 ### Ecran 12 - interactive - Verbe ou Nom ?
@@ -213,6 +214,7 @@
   - mode: "sentence"
   - keywords: "parents", "regardent", "match"
   - enforceKeywords: true
+- Hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale."
 - Feedback: "Fix reussi ! Tes parents (ils) = regardent."
 
 ### Ecran 10 - interactive - Faux Ami
@@ -258,6 +260,7 @@
   - mode: "sentence"
   - keywords: "joueurs", "sautent", "terrain"
   - enforceKeywords: true
+- Hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale."
 - Feedback: "L'accord de la squad est parfait."
 
 ## Mission 3 - Le Flux Dynamique
@@ -309,13 +312,18 @@
   - keywords: "match", "Lovyc", "prepare"
   - enforceKeywords: true
   - mustInclude: "."
+- Hint: "Separe les actions en deux phrases: action 1 + point + action 2."
 - Feedback: "Parfait. Deux actions, deux phrases distinctes."
 
 ### Ecran 6 - write - Split de Signal 2
 - Question: "Ajoute une virgule pour rendre la phrase plus fluide :" (La team avance elle reste groupée.)
 - Requirements:
   - mode: "sentence"
-  - keywords: ","
+  - keywords: "team"
+  - mustInclude: ","
+  - enforceKeywords: true
+  - minWords: 6
+- Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Feedback: "Flux ajusté."
 
 ### Ecran 7 - interactive - Correction de Chat
@@ -334,14 +342,22 @@
 - Question: "Ajoute une virgule :" (En match Lovyc reste calme.)
 - Requirements:
   - mode: "sentence"
-  - keywords: ","
+  - keywords: "Lovyc", "match"
+  - mustInclude: ","
+  - enforceKeywords: true
+  - minWords: 6
+- Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Feedback: "Respiration ok."
 
 ### Ecran 10 - write - Ajout de Point
 - Question: "Ajoute un point pour separer les actions :" (Il monte le son il commence le stream)
 - Requirements:
   - mode: "sentence"
-  - keywords: "."
+  - keywords: "son", "stream"
+  - mustInclude: "."
+  - enforceKeywords: true
+  - minWords: 6
+- Hint: "Separe les actions en deux phrases: action 1 + point + action 2."
 - Feedback: "Actions separees."
 
 ### Ecran 11 - interactive - Phrase Longue
@@ -354,7 +370,10 @@
 - Question: "Reecris avec ponctuation :" (je - check - le - radar - je - bouge)
 - Requirements:
   - mode: "sentence"
-  - keywords: ","
+  - keywords: "radar"
+  - mustInclude: ","
+  - enforceKeywords: true
+  - minWords: 6
 - Hint: "Deux actions proches -> virgule."
 - Feedback: "Message clair."
 
@@ -364,6 +383,7 @@
   - mode: "sentence"
   - minWords: 8
   - mustInclude: "."
+- Hint: "Fais des phrases courtes et claires, puis verifie accords et ponctuation."
 - Feedback: "Rapport propre."
 
 ### Ecran 14 - interactive - Derniere Verification
@@ -438,6 +458,7 @@
   - mode: "sentence"
   - keywords: "est", "rapide", "et", "precis"
   - enforceKeywords: true
+- Hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale."
 - Feedback: "Parfait ! Il 'etait' rapide 'et puis' precis."
 
 ### Ecran 8 - write - Correction Simple
@@ -445,6 +466,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "a", "et", "est"
+- Hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale."
 - Feedback: "Correctif applique."
 
 ### Ecran 9 - interactive - Variante a / à
@@ -464,6 +486,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "a", "est"
+- Hint: "Teste chaque mot: a = avait, est = etait, et = et puis."
 - Feedback: "Phrase clean."
 
 ### Ecran 12 - write - Phrase Mixte 2
@@ -471,6 +494,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "et", "a"
+- Hint: "Teste chaque mot: a = avait, est = etait, et = et puis."
 - Feedback: "Validation ok."
 
 ### Ecran 13 - interactive - Relecture Rapide
@@ -484,6 +508,7 @@
 - Requirements:
   - mode: "sentence"
   - minWords: 8
+- Hint: "Teste chaque mot: a = avait, est = etait, et = et puis."
 - Feedback: "Rapport en regle."
 
 ### Ecran 15 - challenge - Boss de Fin - Mission 4
@@ -536,6 +561,7 @@
 - Requirements:
   - mode: "sentence"
   - minWords: 6
+- Hint: "Verifie l'ordre Sujet + Verbe + Complement, puis ajoute un detail concret."
 - Feedback: "Bonne structure."
 
 ### Ecran 5 - write - Accord Pluriel
@@ -544,6 +570,7 @@
   - mode: "sentence"
   - keywords: "hommes", "marchent", "ombre"
   - enforceKeywords: true
+- Hint: "Repere d'abord le sujet pluriel, puis accorde le verbe en -ent."
 - Feedback: "Liaison squad etablie."
 
 ### Ecran 6 - interactive - Ponctuation Simple
@@ -556,7 +583,11 @@
 - Question: "Ajoute une virgule et un point :" (je - check - la - map - je - pars - vite)
 - Requirements:
   - mode: "sentence"
-  - keywords: ",", "."
+  - keywords: "map"
+  - mustInclude: ",", "."
+  - enforceKeywords: true
+  - minWords: 7
+- Hint: "Mets la virgule entre deux actions proches, puis le point pour cloturer l'idee."
 - Feedback: "Ponctuation appliquee."
 
 ### Ecran 8 - interactive - Homophones Rapides
@@ -570,13 +601,18 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "a", "et", "est"
+- Hint: "Teste chaque mot: a = avait, est = etait, et = et puis."
 - Feedback: "Mix valide."
 
 ### Ecran 10 - write - Phrase Mixte 2
 - Question: "Ecris une phrase au pluriel avec une virgule."
 - Requirements:
   - mode: "sentence"
-  - keywords: ","
+  - keywords: "ils", "elles", "nous", "vous"
+  - mustInclude: ","
+  - enforceKeywords: true
+  - minWords: 8
+- Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Feedback: "Bon rythme."
 
 ### Ecran 11 - interactive - Verification Finale 1
@@ -596,6 +632,7 @@
 - Requirements:
   - mode: "sentence"
   - minWords: 12
+- Hint: "Verifie l'ordre Sujet + Verbe + Complement, puis ajoute un detail concret."
 - Feedback: "Rapport clair."
 
 ### Ecran 14 - write - Rapport Global
@@ -603,6 +640,7 @@
 - Requirements:
   - mode: "sentence"
   - minWords: 18
+- Hint: "Fais des phrases courtes et claires, puis verifie accords et ponctuation."
 - Feedback: "Rapport complet."
 
 ### Ecran 15 - challenge - Ultime Boss - Module 1

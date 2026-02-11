@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -13,7 +13,7 @@
     <div class="header">
         <div class="progress-meta">
             <span id="progress-text">MISSION EN COURS</span>
-            <span id="session-tag">DÉPLOIEMENT FINAL</span>
+            <span id="session-tag">DEPLOIEMENT FINAL</span>
         </div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
@@ -31,8 +31,8 @@
                     <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
                 </svg>
             </div>
-            <h1 class="success-title">MODULE 2 VALIDÉ !</h1>
-            <p class="success-text">Félicitations Agent Lovyc. Ton grade 'Maître des Comms' est officiellement validé.</p>
+            <h1 class="success-title">MODULE 2 VALIDE !</h1>
+            <p class="success-text">Felicitations Agent Lovyc. Ton grade 'Maitre des Comms' est officiellement valide.</p>
             <div class="box-concept next-mission-call">
                 <span>REVIENS DEMAIN</span><br>
                 POUR LE PROCHAIN MODULE.
@@ -59,26 +59,26 @@
 
     const weekData = [{
         id: 5,
-        title: "L'Ultime Déploiement",
+        title: "L'Ultime Deploiement",
         steps: [
             {
                 type: "lesson",
                 title: "Briefing : Fusion de Styles",
                 content: `
-                    <p>Agent Lovyc, tu maîtrises maintenant :</p>
+                    <p>Agent Lovyc, tu maitrises maintenant :</p>
                     <ul>
                     <li>La respiration (virgules).</li>
                     <li>Le dialogue (tirets & incises).</li>
-                    <li>L'intensité (points !?...).</li>
-                    <li>La précision (deux-points & parenthèses).</li>
+                    <li>L'intensite (points !?...).</li>
+                    <li>La precision (deux-points & parentheses).</li>
                     </ul>
                     <p>C'est dire que ton signal est clean.</p>`
             },
             {
                 type: "interactive",
                 title: "Revue de Code",
-                question: "Quelle ponctuation est incorrecte ici : <br><i>L'agent (Lovyc) déploie : ses deux, drones</i>",
-                options: ["La parenthèse", "Les deux-points", "La virgule entre 'deux' et 'drones'"],
+                question: "Quelle ponctuation est incorrecte ici : <br><i>L'agent (Lovyc) deploie : ses deux, drones</i>",
+                options: ["La parenthese", "Les deux-points", "La virgule entre 'deux' et 'drones'"],
                 answer: 2,
                 feedback: "Correct. On n'isole pas l'adjectif du nom avec une virgule."
             },
@@ -93,24 +93,24 @@
             {
                 type: "write",
                 title: "Rapport Tactique 1",
-                question: "Rédige une phrase avec un dialogue court (—...) et une incise au présent :",
+                question: "Redige une phrase avec un dialogue court (a€”...) et une incise au present :",
                 requirements: {
                     mode: "sentence",
-                    keywords: ["—", "Lovyc"]
+                    keywords: ["a€”", "Lovyc"]
                 },
-                hint: "Ex: — Je passe à droite, dit Lovyc.",
+                hint: "Ex: a€” Je passe a droite, dit Lovyc.",
                 feedback: "Communication claire."
             },
             {
                 type: "write",
                 title: "Rapport Tactique 2",
-                question: "Rédige une phrase contenant une liste de deux éléments séparés par deux-points (:) :",
+                question: "Redige une phrase contenant une liste de deux elements separes par deux-points (:) :",
                 requirements: {
                     mode: "sentence",
                     keywords: [":"]
                 },
                 hint: "Ex: La zone contient deux menaces : un sniper et un char.",
-                feedback: "Cible identifiée."
+                feedback: "Cible identifiee."
             },
             {
                 type: "write",
@@ -120,6 +120,7 @@
                     mode: "sentence",
                     keywords: ["(", ")"]
                 },
+                hint: "Ajoute une precision courte entre parentheses, collee a l'element precise.",
                 feedback: "Precision ajoutee."
             },
             {
@@ -136,8 +137,9 @@
                 question: "Ecris une ligne de dialogue avec incise.",
                 requirements: {
                     mode: "sentence",
-                    keywords: ["—"]
+                    keywords: ["a€”"]
                 },
+                hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire.",
                 feedback: "Dialogue valide."
             },
             {
@@ -156,6 +158,7 @@
                     mode: "sentence",
                     keywords: ["(", ")"]
                 },
+                hint: "Ajoute une precision courte entre parentheses, collee a l'element precise.",
                 feedback: "Ok."
             },
             {
@@ -174,6 +177,7 @@
                     mode: "sentence",
                     keywords: [",", "!"]
                 },
+                hint: "Mets la virgule entre deux actions proches, puis le point pour cloturer l'idee.",
                 feedback: "Mix valide."
             },
             {
@@ -182,8 +186,11 @@
                 question: "Ecris trois phrases avec au moins deux signes de ponctuation differents.",
                 requirements: {
                     mode: "sentence",
-                    minWords: 15
+                    minWords: 18,
+                    keywords: [",", ".", "!", "?", "phrase"],
+                    enforceKeywords: true
                 },
+                hint: "Fais des phrases courtes et claires, puis verifie accords et ponctuation.",
                 feedback: "Rapport solide."
             },
             {
@@ -195,19 +202,20 @@
                     minWords: 20,
                     keywords: [",", ":", "(", ")"]
                 },
+                hint: "Place ':' pour annoncer l'info, puis ajoute une precision courte entre parentheses.",
                 feedback: "Rapport complet."
             },
             {
                 type: "challenge",
                 title: "Boss de Fin - Module 2",
-                question: "Rédige ton rapport final de 3 lignes (au moins 15 mots) incluant : une virgule, une parenthèse et un point d'exclamation. Sois héroïque !",
+                question: "Redige ton rapport final de 3 lignes (au moins 15 mots) incluant : une virgule, une parenthese et un point d'exclamation. Sois heroique !",
                 requirements: {
                     mode: "sentence",
                     keywords: [",", "(", ")", "!"],
                     minWords: 15
                 },
                 hint: "Utilise le textarea pour raconter ta victoire finale.",
-                feedback: "Félicitations Agent Lovyc. Ton grade 'Maître des Comms' est officiellement validé. À demain pour de nouveaux défis !"
+                feedback: "Felicitations Agent Lovyc. Ton grade 'Maitre des Comms' est officiellement valide. A demain pour de nouveaux defis !"
             }
         ]
     }];
@@ -217,3 +225,4 @@
 
 </body>
 </html>
+

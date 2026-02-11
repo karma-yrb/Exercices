@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -13,7 +13,7 @@
     <div class="header">
         <div class="progress-meta">
             <span id="progress-text">MISSION EN COURS</span>
-            <span id="session-tag">SCANNER DE PRÉCISION</span>
+            <span id="session-tag">SCANNER DE PRECISION</span>
         </div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
@@ -46,7 +46,7 @@
                 feedback: "Oui."
             },
             <h1 class="success-title">MISSION ACCOMPLIE !</h1>
-            <p class="success-text">Logistique impeccable. Tu es prêt pour le déploiement final.</p>
+            <p class="success-text">Logistique impeccable. Tu es pret pour le deploiement final.</p>
             <div class="box-concept next-mission-call">
                 <span>REVIENS DEMAIN</span><br>
                 POUR LA SUITE.
@@ -83,7 +83,7 @@
 
     const weekData = [{
         id: 4,
-        title: "Précision Technique",
+        title: "Precision Technique",
         steps: [
             {
                 type: "lesson",
@@ -145,6 +145,7 @@
                     mode: "sentence",
                     keywords: [":"]
                 },
+                hint: "Place ':' juste avant la liste ou l'explication que tu annonces.",
                 feedback: "Liste validee."
             },
             {
@@ -153,7 +154,7 @@
                 question: "Quelle phrase est correcte ?",
                 options: ["J'ai besoin: du casque et du micro.", "J'ai besoin : du casque et du micro.", "J'ai besoin de: casque et micro."],
                 answer: 0,
-                feedback: "Espace avant et après les deux-points."
+                feedback: "Espace avant et apres les deux-points."
             },
             {
                 type: "interactive",
@@ -171,6 +172,7 @@
                     mode: "sentence",
                     keywords: [":", "(", ")"]
                 },
+                hint: "Place ':' pour annoncer l'info, puis ajoute une precision courte entre parentheses.",
                 feedback: "Technique valide."
             },
             {
@@ -181,6 +183,7 @@
                     mode: "sentence",
                     keywords: ["(", ")"]
                 },
+                hint: "Ajoute une precision courte entre parentheses, collee a l'element precise.",
                 feedback: "Precision ajoutee."
             },
             {
@@ -200,6 +203,7 @@
                     minWords: 10,
                     keywords: [":"]
                 },
+                hint: "Place ':' juste avant la liste ou l'explication que tu annonces.",
                 feedback: "Rapport coherent."
             },
             {
@@ -210,6 +214,7 @@
                     mode: "sentence",
                     keywords: [":"]
                 },
+                hint: "Place ':' juste avant la liste ou l'explication que tu annonces.",
                 feedback: "Reecriture propre."
             },
             {
@@ -239,3 +244,4 @@
 
 </body>
 </html>
+

@@ -61,6 +61,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ",", "et"
+- Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Feedback: "Liste propre."
 
 ### Ecran 7 - interactive - Virgule ou Point
@@ -80,6 +81,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ","
+- Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Feedback: "Respiration ok."
 
 ### Ecran 10 - write - Virgule avec Apposition
@@ -87,6 +89,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ","
+- Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Feedback: "Apposition isolee."
 
 ### Ecran 11 - interactive - Choix Correct
@@ -100,6 +103,7 @@
 - Requirements:
   - mode: "sentence"
   - minWords: 10
+- Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Feedback: "Rapport rythme."
 
 ### Ecran 13 - write - Reecriture Live
@@ -107,6 +111,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ","
+- Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Feedback: "Message fluide."
 
 ### Ecran 14 - interactive - Dernier Check
@@ -180,6 +185,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "dit", "repondit", "murmura", "hurla"
+- Hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire."
 - Feedback: "Incise valide."
 
 ### Ecran 7 - interactive - Verbe de Parole
@@ -193,6 +199,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "—"
+- Hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire."
 - Feedback: "Dialogue valide."
 
 ### Ecran 9 - interactive - Placement Virgule
@@ -206,6 +213,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "—"
+- Hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire."
 - Feedback: "Ordre transmis."
 
 ### Ecran 11 - interactive - Ligne Correcte
@@ -219,6 +227,7 @@
 - Requirements:
   - mode: "sentence"
   - minWords: 10
+- Hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire."
 - Feedback: "Communication valide."
 
 ### Ecran 13 - write - Rapport de Mission
@@ -226,6 +235,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ","
+- Hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire."
 - Feedback: "Incise integree."
 
 ### Ecran 14 - interactive - Derniere Validation
@@ -298,6 +308,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "!"
+- Hint: "Garde une phrase complete et termine-la par un point d'exclamation."
 - Feedback: "Alerte envoyee."
 
 ### Ecran 7 - interactive - Point ou Question
@@ -317,6 +328,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "?"
+- Hint: "Formule une phrase complete et termine-la par un point d'interrogation."
 - Feedback: "Question valide."
 
 ### Ecran 10 - write - Phrase en Exclamation
@@ -324,6 +336,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "!"
+- Hint: "Garde une phrase complete et termine-la par un point d'exclamation."
 - Feedback: "Impact fort."
 
 ### Ecran 11 - interactive - Choix Correct
@@ -338,6 +351,7 @@
   - mode: "sentence"
   - keywords: ".", "?", "!"
   - minWords: 12
+- Hint: "Garde une phrase complete et termine-la par un point d'exclamation."
 - Feedback: "Rapport riche."
 
 ### Ecran 13 - write - Reecriture Express
@@ -345,6 +359,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "?"
+- Hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale."
 - Feedback: "Inquietude transmise."
 
 ### Ecran 14 - interactive - Dernier Check
@@ -416,6 +431,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ":"
+- Hint: "Place ':' juste avant la liste ou l'explication que tu annonces."
 - Feedback: "Liste validee."
 
 ### Ecran 7 - interactive - Choix Correct
@@ -435,6 +451,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ":", "(", ")"
+- Hint: "Place ':' pour annoncer l'info, puis ajoute une precision courte entre parentheses."
 - Feedback: "Technique valide."
 
 ### Ecran 10 - write - Precision Rapide
@@ -442,6 +459,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "(", ")"
+- Hint: "Ajoute une precision courte entre parentheses, collee a l'element precise."
 - Feedback: "Precision ajoutee."
 
 ### Ecran 11 - interactive - Erreur a Eviter
@@ -456,6 +474,7 @@
   - mode: "sentence"
   - minWords: 10
   - keywords: ":"
+- Hint: "Place ':' juste avant la liste ou l'explication que tu annonces."
 - Feedback: "Rapport coherent."
 
 ### Ecran 13 - write - Reecriture
@@ -463,6 +482,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ":"
+- Hint: "Place ':' juste avant la liste ou l'explication que tu annonces."
 - Feedback: "Reecriture propre."
 
 ### Ecran 14 - interactive - Dernier Check
@@ -540,6 +560,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "(", ")"
+- Hint: "Ajoute une precision courte entre parentheses, collee a l'element precise."
 - Feedback: "Precision ajoutee."
 
 ### Ecran 7 - interactive - Dialogue Check
@@ -553,6 +574,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "—"
+- Hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire."
 - Feedback: "Dialogue valide."
 
 ### Ecran 9 - interactive - Deux-points Check
@@ -566,6 +588,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "(", ")"
+- Hint: "Ajoute une precision courte entre parentheses, collee a l'element precise."
 - Feedback: "Ok."
 
 ### Ecran 11 - interactive - Virgule Check
@@ -579,6 +602,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ",", "!"
+- Hint: "Mets la virgule entre deux actions proches, puis le point pour cloturer l'idee."
 - Feedback: "Mix valide."
 
 ### Ecran 13 - write - Micro Rapport
@@ -586,6 +610,7 @@
 - Requirements:
   - mode: "sentence"
   - minWords: 15
+- Hint: "Fais des phrases courtes et claires, puis verifie accords et ponctuation."
 - Feedback: "Rapport solide."
 
 ### Ecran 14 - write - Rapport Long
@@ -594,6 +619,7 @@
   - mode: "sentence"
   - minWords: 20
   - keywords: ",", ":", "(", ")"
+- Hint: "Place ':' pour annoncer l'info, puis ajoute une precision courte entre parentheses."
 - Feedback: "Rapport complet."
 
 ### Ecran 15 - challenge - Boss de Fin - Module 2

@@ -10,7 +10,7 @@
 <body>
 <div id="app">
     <div class="header">
-        <div class="progress-meta"><span id="progress-text">DÉPLOIEMENT FINAL</span><span id="session-tag">MISSION 5</span></div>
+        <div class="progress-meta"><span id="progress-text">DEPLOIEMENT FINAL</span><span id="session-tag">MISSION 5</span></div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
     <div id="view-content" class="view active">
@@ -26,8 +26,8 @@
                     <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
                 </svg>
             </div>
-            <h1 style="color: var(--success); text-align: center; font-weight: 900;">MODULE 1 COMPLÉTÉ !</h1>
-            <p style="text-align: center; color: var(--text-dim);">Félicitations Agent. Grade Expert Linguistique débloqué.</p>
+            <h1 style="color: var(--success); text-align: center; font-weight: 900;">MODULE 1 COMPLETE !</h1>
+            <p style="text-align: center; color: var(--text-dim);">Felicitations Agent. Grade Expert Linguistique debloque.</p>
             <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
         </div>
     </div>
@@ -41,151 +41,259 @@
 <script>
     window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w1_v2', SINGLE_MISSION_MODE: true };
     var weekData = [
-        {
-            id: 5,
-            title: "L'Ultime Déploiement",
-            steps: [
-                {
-                    type: "msg",
-                    title: "Examen de Grade",
-                    body: `<p>Agent Lovyc, c'est l'heure du <b>déploiement final</b>. Prouve que tu maîtrises tout l'équipement tactique.</p>`
+    {
+        id: 5,
+        title: "L'Ultime Deploiement",
+        steps: [
+            {
+                type: "msg",
+                title: "Examen de Grade",
+                body: "<p>Agent Lovyc, c'est l'heure du <b>deploiement final</b>. Prouve que tu maitrises tout l'equipement tactique.</p>"
+            },
+            {
+                type: "interactive",
+                title: "Structure S+V+C",
+                question: "\"Quel flux de donnees respecte l'ordre S+V+C ?\"",
+                options: [
+                    "Dujardin la rue descendait.",
+                    "Dujardin descendait la rue.",
+                    "La rue descendait Dujardin."
+                ],
+                answer: 1,
+                feedback: "Structure litteraire verrouillee.",
+                q: "\"Quel flux de donnees respecte l'ordre S+V+C ?\""
+            },
+            {
+                type: "interactive",
+                title: "Accord Squad",
+                question: "\"Choisis la bonne forme :\" (Les joueurs ____ la zone.)",
+                options: [
+                    "securise",
+                    "securisent",
+                    "securises"
+                ],
+                answer: 1,
+                feedback: "Pluriel -> -ent.",
+                q: "\"Choisis la bonne forme :\" (Les joueurs ____ la zone.)"
+            },
+            {
+                type: "write",
+                title: "S+V+C Libre",
+                question: "\"Ecris une phrase S+V+C au present.\"",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 6,
+                    keywords: [
+                        "je",
+                        "tu",
+                        "il",
+                        "elle",
+                        "nous",
+                        "vous",
+                        "ils",
+                        "elles"
+                    ],
+                    enforceKeywords: false
                 },
-                {
-                    type: "interactive",
-                    title: "Module 1 : Structure S+V+C",
-                    question: "Quel flux de données respecte l'ordre S+V+C ?",
-                    options: ["Dujardin la rue descendait.", "Dujardin descendait la rue.", "La rue descendait Dujardin."],
-                    answer: 1,
-                    feedback: "Structure littéraire verrouillée."
+                hint: "Verifie l'ordre Sujet + Verbe + Complement, puis ajoute un detail concret.",
+                feedback: "Bonne structure.",
+                q: "\"Ecris une phrase S+V+C au present.\""
+            },
+            {
+                type: "write",
+                title: "Accord Pluriel",
+                question: "\"Corrige cette phrase (Hugo) en respectant le code -ENT :\" (Les hommes marche dans l'ombre.)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "hommes",
+                        "marchent",
+                        "ombre"
+                    ],
+                    enforceKeywords: true
                 },
-                {
-                    type: "interactive",
-                    title: "Accord Squad",
-                    question: "Choisis la bonne forme : <br><br><i>Les joueurs ____ la zone.</i>",
-                    options: ["securise", "securisent", "securises"],
-                    answer: 1,
-                    feedback: "Pluriel -> -ent."
+                hint: "Repere d'abord le sujet pluriel, puis accorde le verbe en -ent.",
+                feedback: "Liaison squad etablie.",
+                q: "\"Corrige cette phrase (Hugo) en respectant le code -ENT :\" (Les hommes marche dans l'ombre.)"
+            },
+            {
+                type: "interactive",
+                title: "Ponctuation Simple",
+                question: "\"Quelle phrase est la plus claire ?\"",
+                options: [
+                    "Je charge, je tire.",
+                    "Je charge. je tire.",
+                    "Je charge je tire."
+                ],
+                answer: 0,
+                feedback: "Virgule utile.",
+                q: "\"Quelle phrase est la plus claire ?\""
+            },
+            {
+                type: "write",
+                title: "Point et Virgule",
+                question: "\"Ajoute une virgule et un point :\" (je - check - la - map - je - pars - vite)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "map"
+                    ],
+                    mustInclude: [
+                        ",",
+                        "."
+                    ],
+                    enforceKeywords: true,
+                    minWords: 7
                 },
-                {
-                    type: "write",
-                    title: "S+V+C Libre",
-                    question: "Ecris une phrase S+V+C au present.",
-                    requirements: {
-                        mode: "sentence",
-                        minWords: 6
-                    },
-                    feedback: "Bonne structure."
+                hint: "Mets la virgule entre deux actions proches, puis le point pour cloturer l'idee.",
+                feedback: "Ponctuation appliquee.",
+                q: "\"Ajoute une virgule et un point :\" (je - check - la - map - je - pars - vite)"
+            },
+            {
+                type: "interactive",
+                title: "Homophones Rapides",
+                question: "\"Choisis la phrase correcte :\"",
+                options: [
+                    "Il a rapide et il est fier.",
+                    "Il est rapide et il a la finale.",
+                    "Il et rapide et il a la finale."
+                ],
+                answer: 1,
+                feedback: "Homophones ok.",
+                q: "\"Choisis la phrase correcte :\""
+            },
+            {
+                type: "write",
+                title: "Phrase Mixte 1",
+                question: "\"Ecris une phrase avec a, et, est.\"",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "a",
+                        "et",
+                        "est"
+                    ]
                 },
-                {
-                    type: "write",
-                    title: "Accord Pluriel",
-                    question: "Corrige cette phrase (Hugo) en respectant le code -ENT : <br><br><i>Les hommes marche dans l'ombre.</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["hommes", "marchent", "ombre"],
-                        enforceKeywords: true
-                    },
-                    feedback: "Liaison squad établie."
+                hint: "Teste chaque mot: a = avait, est = etait, et = et puis.",
+                feedback: "Mix valide.",
+                q: "\"Ecris une phrase avec a, et, est.\""
+            },
+            {
+                type: "write",
+                title: "Phrase Mixte 2",
+                question: "\"Ecris une phrase au pluriel avec une virgule.\"",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "ils",
+                        "elles",
+                        "nous",
+                        "vous"
+                    ],
+                    mustInclude: [
+                        ","
+                    ],
+                    enforceKeywords: true,
+                    minWords: 8
                 },
-                {
-                    type: "interactive",
-                    title: "Ponctuation Simple",
-                    question: "Quelle phrase est la plus claire ?",
-                    options: ["Je charge, je tire.", "Je charge. je tire.", "Je charge je tire."],
-                    answer: 0,
-                    feedback: "Virgule utile."
+                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
+                feedback: "Bon rythme.",
+                q: "\"Ecris une phrase au pluriel avec une virgule.\""
+            },
+            {
+                type: "interactive",
+                title: "Verification Finale 1",
+                question: "\"Quelle phrase est correcte ?\" (Les agents avance.)",
+                options: [
+                    "Les agents avance.",
+                    "Les agents avancent.",
+                    "Les agents avancer."
+                ],
+                answer: 1,
+                feedback: "Accord valide.",
+                q: "\"Quelle phrase est correcte ?\" (Les agents avance.)"
+            },
+            {
+                type: "interactive",
+                title: "Verification Finale 2",
+                question: "\"Quelle phrase respecte S+V+C ?\"",
+                options: [
+                    "La zone protege l'agent.",
+                    "L'agent protege la zone.",
+                    "Protege l'agent la zone."
+                ],
+                answer: 1,
+                feedback: "Structure valide.",
+                q: "\"Quelle phrase respecte S+V+C ?\""
+            },
+            {
+                type: "write",
+                title: "Micro Rapport",
+                question: "\"Ecris deux phrases S+V+C avec un sujet pluriel dans l'une.\"",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 12,
+                    keywords: [
+                        "ils",
+                        "elles",
+                        "nous",
+                        "vous"
+                    ],
+                    enforceKeywords: true
                 },
-                {
-                    type: "write",
-                    title: "Point et Virgule",
-                    question: "Ajoute une virgule et un point : <br><br><i>je - check - la - map - je - pars - vite</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: [",", "."]
-                    },
-                    feedback: "Ponctuation appliquee."
+                hint: "Verifie l'ordre Sujet + Verbe + Complement, puis ajoute un detail concret.",
+                feedback: "Rapport clair.",
+                q: "\"Ecris deux phrases S+V+C avec un sujet pluriel dans l'une.\""
+            },
+            {
+                type: "write",
+                title: "Rapport Global",
+                question: "\"Redige 3 phrases sur un match termine.\"",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 18,
+                    keywords: [
+                        "match",
+                        "victoire",
+                        "defaite",
+                        "score"
+                    ],
+                    enforceKeywords: false
                 },
-                {
-                    type: "interactive",
-                    title: "Homophones Rapides",
-                    question: "Choisis la phrase correcte :",
-                    options: ["Il a rapide et il est fier.", "Il est rapide et il a la finale.", "Il et rapide et il a la finale."],
-                    answer: 1,
-                    feedback: "Homophones ok."
+                hint: "Fais des phrases courtes et claires, puis verifie accords et ponctuation.",
+                feedback: "Rapport complet.",
+                q: "\"Redige 3 phrases sur un match termine.\""
+            },
+            {
+                type: "challenge",
+                title: "Ultime Boss - Module 1",
+                question: "\"Redige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au present, et le mot 'TACTIQUE'.\"",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "reussissent",
+                        "reussit",
+                        "reussis",
+                        "reussissons",
+                        "reussissez",
+                        "tactique"
+                    ],
+                    mustInclude: [
+                        ","
+                    ],
+                    enforceKeywords: true,
+                    minWords: 12
                 },
-                {
-                    type: "write",
-                    title: "Phrase Mixte 1",
-                    question: "Ecris une phrase avec a, et, est.",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["a", "et", "est"]
-                    },
-                    feedback: "Mix valide."
-                },
-                {
-                    type: "write",
-                    title: "Phrase Mixte 2",
-                    question: "Ecris une phrase au pluriel avec une virgule.",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: [","]
-                    },
-                    feedback: "Bon rythme."
-                },
-                {
-                    type: "interactive",
-                    title: "Verification Finale 1",
-                    question: "Quelle phrase est correcte ? <br><br><i>Les agents avance.</i>",
-                    options: ["Les agents avance.", "Les agents avancent.", "Les agents avançe."],
-                    answer: 1,
-                    feedback: "Accord valide."
-                },
-                {
-                    type: "interactive",
-                    title: "Verification Finale 2",
-                    question: "Quelle phrase respecte S+V+C ?",
-                    options: ["La zone protege l'agent.", "L'agent protege la zone.", "Protege l'agent la zone."],
-                    answer: 1,
-                    feedback: "Structure valide."
-                },
-                {
-                    type: "write",
-                    title: "Micro Rapport",
-                    question: "Ecris deux phrases S+V+C avec un sujet pluriel dans l'une.",
-                    requirements: {
-                        mode: "sentence",
-                        minWords: 12
-                    },
-                    feedback: "Rapport clair."
-                },
-                {
-                    type: "write",
-                    title: "Rapport Global",
-                    question: "Redige 3 phrases sur un match termine.",
-                    requirements: {
-                        mode: "sentence",
-                        minWords: 18
-                    },
-                    feedback: "Rapport complet."
-                },
-                {
-                    type: "challenge",
-                    title: "Ultime Boss - Module 1",
-                    question: "Rédige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au présent, et le mot 'TACTIQUE'.",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["reussissent", "reussit", "reussis", "reussissons", "reussissez"],
-                        mustInclude: [",", "tactique"]
-                    },
-                    hint: "Exemple : Tes missions réussissent, c'est une victoire tactique.",
-                    feedback: "CODE ROUGE TERMINÉ. Félicitations Agent Lovyc !"
-                }
-            ]
-        }
-    ];
-</script>
+                hint: "Exemple : Tes missions reussissent, c'est une victoire tactique.",
+                feedback: "CODE ROUGE TERMINE. Felicitations Agent Lovyc !",
+                q: "\"Redige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au present, et le mot 'TACTIQUE'.\""
+            }
+        ]
+    }
+];
+    </script>
 <script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
 <script src="../../../assets/shared/engine.js?v=20260210"></script>
 </body>
 </html>
+

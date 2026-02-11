@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -32,7 +32,7 @@
                 </svg>
             </div>
             <h1 class="success-title">MISSION ACCOMPLIE !</h1>
-            <p class="success-text">Ton grade a été mis à jour. La transmission est fluide et rythmée.</p>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et rythmee.</p>
             <div class="box-concept next-mission-call">
                 <span>REVIENS DEMAIN</span><br>
                 POUR LA SUITE.
@@ -73,13 +73,13 @@
                     </svg>
                     </div>
                     <div class="content-chunk">
-                    <p>Comme dans un texte de <b>Gaël Faye</b> ou un morceau d'<b>Oxmo Puccino</b>, la virgule n'est pas qu'un signe technique, c'est ton <b>souffle</b>.</p>
-                    <p>Elle sert à séparer des éléments dans une liste ou à marquer une courte pause sans couper le signal. C'est elle qui donne du "groove" à ta phrase.</p>
+                    <p>Comme dans un texte de <b>Gael Faye</b> ou un morceau d'<b>Oxmo Puccino</b>, la virgule n'est pas qu'un signe technique, c'est ton <b>souffle</b>.</p>
+                    <p>Elle sert a separer des elements dans une liste ou a marquer une courte pause sans couper le signal. C'est elle qui donne du "groove" a ta phrase.</p>
                     </div>
                     <div class="box-concept">
-                    ✅ J'ai pris mon casque<b>,</b> mes gants et ma souris.<br><br>
+                    aœ… J'ai pris mon casque<b>,</b> mes gants et ma souris.<br><br>
                     <b>Exemple de Flaubert :</b><br>
-                    <i>"Elle était pâle, elle marchait vite, elle semblait chercher quelqu'un."</i>
+                    <i>"Elle etait pale, elle marchait vite, elle semblait chercher quelqu'un."</i>
                     </div>`
             },
             {
@@ -93,16 +93,16 @@
             },
             {
                 type: "interactive",
-                title: "Détection de Micro-coupure",
-                question: "Où manque-t-il une virgule pour que la phrase soit fluide ? <br><br><i>Le capitaine Lovyc analyse la map il déploie ses drones.</i>",
-                options: ["Après 'Lovyc'", "Après 'map'", "Après 'déploie'"],
+                title: "Detection de Micro-coupure",
+                question: "Ou manque-t-il une virgule pour que la phrase soit fluide ? <br><br><i>Le capitaine Lovyc analyse la map il deploie ses drones.</i>",
+                options: ["Apres 'Lovyc'", "Apres 'map'", "Apres 'deploie'"],
                 answer: 1,
                 feedback: "Correct. La pause se fait entre deux actions distinctes."
             },
             {
                 type: "interactive",
                 title: "Pause Juste",
-                question: "Où placer la virgule ? <br><br><i>Quand le match commence on reste groupés.</i>",
+                question: "Ou placer la virgule ? <br><br><i>Quand le match commence on reste groupes.</i>",
                 options: ["Quand le match commence, on reste groupes.", "Quand le match, commence on reste groupes.", "Quand le match commence on, reste groupes."],
                 answer: 0,
                 feedback: "La virgule vient apres la subordonnee."
@@ -110,13 +110,13 @@
             {
                 type: "write",
                 title: "Saisie Rythmique",
-                question: "Réécris cette phrase en ajoutant les <b>deux</b> virgules nécessaires : <br><br><i>Le serveur sature le ping monte et le lag arrive.</i>",
+                question: "Reecris cette phrase en ajoutant les <b>deux</b> virgules necessaires : <br><br><i>Le serveur sature le ping monte et le lag arrive.</i>",
                 requirements: {
                     mode: "sentence",
                     keywords: [",", "serveur", "ping", "lag"]
                 },
-                hint: "Il y a trois actions. Sépare les deux premières par des virgules.",
-                feedback: "Bravo. Ton flow est désormais ininterrompu."
+                hint: "Il y a trois actions. Separe les deux premieres par des virgules.",
+                feedback: "Bravo. Ton flow est desormais ininterrompu."
             },
             {
                 type: "write",
@@ -126,6 +126,7 @@
                     mode: "sentence",
                     keywords: [",", "et"]
                 },
+                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
                 feedback: "Liste propre."
             },
             {
@@ -152,6 +153,7 @@
                     mode: "sentence",
                     keywords: [","]
                 },
+                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
                 feedback: "Respiration ok."
             },
             {
@@ -162,6 +164,7 @@
                     mode: "sentence",
                     keywords: [","]
                 },
+                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
                 feedback: "Apposition isolee."
             },
             {
@@ -178,8 +181,11 @@
                 question: "Ecris deux phrases avec une virgule dans chacune.",
                 requirements: {
                     mode: "sentence",
-                    minWords: 10
+                    minWords: 12,
+                    keywords: [",", "phrase", "virgule"],
+                    enforceKeywords: true
                 },
+                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
                 feedback: "Rapport rythme."
             },
             {
@@ -190,6 +196,7 @@
                     mode: "sentence",
                     keywords: [","]
                 },
+                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
                 feedback: "Message fluide."
             },
             {
@@ -203,13 +210,13 @@
             {
                 type: "challenge",
                 title: "Boss de Fin - Mission 1",
-                question: "Rédige une phrase listant 3 équipements tactiques (ex: radar, drone, radio) en utilisant correctement les virgules et le mot 'et' :",
+                question: "Redige une phrase listant 3 equipements tactiques (ex: radar, drone, radio) en utilisant correctement les virgules et le mot 'et' :",
                 requirements: {
                     mode: "sentence",
                     keywords: [",", "et"]
                 },
                 hint: "Objet 1, Objet 2 et Objet 3.",
-                feedback: "Transmission reçue. Ton inventaire est clair, Agent."
+                feedback: "Transmission recue. Ton inventaire est clair, Agent."
             }
         ]
     }];
@@ -219,3 +226,4 @@
 
 </body>
 </html>
+

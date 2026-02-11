@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -27,7 +27,7 @@
                 </svg>
             </div>
             <h1 style="color: var(--success); text-align: center; font-weight: 900;">MISSION ACCOMPLIE !</h1>
-            <p style="text-align: center; color: var(--text-dim);">Liaison squad établie. Ton grade a été mis à jour.</p>
+            <p style="text-align: center; color: var(--text-dim);">Liaison squad etablie. Ton grade a ete mis a jour.</p>
             <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
         </div>
     </div>
@@ -41,178 +41,227 @@
 <script>
     window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w1_v2', SINGLE_MISSION_MODE: true };
     var weekData = [
-        {
-            id: 2,
-            title: "Accord Multi-joueurs",
-            steps: [
-                {
-                    type: "lesson",
-                    title: "Le Serveur Squad",
-                    content: `
-                              <div class="visual-anchor">
-                                <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
-                                  <circle cx="30" cy="25" r="5" />
-                                  <circle cx="50" cy="20" r="6" />
-                                  <circle cx="70" cy="25" r="5" />
-                                  <path d="M20 50 L40 50 M60 50 L80 50" opacity="0.5" />
-                                  <path d="M40 45 L60 45" stroke-width="3" />
-                                  <text x="38" y="55" style="fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;">-ENT</text>
-                                </svg>
-                              </div>
-                              <div class="content-chunk">
-                                <p>Le code secret du pluriel pour les verbes du 1er groupe (en -ER), c'est l'extension <b>-ENT</b>.</p>
-                              </div>
-                              <div class="box-concept">
-                                <b>Mode Solo :</b> Le joueur <b>tire</b>.<br>
-                                <b>Mode Squad :</b> Les joueurs <b>tirent</b>.
-                              </div>`
+    {
+        id: 2,
+        title: "Accord Multi-joueurs",
+        steps: [
+            {
+                type: "lesson",
+                title: "Le Serveur Squad",
+                content: "\n                              <div class=\"visual-anchor\">\n                                <svg viewBox=\"0 0 100 60\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                                  <circle cx=\"30\" cy=\"25\" r=\"5\" />\n                                  <circle cx=\"50\" cy=\"20\" r=\"6\" />\n                                  <circle cx=\"70\" cy=\"25\" r=\"5\" />\n                                  <path d=\"M20 50 L40 50 M60 50 L80 50\" opacity=\"0.5\" />\n                                  <path d=\"M40 45 L60 45\" stroke-width=\"3\" />\n                                  <text x=\"38\" y=\"55\" style=\"fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;\">-ENT</text>\n                                </svg>\n                              </div>\n                              <div class=\"content-chunk\">\n                                <p>Le code secret du pluriel pour les verbes du 1er groupe (en -ER), c'est l'extension <b>-ENT</b>.</p>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>Mode Solo :</b> Le joueur <b>tire</b>.<br>\n                                <b>Mode Squad :</b> Les joueurs <b>tirent</b>.\n                              </div>"
+            },
+            {
+                type: "lesson",
+                title: "Radar du Sujet",
+                content: "\n                              <div class=\"content-chunk\">\n                                <p>Avant de choisir la terminaison du verbe, tu dois trouver <b>qui fait l'action</b>.</p>\n                                <p>Si le sujet est <b>au pluriel</b> (ils/elles, mes amis, les joueurs...), le verbe prend souvent <b>-ent</b>.</p>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>Les agents</b> avancent.<br>\n                                <b>Mon agent</b> avance.\n                              </div>"
+            },
+            {
+                type: "interactive",
+                title: "Scan de Sujet",
+                question: "\"Qui est le sujet dans cette phrase ?\" (Les soldats protegent la zone.)",
+                options: [
+                    "la zone",
+                    "protegent",
+                    "Les soldats"
+                ],
+                answer: 2,
+                feedback: "Exact. Le sujet, c'est qui fait l'action : Les soldats.",
+                q: "\"Qui est le sujet dans cette phrase ?\" (Les soldats protegent la zone.)"
+            },
+            {
+                type: "interactive",
+                title: "Patch Correctif 1",
+                question: "\"Choisis la bonne terminaison :\" (Mes coequipiers ____ la zone.)",
+                options: [
+                    "securise",
+                    "securisent",
+                    "securises"
+                ],
+                answer: 1,
+                feedback: "Bien joue ! Plusieurs coequipiers = terminaison -ent.",
+                q: "\"Choisis la bonne terminaison :\" (Mes coequipiers ____ la zone.)"
+            },
+            {
+                type: "interactive",
+                title: "Patch Correctif 2",
+                question: "\"Choisis la bonne forme :\" (Les drones ____ le terrain.)",
+                options: [
+                    "survole",
+                    "survolent",
+                    "survoles"
+                ],
+                answer: 1,
+                feedback: "Les drones = pluriel -> survolent.",
+                q: "\"Choisis la bonne forme :\" (Les drones ____ le terrain.)"
+            },
+            {
+                type: "write",
+                title: "Reparation Express",
+                question: "\"Corrige la terminaison :\" (Mes amis traverse la rue.)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "amis",
+                        "traversent",
+                        "rue"
+                    ],
+                    enforceKeywords: true
                 },
-                {
-                    type: "lesson",
-                    title: "Radar du Sujet",
-                    content: `
-                              <div class="content-chunk">
-                                <p>Avant de choisir la terminaison du verbe, tu dois trouver <b>qui fait l'action</b>.</p>
-                                <p>Si le sujet est <b>au pluriel</b> (ils/elles, mes amis, les joueurs...), le verbe prend souvent <b>-ent</b>.</p>
-                              </div>
-                              <div class="box-concept">
-                                <b>Les agents</b> avancent.<br>
-                                <b>Mon agent</b> avance.
-                              </div>`
+                hint: "Sujet pluriel = verbe en -ent.",
+                feedback: "Bien vu. Mes amis traversent.",
+                q: "\"Corrige la terminaison :\" (Mes amis traverse la rue.)"
+            },
+            {
+                type: "interactive",
+                title: "Verbes Irreguliers",
+                question: "\"Choisis la bonne forme :\" (Ils ____ prets.)",
+                options: [
+                    "sont",
+                    "son",
+                    "est"
+                ],
+                answer: 0,
+                feedback: "Avec ils, on dit: ils sont.",
+                q: "\"Choisis la bonne forme :\" (Ils ____ prets.)"
+            },
+            {
+                type: "write",
+                title: "Transmission Claire",
+                question: "\"Ecris une phrase correcte avec ces mots :\" (ils - l'extraction - avancent - vers)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "ils",
+                        "avancent",
+                        "l'extraction"
+                    ],
+                    enforceKeywords: true
                 },
-                {
-                    type: "interactive",
-                    title: "Scan de Sujet",
-                    question: "Qui est le <b>sujet</b> dans cette phrase ? <br><br><i>Les soldats protègent la zone.</i>",
-                    options: ["la zone", "protègent", "Les soldats"],
-                    answer: 2,
-                    feedback: "Exact. Le sujet, c'est qui fait l'action : Les soldats."
+                hint: "Commence par 'Ils...'.",
+                feedback: "Transmission fluide.",
+                q: "\"Ecris une phrase correcte avec ces mots :\" (ils - l'extraction - avancent - vers)"
+            },
+            {
+                type: "write",
+                title: "Correction de Bug",
+                question: "\"Reecris la phrase sans erreur :\" (Mes parents regarde mon match.)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "parents",
+                        "regardent",
+                        "match"
+                    ],
+                    enforceKeywords: true
                 },
-                {
-                    type: "interactive",
-                    title: "Patch Correctif 1",
-                    question: "Choisis la bonne terminaison : <br><br><i>Mes coéquipiers ____ la zone.</i>",
-                    options: ["sécurise", "sécurisent", "sécurises"],
-                    answer: 1,
-                    feedback: "Bien joué ! Plusieurs coéquipiers = terminaison -ent."
+                hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale.",
+                feedback: "Fix reussi ! Tes parents (ils) = regardent.",
+                q: "\"Reecris la phrase sans erreur :\" (Mes parents regarde mon match.)"
+            },
+            {
+                type: "interactive",
+                title: "Faux Ami",
+                question: "\"Quel verbe est correct ?\" (Les coequipiers ____ la defense.)",
+                options: [
+                    "ameliore",
+                    "ameliorent",
+                    "ameliores"
+                ],
+                answer: 1,
+                feedback: "Pluriel -> ameliorent.",
+                q: "\"Quel verbe est correct ?\" (Les coequipiers ____ la defense.)"
+            },
+            {
+                type: "write",
+                title: "Accord Cache",
+                question: "\"Complete la phrase :\" (Les joueurs ____ la finale ce soir.)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "joueurs",
+                        "gagnent",
+                        "finale"
+                    ],
+                    enforceKeywords: true
                 },
-                {
-                    type: "interactive",
-                    title: "Patch Correctif 2",
-                    question: "Choisis la bonne forme : <br><br><i>Les drones ____ le terrain.</i>",
-                    options: ["survole", "survolent", "survoles"],
-                    answer: 1,
-                    feedback: "Les drones = pluriel -> survolent."
+                hint: "Sujet pluriel = verbe en -ent.",
+                feedback: "Parfait.",
+                q: "\"Complete la phrase :\" (Les joueurs ____ la finale ce soir.)"
+            },
+            {
+                type: "interactive",
+                title: "Pluriel Repere",
+                question: "\"Quel mot montre que le sujet est pluriel ?\" (Mes freres avancent vite.)",
+                options: [
+                    "vite",
+                    "mes",
+                    "avancent"
+                ],
+                answer: 1,
+                feedback: "Oui. 'Mes' indique plusieurs.",
+                q: "\"Quel mot montre que le sujet est pluriel ?\" (Mes freres avancent vite.)"
+            },
+            {
+                type: "write",
+                title: "Phrase Plurielle Libre",
+                question: "\"Ecris une phrase avec un sujet pluriel et un verbe au present.\"",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "ils",
+                        "elles",
+                        "mes",
+                        "les"
+                    ],
+                    enforceKeywords: true,
+                    minWords: 6
                 },
-                {
-                    type: "write",
-                    title: "Réparation Express",
-                    question: "Corrige la terminaison : <br><br><i>Mes amis traverse la rue.</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["amis", "traversent", "rue"],
-                        enforceKeywords: true
-                    },
-                    hint: "Sujet pluriel = verbe en -ent.",
-                    feedback: "Bien vu. Mes amis traversent."
+                hint: "Commence par un groupe de plusieurs personnes.",
+                feedback: "Accord valide.",
+                q: "\"Ecris une phrase avec un sujet pluriel et un verbe au present.\""
+            },
+            {
+                type: "write",
+                title: "Rapport Squad",
+                question: "\"Redige deux phrases avec un sujet pluriel dans chacune.\"",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 10,
+                    keywords: [
+                        "ils",
+                        "elles",
+                        "mes",
+                        "les"
+                    ],
+                    enforceKeywords: true
                 },
-                {
-                    type: "interactive",
-                    title: "Verbes Irreguliers",
-                    question: "Choisis la bonne forme : <br><br><i>Ils ____ prêts.</i>",
-                    options: ["sont", "son", "est"],
-                    answer: 0,
-                    feedback: "Avec ils, on dit: ils sont."
+                hint: "Deux actions, deux accords.",
+                feedback: "Rapport synchronise.",
+                q: "\"Redige deux phrases avec un sujet pluriel dans chacune.\""
+            },
+            {
+                type: "challenge",
+                title: "Boss de Fin - Mission 2",
+                question: "\"Reecris toute cette phrase sans aucune erreur :\" (terrain - sur - le - saute - joueurs - les)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "joueurs",
+                        "sautent",
+                        "terrain"
+                    ],
+                    enforceKeywords: true
                 },
-                {
-                    type: "write",
-                    title: "Transmission Claire",
-                    question: "Ecris une phrase correcte avec ces mots : <br><br><i>ils - l'extraction - avancent - vers</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["ils", "avancent", "l'extraction"],
-                        enforceKeywords: true
-                    },
-                    hint: "Commence par 'Ils...'.",
-                    feedback: "Transmission fluide."
-                },
-                {
-                    type: "write",
-                    title: "Correction de Bug",
-                    question: "Réécris la phrase sans erreur : <br><br><i>Mes parents regarde mon match.</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["parents", "regardent", "match"],
-                        enforceKeywords: true
-                    },
-                    feedback: "Fix réussi ! Tes parents (ils) = regardent."
-                },
-                {
-                    type: "interactive",
-                    title: "Faux Ami",
-                    question: "Quel verbe est correct ? <br><br><i>Les coequipiers ____ la defense.</i>",
-                    options: ["ameliore", "ameliorent", "ameliores"],
-                    answer: 1,
-                    feedback: "Pluriel -> ameliorent."
-                },
-                {
-                    type: "write",
-                    title: "Accord Cache",
-                    question: "Complete la phrase : <br><br><i>Les joueurs ____ la finale ce soir.</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["joueurs", "gagnent", "finale"],
-                        enforceKeywords: true
-                    },
-                    hint: "Sujet pluriel = verbe en -ent.",
-                    feedback: "Parfait."
-                },
-                {
-                    type: "interactive",
-                    title: "Pluriel Repere",
-                    question: "Quel mot montre que le sujet est pluriel ? <br><br><i>Mes freres avancent vite.</i>",
-                    options: ["vite", "mes", "avancent"],
-                    answer: 1,
-                    feedback: "Oui. 'Mes' indique plusieurs."
-                },
-                {
-                    type: "write",
-                    title: "Phrase Plurielle Libre",
-                    question: "Ecris une phrase avec un sujet pluriel et un verbe au present.",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["ils", "elles", "mes", "les"]
-                    },
-                    hint: "Commence par un groupe de plusieurs personnes.",
-                    feedback: "Accord valide."
-                },
-                {
-                    type: "write",
-                    title: "Rapport Squad",
-                    question: "Redige deux phrases avec un sujet pluriel dans chacune.",
-                    requirements: {
-                        mode: "sentence",
-                        minWords: 10
-                    },
-                    hint: "Deux actions, deux accords.",
-                    feedback: "Rapport synchronise."
-                },
-                {
-                    type: "challenge",
-                    title: "Boss de Fin - Mission 2",
-                    question: "Réécris toute cette phrase sans aucune erreur : <br><br><i>terrain - sur - le - saute - joueurs - les</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["joueurs", "sautent", "terrain"],
-                        enforceKeywords: true
-                    },
-                    feedback: "L'accord de la squad est parfait."
-                }
-            ]
-        }
-    ];
-</script>
+                hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale.",
+                feedback: "L'accord de la squad est parfait.",
+                q: "\"Reecris toute cette phrase sans aucune erreur :\" (terrain - sur - le - saute - joueurs - les)"
+            }
+        ]
+    }
+];
+    </script>
 <script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
 <script src="../../../assets/shared/engine.js?v=20260210"></script>
 </body>
 </html>
+

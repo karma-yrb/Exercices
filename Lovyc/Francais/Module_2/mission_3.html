@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -13,7 +13,7 @@
     <div class="header">
         <div class="progress-meta">
             <span id="progress-text">MISSION EN COURS</span>
-            <span id="session-tag">FRÉQUENCE D'INTENSITÉ</span>
+            <span id="session-tag">FREQUENCE D'INTENSITE</span>
         </div>
         <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
     </div>
@@ -59,7 +59,7 @@
 
     const weekData = [{
         id: 3,
-        title: "L'Intensité (Points !?...)",
+        title: "L'Intensite (Points !?...)",
         steps: [
             {
                 type: "lesson",
@@ -78,7 +78,7 @@
                     <li><b>?</b> (Interrogation) : Pour le doute ou le scan.</li>
                     <li><b>...</b> (Suspension) : Pour le suspens ou l'attente.</li>
                     </ul>
-                    <p>Attention à ne pas en abuser, sinon ton signal devient illisible.</p>`
+                    <p>Attention a ne pas en abuser, sinon ton signal devient illisible.</p>`
             },
             {
                 type: "lesson",
@@ -106,13 +106,13 @@
             {
                 type: "write",
                 title: "Nuance Tactique",
-                question: "Transforme cet ordre neutre en une question inquiète : <br><br><i>Le drone est encore en vol.</i>",
+                question: "Transforme cet ordre neutre en une question inquiete : <br><br><i>Le drone est encore en vol.</i>",
                 requirements: {
                     mode: "sentence",
                     keywords: ["?"]
                 },
                 hint: "Change juste le point final par un point d'interrogation.",
-                feedback: "Le doute est transmis. L'escouade va vérifier."
+                feedback: "Le doute est transmis. L'escouade va verifier."
             },
             {
                 type: "write",
@@ -122,6 +122,7 @@
                     mode: "sentence",
                     keywords: ["!"]
                 },
+                hint: "Garde une phrase complete et termine-la par un point d'exclamation.",
                 feedback: "Alerte envoyee."
             },
             {
@@ -148,6 +149,7 @@
                     mode: "sentence",
                     keywords: ["?"]
                 },
+                hint: "Formule une phrase complete et termine-la par un point d'interrogation.",
                 feedback: "Question valide."
             },
             {
@@ -158,6 +160,7 @@
                     mode: "sentence",
                     keywords: ["!"]
                 },
+                hint: "Garde une phrase complete et termine-la par un point d'exclamation.",
                 feedback: "Impact fort."
             },
             {
@@ -177,6 +180,7 @@
                     keywords: [".", "?", "!"] ,
                     minWords: 12
                 },
+                hint: "Garde une phrase complete et termine-la par un point d'exclamation.",
                 feedback: "Rapport riche."
             },
             {
@@ -187,6 +191,7 @@
                     mode: "sentence",
                     keywords: ["?"]
                 },
+                hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale.",
                 feedback: "Inquietude transmise."
             },
             {
@@ -200,13 +205,13 @@
             {
                 type: "challenge",
                 title: "Boss de Fin - Mission 3",
-                question: "Écris une phrase d'action se terminant par des points de suspension (...) pour montrer que quelque chose arrive :",
+                question: "Ecris une phrase d'action se terminant par des points de suspension (...) pour montrer que quelque chose arrive :",
                 requirements: {
                     mode: "sentence",
                     keywords: ["..."]
                 },
                 hint: "Ex: Les ombres approchent doucement...",
-                feedback: "Suspens réussi. Tes troupes sont en alerte."
+                feedback: "Suspens reussi. Tes troupes sont en alerte."
             }
         ]
     }];
@@ -216,3 +221,4 @@
 
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -27,7 +27,7 @@
                 </svg>
             </div>
             <h1 style="color: var(--success); text-align: center; font-weight: 900;">MISSION ACCOMPLIE !</h1>
-            <p style="text-align: center; color: var(--text-dim);">Flux tactique validé. Ton grade a été mis à jour.</p>
+            <p style="text-align: center; color: var(--text-dim);">Flux tactique valide. Ton grade a ete mis a jour.</p>
             <button onclick="window.location.href='./index.html'" class="btn-main" style="width: 100%; margin-top: 20px;">RETOUR AU MODULE</button>
         </div>
     </div>
@@ -41,162 +41,238 @@
 <script>
     window.APP_CONFIG = { STORAGE_KEY: 'lovyc_fr_w1_v2', SINGLE_MISSION_MODE: true };
     var weekData = [
-        {
-            id: 3,
-            title: "Le Flux Dynamique",
-            steps: [
-                {
-                    type: "lesson",
-                    title: "Le Scan de Ponctuation",
-                    content: `
-                              <div class="visual-anchor">
-                                <svg viewBox="0 0 100 60" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
-                                  <path d="M10 30 Q 25 10, 40 30" />
-                                  <circle cx="50" cy="30" r="3" fill="var(--accent)" />
-                                  <path d="M60 30 Q 75 50, 90 30" />
-                                </svg>
-                              </div>
-                              <div class="box-concept">
-                                <b>Le Point (.) :</b> Fin d'action / Pause totale.<br>
-                                <b>La Virgule (,) :</b> Micro-pause / Liste de composants.
-                              </div>`
+    {
+        id: 3,
+        title: "Le Flux Dynamique",
+        steps: [
+            {
+                type: "lesson",
+                title: "Le Scan de Ponctuation",
+                content: "\n                              <div class=\"visual-anchor\">\n                                <svg viewBox=\"0 0 100 60\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                                  <path d=\"M10 30 Q 25 10, 40 30\" />\n                                  <circle cx=\"50\" cy=\"30\" r=\"3\" fill=\"var(--accent)\" />\n                                  <path d=\"M60 30 Q 75 50, 90 30\" />\n                                </svg>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>Le Point (.) :</b> Fin d'action / Pause totale.<br>\n                                <b>La Virgule (,) :</b> Micro-pause / Liste de composants.\n                              </div>"
+            },
+            {
+                type: "lesson",
+                title: "Point ou Virgule",
+                content: "\n                              <div class=\"content-chunk\">\n                                <p>Si tu passes a une nouvelle action, utilise le <b>point</b>.</p>\n                                <p>Si tu restes dans la meme action, utilise la <b>virgule</b>.</p>\n                              </div>"
+            },
+            {
+                type: "interactive",
+                title: "Choix de Coupure 1",
+                question: "\"Quelle ponctuation convient ?\" (Lovyc vise la cible ____ il tire.)",
+                options: [
+                    ",",
+                    ".",
+                    "rien"
+                ],
+                answer: 0,
+                feedback: "Deux actions separees -> point.",
+                q: "\"Quelle ponctuation convient ?\" (Lovyc vise la cible ____ il tire.)"
+            },
+            {
+                type: "interactive",
+                title: "Choix de Coupure 2",
+                question: "\"Quelle ponctuation convient ?\" (Il ouvre la map ____ repere la zone.)",
+                options: [
+                    ",",
+                    ".",
+                    "rien"
+                ],
+                answer: 0,
+                feedback: "Deux actions proches -> virgule.",
+                q: "\"Quelle ponctuation convient ?\" (Il ouvre la map ____ repere la zone.)"
+            },
+            {
+                type: "write",
+                title: "Split de Signal 1",
+                question: "\"Separe ces deux actions par un point :\" (se - commence - Lovyc - prepare - match - le)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "match",
+                        "Lovyc",
+                        "prepare"
+                    ],
+                    enforceKeywords: true,
+                    mustInclude: [
+                        "."
+                    ]
                 },
-                {
-                    type: "lesson",
-                    title: "Point ou Virgule",
-                    content: `
-                              <div class="content-chunk">
-                                <p>Si tu passes a une nouvelle action, utilise le <b>point</b>.</p>
-                                <p>Si tu restes dans la meme action, utilise la <b>virgule</b>.</p>
-                              </div>`
+                hint: "Separe les actions en deux phrases: action 1 + point + action 2.",
+                feedback: "Parfait. Deux actions, deux phrases distinctes.",
+                q: "\"Separe ces deux actions par un point :\" (se - commence - Lovyc - prepare - match - le)"
+            },
+            {
+                type: "write",
+                title: "Split de Signal 2",
+                question: "\"Ajoute une virgule pour rendre la phrase plus fluide :\" (La team avance elle reste groupée.)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "team"
+                    ],
+                    mustInclude: [
+                        ","
+                    ],
+                    enforceKeywords: true,
+                    minWords: 6
                 },
-                {
-                    type: "interactive",
-                    title: "Choix de Coupure 1",
-                    question: "Quelle ponctuation convient ? <br><br><i>Lovyc vise la cible ____ il tire.</i>",
-                    options: [",", ".", "rien"],
-                    answer: 0,
-                    feedback: "Deux actions separees -> point."
+                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
+                feedback: "Flux ajuste.",
+                q: "\"Ajoute une virgule pour rendre la phrase plus fluide :\" (La team avance elle reste groupée.)"
+            },
+            {
+                type: "interactive",
+                title: "Correction de Chat",
+                question: "\"Ou placer la virgule ?\" (Si tu gagnes je te rejoins.)",
+                options: [
+                    "Si tu gagnes, je te rejoins.",
+                    "Si tu, gagnes je te rejoins.",
+                    "Si tu gagnes je te, rejoins."
+                ],
+                answer: 0,
+                feedback: "Correct !",
+                q: "\"Ou placer la virgule ?\" (Si tu gagnes je te rejoins.)"
+            },
+            {
+                type: "interactive",
+                title: "Pause Utile",
+                question: "\"Quel signe fait une pause courte ?\"",
+                options: [
+                    "Le point",
+                    "La virgule",
+                    "Le point d'exclamation"
+                ],
+                answer: 1,
+                feedback: "La micro-pause.",
+                q: "\"Quel signe fait une pause courte ?\""
+            },
+            {
+                type: "write",
+                title: "Ajout de Virgule",
+                question: "\"Ajoute une virgule :\" (En match Lovyc reste calme.)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "Lovyc",
+                        "match"
+                    ],
+                    mustInclude: [
+                        ","
+                    ],
+                    enforceKeywords: true,
+                    minWords: 6
                 },
-                {
-                    type: "interactive",
-                    title: "Choix de Coupure 2",
-                    question: "Quelle ponctuation convient ? <br><br><i>Il ouvre la map ____ repere la zone.</i>",
-                    options: [",", ".", "rien"],
-                    answer: 0,
-                    feedback: "Deux actions proches -> virgule."
+                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
+                feedback: "Respiration ok.",
+                q: "\"Ajoute une virgule :\" (En match Lovyc reste calme.)"
+            },
+            {
+                type: "write",
+                title: "Ajout de Point",
+                question: "\"Ajoute un point pour separer les actions :\" (Il monte le son il commence le stream)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "son",
+                        "stream"
+                    ],
+                    mustInclude: [
+                        "."
+                    ],
+                    enforceKeywords: true,
+                    minWords: 6
                 },
-                {
-                    type: "write",
-                    title: "Split de Signal 1",
-                    question: "Sépare ces deux actions par un point : <br><br><i>se - commence - Lovyc - prépare - match - le</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["match", "Lovyc", "prépare"],
-                        enforceKeywords: true,
-                        mustInclude: ["."]
-                    },
-                    feedback: "Parfait. Deux actions, deux phrases distinctes."
+                hint: "Separe les actions en deux phrases: action 1 + point + action 2.",
+                feedback: "Actions separees.",
+                q: "\"Ajoute un point pour separer les actions :\" (Il monte le son il commence le stream)"
+            },
+            {
+                type: "interactive",
+                title: "Phrase Longue",
+                question: "\"Quel choix est le plus clair ?\" (Il charge il tire il avance)",
+                options: [
+                    "Il charge, il tire, il avance.",
+                    "Il charge il tire il avance.",
+                    "Il charge. il tire. il avance."
+                ],
+                answer: 0,
+                feedback: "Liste d'actions -> virgules.",
+                q: "\"Quel choix est le plus clair ?\" (Il charge il tire il avance)"
+            },
+            {
+                type: "write",
+                title: "Message Clair",
+                question: "\"Reecris avec ponctuation :\" (je - check - le - radar - je - bouge)",
+                requirements: {
+                    mode: "sentence",
+                    keywords: [
+                        "radar"
+                    ],
+                    mustInclude: [
+                        ","
+                    ],
+                    enforceKeywords: true,
+                    minWords: 6
                 },
-                {
-                    type: "write",
-                    title: "Split de Signal 2",
-                    question: "Ajoute une virgule pour rendre la phrase plus fluide : <br><br><i>La team avance elle reste groupée.</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: [","]
-                    },
-                    feedback: "Flux ajuste."
+                hint: "Deux actions proches -> virgule.",
+                feedback: "Message clair.",
+                q: "\"Reecris avec ponctuation :\" (je - check - le - radar - je - bouge)"
+            },
+            {
+                type: "write",
+                title: "Micro Rapport",
+                question: "\"Ecris deux phrases courtes sur ton entrainement.\"",
+                requirements: {
+                    mode: "sentence",
+                    minWords: 8,
+                    mustInclude: [
+                        "."
+                    ],
+                    keywords: [
+                        "entrainement",
+                        "entrainements"
+                    ],
+                    enforceKeywords: false
                 },
-                {
-                    type: "interactive",
-                    title: "Correction de Chat",
-                    question: "Où placer la virgule ? <br><br><i>Si tu gagnes je te rejoins.</i>",
-                    options: ["Si tu gagnes, je te rejoins.", "Si tu, gagnes je te rejoins.", "Si tu gagnes je te, rejoins."],
-                    answer: 0,
-                    feedback: "Correct !"
+                hint: "Fais des phrases courtes et claires, puis verifie accords et ponctuation.",
+                feedback: "Rapport propre.",
+                q: "\"Ecris deux phrases courtes sur ton entrainement.\""
+            },
+            {
+                type: "interactive",
+                title: "Derniere Verification",
+                question: "\"Quelle phrase est correcte ?\"",
+                options: [
+                    "Je prends le casque, je pars.",
+                    "Je prends le casque. je pars.",
+                    "Je prends le casque je pars."
+                ],
+                answer: 0,
+                feedback: "La virgule relie deux actions proches.",
+                q: "\"Quelle phrase est correcte ?\""
+            },
+            {
+                type: "challenge",
+                title: "Boss de Fin - Mission 3",
+                question: "\"Reecris proprement ce message bugge :\" (appel - plus - d' - l' - j' - batterie - arrete - y'a - de)",
+                requirements: {
+                    keywords: [
+                        "batterie",
+                        "appel"
+                    ],
+                    enforceKeywords: true,
+                    minWords: 6
                 },
-                {
-                    type: "interactive",
-                    title: "Pause Utile",
-                    question: "Quel signe fait une pause courte ?",
-                    options: ["Le point", "La virgule", "Le point d'exclamation"],
-                    answer: 1,
-                    feedback: "La micro-pause."
-                },
-                {
-                    type: "write",
-                    title: "Ajout de Virgule",
-                    question: "Ajoute une virgule : <br><br><i>En match Lovyc reste calme.</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: [","]
-                    },
-                    feedback: "Respiration ok."
-                },
-                {
-                    type: "write",
-                    title: "Ajout de Point",
-                    question: "Ajoute un point pour separer les actions : <br><br><i>Il monte le son il commence le stream</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: ["."]
-                    },
-                    feedback: "Actions separees."
-                },
-                {
-                    type: "interactive",
-                    title: "Phrase Longue",
-                    question: "Quel choix est le plus clair ? <br><br><i>Il charge il tire il avance</i>",
-                    options: ["Il charge, il tire, il avance.", "Il charge il tire il avance.", "Il charge. il tire. il avance."],
-                    answer: 0,
-                    feedback: "Liste d'actions -> virgules."
-                },
-                {
-                    type: "write",
-                    title: "Message Clair",
-                    question: "Reecris avec ponctuation : <br><br><i>je - check - le - radar - je - bouge</i>",
-                    requirements: {
-                        mode: "sentence",
-                        keywords: [","]
-                    },
-                    hint: "Deux actions proches -> virgule.",
-                    feedback: "Message clair."
-                },
-                {
-                    type: "write",
-                    title: "Micro Rapport",
-                    question: "Ecris deux phrases courtes sur ton entrainement.",
-                    requirements: {
-                        mode: "sentence",
-                        minWords: 8,
-                        mustInclude: ["."]
-                    },
-                    feedback: "Rapport propre."
-                },
-                {
-                    type: "interactive",
-                    title: "Derniere Verification",
-                    question: "Quelle phrase est correcte ?",
-                    options: ["Je prends le casque, je pars.", "Je prends le casque. je pars.", "Je prends le casque je pars."],
-                    answer: 0,
-                    feedback: "La virgule relie deux actions proches."
-                },
-                {
-                    type: "challenge",
-                    title: "Boss de Fin - Mission 3",
-                    question: "Réécris proprement ce message buggé : <br><br><i>appel - plus - d' - l' - j' - batterie - arrête - y'a - de</i>",
-                    requirements: {
-                        keywords: ["batterie", "appel"]
-                    },
-                    hint: "N'oublie pas de séparer les deux idées par une virgule ou un point.",
-                    feedback: "Le flux est fluide."
-                }
-            ]
-        }
-    ];
-</script>
+                hint: "N'oublie pas de separer les deux idees par une virgule ou un point.",
+                feedback: "Le flux est fluide.",
+                q: "\"Reecris proprement ce message bugge :\" (appel - plus - d' - l' - j' - batterie - arrete - y'a - de)"
+            }
+        ]
+    }
+];
+    </script>
 <script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
 <script src="../../../assets/shared/engine.js?v=20260210"></script>
 </body>
 </html>
+
