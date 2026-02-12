@@ -25,7 +25,14 @@ Le deploiement Pages est ensuite conditionne par la CI GitHub (`Tests` obligatoi
 ### 2) Verifier localement (recommande)
 
 ```bash
+# Commande recommandee (compatible PowerShell)
+node tests/test-runner.js
+
+# Option npm (si npm.ps1 n'est pas bloque)
 npm test
+
+# En cas de blocage ExecutionPolicy PowerShell
+npm.cmd test
 # ou
 node tests/test-runner.js <module>
 ```
