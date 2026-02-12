@@ -23,6 +23,11 @@ Regle: Toute modification de contenu doit d'abord mettre a jour le draft `.md`, 
 - Verrouille Module_1 avec `PREREQUISITE_KEY` sur le storage du Module_0.
 - Draft: `Missions:` et `ScreensPerMission:` dans la section Meta.
 
+## Governance baseline
+- Public reproducible governance lives in `docs/governance/`.
+- Local private governance may remain in ignored `.github/*` files.
+- Use this split to keep audits reproducible without exposing family-private context.
+
 ---
 *Ce projet utilise des Micro-Apps SPA en Vanilla JS.*
 

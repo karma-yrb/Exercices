@@ -1,10 +1,11 @@
-﻿/**
+/**
  * Validateur de synchronisation.
  * Verifie que les HTML correspondent aux drafts markdown.
  */
 
 const fs = require('fs');
 const path = require('path');
+const { extractWeekDataFromContent } = require('./weekdata-parser');
 
 class SyncValidator {
     constructor(draftPath, htmlDir) {
@@ -29,14 +30,13 @@ class SyncValidator {
                 }
 
                 const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
-                const weekData = this.extractWeekDataFromHtml(htmlContent);
-
-                if (!weekData) {
+                const parsed = extractWeekDataFromContent(htmlContent);
+                if (parsed.error || !parsed.steps) {
                     this.errors.push(`Mission ${i}: Impossible d'extraire weekData`);
                     continue;
                 }
 
-                this.compareMission(i, missions[i - 1], weekData);
+                this.compareMission(i, missions[i - 1], parsed.steps);
             }
 
             return {
@@ -94,26 +94,6 @@ class SyncValidator {
 
         const missionsMatch = metaMatch.match(/-\s*Missions:\s*(\d+)/i);
         if (missionsMatch) this.expectedMissions = parseInt(missionsMatch[1], 10);
-    }
-
-    extractWeekDataFromHtml(content) {
-        const match = content.match(/(const|var)\s+weekData\s*=\s*(\[\s*\{[\s\S]*?\}\s*\]);/);
-        if (!match) return null;
-
-        try {
-            const isolatedCode = `(function() { ${match[0]} return weekData; })()`;
-            const data = eval(isolatedCode);
-
-            if (Array.isArray(data) && data[0] && Array.isArray(data[0].steps)) {
-                return data[0].steps;
-            }
-            if (Array.isArray(data)) {
-                return data;
-            }
-            return null;
-        } catch (e) {
-            return null;
-        }
     }
 
     compareMission(missionNum, draftScreens, htmlSteps) {

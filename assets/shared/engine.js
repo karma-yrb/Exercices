@@ -10,6 +10,35 @@ const normalizeText = (t) => t ? t.toString().toLowerCase().trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, "") 
     .replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, "") : "";
 
+const TRACKING_DEVICE_KEY = 'learning_device_id_v1';
+
+function makeTrackingId(prefix) {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+        return `${prefix}_${window.crypto.randomUUID()}`;
+    }
+    return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function getOrCreateDeviceId() {
+    try {
+        const existing = localStorage.getItem(TRACKING_DEVICE_KEY);
+        if (existing) return existing;
+        const created = makeTrackingId('dev');
+        localStorage.setItem(TRACKING_DEVICE_KEY, created);
+        return created;
+    } catch (error) {
+        return makeTrackingId('dev_mem');
+    }
+}
+
+function inferActorId(config) {
+    if (config && config.TRACKING_ACTOR_ID) return String(config.TRACKING_ACTOR_ID);
+    const storageKey = (config && config.STORAGE_KEY) ? config.STORAGE_KEY.toLowerCase() : '';
+    if (storageKey.includes('lovyc')) return 'lovyc';
+    if (storageKey.includes('zyvah')) return 'zyvah';
+    return 'unknown';
+}
+
 // Alias for external calls - Defined early to avoid race conditions
 window.initEngine = (data) => {
     console.log("External initEngine called.");
@@ -95,11 +124,12 @@ function boot() {
             completedDays: Array.isArray(cleanParsed.completedDays) ? cleanParsed.completedDays.map(id => id.toString()) : [],
             currentDay: (typeof cleanParsed.currentDay !== 'undefined' && cleanParsed.currentDay !== null) ? cleanParsed.currentDay.toString() : null,
             currentStep: cleanParsed.currentStep || 0,
-            startTime: cleanParsed.startTime || null
+            startTime: cleanParsed.startTime || null,
+            sessionId: cleanParsed.sessionId || null
         };
     } catch(e) {
         console.warn('State recovery failed:', e);
-        state = { completedDays: [], currentDay: null, currentStep: 0, startTime: null };
+        state = { completedDays: [], currentDay: null, currentStep: 0, startTime: null, sessionId: null };
     }
 
     // 4. Initial Rendering
@@ -110,6 +140,7 @@ function boot() {
             state.currentDay = dayId;
             state.currentStep = 0;
             state.startTime = new Date().toISOString();
+            state.sessionId = makeTrackingId('sess');
             saveState();
         }
     }
@@ -329,6 +360,7 @@ function startDay(dayIdStr) {
     state.currentDay = dayIdStr;
     state.currentStep = 0;
     state.startTime = new Date().toISOString(); // Record start time
+    state.sessionId = makeTrackingId('sess');
     saveState();
     renderStep();
 }
@@ -623,7 +655,8 @@ function abandonMission() {
 }
 
 async function syncWithParent(dayId, status = 'TERMINÉ') {
-    const childName = (window.APP_CONFIG && window.APP_CONFIG.STORAGE_KEY.includes('lovyc')) ? 'Lovyc' : 'Zyvah';
+    const config = window.APP_CONFIG || {};
+    const childName = (config.STORAGE_KEY && config.STORAGE_KEY.includes('lovyc')) ? 'Lovyc' : 'Zyvah';
     const pathParts = window.location.pathname.split('/');
     const subject = pathParts[pathParts.length - 3] || 'Général'; 
     
@@ -640,16 +673,24 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
     // Calcul de la durée
     const endTime = new Date();
     const startTime = state.startTime ? new Date(state.startTime) : endTime;
-    const durationMin = Math.round((endTime - startTime) / 60000); // Différence en minutes
+    const durationMin = Math.max(0, Math.round((endTime - startTime) / 60000)); // Différence en minutes
+    const actorId = inferActorId(config);
+    const deviceId = getOrCreateDeviceId();
+    if (!state.sessionId) {
+        state.sessionId = makeTrackingId('sess');
+        saveState();
+    }
 
-    // Récupération de l'IP (optionnel)
+    const includeIp = config.TRACKING_INCLUDE_IP === true;
     let clientIP = 'Inconnue';
-    try {
-        const ipRes = await fetch('https://api.ipify.org?format=json');
-        const ipJson = await ipRes.json();
-        clientIP = ipJson.ip;
-    } catch (e) {
-        console.log('Impossible de récupérer l\'IP');
+    if (includeIp) {
+        try {
+            const ipRes = await fetch('https://api.ipify.org?format=json');
+            const ipJson = await ipRes.json();
+            clientIP = ipJson.ip || 'Inconnue';
+        } catch (e) {
+            console.log('Impossible de récupérer l\'IP');
+        }
     }
 
     const baseUrl = 'https://script.google.com/macros/s/AKfycbyNHvhCg9mtYfhuPKdy89iaFaKMGtfzRMHNlzB5nqXpC_DRIRnpMj7VjgnTjTpdvV9R/exec';
@@ -664,8 +705,13 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
         start_time: startTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
         end_time: endTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
         duration: durationMin + ' min',
-        ip: clientIP
+        actor_id: actorId,
+        device_id: deviceId,
+        session_id: state.sessionId,
+        event_time: endTime.toISOString(),
+        tracking_version: 'v2_actor_device_session'
     };
+    if (includeIp) payload.ip = clientIP;
 
     try {
         await fetch(baseUrl, {

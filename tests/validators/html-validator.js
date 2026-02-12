@@ -4,7 +4,7 @@
  */
 
 const fs = require('fs');
-const path = require('path');
+const { extractWeekDataFromContent } = require('./weekdata-parser');
 
 class HtmlValidator {
     constructor(filePath) {
@@ -19,7 +19,7 @@ class HtmlValidator {
     validate() {
         try {
             this.content = fs.readFileSync(this.filePath, 'utf-8');
-            
+
             this.extractWeekData();
             if (!this.weekData) {
                 this.errors.push('Impossible d\'extraire weekData');
@@ -30,7 +30,7 @@ class HtmlValidator {
             this.checkDuplicateOptions();
             this.checkAnswerValidity();
             this.checkRequiredFields();
-            
+
             return {
                 valid: this.errors.length === 0,
                 errors: this.errors,
@@ -43,39 +43,21 @@ class HtmlValidator {
     }
 
     extractWeekData() {
-        // Extraire le tableau weekData depuis le script
-        // Format attendu: const/var weekData = [{ id: 1, steps: [...] }]
-        const match = this.content.match(/(const|var)\s+weekData\s*=\s*(\[\s*\{[\s\S]*?\}\s*\]);/);
-        if (!match) {
-            this.errors.push('weekData non trouvé dans le fichier');
+        const parsed = extractWeekDataFromContent(this.content);
+        if (parsed.error) {
+            this.errors.push(`Parsing weekData échoué: ${parsed.error}`);
             return;
         }
 
-        try {
-            // Utiliser eval dans un contexte isolé pour supporter les template literals
-            const isolatedCode = `(function() { ${match[0]} return weekData; })()`;
-            const data = eval(isolatedCode);
-            
-            // weekData est un tableau avec un objet contenant steps
-            if (Array.isArray(data) && data[0] && Array.isArray(data[0].steps)) {
-                this.weekData = data[0].steps;
-                if (Number.isInteger(data[0].expectedSteps)) {
-                    this.expectedSteps = data[0].expectedSteps;
-                }
-            } else if (Array.isArray(data)) {
-                // Si c'est déjà un tableau de steps directement
-                this.weekData = data;
-            } else {
-                this.errors.push('Structure weekData invalide');
-            }
-        } catch (e) {
-            this.errors.push(`Parsing weekData échoué: ${e.message}`);
+        this.weekData = parsed.steps;
+        if (Number.isInteger(parsed.expectedSteps)) {
+            this.expectedSteps = parsed.expectedSteps;
         }
     }
 
     checkStepsCount() {
         if (!this.weekData) return;
-        
+
         if (this.weekData.length !== this.expectedSteps) {
             this.errors.push(`Nombre de steps incorrect: ${this.weekData.length}/${this.expectedSteps}`);
         }
