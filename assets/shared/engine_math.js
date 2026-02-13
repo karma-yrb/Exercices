@@ -1,4 +1,4 @@
-// ENGINE SPA - UNIVERSAL (Robust Version + Math Support)
+﻿// ENGINE SPA - UNIVERSAL (Robust Version + Math Support)
 // Handles progress, navigation and rendering for all modules
 
 let el = {};
@@ -10,6 +10,34 @@ let attemptCount = 0; // Compteur de tentatives pour hints progressifs
 const normalizeText = (t) => t ? t.toString().toLowerCase().trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, "") 
     .replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, "") : "";
+
+function splitNormalizedWords(text) {
+    return normalizeText(text)
+        .split(/[\s']+/)
+        .map(w => w.trim())
+        .filter(Boolean);
+}
+
+function hasRequiredToken(rawText, normalizedWords, keyword) {
+    if (!keyword) return false;
+    const token = String(keyword);
+    if (/[a-zA-Z\u00C0-\u017F]/.test(token)) {
+        const norm = normalizeText(token);
+        if (!norm) return false;
+        return normalizedWords.includes(norm) || normalizedWords.some(w => w.startsWith(norm) || norm.startsWith(w));
+    }
+    return rawText.includes(token);
+}
+
+function toIdString(value) {
+    return value === undefined || value === null ? null : value.toString();
+}
+
+function findDayById(dayId) {
+    const target = toIdString(dayId);
+    if (!target) return null;
+    return appData.find(d => d && toIdString(d.id) === target) || null;
+}
 
 const TRACKING_DEVICE_KEY = 'learning_device_id_v1';
 
@@ -45,21 +73,21 @@ function inferActorId(config) {
 // ========================================
 
 /**
- * Normalise une expression mathématique pour comparaison intelligente
- * - Convertit x² → x^2, ² → ^2
- * - Unifie espaces et multiplication implicite (2x → 2*x)
- * - Supprime espaces autour des opérateurs
+ * Normalise une expression mathÃ©matique pour comparaison intelligente
+ * - Convertit xÂ² â†’ x^2, Â² â†’ ^2
+ * - Unifie espaces et multiplication implicite (2x â†’ 2*x)
+ * - Supprime espaces autour des opÃ©rateurs
  * - Lowercase
  */
 const normalizeMath = (text) => {
     if (!text) return "";
     let result = text.toString().trim().toLowerCase();
     
-    // Conversion exposants Unicode → notation ^
-    result = result.replace(/²/g, "^2");
-    result = result.replace(/³/g, "^3");
+    // Conversion exposants Unicode â†’ notation ^
+    result = result.replace(/Â²/g, "^2");
+    result = result.replace(/Â³/g, "^3");
     
-    // Multiplication implicite : 2x → 2*x, 3a → 3*a
+    // Multiplication implicite : 2x â†’ 2*x, 3a â†’ 3*a
     result = result.replace(/(\d)([a-z])/gi, "$1*$2");
     
     // Suppression des espaces excessifs
@@ -69,20 +97,20 @@ const normalizeMath = (text) => {
 };
 
 /**
- * Extrait les nombres d'une réponse d'équation
- * Exemple : "-3, 5" → ["-3", "5"]
- * Exemple : "x = 0 ou x = -7" → ["0", "-7"]
+ * Extrait les nombres d'une rÃ©ponse d'Ã©quation
+ * Exemple : "-3, 5" â†’ ["-3", "5"]
+ * Exemple : "x = 0 ou x = -7" â†’ ["0", "-7"]
  */
 const extractNumbers = (text) => {
     if (!text) return [];
-    // Regex pour capturer nombres (entiers ou décimaux, avec signe -)
+    // Regex pour capturer nombres (entiers ou dÃ©cimaux, avec signe -)
     const matches = text.match(/-?\d+\.?\d*/g);
     return matches ? matches.map(n => n.trim()) : [];
 };
 
 /**
- * Compare deux listes de nombres (ordre indépendant)
- * Retourne true si les listes contiennent les mêmes nombres
+ * Compare deux listes de nombres (ordre indÃ©pendant)
+ * Retourne true si les listes contiennent les mÃªmes nombres
  */
 const sameNumbers = (arr1, arr2) => {
     if (!arr1 || !arr2) return false;
@@ -95,12 +123,12 @@ const sameNumbers = (arr1, arr2) => {
 };
 
 /**
- * Détecte si le texte contient des symboles mathématiques
+ * DÃ©tecte si le texte contient des symboles mathÃ©matiques
  * Utile pour fallback : si pas de symboles math, validation textuelle normale
  */
 const containsMathSymbols = (text) => {
     if (!text) return false;
-    const mathPattern = /[+\-*/^²³()=xyzabc\d]/i;
+    const mathPattern = /[+\-*/^Â²Â³()=xyzabc\d]/i;
     return mathPattern.test(text);
 };
 
@@ -168,7 +196,7 @@ function init() {
                 if (appData && appData.length > 0) boot();
                 else {
                     // Final fallback to UI message
-                    if (el.grid) el.grid.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:20px;">Chargement des données...</p>';
+                    if (el.grid) el.grid.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:20px;">Chargement des donnÃ©es...</p>';
                 }
             }, 50);
         } else {
@@ -203,9 +231,9 @@ function boot() {
 
     // 4. Initial Rendering
     if (config.SINGLE_MISSION_MODE && appData.length > 0) {
-        const dayId = appData[0].id.toString();
-        // Force le démarrage de la mission unique présente sur la page
-        if (state.currentDay !== dayId) {
+        const dayId = toIdString(appData[0] && appData[0].id);
+        // Force le dÃ©marrage de la mission unique prÃ©sente sur la page
+        if (dayId && state.currentDay !== dayId) {
             state.currentDay = dayId;
             state.currentStep = 0;
             state.startTime = new Date().toISOString();
@@ -214,7 +242,7 @@ function boot() {
         }
     }
 
-    const currentDayData = appData.find(d => d.id.toString() === state.currentDay);
+    const currentDayData = findDayById(state.currentDay);
     if (state.currentDay && currentDayData && currentDayData.steps) {
         renderStep();
     } else {
@@ -237,10 +265,10 @@ function boot() {
 
     if (el.btnNext) {
         el.btnNext.onclick = () => {
-            const day = appData.find(d => d.id.toString() === state.currentDay);
+            const day = findDayById(state.currentDay);
             if (day && state.currentStep < day.steps.length - 1) {
                 state.currentStep++;
-                attemptCount = 0; // Reset compteur à chaque nouvelle étape
+                attemptCount = 0; // Reset compteur Ã  chaque nouvelle Ã©tape
                 renderStep();
             } else {
                 completeDay();
@@ -271,7 +299,7 @@ function injectStyles() {
             border-radius: 24px; max-width: 85%; width: 340px; text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8); transform: translateY(20px); transition: 0.3s;
         }
-        . modal-overlay.active .modal-content { transform: translateY(0); }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
         .modal-title { color: #fff; font-size: 1.2rem; margin-bottom: 15px; font-weight: 700; }
         .modal-text { color: var(--text-dim, #888); font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; }
         .modal-btns { display: flex; gap: 12px; }
@@ -290,7 +318,7 @@ function injectModal() {
     m.innerHTML = `
         <div class="modal-content">
             <div class="modal-title">Abandonner la mission ?</div>
-            <p class="modal-text">Ta progression dans cet exercice sera perdue. Es-tu sûr de vouloir nous quitter Agent ?</p>
+            <p class="modal-text">Ta progression dans cet exercice sera perdue. Es-tu sÃ»r de vouloir nous quitter Agent ?</p>
             <div class="modal-btns">
                 <button class="btn-nav quit-cancel-btn" style="flex:1" onclick="hideQuitModal()">RESTER</button>
                 <button class="btn-nav quit-confirm-btn" style="flex:1" onclick="abandonMission()">QUITTER</button>
@@ -353,7 +381,7 @@ function renderLobby() {
     
     // Check if whole module is locked by prerequisite
     let moduleLocked = false;
-    let prerequisiteName = "le module précédent";
+    let prerequisiteName = "le module prÃ©cÃ©dent";
     if (config.PREREQUISITE_KEY) {
         let preReq = null;
         try {
@@ -386,23 +414,25 @@ function renderLobby() {
         if (moduleLocked) {
             el.grid.innerHTML = `
                 <div class="lock-overlay-lobby" style="grid-column: 1 / -1; padding: 40px 20px; text-align: center; background: rgba(255,71,87,0.05); border: 2px dashed var(--danger); border-radius: 20px; margin: 20px 0;">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
-                    <h3 style="color: var(--danger); margin-bottom: 10px; font-weight: 800;">ACCÈS REFUSÉ</h3>
-                    <p style="color: var(--text-dim);">Tu dois d'abord terminer <b>${config.PREREQUISITE_KEY.includes('w1') ? 'le MODULE 1' : 'le module précédent'}</b> pour déverrouiller ces transmissions.</p>
+                    <div style="font-size: 3rem; margin-bottom: 15px;">ðŸ”’</div>
+                    <h3 style="color: var(--danger); margin-bottom: 10px; font-weight: 800;">ACCÃˆS REFUSÃ‰</h3>
+                    <p style="color: var(--text-dim);">Tu dois d'abord terminer <b>${config.PREREQUISITE_KEY.includes('w1') ? 'le MODULE 1' : 'le module prÃ©cÃ©dent'}</b> pour dÃ©verrouiller ces transmissions.</p>
                 </div>
             `;
             return;
         }
 
         appData.forEach((day, index) => {
-            const dayIdStr = day.id.toString();
+            const dayIdStr = toIdString(day && day.id);
+            if (!dayIdStr) return;
             const isDone = state.completedDays.includes(dayIdStr);
-            const isLocked = index > 0 && !state.completedDays.includes(appData[index-1].id.toString());
+            const prevDayId = index > 0 ? toIdString(appData[index - 1] && appData[index - 1].id) : null;
+            const isLocked = index > 0 && (!prevDayId || !state.completedDays.includes(prevDayId));
             
             const card = document.createElement('div');
             card.className = `day-card ${isLocked ? 'locked' : ''} ${isDone ? 'completed' : ''}`;
             
-            let iconContent = isDone ? '✓' : (day.icon || (index + 1));
+            let iconContent = isDone ? 'âœ“' : (day.icon || (index + 1));
 
             card.innerHTML = `
                 <div class="icon">${iconContent}</div>
@@ -432,13 +462,13 @@ function startDay(dayIdStr) {
     state.currentStep = 0;
     state.startTime = new Date().toISOString();
     state.sessionId = makeTrackingId('sess');
-    attemptCount = 0; // Reset compteur au démarrage
+    attemptCount = 0; // Reset compteur au dÃ©marrage
     saveState();
     renderStep();
 }
 
 function renderStep() {
-    const day = appData.find(d => d.id.toString() === state.currentDay);
+    const day = findDayById(state.currentDay);
     if (!day || !day.steps) {
         state.currentDay = null;
         renderLobby();
@@ -474,7 +504,7 @@ function renderStep() {
     
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
-        el.btnNext.innerText = isBoss ? 'VALIDER LA MISSION' : 'ÉTAPE SUIVANTE';
+        el.btnNext.innerText = isBoss ? 'VALIDER LA MISSION' : 'Ã‰TAPE SUIVANTE';
         el.btnNext.classList.toggle('boss-btn', isBoss);
     }
 
@@ -504,28 +534,28 @@ function renderStep() {
                     <path d="M40 70 L60 70" fill="none" stroke="currentColor" stroke-width="2" />
                     <path d="M20 50 L10 50 M90 50 L80 50 M50 10 L50 20 M50 90 L50 80" stroke="currentColor" stroke-width="1" />
                 </svg>
-                <div class="boss-label">MENACE DÉTECTÉE</div>
+                <div class="boss-label">MENACE DÃ‰TECTÃ‰E</div>
             </div>
         ` : '';
         
         // Dynamic Question Formatting (Extracting text inside <i>)
         let formattedQ = q.replace(/<i>(.*?)<\/i>/g, '<div class="tactical-data">$1</div>');
 
-        // Système de hints progressifs (hint1 après 2 échecs, hint2 après 3 échecs)
+        // SystÃ¨me de hints progressifs (hint1 aprÃ¨s 2 Ã©checs, hint2 aprÃ¨s 3 Ã©checs)
         if (step.hint1 || step.hint2 || step.hint) {
             let hintContent = '';
-            let hintLabel = '💡 INDICE';
+            let hintLabel = 'ðŸ’¡ INDICE';
             
             if (attemptCount >= 3 && step.hint2) {
-                // Niveau 2 : Hint détaillé après 3+ échecs
+                // Niveau 2 : Hint dÃ©taillÃ© aprÃ¨s 3+ Ã©checs
                 hintContent = step.hint2;
-                hintLabel = '💡 INDICE DÉTAILLÉ';
+                hintLabel = 'ðŸ’¡ INDICE DÃ‰TAILLÃ‰';
             } else if (attemptCount >= 2 && step.hint1) {
-                // Niveau 1 : Hint léger après 2+ échecs
+                // Niveau 1 : Hint lÃ©ger aprÃ¨s 2+ Ã©checs
                 hintContent = step.hint1;
-                hintLabel = '💡 MÉTHODE';
+                hintLabel = 'ðŸ’¡ MÃ‰THODE';
             } else if (step.hint) {
-                // Fallback : hint classique (pour compatibilité)
+                // Fallback : hint classique (pour compatibilitÃ©)
                 hintContent = step.hint;
             }
             
@@ -541,9 +571,9 @@ function renderStep() {
             <p class="content-chunk" style="font-size: 1.15rem; line-height: 1.6; color: var(--text); background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid var(--accent);">${formattedQ}</p>
             <div style="margin-top:20px; display: flex; flex-direction: column; gap: 15px;">
                 ${hintHtml}
-                <textarea id="input-write" placeholder="Tape ta réponse ici..." class="btn-opt" 
+                <textarea id="input-write" placeholder="Tape ta rÃ©ponse ici..." class="btn-opt" 
                        style="background: rgba(255,255,255,0.05); border-style: dashed; width: 100%; cursor: text; margin-bottom: 0; min-height: 100px; padding: 15px; resize: none; overflow-y: auto; text-transform: none;"></textarea>
-                <button id="btn-check-write" class="btn-main">VÉRIFIER</button>
+                <button id="btn-check-write" class="btn-main">VÃ‰RIFIER</button>
                 <div id="write-feedback"></div>
             </div>
         `;
@@ -565,15 +595,15 @@ function renderStep() {
                             check.classList.add('hidden');
                             feedArea.innerHTML = `
                                 <div class="success-badge">
-                                    <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> ${pluginResult.msg || feed}</p>
+                                    <p style="color: var(--success); font-weight: bold; margin: 0;"><b>âœ“</b> ${pluginResult.msg || feed}</p>
                                 </div>
                             `;
                             if (el.btnNext) el.btnNext.disabled = false;
                         } else {
                             check.disabled = false;
-                            check.innerText = 'RÉESSAYER LE SCAN';
+                            check.innerText = 'RÃ‰ESSAYER LE SCAN';
                             input.classList.add('shake');
-                            feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ' + pluginResult.msg + '</p>';
+                            feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>âš ï¸</b> ' + pluginResult.msg + '</p>';
                             setTimeout(() => input.classList.remove('shake'), 400);
                         }
                         return;
@@ -584,23 +614,23 @@ function renderStep() {
                     check.disabled = true;
                     check.innerText = 'SCAN EN COURS...';
 
-                    const result = await validateTactical(val, step.requirements);
+                    const result = await validateTactical(val, step.requirements, step);
 
                     if (result.ok) {
                         input.disabled = true;
                         check.classList.add('hidden');
                         feedArea.innerHTML = `
                             <div class="success-badge">
-                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> ${feed}</p>
+                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>âœ“</b> ${feed}</p>
                             </div>
                         `;
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
-                        attemptCount++; // Incrémenter au premier échec validation Requirements
+                        attemptCount++; // IncrÃ©menter au premier Ã©chec validation Requirements
                         check.disabled = false;
-                        check.innerText = 'RÉESSAYER LE SCAN';
+                        check.innerText = 'RÃ‰ESSAYER LE SCAN';
                         input.classList.add('shake');
-                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ' + result.msg + '</p>';
+                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>âš ï¸</b> ' + result.msg + '</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
                         
                         // Re-render pour afficher hint si seuils atteints
@@ -616,12 +646,12 @@ function renderStep() {
                     if (ok) {
                         input.disabled = true; 
                         check.disabled = true;
-                        feedArea.innerHTML = '<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ' + feed + '</p>';
+                        feedArea.innerHTML = '<p style="color: var(--success); margin-top: 10px;"><b>âœ“</b> ' + feed + '</p>';
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
-                        attemptCount++; // Incrémenter au second type d'échec (fallback sans requirements)
+                        attemptCount++; // IncrÃ©menter au second type d'Ã©chec (fallback sans requirements)
                         input.classList.add('shake'); 
-                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l\'ordre ou l\'orthographe !</p>';
+                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>âš ï¸</b> Signal instable. VÃ©rifie l\'ordre ou l\'orthographe !</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
                         
                         // Re-render pour afficher hint si seuils atteints
@@ -660,99 +690,129 @@ function renderStep() {
 // VALIDATION FUNCTION (WITH MATH SUPPORT)
 // ========================================
 
-async function validateTactical(text, reqs) {
-    if (!text || text.trim().length === 0) return { ok: false, msg: 'Réponse trop courte.' };
-    if (text.trim().length < 3 && !containsMathSymbols(text)) {
-        return { ok: false, msg: 'Réponse trop courte.' };
+async function validateTactical(text, reqs, step) {
+    const rawText = (text || '').trim();
+    const hasOneWordTarget = Number(reqs && reqs.minWords) <= 1;
+    const minChars = Number(reqs && reqs.minChars) || (hasOneWordTarget ? 1 : 3);
+
+    if (!rawText || rawText.length < minChars) {
+        return { ok: false, msg: 'Reponse trop courte.' };
+    }
+
+    if (step && step.hint && normalizeText(step.hint) === normalizeText(rawText)) {
+        return { ok: false, msg: 'Reformule avec tes propres mots au lieu de copier l\'indice.' };
+    }
+
+    const normalizedRaw = normalizeText(rawText);
+    const antiCheatPhrases = ['objectif non atteint', 'il te manque', 'tu dois utiliser', 'reessayer le scan'];
+    if (antiCheatPhrases.some(p => normalizedRaw.includes(p))) {
+        return { ok: false, msg: 'Ne copie pas le message d\'erreur, reponds a la consigne.' };
+    }
+
+    if (reqs && Array.isArray(reqs.forbidden)) {
+        const forbiddenHit = reqs.forbidden.find(f => normalizedRaw.includes(normalizeText(f)));
+        if (forbiddenHit) {
+            return { ok: false, msg: 'Tu dois remplacer "' + forbiddenHit + '".' };
+        }
     }
 
     const looksNumeric = !!(reqs && Array.isArray(reqs.keywords) && reqs.keywords.length > 0 && reqs.keywords.every(k => /^-?\d+(\.\d+)?$/.test(k)));
     if (looksNumeric) {
-        const userNumbers = extractNumbers(text);
+        const userNumbers = extractNumbers(rawText);
         if (sameNumbers(userNumbers, reqs.keywords)) {
             return { ok: true };
         }
-        return { ok: false, msg: 'Résultat incorrect. Vérifie ton calcul.' };
+        return { ok: false, msg: 'Resultat incorrect. Verifie ton calcul.' };
     }
 
-    // ========================================
-    // BRANCH 1: MATHEMATICAL VALIDATION
-    // ========================================
-    if (reqs.validationType === "algebraic") {
-        const userMath = normalizeMath(text);
-        const normKeywords = reqs.keywords.map(k => normalizeMath(k));
-        
-        // Vérifier que TOUS les keywords sont présents (ordre indépendant)
+    if (reqs && reqs.validationType === 'algebraic') {
+        const userMath = normalizeMath(rawText);
+        const normKeywords = (reqs.keywords || []).map(k => normalizeMath(k));
+
         const allPresent = normKeywords.every(kw => userMath.includes(kw));
-        
         if (!allPresent) {
-            const missing = reqs.keywords.filter((k, i) => !userMath.includes(normKeywords[i]));
-            return { 
-                ok: false, 
-                msg: `Expression incomplète. Éléments manquants : ${missing.join(', ')}` 
+            const missing = (reqs.keywords || []).filter((k, i) => !userMath.includes(normKeywords[i]));
+            return {
+                ok: false,
+                msg: 'Expression incomplete. Elements manquants : ' + missing.join(', ')
             };
         }
-        
-        // Vérification du nombre minimal de termes
+
         if (reqs.minWords) {
             const terms = userMath.split(/[\s+\-*/()]+/).filter(t => t.length > 0);
             if (terms.length < reqs.minWords) {
-                return { 
-                    ok: false, 
-                    msg: `Expression trop simple. Développe ou détaille davantage.` 
+                return {
+                    ok: false,
+                    msg: 'Expression trop simple. Detaille davantage.'
                 };
             }
         }
-        
+
         return { ok: true };
     }
 
-    // ========================================
-    // BRANCH 2: EQUATION SOLUTIONS (NUMBERS)
-    // ========================================
-    if (reqs.validationType === "equation" && reqs.expectNumbers) {
-        const userNumbers = extractNumbers(text);
-        const expectedNumbers = reqs.keywords;
-        
+    if (reqs && reqs.validationType === 'equation' && reqs.expectNumbers) {
+        const userNumbers = extractNumbers(rawText);
+        const expectedNumbers = reqs.keywords || [];
+
         if (sameNumbers(userNumbers, expectedNumbers)) {
             return { ok: true };
-        } else {
-            return { 
-                ok: false, 
-                msg: `Solutions incorrectes. Vérifie tes calculs.` 
-            };
+        }
+        return {
+            ok: false,
+            msg: 'Solutions incorrectes. Verifie tes calculs.'
+        };
+    }
+
+    const normalizedWords = splitNormalizedWords(rawText);
+
+    if (reqs && Array.isArray(reqs.keywordGroups) && reqs.keywordGroups.length > 0) {
+        const missingGroups = reqs.keywordGroups.filter(group =>
+            !Array.isArray(group) || !group.some(keyword => hasRequiredToken(rawText, normalizedWords, keyword))
+        );
+        if (missingGroups.length > 0) {
+            const expected = missingGroups
+                .map(group => Array.isArray(group) && group.length > 0 ? group[0] : null)
+                .filter(Boolean);
+            return { ok: false, msg: 'Objectif non atteint. Il manque un element de : ' + expected.join(', ') + '.' };
         }
     }
 
-    // ========================================
-    // BRANCH 3: TEXTUAL VALIDATION (LEGACY)
-    // ========================================
-    if (reqs.keywords) {
-        const cleanText = normalizeText(text);
-        const normKeywords = reqs.keywords.map(k => normalizeText(k));
-        
-        const hasWord = (word) => {
-            const regex = new RegExp(`\\b${word}\\b`, 'i');
-            return regex.test(cleanText);
-        };
-
+    if (reqs && Array.isArray(reqs.keywords) && reqs.keywords.length > 0) {
         if (reqs.enforceKeywords) {
-            const missing = reqs.keywords.filter((k, i) => !hasWord(normKeywords[i]));
+            const missing = reqs.keywords.filter(keyword => !hasRequiredToken(rawText, normalizedWords, keyword));
             if (missing.length > 0) {
                 return { ok: false, msg: 'Objectif non atteint. Il te manque : ' + missing.join(', ') + '.' };
             }
         } else {
-            const found = normKeywords.some(hasWord);
+            const found = reqs.keywords.some(keyword => hasRequiredToken(rawText, normalizedWords, keyword));
             if (!found) {
-                return { ok: false, msg: 'Objectif non atteint. Tu dois utiliser le verbe demandé (ex: ' + reqs.keywords[0] + ').' };
+                return { ok: false, msg: 'Objectif non atteint. Tu dois utiliser au moins un mot-cle attendu (ex: ' + reqs.keywords[0] + ').' };
             }
         }
     }
 
-    // Grammar API check (fallback for text)
+    if (reqs && reqs.minWords) {
+        const words = rawText.split(/\s+/).filter(Boolean).length;
+        if (words < reqs.minWords) {
+            return { ok: false, msg: 'Ta reponse est trop courte (' + words + ' mots). Minimum: ' + reqs.minWords + '.' };
+        }
+    }
+
+    if (reqs && reqs.minSentences) {
+        const sentenceCount = (rawText.match(/[.!?]+/g) || []).length;
+        if (sentenceCount < reqs.minSentences) {
+            return { ok: false, msg: 'Ajoute ' + reqs.minSentences + ' phrase(s) complete(s).' };
+        }
+    }
+
+    if (containsMathSymbols(rawText)) {
+        return { ok: true };
+    }
+
     try {
         const params = new URLSearchParams();
-        params.append('text', text);
+        params.append('text', rawText);
         params.append('language', 'fr');
 
         const response = await fetch('https://api.languagetool.org/v2/check', {
@@ -764,9 +824,9 @@ async function validateTactical(text, reqs) {
         if (data.matches && data.matches.length > 0) {
             const error = data.matches[0];
             let msg = error.message;
-            if (error.rule.issueType === 'misspelling') msg = 'Erreur de saisie : ' + error.context.text.substr(error.context.offset, error.context.length) + ' semble mal écrit.';
-            if (msg.includes("Sujet et verbe ne semblent pas s'accorder")) msg = 'Alerte Accord : Ton verbe n\'est pas synchronisé avec ton sujet !';
-            
+            if (error.rule.issueType === 'misspelling') msg = 'Erreur de saisie : ' + error.context.text.substr(error.context.offset, error.context.length) + ' semble mal ecrit.';
+            if (msg.includes('Sujet et verbe ne semblent pas s\'accorder')) msg = 'Alerte Accord : Ton verbe n\'est pas synchronise avec ton sujet !';
+
             return { ok: false, msg: msg };
         }
     } catch (e) {
@@ -775,14 +835,13 @@ async function validateTactical(text, reqs) {
 
     return { ok: true };
 }
-
 function completeDay() {
     const lastDayId = state.currentDay;
     if (lastDayId && !state.completedDays.includes(lastDayId)) {
         state.completedDays.push(lastDayId);
     }
     
-    syncWithParent(lastDayId, 'TERMINÉ');
+    syncWithParent(lastDayId, 'TERMINÃ‰');
 
     state.currentDay = null; 
     state.currentStep = 0;
@@ -808,7 +867,7 @@ function abandonMission() {
     if (!lastDayId) return;
     
     hideQuitModal();
-    syncWithParent(lastDayId, 'ABANDONNÉ');
+    syncWithParent(lastDayId, 'ABANDONNÃ‰');
 
     state.currentDay = null;
     state.currentStep = 0;
@@ -823,17 +882,17 @@ function abandonMission() {
     }
 }
 
-async function syncWithParent(dayId, status = 'TERMINÉ') {
+async function syncWithParent(dayId, status = 'TERMINÃ‰') {
     const config = window.APP_CONFIG || {};
     const childName = (config.STORAGE_KEY && config.STORAGE_KEY.includes('lovyc')) ? 'Lovyc' : 'Zyvah';
     const pathParts = window.location.pathname.split('/');
-    const subject = pathParts[pathParts.length - 3] || 'Général'; 
+    const subject = pathParts[pathParts.length - 3] || 'GÃ©nÃ©ral'; 
     
     const folder = pathParts[pathParts.length - 2] || '';
     const file = pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].replace('.html', '') : '';
     const moduleName = folder + ' / ' + file;
     
-    const day = appData.find(d => d.id.toString() === dayId.toString());
+    const day = findDayById(dayId);
     const missionId = dayId;
     const missionTitle = day ? day.title : 'Mission';
     
@@ -855,7 +914,7 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
             const ipJson = await ipRes.json();
             clientIP = ipJson.ip || 'Inconnue';
         } catch (e) {
-            console.log('Impossible de récupérer l\'IP');
+            console.log('Impossible de rÃ©cupÃ©rer l\'IP');
         }
     }
 
@@ -887,7 +946,7 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
             headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify(payload)
         });
-        console.log('Synchro Cloud envoyée (POST).');
+        console.log('Synchro Cloud envoyÃ©e (POST).');
     } catch (e) {
         console.error('Echec de la synchro Cloud:', e);
     }
@@ -895,3 +954,6 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
 else init();
+
+
+

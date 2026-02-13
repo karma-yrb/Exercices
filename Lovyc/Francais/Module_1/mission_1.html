@@ -163,7 +163,7 @@
             {
                 type: "interactive",
                 title: "Sujet Cache",
-                question: "\"Quel est le Sujet ?\" (Dans le lobby, les joueurs discutent.)",
+                question: "\"Quel est le Sujet (qui fait l'action) ?\" (Dans le lobby, les joueurs discutent.)",
                 options: [
                     "le lobby",
                     "les joueurs",
@@ -209,12 +209,7 @@
                 question: "\"Ajoute un complement pour completer la phrase :\" (Lovyc lance.)",
                 requirements: {
                     mode: "sentence",
-                    keywords: [
-                        "strategie",
-                        "attaque",
-                        "drone",
-                        "signal"
-                    ]
+                    minWords: 2
                 },
                 hint: "Ajoute quoi ou vers quoi.",
                 feedback: "Phrase complete.",
@@ -226,14 +221,13 @@
                 question: "\"Ecris deux phrases S+V+C sur une preparation de match.\"",
                 requirements: {
                     mode: "sentence",
-                    keywords: [
-                        "match",
-                        "preparation",
-                        "strategie",
-                        "attaque"
+                    keywordGroups: [
+                        ["match", "rencontre"],
+                        ["preparation", "prepare", "preparer", "preparent"],
+                        ["strategie", "tactique", "attaque"]
                     ],
-                    enforceKeywords: true,
-                    minWords: 12
+                    minWords: 10,
+                    minSentences: 2
                 },
                 hint: "Deux actions differentes, deux phrases.",
                 feedback: "Rapport clair.",
@@ -244,15 +238,12 @@
                 title: "Boss de Fin - Mission 1",
                 question: "\"Redige une phrase complete (S+V+C) au present avec le verbe 'ELIMINER' :\"",
                 requirements: {
-                    keywords: [
-                        "elimine",
-                        "elimines",
-                        "eliminent",
-                        "eliminer",
-                        "adversaire"
+                    mode: "sentence",
+                    keywordGroups: [
+                        ["elimine", "elimines", "eliminons", "eliminez", "eliminent", "eliminer"],
+                        ["adversaire", "ennemi", "opposant"]
                     ],
-                    enforceKeywords: true,
-                    minWords: 5
+                    minWords: 4
                 },
                 hint: "Rappel : Sujet + Verbe + Complement.",
                 feedback: "Mission 1 accomplie a 100%.",

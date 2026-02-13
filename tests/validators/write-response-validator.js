@@ -51,14 +51,18 @@ class WriteResponseValidator {
 
                     const modeMatch = screenBlock.match(/mode:\s*"(.+?)"/i);
                     const keywordsLine = screenBlock.match(/keywords:\s*(.+)/i);
+                    const keywordGroupLines = [...screenBlock.matchAll(/-\s*\[([^\]]+)\]/g)];
                     const mustIncludeLine = screenBlock.match(/mustInclude:\s*(.+)/i);
                     const minWordsMatch = screenBlock.match(/minWords:\s*(\d+)/i);
                     const enforceMatch = screenBlock.match(/enforceKeywords:\s*(true|false)/i);
 
                     const keywords = this.parseQuotedList(keywordsLine ? keywordsLine[1] : '');
+                    const keywordGroups = keywordGroupLines
+                        .map(match => this.parseQuotedList(match[1]))
+                        .filter(group => group.length > 0);
                     const mustInclude = this.parseQuotedList(mustIncludeLine ? mustIncludeLine[1] : '');
 
-                    if (keywords.length === 0 && mustInclude.length === 0 && !minWordsMatch) return;
+                    if (keywords.length === 0 && keywordGroups.length === 0 && mustInclude.length === 0 && !minWordsMatch) return;
 
                     this.testCases.push({
                         mission: missionIdx + 1,
@@ -66,6 +70,7 @@ class WriteResponseValidator {
                         type: typeMatch[1].toLowerCase(),
                         mode: modeMatch ? modeMatch[1].toLowerCase() : 'sentence',
                         keywords,
+                        keywordGroups,
                         mustInclude,
                         enforceKeywords: enforceMatch ? enforceMatch[1].toLowerCase() === 'true' : false,
                         minWords: minWordsMatch ? parseInt(minWordsMatch[1], 10) : 0
@@ -88,8 +93,9 @@ class WriteResponseValidator {
     }
 
     generateAndTestResponses(testCase) {
-        const { keywords, mode, enforceKeywords, mustInclude, minWords } = testCase;
+        const { keywords, keywordGroups = [], mode, enforceKeywords, mustInclude, minWords } = testCase;
         let testCount = 0;
+        const representativeGroups = keywordGroups.map(group => group[0]).filter(Boolean);
 
         if (mode === 'verb') {
             keywords.forEach(verb => {
@@ -121,6 +127,7 @@ class WriteResponseValidator {
             } else if (includeAnyKeyword && keywords.length > 0) {
                 parts.push(keywords[0]);
             }
+            parts.push(...representativeGroups);
 
             if (includeMust) {
                 mustInclude.forEach(token => {
@@ -141,7 +148,7 @@ class WriteResponseValidator {
 
         const valid = buildSentence({
             includeAllKeywords: enforceKeywords,
-            includeAnyKeyword: keywords.length > 0,
+            includeAnyKeyword: keywords.length > 0 || representativeGroups.length > 0,
             includeMust: true
         });
         this.testResponse(testCase, valid, true);
@@ -164,7 +171,7 @@ class WriteResponseValidator {
         mustInclude.forEach(token => {
             let withoutMust = buildSentence({
                 includeAllKeywords: enforceKeywords,
-                includeAnyKeyword: keywords.length > 0,
+                includeAnyKeyword: keywords.length > 0 || representativeGroups.length > 0,
                 includeMust: true,
                 appendTerminal: token !== '.'
             });
@@ -178,7 +185,7 @@ class WriteResponseValidator {
         if (minWords > 1) {
             const tooShort = buildSentence({
                 includeAllKeywords: enforceKeywords,
-                includeAnyKeyword: keywords.length > 0,
+                includeAnyKeyword: keywords.length > 0 || representativeGroups.length > 0,
                 includeMust: true,
                 words: Math.max(1, minWords - 1)
             });
@@ -231,7 +238,7 @@ class WriteResponseValidator {
     }
 
     evaluateResponse(testCase, response) {
-        const { mode, keywords, enforceKeywords, minWords, mustInclude } = testCase;
+        const { mode, keywords, keywordGroups = [], enforceKeywords, minWords, mustInclude } = testCase;
         const trimmed = (response || '').trim();
 
         if (!trimmed) return false;
@@ -248,6 +255,13 @@ class WriteResponseValidator {
         if (mustInclude.length > 0) {
             const hasAllMust = mustInclude.every(token => this.hasToken(trimmed, token));
             if (!hasAllMust) return false;
+        }
+
+        if (keywordGroups.length > 0) {
+            const hasAllGroups = keywordGroups.every(group =>
+                Array.isArray(group) && group.some(token => this.hasToken(trimmed, token))
+            );
+            if (!hasAllGroups) return false;
         }
 
         if (keywords.length === 0) return true;

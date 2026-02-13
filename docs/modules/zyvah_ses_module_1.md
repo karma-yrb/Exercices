@@ -87,7 +87,7 @@
 - Question: "Si tu as trop de stock invendu, dois-tu monter ou baisser ton prix ?"
 - Reponse attendue: "baisser"
 - Requirements:
-  - keywords: ["baisser"]
+  - keywords: ["baisser", "baisse", "baisses", "reduire", "reduit", "reduction"]
   - minWords: 1
 - Hint: "Pour attirer plus de clients (Demande), que fais-tu du prix ?"
 - Feedback: "Baisser le prix attire la demande pour vider le stock."
@@ -112,7 +112,7 @@
 - Question: "Si le prix baisse, que fait en general la demande ?"
 - Reponse attendue: "augmente"
 - Requirements:
-  - keywords: ["augmente"]
+  - keywords: ["augmente", "augmentation", "monte", "hausse"]
   - minWords: 1
 - Hint: "Prix plus bas = plus de clients."
 - Feedback: "Oui ! La demande augmente quand le prix baisse."
@@ -120,8 +120,12 @@
 ### Ecran 15 - challenge - Synthese Marche
 - Question: "Explique en 2 phrases comment se fixe le prix d'un concert."
 - Requirements:
-  - keywords: ["offre", "demande", "equilibre"]
-  - minWords: 6
+  - keywordGroups:
+    - ["offre", "offres"]
+    - ["demande", "demandes"]
+    - ["equilibre", "equilibrer", "equilibres"]
+  - minWords: 8
+  - minSentences: 2
 - Hint: "Parle du nombre de places (offre) et du nombre de fans (demande)."
 - Feedback: "Analyse valide. Tu relies offre, demande et prix d'equilibre."
 
@@ -208,7 +212,7 @@
 - Question: "Donne un exemple de cout variable en studio."
 - Reponse attendue: "electricite"
 - Requirements:
-  - keywords: ["electricite"]
+  - keywords: ["electricite", "matiere", "matieres", "transport", "energie"]
   - minWords: 1
 - Hint: "C'est ce qui augmente quand les machines tournent plus."
 - Feedback: "Oui ! L'electricite varie avec la production."
@@ -241,8 +245,12 @@
 ### Ecran 15 - challenge - Synthese Profit
 - Question: "Explique en 2 phrases comment augmenter le profit d'un label."
 - Requirements:
-  - keywords: ["augmenter", "couts", "prix"]
-  - minWords: 6
+  - keywordGroups:
+    - ["augmenter", "augmente", "augmentant", "hausser", "monter"]
+    - ["cout", "couts", "depense", "depenses"]
+    - ["prix", "ca", "chiffre", "vente", "ventes"]
+  - minWords: 8
+  - minSentences: 2
 - Hint: "Parle de faire monter le CA ou de faire baisser les couts."
 - Feedback: "Synthese valide. Tu relies CA, couts et profit."
 
@@ -283,7 +291,7 @@
 - Question: "Cite un agent de socialisation a l'ecole."
 - Reponse attendue: "professeurs"
 - Requirements:
-  - keywords: ["professeurs", "enseignants", "ecole", "profs"]
+  - keywords: ["professeur", "professeurs", "enseignant", "enseignants", "profs", "ecole"]
   - minWords: 1
 - Hint: "Ce sont les personnes qui t'enseignent en classe."
 - Feedback: "L'ecole et les profs sont des agents majeurs."
@@ -312,7 +320,7 @@
 - Question: "Donne une norme simple au studio."
 - Reponse attendue: "ponctualite"
 - Requirements:
-  - keywords: ["ponctualite", "heure", "respect"]
+  - keywords: ["ponctualite", "heure", "respect", "respecter", "arriver"]
   - minWords: 1
 - Hint: "Par exemple : arriver a l'heure."
 - Feedback: "Bien. Une norme, c'est une regle a suivre."
@@ -331,7 +339,7 @@
 - Question: "Donne une valeur importante dans une equipe."
 - Reponse attendue: "respect"
 - Requirements:
-  - keywords: ["respect", "solidarite", "confiance"]
+  - keywords: ["respect", "solidarite", "confiance", "entraide"]
   - minWords: 1
 - Hint: "C'est un ideal qui guide le groupe."
 - Feedback: "Parfait. Une valeur guide les comportements."
@@ -347,19 +355,23 @@
 - Feedback: "Oui. On recompense un bon comportement."
 
 ### Ecran 14 - write - Role des Pairs
-- Question: "Explique en un mot qui influence beaucoup les choix des ados."
+- Question: "Cite en un mot qui influence beaucoup les choix des ados."
 - Reponse attendue: "amis"
 - Requirements:
-  - keywords: ["amis", "groupe", "pairs"]
+  - keywords: ["amis", "ami", "groupe", "pairs", "pair"]
   - minWords: 1
-- Hint: "C'est ton groupe proche."
+- Hint: "Pense au cercle proche des ados."
 - Feedback: "Exact. Les pairs influencent fortement."
 
 ### Ecran 15 - challenge - Synthese Socialisation
 - Question: "Explique comment la socialisation construit l'identite d'un artiste."
 - Requirements:
-  - keywords: ["normes", "valeurs", "groupe"]
-  - minWords: 6
+  - keywordGroups:
+    - ["norme", "normes", "regle", "regles"]
+    - ["valeur", "valeurs"]
+    - ["groupe", "entourage", "pairs", "famille"]
+  - minWords: 8
+  - minSentences: 2
 - Hint: "Parle des regles, des valeurs et des personnes autour."
 - Feedback: "Bonne synthese. Tu relies normes, valeurs et influence du groupe."
 

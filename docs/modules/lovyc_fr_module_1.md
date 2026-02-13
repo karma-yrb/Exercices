@@ -89,7 +89,7 @@
 - Feedback: "Flux valide."
 
 ### Ecran 10 - interactive - Sujet Cache
-- Question: "Quel est le Sujet ?" (Dans le lobby, les joueurs discutent.)
+- Question: "Quel est le Sujet (qui fait l'action) ?" (Dans le lobby, les joueurs discutent.)
 - Options: "le lobby" / "les joueurs" / "discutent"
 - Reponse: "les joueurs"
 - Feedback: "Oui. Ce sont eux qui agissent."
@@ -113,7 +113,7 @@
 - Question: "Ajoute un complement pour completer la phrase :" (Lovyc lance.)
 - Requirements:
   - mode: "sentence"
-  - keywords: "strategie", "attaque", "drone", "signal"
+  - minWords: 2
 - Hint: "Ajoute quoi ou vers quoi."
 - Feedback: "Phrase complete."
 
@@ -121,15 +121,23 @@
 - Question: "Ecris deux phrases S+V+C sur une preparation de match."
 - Requirements:
   - mode: "sentence"
-  - keywords: "."
-  - minWords: 8
+  - keywordGroups:
+    - ["match", "rencontre"]
+    - ["preparation", "prepare", "preparer", "preparent"]
+    - ["strategie", "tactique", "attaque"]
+  - minWords: 10
+  - minSentences: 2
 - Hint: "Deux actions differentes, deux phrases."
 - Feedback: "Rapport clair."
 
 ### Ecran 15 - challenge - Boss de Fin - Mission 1
 - Question: "Redige une phrase complete (S+V+C) au present avec le verbe 'ELIMINER' :"
 - Requirements:
-  - keywords: "elimine", "elimines", "eliminent", "eliminons", "eliminez"
+  - mode: "sentence"
+  - keywordGroups:
+    - ["elimine", "elimines", "eliminons", "eliminez", "eliminent", "eliminer"]
+    - ["adversaire", "ennemi", "opposant"]
+  - minWords: 4
 - Hint: "Rappel : Sujet + Verbe + Complement."
 - Feedback: "Mission 1 accomplie a 100%."
 
@@ -651,4 +659,3 @@
   - mustInclude: ",", "tactique"
 - Hint: "Exemple : Tes missions reussissent, c'est une victoire tactique."
 - Feedback: "CODE ROUGE TERMINE. Felicitations Agent Lovyc !"
-

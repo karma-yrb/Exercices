@@ -123,7 +123,11 @@ class HtmlValidator {
 
             // Les write/challenge doivent avoir requirements
             if (['write', 'challenge'].includes(step.type)) {
-                if (!step.requirements || !step.requirements.keywords) {
+                const reqs = step.requirements || {};
+                const hasKeywords = Array.isArray(reqs.keywords) && reqs.keywords.length > 0;
+                const hasKeywordGroups = Array.isArray(reqs.keywordGroups) && reqs.keywordGroups.length > 0;
+                const hasMinWords = Number(reqs.minWords) > 0;
+                if (!step.requirements || (!hasKeywords && !hasKeywordGroups && !hasMinWords)) {
                     this.warnings.push(`Step ${idx + 1} (${step.title}): Keywords manquants`);
                 }
             }

@@ -10,6 +10,24 @@ const normalizeText = (t) => t ? t.toString().toLowerCase().trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, "") 
     .replace(/[.,/#!$%^&*;:{}=\\-_`~()]/g, "") : "";
 
+function splitNormalizedWords(text) {
+    return normalizeText(text)
+        .split(/[\s'’]+/)
+        .map(w => w.trim())
+        .filter(Boolean);
+}
+
+function hasRequiredToken(rawText, normalizedWords, keyword) {
+    if (!keyword) return false;
+    const token = String(keyword);
+    if (/[a-zA-Z\u00C0-\u017F]/.test(token)) {
+        const norm = normalizeText(token);
+        if (!norm) return false;
+        return normalizedWords.includes(norm) || normalizedWords.some(w => w.startsWith(norm) || norm.startsWith(w));
+    }
+    return rawText.includes(token);
+}
+
 const TRACKING_DEVICE_KEY = 'learning_device_id_v1';
 
 function makeTrackingId(prefix) {
@@ -145,7 +163,7 @@ function boot() {
         }
     }
 
-    const currentDayData = appData.find(d => d.id.toString() === state.currentDay);
+    const currentDayData = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === state.currentDay);
     if (state.currentDay && currentDayData && currentDayData.steps) {
         renderStep();
     } else {
@@ -168,7 +186,7 @@ function boot() {
 
     if (el.btnNext) {
         el.btnNext.onclick = () => {
-            const day = appData.find(d => d.id.toString() === state.currentDay);
+            const day = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === state.currentDay);
             if (day && state.currentStep < day.steps.length - 1) {
                 state.currentStep++;
                 renderStep();
@@ -366,7 +384,7 @@ function startDay(dayIdStr) {
 }
 
 function renderStep() {
-    const day = appData.find(d => d.id.toString() === state.currentDay);
+    const day = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === state.currentDay);
     if (!day || !day.steps) {
         state.currentDay = null;
         renderLobby();
@@ -493,7 +511,7 @@ function renderStep() {
                     check.disabled = true;
                     check.innerText = 'SCAN EN COURS...';
 
-                    const result = await validateTactical(val, step.requirements);
+                    const result = await validateTactical(val, step.requirements, step);
 
                     if (result.ok) {
                         input.disabled = true;
@@ -553,37 +571,77 @@ function renderStep() {
     }
 }
 
-async function validateTactical(text, reqs) {
-    if (!text || text.length < 5) return { ok: false, msg: 'Message trop court pour être valide.' };
+async function validateTactical(text, reqs, step) {
+    const rawText = (text || '').trim();
+    const hasOneWordTarget = Number(reqs && reqs.minWords) <= 1;
+    const minChars = Number(reqs && reqs.minChars) || (hasOneWordTarget ? 1 : 3);
 
-    if (reqs.keywords) {
-        const cleanText = normalizeText(text);
-        const normKeywords = reqs.keywords.map(k => normalizeText(k));
-        
-        // Fonction pour vérifier la présence d'un mot exact (\b)
-        const hasWord = (word) => {
-            const regex = new RegExp(`\\b${word}\\b`, 'i');
-            return regex.test(cleanText);
-        };
+    if (!rawText || rawText.length < minChars) {
+        return { ok: false, msg: 'Message trop court pour être valide.' };
+    }
 
+    const normalizedWords = splitNormalizedWords(rawText);
+
+    if (step && step.hint && normalizeText(step.hint) === normalizeText(rawText)) {
+        return { ok: false, msg: 'Reformule avec tes propres mots au lieu de copier l\'indice.' };
+    }
+
+    const cleanRaw = normalizeText(rawText);
+    const antiCheatPhrases = ['objectif non atteint', 'il te manque', 'tu dois utiliser', 'reessayer le scan'];
+    if (antiCheatPhrases.some(p => cleanRaw.includes(p))) {
+        return { ok: false, msg: 'Ne copie pas le message d\'erreur, reponds a la consigne.' };
+    }
+
+    if (reqs && Array.isArray(reqs.forbidden)) {
+        const forbiddenHit = reqs.forbidden.find(f => cleanRaw.includes(normalizeText(f)));
+        if (forbiddenHit) {
+            return { ok: false, msg: `Tu dois remplacer "${forbiddenHit}".` };
+        }
+    }
+
+    if (reqs && Array.isArray(reqs.keywordGroups) && reqs.keywordGroups.length > 0) {
+        const missingGroups = reqs.keywordGroups.filter(group =>
+            !Array.isArray(group) || !group.some(keyword => hasRequiredToken(rawText, normalizedWords, keyword))
+        );
+        if (missingGroups.length > 0) {
+            const expected = missingGroups
+                .map(group => Array.isArray(group) && group.length > 0 ? group[0] : null)
+                .filter(Boolean);
+            return { ok: false, msg: 'Objectif non atteint. Il manque un element de : ' + expected.join(', ') + '.' };
+        }
+    }
+
+    if (reqs && reqs.keywords) {
         if (reqs.enforceKeywords) {
-            // Mode "Strict" : TOUS les mots sont requis
-            const missing = reqs.keywords.filter((k, i) => !hasWord(normKeywords[i]));
+            const missing = reqs.keywords.filter(keyword => !hasRequiredToken(rawText, normalizedWords, keyword));
             if (missing.length > 0) {
                 return { ok: false, msg: 'Objectif non atteint. Il te manque : ' + missing.join(', ') + '.' };
             }
         } else {
-            // Mode "Souple" : AU MOINS UN des mots est requis (pour les synonymes ou conjugaisons)
-            const found = normKeywords.some(hasWord);
+            const found = reqs.keywords.some(keyword => hasRequiredToken(rawText, normalizedWords, keyword));
             if (!found) {
-                return { ok: false, msg: 'Objectif non atteint. Tu dois utiliser le verbe demandé (ex: ' + reqs.keywords[0] + ').' };
+                return { ok: false, msg: 'Objectif non atteint. Tu dois utiliser au moins un mot-cle attendu (ex: ' + reqs.keywords[0] + ').' };
             }
+        }
+    }
+
+    if (reqs && reqs.minWords) {
+        const words = rawText.split(/\s+/).filter(Boolean).length;
+        if (words < reqs.minWords) {
+            return { ok: false, msg: `Ta reponse est trop courte (${words} mots). Minimum: ${reqs.minWords}.` };
+        }
+    }
+
+    if (reqs && reqs.minSentences) {
+        const sentenceCount = (rawText.match(/[.!?]+/g) || []).length;
+        if (sentenceCount < reqs.minSentences) {
+            return { ok: false, msg: `Ajoute ${reqs.minSentences} phrase(s) complete(s).` };
         }
     }
 
     try {
         const params = new URLSearchParams();
-        params.append('text', text);
+        params.append('text', rawText);
         params.append('language', 'fr');
 
         const response = await fetch('https://api.languagetool.org/v2/check', {
@@ -595,7 +653,7 @@ async function validateTactical(text, reqs) {
         if (data.matches && data.matches.length > 0) {
             const error = data.matches[0];
             let msg = error.message;
-            if (error.rule.issueType === 'misspelling') msg = 'Erreur de saisie : ' + error.context.text.substr(error.context.offset, error.context.length) + ' semble mal écrit.';
+            if (error.rule.issueType === 'misspelling') msg = 'Erreur de saisie : ' + error.context.text.substr(error.context.offset, error.context.length) + ' semble mal ecrit.';
             if (msg.includes('Sujet et verbe ne semblent pas s’accorder')) msg = 'Alerte Accord : Ton verbe n\'est pas synchronisé avec ton sujet !';
             
             return { ok: false, msg: msg };
@@ -666,7 +724,7 @@ async function syncWithParent(dayId, status = 'TERMINÉ') {
     const moduleName = folder + ' / ' + file;
     
     // Récupération des infos de la mission
-    const day = appData.find(d => d.id.toString() === dayId.toString());
+    const day = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === dayId.toString());
     const missionId = dayId;
     const missionTitle = day ? day.title : 'Mission';
     

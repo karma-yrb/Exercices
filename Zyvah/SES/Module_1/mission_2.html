@@ -160,7 +160,7 @@
                     title: "Exemple Cout Variable",
                     q: "Donne un exemple de cout variable en studio.",
                     requirements: {
-                        keywords: ["electricite"],
+                        keywords: ["electricite", "matiere", "matieres", "transport", "energie"],
                         minWords: 1
                     },
                     hint: "C'est ce qui augmente quand les machines tournent plus.",
@@ -203,9 +203,13 @@
                     title: "Synthese Profit",
                     q: "Explique en 2 phrases comment augmenter le profit d'un label.",
                     requirements: {
-                        keywords: ["augmenter", "couts", "prix"],
-                        minWords: 6,
-                        enforceKeywords: true
+                        keywordGroups: [
+                            ["augmenter", "augmente", "augmentant", "hausser", "monter"],
+                            ["cout", "couts", "depense", "depenses"],
+                            ["prix", "ca", "chiffre", "vente", "ventes"]
+                        ],
+                        minWords: 8,
+                        minSentences: 2
                     },
                     hint: "Parle de faire monter le CA ou de faire baisser les couts.",
                     feed: "Synthese valide. Tu relies CA, couts et profit."

@@ -26,7 +26,7 @@
 7. quiz - Priorité multiplication
 8. write - Priorité division
 9. quiz - Opérations mélangées
-10. write - Lecture gauche→droite
+10. write - Lecture gauche->droite
 11. msg - Forcer l'ordre avec parenthèses
 12. quiz - Comparaison avec/sans parenthèses
 13. write - Master Mix complet
@@ -84,7 +84,7 @@
 ### Écran 4 - quiz - Parenthèses imbriquées
 **Type:** quiz
 
-**Question:** "Dans `10 + [2 × (3 + 1)]`, quelle parenthèse calcules-tu EN PREMIER ?"
+**Question:** "Dans `10 + 2 × (3 + 1)`, quelle parenthèse calcules-tu EN PREMIER ?"
 
 **Options:**
 - `10 + 2`
@@ -97,10 +97,10 @@
 
 ---
 
-### Écran 5 - write - Deep Mix (parenthèses dans parenthèses)
+### Écran 5 - write - Deep Mix (priorites de calcul)
 **Type:** write
 
-**Question:** "Calcule ce mix complet : `10 + [2 × (3 + 1)]`"
+**Question:** "Calcule ce mix complet : `10 + 2 × (3 + 1)`"
 
 **Requirements:**
 - keywords: ["18"]
@@ -180,7 +180,7 @@
 
 ---
 
-### Écran 10 - write - Lecture gauche→droite
+### Écran 10 - write - Lecture gauche->droite
 **Type:** write
 
 **Question:** "Calcule : `5 × 4 ÷ 2`"

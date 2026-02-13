@@ -101,7 +101,7 @@
                     title: "Agents de Socialisation",
                     q: "Cite un agent de socialisation a l'ecole.",
                     requirements: {
-                        keywords: ["professeurs", "enseignants", "ecole", "profs"],
+                        keywords: ["professeur", "professeurs", "enseignant", "enseignants", "profs", "ecole"],
                         minWords: 1
                     },
                     hint: "Ce sont les personnes qui t'enseignent en classe.",
@@ -138,7 +138,7 @@
                     title: "Exemple de Norme",
                     q: "Donne une norme simple au studio.",
                     requirements: {
-                        keywords: ["ponctualite", "heure", "respect"],
+                        keywords: ["ponctualite", "heure", "respect", "respecter", "arriver"],
                         minWords: 1
                     },
                     hint: "Par exemple : arriver a l'heure.",
@@ -162,7 +162,7 @@
                     title: "Exemple de Valeur",
                     q: "Donne une valeur importante dans une equipe.",
                     requirements: {
-                        keywords: ["respect", "solidarite", "confiance"],
+                        keywords: ["respect", "solidarite", "confiance", "entraide"],
                         minWords: 1
                     },
                     hint: "C'est un ideal qui guide le groupe.",
@@ -184,12 +184,12 @@
                 {
                     type: "write",
                     title: "Role des Pairs",
-                    q: "Explique en un mot qui influence beaucoup les choix des ados.",
+                    q: "Cite en un mot qui influence beaucoup les choix des ados.",
                     requirements: {
-                        keywords: ["amis", "groupe", "pairs"],
+                        keywords: ["amis", "ami", "groupe", "pairs", "pair"],
                         minWords: 1
                     },
-                    hint: "C'est ton groupe proche.",
+                    hint: "Pense au cercle proche des ados.",
                     feed: "Exact. Les pairs influencent fortement."
                 },
                 {
@@ -197,9 +197,13 @@
                     title: "Synthese Socialisation",
                     q: "Explique comment la socialisation construit l'identite d'un artiste.",
                     requirements: {
-                        keywords: ["normes", "valeurs", "groupe"],
-                        minWords: 6,
-                        enforceKeywords: true
+                        keywordGroups: [
+                            ["norme", "normes", "regle", "regles"],
+                            ["valeur", "valeurs"],
+                            ["groupe", "entourage", "pairs", "famille"]
+                        ],
+                        minWords: 8,
+                        minSentences: 2
                     },
                     hint: "Parle des regles, des valeurs et des personnes autour.",
                     feed: "Bonne synthese. Tu relies normes, valeurs et influence du groupe."

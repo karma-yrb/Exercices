@@ -1,4 +1,4 @@
-/* French-specific validation plugin for Lovyc modules. */
+﻿/* French-specific validation plugin for Lovyc modules. */
 (function () {
     const thirdGroupWhitelist = new Set([
         'est', 'sont', 'suis', 'es', 'etes', 'sommes',
@@ -39,6 +39,34 @@
 
         // 3rd-group irregular forms whitelist to reduce false positives.
         return thirdGroupWhitelist.has(normalized);
+    }
+
+    function splitWordsNormalized(text, normalizeFn) {
+        return normalizeFn(text)
+            .split(/[\s']+/)
+            .map(w => w.trim())
+            .filter(Boolean);
+    }
+
+    function hasToken(rawText, normalizedWords, token, normalizeFn) {
+        if (!token) return false;
+        const source = String(token);
+        if (/[a-zA-Z\u00C0-\u017F]/.test(source)) {
+            const normalizedToken = normalizeFn(source);
+            if (!normalizedToken) return false;
+            return normalizedWords.includes(normalizedToken) || normalizedWords.some(w => w.startsWith(normalizedToken) || normalizedToken.startsWith(w));
+        }
+        return rawText.includes(source);
+    }
+
+    function countSentences(text) {
+        return (text.match(/[.!?]+/g) || []).length;
+    }
+
+    function isFillBlankStep(step) {
+        const q = step && (step.q || step.question || '');
+        const normalizedQ = (q || '').toLowerCase();
+        return normalizedQ.includes('____') || normalizedQ.includes('complete la phrase');
     }
 
     async function checkGrammar(text) {
@@ -87,92 +115,83 @@
 
             const reqs = step.requirements || {};
             const keywords = Array.isArray(reqs.keywords) ? reqs.keywords : [];
+            const keywordGroups = Array.isArray(reqs.keywordGroups) ? reqs.keywordGroups : [];
             const mustInclude = Array.isArray(reqs.mustInclude) ? reqs.mustInclude : [];
             const mode = reqs.mode || 'keywords';
             const trimmed = (text || '').trim();
+            const fillBlank = isFillBlankStep(step);
+            const hasOneWordTarget = Number(reqs.minWords) <= 1 || fillBlank;
+            const minChars = Number(reqs.minChars) || (hasOneWordTarget ? 1 : 3);
 
-            if (trimmed.length < 2) {
+            if (!trimmed || trimmed.length < minChars) {
                 return { handled: true, ok: false, msg: 'Message trop court pour etre valide.' };
             }
 
+            if (step.hint && normalizeText(step.hint) === normalizeText(trimmed)) {
+                return { handled: true, ok: false, msg: 'Reformule avec tes propres mots au lieu de copier l\'indice.' };
+            }
+
+            const normalizedRaw = normalizeText(trimmed);
+            const antiCheatPhrases = ['objectif non atteint', 'il te manque', 'tu dois utiliser', 'reessayer le scan'];
+            if (antiCheatPhrases.some(p => normalizedRaw.includes(p))) {
+                return { handled: true, ok: false, msg: 'Ne copie pas le message d\'erreur, reponds a la consigne.' };
+            }
+
+            const normalizedWords = splitWordsNormalized(trimmed, normalizeText);
+
             if (mustInclude.length > 0) {
-                const rawLower = trimmed.toLowerCase();
                 for (const token of mustInclude) {
                     if (!token) continue;
-                    if (/[a-zA-Z\u00C0-\u017F]/.test(token)) {
-                        if (!rawLower.includes(token.toLowerCase())) {
+                    if (!hasToken(trimmed, normalizedWords, token, normalizeText)) {
+                        if (/[a-zA-Z\u00C0-\u017F]/.test(token)) {
                             return { handled: true, ok: false, msg: 'Ta phrase doit contenir : ' + token + '.' };
                         }
-                    } else {
-                        if (!trimmed.includes(token)) {
-                            return { handled: true, ok: false, msg: 'N\'oublie pas le signe : ' + token };
-                        }
+                        return { handled: true, ok: false, msg: 'N\'oublie pas le signe : ' + token };
                     }
                 }
             }
 
-            let keywordsValidated = false;
+            if (keywordGroups.length > 0) {
+                const missingGroups = keywordGroups.filter(group =>
+                    !Array.isArray(group) || !group.some(token => hasToken(trimmed, normalizedWords, token, normalizeText))
+                );
+                if (missingGroups.length > 0) {
+                    const expected = missingGroups
+                        .map(group => Array.isArray(group) && group.length > 0 ? group[0] : null)
+                        .filter(Boolean);
+                    return { handled: true, ok: false, msg: 'Objectif non atteint. Il manque un element de : ' + expected.join(', ') + '.' };
+                }
+            }
+
+            let keywordsValidated = keywords.length === 0;
             let missingKeywords = [];
-            
+
             if (keywords.length > 0) {
-                const cleanText = normalizeText(trimmed);
-                const normKeywords = keywords.map(k => normalizeText(k));
-                
-                // Fonction pour vérifier la présence d'un mot exact (whole word)
-                // Comme normalizeText peut supprimer des caractères, on utilise une simulation de \b
-                const hasWord = (word) => ` ${cleanText} `.includes(` ${word} `);
-
                 if (reqs.enforceKeywords) {
-                    // Logique AND : Tous les mots requis
-                    missingKeywords = keywords.filter((k, i) => !hasWord(normKeywords[i]));
+                    missingKeywords = keywords.filter(k => !hasToken(trimmed, normalizedWords, k, normalizeText));
                     keywordsValidated = missingKeywords.length === 0;
-
                     if (!keywordsValidated) {
-                        const tokens = cleanText.split(' ').filter(Boolean);
-                        const isEditDistanceOne = (a, b) => {
-                            if (a === b) return false;
-                            if (Math.abs(a.length - b.length) > 1) return false;
-                            let i = 0;
-                            let j = 0;
-                            let diff = 0;
-                            while (i < a.length && j < b.length) {
-                                if (a[i] === b[j]) {
-                                    i++;
-                                    j++;
-                                } else {
-                                    diff++;
-                                    if (diff > 1) return false;
-                                    if (a.length > b.length) i++;
-                                    else if (a.length < b.length) j++;
-                                    else { i++; j++; }
-                                }
-                            }
-                            if (i < a.length || j < b.length) diff++;
-                            return diff === 1;
-                        };
-                        const nearTypo = missingKeywords.find(k => {
-                            const norm = normalizeText(k);
-                            return tokens.some(t => isEditDistanceOne(t, norm));
-                        });
-                        if (nearTypo) {
-                            return { handled: true, ok: false, msg: 'Orthographe a corriger: ' + nearTypo + '.' };
-                        }
                         return { handled: true, ok: false, msg: 'Objectif non atteint. Il te manque : ' + missingKeywords.join(', ') + '.' };
                     }
                 } else {
-                    // Logique OR : Au moins un mot requis
-                    keywordsValidated = normKeywords.some(hasWord);
-
+                    keywordsValidated = keywords.some(k => hasToken(trimmed, normalizedWords, k, normalizeText));
                     if (!keywordsValidated) {
-                        return { handled: true, ok: false, msg: 'Objectif non atteint. Tu dois utiliser : ' + keywords.join(' ou ') + '.' };
+                        return { handled: true, ok: false, msg: 'Objectif non atteint. Tu dois utiliser au moins un mot-cle attendu (ex: ' + keywords[0] + ').' };
                     }
                 }
-                
-                // Si on n'est pas en sentence mode, on valide directement si keywords ok
-                if (keywordsValidated && mode === 'keywords') {
-                    const grammar = await checkGrammar(trimmed);
-                    if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
-                    return { handled: true, ok: true, msg: 'Parfait. Vocabulaire precis.' };
+            }
+
+            if (reqs.minWords) {
+                const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
+                if (wordCount < reqs.minWords) {
+                    return { handled: true, ok: false, msg: 'Ta reponse est trop courte (' + wordCount + ' mots). Minimum: ' + reqs.minWords + '.' };
+                }
+            }
+
+            if (reqs.minSentences) {
+                const sentenceCount = countSentences(trimmed);
+                if (sentenceCount < reqs.minSentences) {
+                    return { handled: true, ok: false, msg: 'Ajoute ' + reqs.minSentences + ' phrase(s) complete(s).' };
                 }
             }
 
@@ -180,35 +199,37 @@
                 if (trimmed.includes(' ')) {
                     return { handled: true, ok: false, msg: 'Un seul verbe est attendu.' };
                 }
-                if (isVerbLike(trimmed, normalizeText)) {
-                    const grammar = await checkGrammar(trimmed);
-                    if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
-                    return { handled: true, ok: true, msg: 'Correct, verbe valide. On visait un mot plus precis.' };
+                if (!isVerbLike(trimmed, normalizeText)) {
+                    return { handled: true, ok: false, msg: 'Ce mot ne ressemble pas a un verbe conjugue.' };
                 }
-                return { handled: true, ok: false, msg: 'Ce mot ne ressemble pas a un verbe conjugue.' };
+            }
+
+            if (mode === 'sentence' && Array.isArray(reqs.forbidden) && reqs.forbidden.length > 0) {
+                const forbiddenHit = reqs.forbidden.find(f => normalizedRaw.includes(normalizeText(f)));
+                if (forbiddenHit) {
+                    return { handled: true, ok: false, msg: 'Tu dois remplacer le mot "' + forbiddenHit + '".' };
+                }
+            }
+
+            const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
+            const shouldCheckGrammar = (mode === 'sentence' || mode === 'verb' || mode === 'keywords') && wordCount > 1;
+            if (shouldCheckGrammar) {
+                const grammar = await checkGrammar(trimmed);
+                if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
+            }
+
+            if (mode === 'keywords') {
+                return { handled: true, ok: true, msg: 'Parfait. Vocabulaire precis.' };
+            }
+
+            if (mode === 'verb') {
+                return { handled: true, ok: true, msg: 'Correct, verbe valide.' };
             }
 
             if (mode === 'sentence') {
-                const forbidden = reqs.forbidden || [];
-                const cleanText = normalizeText(trimmed);
-
-                for (const f of forbidden) {
-                    if (cleanText.includes(normalizeText(f))) {
-                        return { handled: true, ok: false, msg: `Tu dois remplacer le mot "${f}" !` };
-                    }
-                }
-
-                if (trimmed.length < 10) {
-                    return { handled: true, ok: false, msg: 'Ta phrase semble trop courte.' };
-                }
-
-                const grammar = await checkGrammar(trimmed);
-                if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
-
                 if (keywordsValidated) {
                     return { handled: true, ok: true, msg: 'Parfait. Vocabulaire precis.' };
                 }
-
                 return { handled: true, ok: true, msg: 'Transmission validee. Phrase bien construite !' };
             }
 
@@ -216,3 +237,4 @@
         }
     };
 })();
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -23,7 +23,7 @@
         <div id="step-body"></div>
         <div id="footer" class="footer">
             <button id="btn-prev" class="btn-nav">RETOUR</button>
-            <button id="btn-next" class="btn-nav">ÉTAPE SUIVANTE</button>
+            <button id="btn-next" class="btn-nav">Ã‰TAPE SUIVANTE</button>
         </div>
     </div>
 
@@ -39,13 +39,13 @@
                     </path>
                 </svg>
             </div>
-            <h1 class="success-title">WARM-UP TERMINÉ !</h1>
-            <p class="success-text">Bien joué Zyvah ! Les bases sont solides.</p>
+            <h1 class="success-title">WARM-UP TERMINÃ‰ !</h1>
+            <p class="success-text">Bien jouÃ© Zyvah ! Les bases sont solides.</p>
             <div class="box-concept next-mission-call">
-                <span style="color: var(--accent); font-weight: 800;">🎚️ BADGE DÉBLOQUÉ</span><br>
+                <span style="color: var(--accent); font-weight: 800;">ðŸŽšï¸ BADGE DÃ‰BLOQUÃ‰</span><br>
                 <b>STUDIO CHECK</b>
             </div>
-            <p style="color: var(--text-dim); font-size: 0.9rem; margin: 20px 0;">Direction le <b>Module 2</b> pour attaquer le vrai calcul littéral de Seconde !</p>
+            <p style="color: var(--text-dim); font-size: 0.9rem; margin: 20px 0;">Direction le <b>Module 2</b> pour attaquer le vrai calcul littÃ©ral de Seconde !</p>
             <a href="../Module_2/index.html" class="btn-main">CONTINUER</a>
         </div>
     </div>
@@ -67,177 +67,177 @@
                     type: "msg",
                     title: "Le Code du Studio (rappel)",
                     body: `
-                        <p class="content-chunk">Zyvah, avant d'attaquer les formules de mixage avancées, on révise rapidement les <b>priorités de calcul</b>. C'est la base pour tout ce qui va suivre.</p>
+                        <p class="content-chunk">Zyvah, avant d'attaquer les formules de mixage avancÃ©es, on rÃ©vise rapidement les <b>prioritÃ©s de calcul</b>. C'est la base pour tout ce qui va suivre.</p>
                         <div class="box-concept">
-                            <b>Les 3 règles du Studio :</b><br><br>
-                            1️⃣ <b>Parenthèses ( )</b> → Traitement prioritaire absolu<br>
-                            2️⃣ <b>Multiplication × et Division ÷</b> → Avant addition/soustraction<br>
-                            3️⃣ <b>Lecture gauche → droite</b> → Si même priorité
+                            <b>Les 3 rÃ¨gles du Studio :</b><br><br>
+                            1ï¸âƒ£ <b>ParenthÃ¨ses ( )</b> â†’ Traitement prioritaire absolu<br>
+                            2ï¸âƒ£ <b>Multiplication Ã— et Division Ã·</b> â†’ Avant addition/soustraction<br>
+                            3ï¸âƒ£ <b>Lecture gauche -> droite</b> â†’ Si mÃªme prioritÃ©
                         </div>
                     `
                 },
                 {
                     type: "quiz",
-                    title: "Priorité Parenthèses",
-                    q: "Dans l'expression <code>5 + (2 × 3)</code>, quelle opération traites-tu EN PREMIER ?",
+                    title: "PrioritÃ© ParenthÃ¨ses",
+                    q: "Dans l'expression <code>5 + (2 Ã— 3)</code>, quelle opÃ©ration traites-tu EN PREMIER ?",
                     opts: [
                         "5 + 2",
-                        "2 × 3",
+                        "2 Ã— 3",
                         "5 + 3"
                     ],
                     a: 1,
-                    feed: "Exact ! Les parenthèses ( ) sont le <b>Master</b> : elles passent toujours avant tout le reste."
+                    feed: "Exact ! Les parenthÃ¨ses ( ) sont le <b>Master</b> : elles passent toujours avant tout le reste."
                 },
                 {
                     type: "write",
-                    title: "Calcul avec parenthèses simples",
-                    q: "Calcule le résultat final de : <code>10 - (2 + 3)</code>",
+                    title: "Calcul avec parenthÃ¨ses simples",
+                    q: "Calcule le rÃ©sultat final de : <code>10 - (2 + 3)</code>",
                     requirements: {
                         keywords: ["5"],
                         minWords: 1
                     },
-                    hint: "D'abord calcule <code>(2 + 3)</code>, puis soustrais le résultat de <code>10</code>.",
-                    feed: "Bien ! <code>(2 + 3) = 5</code>, puis <code>10 - 5 = 5</code>. Les parenthèses gèrent tout."
+                    hint: "D'abord calcule <code>(2 + 3)</code>, puis soustrais le rÃ©sultat de <code>10</code>.",
+                    feed: "Bien ! <code>(2 + 3) = 5</code>, puis <code>10 - 5 = 5</code>. Les parenthÃ¨ses gÃ¨rent tout."
                 },
                 {
                     type: "quiz",
-                    title: "Parenthèses imbriquées",
-                    q: "Dans <code>10 + [2 × (3 + 1)]</code>, quelle parenthèse calcules-tu EN PREMIER ?",
+                    title: "ParenthÃ¨ses imbriquÃ©es",
+                    q: "Dans <code>10 + 2 Ã— (3 + 1)</code>, quelle parenthÃ¨se calcules-tu EN PREMIER ?",
                     opts: [
                         "10 + 2",
                         "(3 + 1)",
-                        "2 × 4"
+                        "2 Ã— 4"
                     ],
                     a: 1,
-                    feed: "Exact ! On commence toujours par la parenthèse <b>la plus profonde</b> (au centre)."
+                    feed: "Exact ! On commence toujours par la parenthÃ¨se <b>la plus profonde</b> (au centre)."
                 },
                 {
                     type: "write",
-                    title: "Deep Mix (parenthèses dans parenthèses)",
-                    q: "Calcule ce mix complet : <code>10 + [2 × (3 + 1)]</code>",
+                    title: "Deep Mix (priorites de calcul)",
+                    q: "Calcule ce mix complet : <code>10 + 2 Ã— (3 + 1)</code>",
                     requirements: {
                         keywords: ["18"],
                         minWords: 1
                     },
-                    hint: "Étape 1 : <code>(3 + 1) = 4</code>. Étape 2 : <code>2 × 4 = 8</code>. Étape 3 : <code>10 + 8 = ?</code>",
-                    feed: "Parfait ! <code>(3+1)=4</code> → <code>2×4=8</code> → <code>10+8=18</code>. Mixage propre."
+                    hint: "Ã‰tape 1 : <code>(3 + 1) = 4</code>. Ã‰tape 2 : <code>2 Ã— 4 = 8</code>. Ã‰tape 3 : <code>10 + 8 = ?</code>",
+                    feed: "Parfait ! <code>(3+1)=4</code> â†’ <code>2Ã—4=8</code> â†’ <code>10+8=18</code>. Mixage propre."
                 },
                 {
                     type: "msg",
                     title: "Multiplication & Division avant Addition",
                     body: `
-                        <p class="content-chunk">Après les parenthèses, les <b>multiplications</b> (×) et <b>divisions</b> (÷) sont <b>plus fortes</b> que les additions (+) et soustractions (−).</p>
+                        <p class="content-chunk">AprÃ¨s les parenthÃ¨ses, les <b>multiplications</b> (Ã—) et <b>divisions</b> (Ã·) sont <b>plus fortes</b> que les additions (+) et soustractions (âˆ’).</p>
                         <div class="box-concept">
                             <b>Exemple :</b><br>
-                            <code>2 + 5 × 2 = ?</code><br><br>
-                            ⚠️ <span style="color: var(--danger);">Piège :</span> Ne fais PAS <code>7 × 2 = 14</code> !<br><br>
-                            ✅ <span style="color: var(--success);">Correct :</span> D'abord <code>5 × 2 = 10</code>, puis <code>2 + 10 = 12</code>.
+                            <code>2 + 5 Ã— 2 = ?</code><br><br>
+                            âš ï¸ <span style="color: var(--danger);">PiÃ¨ge :</span> Ne fais PAS <code>7 Ã— 2 = 14</code> !<br><br>
+                            âœ… <span style="color: var(--success);">Correct :</span> D'abord <code>5 Ã— 2 = 10</code>, puis <code>2 + 10 = 12</code>.
                         </div>
                     `
                 },
                 {
                     type: "quiz",
-                    title: "Priorité multiplication",
-                    q: "Calcule : <code>10 - 2 × 4</code>",
+                    title: "PrioritÃ© multiplication",
+                    q: "Calcule : <code>10 - 2 Ã— 4</code>",
                     opts: [
                         "32",
                         "2",
                         "8"
                     ],
                     a: 1,
-                    feed: "Bien ! D'abord <code>2 × 4 = 8</code>, puis <code>10 - 8 = 2</code>. La multiplication est prioritaire."
+                    feed: "Bien ! D'abord <code>2 Ã— 4 = 8</code>, puis <code>10 - 8 = 2</code>. La multiplication est prioritaire."
                 },
                 {
                     type: "write",
-                    title: "Priorité division",
-                    q: "Calcule : <code>20 - 10 ÷ 2</code>",
+                    title: "PrioritÃ© division",
+                    q: "Calcule : <code>20 - 10 Ã· 2</code>",
                     requirements: {
                         keywords: ["15"],
                         minWords: 1
                     },
-                    hint: "La division (÷) est prioritaire sur la soustraction (−). Calcule <code>10 ÷ 2</code> d'abord.",
-                    feed: "Exact ! <code>10 ÷ 2 = 5</code>, puis <code>20 - 5 = 15</code>."
+                    hint: "La division (Ã·) est prioritaire sur la soustraction (âˆ’). Calcule <code>10 Ã· 2</code> d'abord.",
+                    feed: "Exact ! <code>10 Ã· 2 = 5</code>, puis <code>20 - 5 = 15</code>."
                 },
                 {
                     type: "quiz",
-                    title: "Opérations mélangées",
-                    q: "Calcule : <code>6 + 4 × 3 - 2</code>",
+                    title: "OpÃ©rations mÃ©langÃ©es",
+                    q: "Calcule : <code>6 + 4 Ã— 3 - 2</code>",
                     opts: [
                         "28",
                         "16",
                         "22"
                     ],
                     a: 1,
-                    feed: "Parfait ! D'abord <code>4 × 3 = 12</code>, puis <code>6 + 12 - 2 = 16</code>."
+                    feed: "Parfait ! D'abord <code>4 Ã— 3 = 12</code>, puis <code>6 + 12 - 2 = 16</code>."
                 },
                 {
                     type: "write",
-                    title: "Lecture gauche→droite",
-                    q: "Calcule : <code>5 × 4 ÷ 2</code>",
+                    title: "Lecture gauche -> droite",
+                    q: "Calcule : <code>5 Ã— 4 Ã· 2</code>",
                     requirements: {
                         keywords: ["10"],
                         minWords: 1
                     },
-                    hint: "× et ÷ ont la <b>même priorité</b>, donc lis de <b>gauche à droite</b> : calcule <code>5 × 4</code> d'abord, puis divise par 2.",
-                    feed: "Génial ! <code>5 × 4 = 20</code>, puis <code>20 ÷ 2 = 10</code>. Flow respecté."
+                    hint: "Ã— et Ã· ont la <b>mÃªme prioritÃ©</b>, donc lis de <b>gauche Ã  droite</b> : calcule <code>5 Ã— 4</code> d'abord, puis divise par 2.",
+                    feed: "GÃ©nial ! <code>5 Ã— 4 = 20</code>, puis <code>20 Ã· 2 = 10</code>. Flow respectÃ©."
                 },
                 {
                     type: "msg",
-                    title: "Forcer l'ordre avec parenthèses",
+                    title: "Forcer l'ordre avec parenthÃ¨ses",
                     body: `
-                        <p class="content-chunk">Si tu veux qu'une <b>addition soit faite AVANT</b> une multiplication, tu dois utiliser les <b>parenthèses</b>.</p>
+                        <p class="content-chunk">Si tu veux qu'une <b>addition soit faite AVANT</b> une multiplication, tu dois utiliser les <b>parenthÃ¨ses</b>.</p>
                         <div class="box-concept">
                             <b>Comparaison :</b><br><br>
-                            • Sans parenthèses : <code>5 + 5 × 2 = 5 + 10 = 15</code><br>
-                            • Avec parenthèses : <code>(5 + 5) × 2 = 10 × 2 = 20</code><br><br>
-                            Les parenthèses <b>forcent</b> le traitement prioritaire.
+                            â€¢ Sans parenthÃ¨ses : <code>5 + 5 Ã— 2 = 5 + 10 = 15</code><br>
+                            â€¢ Avec parenthÃ¨ses : <code>(5 + 5) Ã— 2 = 10 Ã— 2 = 20</code><br><br>
+                            Les parenthÃ¨ses <b>forcent</b> le traitement prioritaire.
                         </div>
                     `
                 },
                 {
                     type: "quiz",
-                    title: "Comparaison avec/sans parenthèses",
+                    title: "Comparaison avec/sans parenthÃ¨ses",
                     q: "Lequel de ces mix donne <b>20</b> ?",
                     opts: [
-                        "(5 + 5) × 2",
-                        "5 + 5 × 2"
+                        "(5 + 5) Ã— 2",
+                        "5 + 5 Ã— 2"
                     ],
                     a: 0,
-                    feed: "Oui ! Avec parenthèses : <code>10 × 2 = 20</code>. Sans : <code>5 + 10 = 15</code>."
+                    feed: "Oui ! Avec parenthÃ¨ses : <code>10 Ã— 2 = 20</code>. Sans : <code>5 + 10 = 15</code>."
                 },
                 {
                     type: "write",
                     title: "Master Mix complet",
-                    q: "Calcule ce signal complexe : <code>10 × (15 - 5) + 5</code>",
+                    q: "Calcule ce signal complexe : <code>10 Ã— (15 - 5) + 5</code>",
                     requirements: {
                         keywords: ["105"],
                         minWords: 1
                     },
-                    hint: "Étape 1 : Parenthèse. Étape 2 : Multiplication. Étape 3 : Addition.",
-                    feed: "Précision chirurgicale ! <code>(15-5)=10</code> → <code>10×10=100</code> → <code>100+5=105</code>."
+                    hint: "Ã‰tape 1 : ParenthÃ¨se. Ã‰tape 2 : Multiplication. Ã‰tape 3 : Addition.",
+                    feed: "PrÃ©cision chirurgicale ! <code>(15-5)=10</code> â†’ <code>10Ã—10=100</code> â†’ <code>100+5=105</code>."
                 },
                 {
                     type: "quiz",
                     title: "QCM de validation",
-                    q: "Dans <code>100 - (20 + 30)</code>, quelle partie est traitée EN PREMIER ?",
+                    q: "Dans <code>100 - (20 + 30)</code>, quelle partie est traitÃ©e EN PREMIER ?",
                     opts: [
                         "100 - 20",
                         "20 + 30",
                         "100 - 30"
                     ],
                     a: 1,
-                    feed: "Verrouillé ! Les parenthèses passent toujours en premier."
+                    feed: "VerrouillÃ© ! Les parenthÃ¨ses passent toujours en premier."
                 },
                 {
                     type: "challenge",
                     title: "Boss Warm-Up",
-                    q: "Calcule cette équation finale pour valider ton <b>warm-up</b> :<br><br><code>50 - (2 × 5 + 5)</code>",
+                    q: "Calcule cette Ã©quation finale pour valider ton <b>warm-up</b> :<br><br><code>50 - (2 Ã— 5 + 5)</code>",
                     requirements: {
                         keywords: ["35"],
                         minWords: 1
                     },
-                    hint: "Calcule d'abord <b>l'intérieur</b> de la parenthèse (attention : le × est prioritaire à l'intérieur !), puis soustrais le résultat de 50.",
-                    feed: "**WARM-UP TERMINÉ** ✅<br>Bien joué Zyvah ! Les bases sont solides. Maintenant, direction le **Module 2** pour attaquer le **vrai calcul littéral de Seconde** : développement, identités remarquables, factorisation et équations.<br><b>Badge débloqué :</b> 🎚️ Studio Check"
+                    hint: "Calcule d'abord <b>l'intÃ©rieur</b> de la parenthÃ¨se (attention : le Ã— est prioritaire Ã  l'intÃ©rieur !), puis soustrais le rÃ©sultat de 50.",
+                    feed: "**WARM-UP TERMINÃ‰** âœ…<br>Bien jouÃ© Zyvah ! Les bases sont solides. Maintenant, direction le **Module 2** pour attaquer le **vrai calcul littÃ©ral de Seconde** : dÃ©veloppement, identitÃ©s remarquables, factorisation et Ã©quations.<br><b>Badge dÃ©bloquÃ© :</b> ðŸŽšï¸ Studio Check"
                 }
             ]
         }
@@ -248,3 +248,5 @@
 
 </body>
 </html>
+
+

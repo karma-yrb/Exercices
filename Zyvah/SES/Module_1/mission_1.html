@@ -154,7 +154,7 @@
                     title: "Action Manager",
                     q: "Si tu as trop de stock invendu, dois-tu monter ou baisser ton prix ?",
                     requirements: {
-                        keywords: ["baisser"],
+                        keywords: ["baisser", "baisse", "baisses", "reduire", "reduit", "reduction"],
                         minWords: 1
                     },
                     hint: "Pour attirer plus de clients (Demande), que fais-tu du prix ?",
@@ -186,7 +186,7 @@
                     title: "Effet Prix Bas",
                     q: "Si le prix baisse, que fait en general la demande ?",
                     requirements: {
-                        keywords: ["augmente"],
+                        keywords: ["augmente", "augmentation", "monte", "hausse"],
                         minWords: 1
                     },
                     hint: "Prix plus bas = plus de clients.",
@@ -197,9 +197,13 @@
                     title: "Synthese Marche",
                     q: "Explique en 2 phrases comment se fixe le prix d'un concert.",
                     requirements: {
-                        keywords: ["offre", "demande", "equilibre"],
-                        minWords: 6,
-                        enforceKeywords: true
+                        keywordGroups: [
+                            ["offre", "offres"],
+                            ["demande", "demandes"],
+                            ["equilibre", "equilibrer", "equilibres"]
+                        ],
+                        minWords: 8,
+                        minSentences: 2
                     },
                     hint: "Parle du nombre de places (offre) et du nombre de fans (demande).",
                     feed: "Analyse valide. Tu relies offre, demande et prix d'equilibre."

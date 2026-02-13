@@ -117,7 +117,7 @@ class MarkdownValidator {
             if (!block) continue;
 
             const hasKeywords = block.includes('Requirements:') && 
-                               (block.includes('keywords:') || block.includes('minWords:'));
+                               (block.includes('keywords:') || block.includes('keywordGroups:') || block.includes('minWords:'));
             
             if (!hasKeywords) {
                 const screenMatch = block.match(/^([^\n]+)/);
