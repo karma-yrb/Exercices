@@ -26,6 +26,7 @@ Regle: Toute modification de contenu doit d'abord mettre a jour le draft `.md`, 
 ## Governance baseline
 - Public reproducible governance lives in `docs/governance/`.
 - Local private governance may remain in ignored `.github/*` files.
+- Tracking safeguards are documented in `docs/governance/TRACKING_POLICY.md`.
 - Use this split to keep audits reproducible without exposing family-private context.
 
 ---

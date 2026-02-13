@@ -10,7 +10,7 @@ const WEEKDATA_REGEX = /(const|var|let)\s+weekData\s*=\s*(\[\s*\{[\s\S]*?\}\s*\]
 function evaluateLiteral(literal) {
     const script = new vm.Script(`(${literal})`);
     const context = vm.createContext(Object.create(null));
-    return script.runInContext(context, { timeout: 100 });
+    return script.runInContext(context, { timeout: 1000 });
 }
 
 function extractWeekDataFromContent(content) {

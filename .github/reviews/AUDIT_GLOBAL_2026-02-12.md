@@ -11,8 +11,8 @@
 - Risque global: Modere
 
 ## Synthese executif
-- Progression nette: P1 technique ferme (gouvernance versionnee + suppression de eval) et suite de tests 56/56 OK.
-- Risques prioritaires restants: bypass possible des checks sur `main` par acteur privilegie; cadrage conformite tracking mineurs incomplet.
+- Progression nette: P1 technique ferme (gouvernance versionnee + suppression de eval), policy tracking versionnee, et suite de tests 57/57 OK.
+- Risques prioritaires restants: bypass possible des checks sur `main` par acteur privilegie.
 - Decision de gate: autoriser iteration, mais ne pas considerer la gouvernance totalement stabilisee tant que P0 restants ne sont pas fermes.
 
 ## Findings (ordonnes par severite)
@@ -27,15 +27,15 @@
 - Test de non-regression: tenter un push direct sur `main` avec checks in-progress et verifier rejet automatique.
 - Statut: Open
 
-### 2) [Majeur] Cadrage conformite tracking mineurs incomplet (mais reduit)
+### 2) [Closed] Cadrage tracking formalise (policy + tests de non-regression)
 - Portee: Securite
-- Fichier: `assets/shared/engine.js:684`, `assets/shared/engine.js:708`, `assets/shared/engine_math.js:850`, `assets/shared/engine_math.js:874`
-- Ligne: 684, 708, 850, 874
-- Constat: amelioration faite (IP optionnelle via `TRACKING_INCLUDE_IP`, tracking actor/device/session), mais pas encore de policy formelle versionnee sur consentement/retention/minimisation.
-- Impact: risque legal/conformite residuel, meme en contexte familial prive si usage evolue.
-- Action corrective: ajouter doc versionnee (mode tracking OFF par defaut, finalites, retention, purge, opt-in explicite), et checklist d'activation.
-- Test de non-regression: en config par defaut, verifier absence de champ IP; en opt-in, verifier presence et tracabilite.
-- Statut: In progress
+- Fichier: `assets/shared/engine.js`, `assets/shared/engine_math.js`, `docs/governance/TRACKING_POLICY.md`, `tests/validators/tracking-policy-validator.js`
+- Ligne: n/a
+- Constat: IP reste strictement opt-in (`TRACKING_INCLUDE_IP === true`), policy versionnee ajoutee, et controle automatique dans le test runner.
+- Impact: reduction forte du risque de derive de tracking.
+- Action corrective: maintenir policy + validator synchronises a chaque evolution du payload.
+- Test de non-regression: le runner valide l'absence d'IP en dur, la presence des champs `actor_id/device_id/session_id`, et la regle opt-in IP.
+- Statut: Closed
 
 ### 3) [Closed] Gouvernance minimale maintenant versionnee
 - Portee: Global
@@ -69,16 +69,15 @@
 
 ## Controle final
 - Workflow Git/hook verifie: Oui
-- Tests executes: Oui (`node tests/test-runner.js` le 2026-02-12)
+- Tests executes: Oui (`node tests/test-runner.js` le 2026-02-12, 57/57)
 - Qualite validateurs verifiee: Oui (parser sandbox)
 - Points accessibilite verifies: Partiel (pas d'audit WCAG outille ici)
-- Points securite verifies: Partiel (tracking policy a formaliser)
-- Conformite mineurs verifiee: Partielle
+- Points securite verifies: Oui (tracking policy + tests automatises)
+- Conformite mineurs verifiee: Partielle (reste le cadre legal/operationnel selon contexte d'usage)
 
 ## Plan de remediation
 - P0 (immediat):
   - Fermer Finding 1 (branch protection anti-bypass effective).
-  - Finaliser policy tracking mineurs (Finding 2).
 - P1 (court terme):
   - Maintenir baseline gouvernance et verifier a chaque re-audit (Finding 3 deja ferme).
   - Maintenir parser securise et ajouter test malveillant dedie (Finding 4 ferme + hardening).
@@ -86,10 +85,10 @@
   - Surveiller la coherence docs/tests lors des prochaines evolutions.
 
 ## Etat P0/P1/P2 (resume)
-- P0: Partiellement ferme (gate bypass: Open, tracking policy: In progress)
+- P0: Partiellement ferme (gate bypass: Open)
 - P1: Ferme (gouvernance + eval)
 - P2: Ferme (harmonisation docs Windows/tests effectuee)
 
 ## Decision
 - Conditions de merge/push: aucun Critique ouvert (ok), mais exiger cloture P0 avant phase "release stabilisee".
-- Date cible de re-audit: apres cloture gate anti-bypass + policy tracking (proposition: 2026-02-19).
+- Date cible de re-audit: apres cloture gate anti-bypass (proposition: 2026-02-19).

@@ -11,6 +11,7 @@ const HtmlValidator = require('./validators/html-validator');
 const SyncValidator = require('./validators/sync-validator');
 const WriteResponseValidator = require('./validators/write-response-validator');
 const PathValidator = require('./validators/path-validator');
+const TrackingPolicyValidator = require('./validators/tracking-policy-validator');
 
 class TestRunner {
     constructor() {
@@ -38,6 +39,7 @@ class TestRunner {
         }
 
         toTest.forEach(module => this.testModule(module));
+        this.testTrackingPolicy();
 
         this.printSummary();
     }
@@ -147,6 +149,17 @@ class TestRunner {
         const pathValidator = new PathValidator(module.htmlDir);
         const pathResult = pathValidator.validate();
         this.printResult('Chemins', pathResult);
+    }
+
+    testTrackingPolicy() {
+        console.log(`\n${'═'.repeat(60)}`);
+        console.log('🔐 CONTROLE GLOBAL: TRACKING POLICY');
+        console.log(`${'═'.repeat(60)}\n`);
+        console.log('🔍 Test Global: Gouvernance + payload tracking...');
+
+        const validator = new TrackingPolicyValidator(path.join(__dirname, '..'));
+        const result = validator.validate();
+        this.printResult('Tracking policy', result);
     }
 
     getExpectedMissions(draftPath) {
