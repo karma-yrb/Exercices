@@ -72,3 +72,9 @@ Ce referentiel definit les controles a appliquer sur l'ensemble du projet.
 
 ## 6) Regle de priorisation
 - En cas de conflit: securite apprenant + conformite + coherence pedagogique priment.
+
+## 7) Regles d'exception (risk acceptance)
+- Un risque documente dans `docs/governance/RISK_ACCEPTANCE.md` n'est pas reporte comme finding actif tant que:
+  - la decision est datee,
+  - un owner est defini,
+  - une cadence de revue est explicite.

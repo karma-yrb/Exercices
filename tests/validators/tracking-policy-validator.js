@@ -66,6 +66,10 @@ class TrackingPolicyValidator {
             this.errors.push(`${label}: payload.ip doit etre ajoute uniquement en opt-in`);
         }
 
+        if (!content.includes('TRACKING_SUBJECT') || !content.includes('TRACKING_MODULE')) {
+            this.errors.push(`${label}: TRACKING_SUBJECT/TRACKING_MODULE doivent etre supportes (config explicite)`);
+        }
+
         const payloadMatch = content.match(/const payload\s*=\s*\{([\s\S]*?)\};/);
         if (!payloadMatch) {
             this.errors.push(`${label}: bloc payload introuvable`);

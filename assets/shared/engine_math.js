@@ -5,6 +5,14 @@ let el = {};
 let state = null;
 let appData = [];
 let attemptCount = 0; // Compteur de tentatives pour hints progressifs
+let inactivityMonitor = {
+    lastActivity: Date.now(),
+    intervalId: null,
+    autoPauseTimerId: null,
+    promptShown: false,
+    promptAfterMs: 15 * 60 * 1000,
+    autoPauseMs: 60 * 1000
+};
 
 // Helper pour une validation robuste (ignore les accents et la ponctuation)
 const normalizeText = (t) => t ? t.toString().toLowerCase().trim()
@@ -66,6 +74,18 @@ function inferActorId(config) {
     if (storageKey.includes('lovyc')) return 'lovyc';
     if (storageKey.includes('zyvah')) return 'zyvah';
     return 'unknown';
+}
+
+function getTrackingSubject(config, pathParts) {
+    if (config && config.TRACKING_SUBJECT) return String(config.TRACKING_SUBJECT);
+    return pathParts[pathParts.length - 3] || 'General';
+}
+
+function getTrackingModule(config, pathParts) {
+    if (config && config.TRACKING_MODULE) return String(config.TRACKING_MODULE);
+    const folder = pathParts[pathParts.length - 2] || '';
+    const file = pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].replace('.html', '') : '';
+    return `${folder} / ${file}`.trim();
 }
 
 // ========================================
@@ -279,6 +299,7 @@ function boot() {
     
     injectStyles();
     injectModal();
+    startInactivityMonitor();
     console.log('Engine Initialized Successfully.');
 }
 
@@ -334,6 +355,92 @@ function showQuitModal() {
 
 function hideQuitModal() {
     document.getElementById('quit-modal').classList.remove('active');
+}
+
+function isMissionActive() {
+    return !!(state && state.currentDay && el.content && el.content.classList.contains('active'));
+}
+
+function markSessionActivity() {
+    inactivityMonitor.lastActivity = Date.now();
+    if (inactivityMonitor.promptShown) {
+        dismissInactivityPrompt(true);
+    }
+}
+
+function dismissInactivityPrompt(resetSessionClock) {
+    const modal = document.getElementById('inactivity-modal');
+    if (modal) modal.classList.remove('active');
+    inactivityMonitor.promptShown = false;
+
+    if (inactivityMonitor.autoPauseTimerId) {
+        clearTimeout(inactivityMonitor.autoPauseTimerId);
+        inactivityMonitor.autoPauseTimerId = null;
+    }
+
+    if (resetSessionClock && isMissionActive()) {
+        state.startTime = new Date().toISOString();
+        state.sessionId = makeTrackingId('sess');
+        saveState();
+    }
+}
+
+function showInactivityPrompt() {
+    let modal = document.getElementById('inactivity-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'inactivity-modal';
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-title">Toujours la ?</div>
+                <p class="modal-text">Appuie sur CONTINUER si tu es encore en session.</p>
+                <div class="modal-btns">
+                    <button class="btn-nav quit-cancel-btn" style="flex:1" onclick="continueSessionAfterIdle()">CONTINUER</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    inactivityMonitor.promptShown = true;
+    modal.classList.add('active');
+    inactivityMonitor.autoPauseTimerId = setTimeout(() => {
+        dismissInactivityPrompt(true);
+    }, inactivityMonitor.autoPauseMs);
+}
+
+window.continueSessionAfterIdle = function continueSessionAfterIdle() {
+    dismissInactivityPrompt(true);
+};
+
+function startInactivityMonitor() {
+    if (inactivityMonitor.intervalId) return;
+
+    const config = window.APP_CONFIG || {};
+    const promptMs = Number(config.INACTIVITY_PROMPT_MS);
+    const autoPauseMs = Number(config.INACTIVITY_AUTO_PAUSE_MS);
+    inactivityMonitor.promptAfterMs = Number.isFinite(promptMs) && promptMs > 0 ? promptMs : (15 * 60 * 1000);
+    inactivityMonitor.autoPauseMs = Number.isFinite(autoPauseMs) && autoPauseMs > 0 ? autoPauseMs : (60 * 1000);
+    inactivityMonitor.lastActivity = Date.now();
+
+    ['pointerdown', 'keydown', 'input', 'touchstart'].forEach((eventName) => {
+        document.addEventListener(eventName, markSessionActivity, { passive: true });
+    });
+    window.addEventListener('focus', markSessionActivity);
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            markSessionActivity();
+        }
+    });
+
+    inactivityMonitor.intervalId = setInterval(() => {
+        if (!isMissionActive() || inactivityMonitor.promptShown) return;
+        const idleFor = Date.now() - inactivityMonitor.lastActivity;
+        if (idleFor >= inactivityMonitor.promptAfterMs) {
+            showInactivityPrompt();
+        }
+    }, 10000);
 }
 
 function showFatalError(err) {
@@ -462,6 +569,7 @@ function startDay(dayIdStr) {
     state.currentStep = 0;
     state.startTime = new Date().toISOString();
     state.sessionId = makeTrackingId('sess');
+    markSessionActivity();
     attemptCount = 0; // Reset compteur au dÃ©marrage
     saveState();
     renderStep();
@@ -840,8 +948,8 @@ function completeDay() {
     if (lastDayId && !state.completedDays.includes(lastDayId)) {
         state.completedDays.push(lastDayId);
     }
-    
-    syncWithParent(lastDayId, 'TERMINÃ‰');
+    dismissInactivityPrompt(false);
+    syncWithParent(lastDayId, 'TERMINE');
 
     state.currentDay = null; 
     state.currentStep = 0;
@@ -867,7 +975,8 @@ function abandonMission() {
     if (!lastDayId) return;
     
     hideQuitModal();
-    syncWithParent(lastDayId, 'ABANDONNÃ‰');
+    dismissInactivityPrompt(false);
+    syncWithParent(lastDayId, 'ABANDONNE');
 
     state.currentDay = null;
     state.currentStep = 0;
@@ -882,15 +991,12 @@ function abandonMission() {
     }
 }
 
-async function syncWithParent(dayId, status = 'TERMINÃ‰') {
+async function syncWithParent(dayId, status = 'TERMINE') {
     const config = window.APP_CONFIG || {};
     const childName = (config.STORAGE_KEY && config.STORAGE_KEY.includes('lovyc')) ? 'Lovyc' : 'Zyvah';
     const pathParts = window.location.pathname.split('/');
-    const subject = pathParts[pathParts.length - 3] || 'GÃ©nÃ©ral'; 
-    
-    const folder = pathParts[pathParts.length - 2] || '';
-    const file = pathParts[pathParts.length - 1] ? pathParts[pathParts.length - 1].replace('.html', '') : '';
-    const moduleName = folder + ' / ' + file;
+    const subject = getTrackingSubject(config, pathParts);
+    const moduleName = getTrackingModule(config, pathParts);
     
     const day = findDayById(dayId);
     const missionId = dayId;

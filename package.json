@@ -5,9 +5,15 @@
   "scripts": {
     "test": "node tests/test-runner.js",
     "test:lovyc": "node tests/test-runner.js lovyc",
-    "test:zyvah": "node tests/test-runner.js zyvah"
+    "test:zyvah": "node tests/test-runner.js zyvah",
+    "notes:sync": "node tools/notes/sync-notes.js"
   },
-  "keywords": ["pedagogie", "tests", "qa"],
+  "keywords": [
+    "pedagogie",
+    "tests",
+    "qa"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }

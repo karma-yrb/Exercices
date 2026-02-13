@@ -12,6 +12,7 @@ const SyncValidator = require('./validators/sync-validator');
 const WriteResponseValidator = require('./validators/write-response-validator');
 const PathValidator = require('./validators/path-validator');
 const TrackingPolicyValidator = require('./validators/tracking-policy-validator');
+const NotesPipelineValidator = require('./validators/notes-pipeline-validator');
 
 class TestRunner {
     constructor() {
@@ -40,6 +41,7 @@ class TestRunner {
 
         toTest.forEach(module => this.testModule(module));
         this.testTrackingPolicy();
+        this.testNotesPipeline();
 
         this.printSummary();
     }
@@ -160,6 +162,17 @@ class TestRunner {
         const validator = new TrackingPolicyValidator(path.join(__dirname, '..'));
         const result = validator.validate();
         this.printResult('Tracking policy', result);
+    }
+
+    testNotesPipeline() {
+        console.log(`\n${'â•'.repeat(60)}`);
+        console.log('ðŸ“’ CONTROLE GLOBAL: NOTES PIPELINE');
+        console.log(`${'â•'.repeat(60)}\n`);
+        console.log('ðŸ” Test Global: qualite des donnees notes manuelles...');
+
+        const validator = new NotesPipelineValidator(path.join(__dirname, '..'));
+        const result = validator.validate();
+        this.printResult('Notes pipeline', result);
     }
 
     getExpectedMissions(draftPath) {

@@ -32,10 +32,21 @@ This policy defines the minimum safeguards for learner tracking data.
 - Optional payload field:
   - `ip` (opt-in only via `TRACKING_INCLUDE_IP === true`)
 
+## Tracking Context Source
+- `subject` and `module` should be provided explicitly by module configuration when possible:
+  - `APP_CONFIG.TRACKING_SUBJECT`
+  - `APP_CONFIG.TRACKING_MODULE`
+- URL parsing is fallback only.
+
 ## Consent
 - Consent is required before enabling IP tracking.
 - In family usage, consent is managed by the parent/guardian.
 - In non-family usage, consent must be explicit and documented.
+
+### Private Family Mode (project decision)
+- This project is operated in private family mode.
+- Parent/guardian acts as data controller and grants consent by configuration.
+- No separate in-app consent collection step is required in this mode.
 
 ## Retention
 - Keep only the minimum duration needed for pedagogical follow-up.
