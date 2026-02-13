@@ -1,0 +1,21 @@
+#!/bin/bash
+# Pre-push Hook - Gate final avant envoi remote
+# Bloque tout push si les tests ne passent pas.
+
+if [ "$SKIP_PUSH_TESTS" = "1" ]; then
+    echo "Push autorise sans tests (SKIP_PUSH_TESTS=1)."
+    exit 0
+fi
+
+echo "Verification pre-push: lancement des tests..."
+node tests/test-runner.js
+TEST_EXIT_CODE=$?
+
+if [ $TEST_EXIT_CODE -ne 0 ]; then
+    echo "PUSH BLOQUE: tests en echec."
+    echo "Corrige puis recommence: git commit (ou git push apres correction)."
+    exit 1
+fi
+
+echo "Verification pre-push OK."
+exit 0

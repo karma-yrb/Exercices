@@ -10,8 +10,9 @@ Aucun changement ne part en remote sans validation automatique des tests.
 2. Si les tests echouent : commit bloque.
 3. Si les tests passent : commit cree.
 4. Hook `post-commit` : lance `git push` automatiquement.
+5. Hook `pre-push` : relance `node tests/test-runner.js` (gate final).
 
-Donc, dans ce repo, `git commit` = tests + commit + push (sauf exception explicite).
+Donc, dans ce repo, `git commit` = tests + commit + push, et le push est lui aussi bloque si les tests ne passent pas.
 Le deploiement Pages est ensuite conditionne par la CI GitHub (`Tests` obligatoires).
 
 ## Processus standard
@@ -53,16 +54,18 @@ git commit -m "feat: ..."
 Le commit declenche automatiquement les hooks:
 - pre-commit (tests)
 - post-commit (push)
+- pre-push (tests)
 
 ## Cas particuliers
 
-### Bypass test urgent
+### Bypass commit local (deconseille)
 
 ```bash
 git commit --no-verify -m "fix: hotfix critique"
 ```
 
-Attention: `--no-verify` saute le pre-commit local, mais la CI reste bloquante pour le deploiement.
+Attention: `--no-verify` saute seulement le pre-commit.
+Le `pre-push` reste actif et bloquera quand meme le push si les tests echouent.
 Ne pas utiliser `--no-verify` pour une release.
 
 ### Desactiver temporairement le push auto
@@ -77,18 +80,27 @@ Ensuite push manuel:
 git push
 ```
 
+### Desactiver exceptionnellement les tests au push (deconseille)
+
+```bash
+SKIP_PUSH_TESTS=1 git push
+```
+
 ## Installation hooks
 
 ```bash
 # Linux/Mac
 cp .git-hooks/pre-commit .git/hooks/pre-commit
 cp .git-hooks/post-commit .git/hooks/post-commit
+cp .git-hooks/pre-push .git/hooks/pre-push
 chmod +x .git/hooks/pre-commit
 chmod +x .git/hooks/post-commit
+chmod +x .git/hooks/pre-push
 
 # Windows (Git Bash)
 cp .git-hooks/pre-commit .git/hooks/pre-commit
 cp .git-hooks/post-commit .git/hooks/post-commit
+cp .git-hooks/pre-push .git/hooks/pre-push
 ```
 
 ## Tests lances
@@ -104,6 +116,10 @@ cp .git-hooks/post-commit .git/hooks/post-commit
 Zero regression. Zero bug pedagogique en production.
 Zero derive de qualite (pedagogie, validation, accessibilite, securite).
 
-## Protection branche (GitHub)
+## Protection branche (GitHub) pour ce flux direct
 
-Configurer la protection de `main` pour imposer le status check `Tests` avant merge/push.
+Pour garder le flux simple `commit -> tests -> push` en direct sur `main`:
+- ne pas imposer `Require status checks to pass before merging/pushing` sur `main`.
+- laisser la CI `Tests` active pour verifier/apres push et pour le deploiement Pages.
+
+Sinon GitHub affichera `Bypassed rule violations ... Required status check "Tests" is expected`, car cette regle est incompatible avec un push direct valide localement.
