@@ -13,6 +13,7 @@ const WriteResponseValidator = require('./validators/write-response-validator');
 const PathValidator = require('./validators/path-validator');
 const TrackingPolicyValidator = require('./validators/tracking-policy-validator');
 const NotesPipelineValidator = require('./validators/notes-pipeline-validator');
+const EncodingValidator = require('./validators/encoding-validator');
 
 class TestRunner {
     constructor() {
@@ -40,6 +41,7 @@ class TestRunner {
         }
 
         toTest.forEach(module => this.testModule(module));
+        this.testEncodingIntegrity();
         this.testTrackingPolicy();
         this.testNotesPipeline();
 
@@ -151,6 +153,17 @@ class TestRunner {
         const pathValidator = new PathValidator(module.htmlDir);
         const pathResult = pathValidator.validate();
         this.printResult('Chemins', pathResult);
+    }
+
+    testEncodingIntegrity() {
+        console.log(`\n${'='.repeat(60)}`);
+        console.log('ENCODAGE UTF-8');
+        console.log(`${'='.repeat(60)}\n`);
+        console.log('Test Global: detection des sequences mojibake...');
+
+        const validator = new EncodingValidator(path.join(__dirname, '..'));
+        const result = validator.validate();
+        this.printResult('Encodage UTF-8', result);
     }
 
     testTrackingPolicy() {

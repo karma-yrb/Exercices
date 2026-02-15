@@ -1,4 +1,4 @@
-﻿// ENGINE SPA - UNIVERSAL (Robust Version + Math Support)
+// ENGINE SPA - UNIVERSAL (Robust Version + Math Support)
 // Handles progress, navigation and rendering for all modules
 
 let el = {};
@@ -93,21 +93,21 @@ function getTrackingModule(config, pathParts) {
 // ========================================
 
 /**
- * Normalise une expression mathÃ©matique pour comparaison intelligente
- * - Convertit xÂ² â†’ x^2, Â² â†’ ^2
- * - Unifie espaces et multiplication implicite (2x â†’ 2*x)
- * - Supprime espaces autour des opÃ©rateurs
+ * Normalise une expression mathématique pour comparaison intelligente
+ * - Convertit x² → x^2, ² → ^2
+ * - Unifie espaces et multiplication implicite (2x → 2*x)
+ * - Supprime espaces autour des opérateurs
  * - Lowercase
  */
 const normalizeMath = (text) => {
     if (!text) return "";
     let result = text.toString().trim().toLowerCase();
     
-    // Conversion exposants Unicode â†’ notation ^
-    result = result.replace(/Â²/g, "^2");
-    result = result.replace(/Â³/g, "^3");
+    // Conversion exposants Unicode → notation ^
+    result = result.replace(/²/g, "^2");
+    result = result.replace(/³/g, "^3");
     
-    // Multiplication implicite : 2x â†’ 2*x, 3a â†’ 3*a
+    // Multiplication implicite : 2x → 2*x, 3a → 3*a
     result = result.replace(/(\d)([a-z])/gi, "$1*$2");
     
     // Suppression des espaces excessifs
@@ -117,20 +117,20 @@ const normalizeMath = (text) => {
 };
 
 /**
- * Extrait les nombres d'une rÃ©ponse d'Ã©quation
- * Exemple : "-3, 5" â†’ ["-3", "5"]
- * Exemple : "x = 0 ou x = -7" â†’ ["0", "-7"]
+ * Extrait les nombres d'une réponse d'équation
+ * Exemple : "-3, 5" → ["-3", "5"]
+ * Exemple : "x = 0 ou x = -7" → ["0", "-7"]
  */
 const extractNumbers = (text) => {
     if (!text) return [];
-    // Regex pour capturer nombres (entiers ou dÃ©cimaux, avec signe -)
+    // Regex pour capturer nombres (entiers ou décimaux, avec signe -)
     const matches = text.match(/-?\d+\.?\d*/g);
     return matches ? matches.map(n => n.trim()) : [];
 };
 
 /**
- * Compare deux listes de nombres (ordre indÃ©pendant)
- * Retourne true si les listes contiennent les mÃªmes nombres
+ * Compare deux listes de nombres (ordre indépendant)
+ * Retourne true si les listes contiennent les mêmes nombres
  */
 const sameNumbers = (arr1, arr2) => {
     if (!arr1 || !arr2) return false;
@@ -143,12 +143,12 @@ const sameNumbers = (arr1, arr2) => {
 };
 
 /**
- * DÃ©tecte si le texte contient des symboles mathÃ©matiques
+ * Détecte si le texte contient des symboles mathématiques
  * Utile pour fallback : si pas de symboles math, validation textuelle normale
  */
 const containsMathSymbols = (text) => {
     if (!text) return false;
-    const mathPattern = /[+\-*/^Â²Â³()=xyzabc\d]/i;
+    const mathPattern = /[+\-*/^²³()=xyzabc\d]/i;
     return mathPattern.test(text);
 };
 
@@ -216,7 +216,7 @@ function init() {
                 if (appData && appData.length > 0) boot();
                 else {
                     // Final fallback to UI message
-                    if (el.grid) el.grid.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:20px;">Chargement des donnÃ©es...</p>';
+                    if (el.grid) el.grid.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:20px;">Chargement des données...</p>';
                 }
             }, 50);
         } else {
@@ -252,7 +252,7 @@ function boot() {
     // 4. Initial Rendering
     if (config.SINGLE_MISSION_MODE && appData.length > 0) {
         const dayId = toIdString(appData[0] && appData[0].id);
-        // Force le dÃ©marrage de la mission unique prÃ©sente sur la page
+        // Force le démarrage de la mission unique présente sur la page
         if (dayId && state.currentDay !== dayId) {
             state.currentDay = dayId;
             state.currentStep = 0;
@@ -288,7 +288,7 @@ function boot() {
             const day = findDayById(state.currentDay);
             if (day && state.currentStep < day.steps.length - 1) {
                 state.currentStep++;
-                attemptCount = 0; // Reset compteur Ã  chaque nouvelle Ã©tape
+                attemptCount = 0; // Reset compteur à chaque nouvelle étape
                 renderStep();
             } else {
                 completeDay();
@@ -339,7 +339,7 @@ function injectModal() {
     m.innerHTML = `
         <div class="modal-content">
             <div class="modal-title">Abandonner la mission ?</div>
-            <p class="modal-text">Ta progression dans cet exercice sera perdue. Es-tu sÃ»r de vouloir nous quitter Agent ?</p>
+            <p class="modal-text">Ta progression dans cet exercice sera perdue. Es-tu sûr de vouloir nous quitter Agent ?</p>
             <div class="modal-btns">
                 <button class="btn-nav quit-cancel-btn" style="flex:1" onclick="hideQuitModal()">RESTER</button>
                 <button class="btn-nav quit-confirm-btn" style="flex:1" onclick="abandonMission()">QUITTER</button>
@@ -488,7 +488,7 @@ function renderLobby() {
     
     // Check if whole module is locked by prerequisite
     let moduleLocked = false;
-    let prerequisiteName = "le module prÃ©cÃ©dent";
+    let prerequisiteName = "le module précédent";
     if (config.PREREQUISITE_KEY) {
         let preReq = null;
         try {
@@ -521,9 +521,9 @@ function renderLobby() {
         if (moduleLocked) {
             el.grid.innerHTML = `
                 <div class="lock-overlay-lobby" style="grid-column: 1 / -1; padding: 40px 20px; text-align: center; background: rgba(255,71,87,0.05); border: 2px dashed var(--danger); border-radius: 20px; margin: 20px 0;">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">ðŸ”’</div>
-                    <h3 style="color: var(--danger); margin-bottom: 10px; font-weight: 800;">ACCÃˆS REFUSÃ‰</h3>
-                    <p style="color: var(--text-dim);">Tu dois d'abord terminer <b>${config.PREREQUISITE_KEY.includes('w1') ? 'le MODULE 1' : 'le module prÃ©cÃ©dent'}</b> pour dÃ©verrouiller ces transmissions.</p>
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
+                    <h3 style="color: var(--danger); margin-bottom: 10px; font-weight: 800;">ACCÈS REFUSÉ</h3>
+                    <p style="color: var(--text-dim);">Tu dois d'abord terminer <b>${config.PREREQUISITE_KEY.includes('w1') ? 'le MODULE 1' : 'le module précédent'}</b> pour déverrouiller ces transmissions.</p>
                 </div>
             `;
             return;
@@ -539,7 +539,7 @@ function renderLobby() {
             const card = document.createElement('div');
             card.className = `day-card ${isLocked ? 'locked' : ''} ${isDone ? 'completed' : ''}`;
             
-            let iconContent = isDone ? 'âœ“' : (day.icon || (index + 1));
+            let iconContent = isDone ? '✓' : (day.icon || (index + 1));
 
             card.innerHTML = `
                 <div class="icon">${iconContent}</div>
@@ -570,7 +570,7 @@ function startDay(dayIdStr) {
     state.startTime = new Date().toISOString();
     state.sessionId = makeTrackingId('sess');
     markSessionActivity();
-    attemptCount = 0; // Reset compteur au dÃ©marrage
+    attemptCount = 0; // Reset compteur au démarrage
     saveState();
     renderStep();
 }
@@ -612,7 +612,7 @@ function renderStep() {
     
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
-        el.btnNext.innerText = isBoss ? 'VALIDER LA MISSION' : 'Ã‰TAPE SUIVANTE';
+        el.btnNext.innerText = isBoss ? 'VALIDER LA MISSION' : 'ÉTAPE SUIVANTE';
         el.btnNext.classList.toggle('boss-btn', isBoss);
     }
 
@@ -642,28 +642,28 @@ function renderStep() {
                     <path d="M40 70 L60 70" fill="none" stroke="currentColor" stroke-width="2" />
                     <path d="M20 50 L10 50 M90 50 L80 50 M50 10 L50 20 M50 90 L50 80" stroke="currentColor" stroke-width="1" />
                 </svg>
-                <div class="boss-label">MENACE DÃ‰TECTÃ‰E</div>
+                <div class="boss-label">MENACE DÉTECTÉE</div>
             </div>
         ` : '';
         
         // Dynamic Question Formatting (Extracting text inside <i>)
         let formattedQ = q.replace(/<i>(.*?)<\/i>/g, '<div class="tactical-data">$1</div>');
 
-        // SystÃ¨me de hints progressifs (hint1 aprÃ¨s 2 Ã©checs, hint2 aprÃ¨s 3 Ã©checs)
+        // Système de hints progressifs (hint1 après 2 échecs, hint2 après 3 échecs)
         if (step.hint1 || step.hint2 || step.hint) {
             let hintContent = '';
-            let hintLabel = 'ðŸ’¡ INDICE';
+            let hintLabel = '💡 INDICE';
             
             if (attemptCount >= 3 && step.hint2) {
-                // Niveau 2 : Hint dÃ©taillÃ© aprÃ¨s 3+ Ã©checs
+                // Niveau 2 : Hint détaillé après 3+ échecs
                 hintContent = step.hint2;
-                hintLabel = 'ðŸ’¡ INDICE DÃ‰TAILLÃ‰';
+                hintLabel = '💡 INDICE DÉTAILLÉ';
             } else if (attemptCount >= 2 && step.hint1) {
-                // Niveau 1 : Hint lÃ©ger aprÃ¨s 2+ Ã©checs
+                // Niveau 1 : Hint léger après 2+ échecs
                 hintContent = step.hint1;
-                hintLabel = 'ðŸ’¡ MÃ‰THODE';
+                hintLabel = '💡 MÉTHODE';
             } else if (step.hint) {
-                // Fallback : hint classique (pour compatibilitÃ©)
+                // Fallback : hint classique (pour compatibilité)
                 hintContent = step.hint;
             }
             
@@ -679,9 +679,9 @@ function renderStep() {
             <p class="content-chunk" style="font-size: 1.15rem; line-height: 1.6; color: var(--text); background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border-left: 3px solid var(--accent);">${formattedQ}</p>
             <div style="margin-top:20px; display: flex; flex-direction: column; gap: 15px;">
                 ${hintHtml}
-                <textarea id="input-write" placeholder="Tape ta rÃ©ponse ici..." class="btn-opt" 
+                <textarea id="input-write" placeholder="Tape ta réponse ici..." class="btn-opt" 
                        style="background: rgba(255,255,255,0.05); border-style: dashed; width: 100%; cursor: text; margin-bottom: 0; min-height: 100px; padding: 15px; resize: none; overflow-y: auto; text-transform: none;"></textarea>
-                <button id="btn-check-write" class="btn-main">VÃ‰RIFIER</button>
+                <button id="btn-check-write" class="btn-main">VÉRIFIER</button>
                 <div id="write-feedback"></div>
             </div>
         `;
@@ -703,15 +703,15 @@ function renderStep() {
                             check.classList.add('hidden');
                             feedArea.innerHTML = `
                                 <div class="success-badge">
-                                    <p style="color: var(--success); font-weight: bold; margin: 0;"><b>âœ“</b> ${pluginResult.msg || feed}</p>
+                                    <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> ${pluginResult.msg || feed}</p>
                                 </div>
                             `;
                             if (el.btnNext) el.btnNext.disabled = false;
                         } else {
                             check.disabled = false;
-                            check.innerText = 'RÃ‰ESSAYER LE SCAN';
+                            check.innerText = 'RÉESSAYER LE SCAN';
                             input.classList.add('shake');
-                            feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>âš ï¸</b> ' + pluginResult.msg + '</p>';
+                            feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ' + pluginResult.msg + '</p>';
                             setTimeout(() => input.classList.remove('shake'), 400);
                         }
                         return;
@@ -729,16 +729,16 @@ function renderStep() {
                         check.classList.add('hidden');
                         feedArea.innerHTML = `
                             <div class="success-badge">
-                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>âœ“</b> ${feed}</p>
+                                <p style="color: var(--success); font-weight: bold; margin: 0;"><b>✓</b> ${feed}</p>
                             </div>
                         `;
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
-                        attemptCount++; // IncrÃ©menter au premier Ã©chec validation Requirements
+                        attemptCount++; // Incrémenter au premier échec validation Requirements
                         check.disabled = false;
-                        check.innerText = 'RÃ‰ESSAYER LE SCAN';
+                        check.innerText = 'RÉESSAYER LE SCAN';
                         input.classList.add('shake');
-                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>âš ï¸</b> ' + result.msg + '</p>';
+                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ' + result.msg + '</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
                         
                         // Re-render pour afficher hint si seuils atteints
@@ -754,12 +754,12 @@ function renderStep() {
                     if (ok) {
                         input.disabled = true; 
                         check.disabled = true;
-                        feedArea.innerHTML = '<p style="color: var(--success); margin-top: 10px;"><b>âœ“</b> ' + feed + '</p>';
+                        feedArea.innerHTML = '<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ' + feed + '</p>';
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
-                        attemptCount++; // IncrÃ©menter au second type d'Ã©chec (fallback sans requirements)
+                        attemptCount++; // Incrémenter au second type d'échec (fallback sans requirements)
                         input.classList.add('shake'); 
-                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>âš ï¸</b> Signal instable. VÃ©rifie l\'ordre ou l\'orthographe !</p>';
+                        feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l\'ordre ou l\'orthographe !</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
                         
                         // Re-render pour afficher hint si seuils atteints
@@ -1020,7 +1020,7 @@ async function syncWithParent(dayId, status = 'TERMINE') {
             const ipJson = await ipRes.json();
             clientIP = ipJson.ip || 'Inconnue';
         } catch (e) {
-            console.log('Impossible de rÃ©cupÃ©rer l\'IP');
+            console.log('Impossible de récupérer l\'IP');
         }
     }
 
@@ -1052,7 +1052,7 @@ async function syncWithParent(dayId, status = 'TERMINE') {
             headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify(payload)
         });
-        console.log('Synchro Cloud envoyÃ©e (POST).');
+        console.log('Synchro Cloud envoyée (POST).');
     } catch (e) {
         console.error('Echec de la synchro Cloud:', e);
     }
