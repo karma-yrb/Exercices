@@ -168,7 +168,7 @@
                         <div class="prog-bar-bg">
                             <div id="math-bar" class="prog-bar-fill bg-purple-500"></div>
                         </div>
-                        <p id="math-count" class="prog-text">0/5 MISSIONS</p>
+                        <p id="math-count" class="prog-text">0/5 SEANCES</p>
                     </div>
                 </div>
                 <div class="chevron text-purple-400">
@@ -188,7 +188,7 @@
                         <div class="prog-bar-bg">
                             <div id="ses-bar" class="prog-bar-fill bg-cyan-500"></div>
                         </div>
-                        <p id="ses-count" class="prog-text">0/5 MISSIONS</p>
+                        <p id="ses-count" class="prog-text">0/5 SEANCES</p>
                     </div>
                 </div>
                 <div class="chevron text-cyan-400">
@@ -220,13 +220,13 @@
             const mathTotal = 5;
             const mathPercent = (mathDone / mathTotal) * 100;
             document.getElementById('math-bar').style.width = mathPercent + '%';
-            document.getElementById('math-count').innerText = `${mathDone}/${mathTotal} Missions`;
+            document.getElementById('math-count').innerText = `${mathDone}/${mathTotal} SEANCES`;
 
             // Calcul SES
             const sesTotal = 5;
             const sesPercent = (sesDone / sesTotal) * 100;
             document.getElementById('ses-bar').style.width = sesPercent + '%';
-            document.getElementById('ses-count').innerText = `${sesDone}/${sesTotal} Missions`;
+            document.getElementById('ses-count').innerText = `${sesDone}/${sesTotal} SEANCES`;
 
             // Barre Globale
             const globalPercent = (mathPercent + sesPercent) / 2;
@@ -243,7 +243,7 @@
 
             const mathDone = getDone('zyvah_maths_w1_v2');
             const sesDone = getDone('zyvah_ses_w1_v2');
-            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathDone}/5 missions.\n- SES : ${sesDone}/5 missions.`;
+            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathDone}/5 SEANCES.\n- SES : ${sesDone}/5 SEANCES.`;
             const bodyEncoded = encodeURIComponent(reportText);
 
             // Ouverture du mail
@@ -254,3 +254,6 @@
     </script>
 </body>
 </html>
+
+
+

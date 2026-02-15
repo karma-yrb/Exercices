@@ -4,13 +4,13 @@
 - Theme: Initiation - regles de calcul
 - Objectif: consigne, donnees, priorites, unites, verification
 - Duree cible: ~2-3 min
-- Missions: 1
-- ScreensPerMission: 5
+- Seances: 1
+- ScreensPerSeance: 5
 
-## Mission 1 - Initiation : Regles de calcul
+## Seance 1 - Initiation : Regles de calcul
 
 ### Objectifs pedagogiques et competences
-- Appliquer les regles de base avant de commencer les missions.
+- Appliquer les regles de base avant de commencer les Seances.
 
 ### Index technique (ordre des steps)
 1. lesson - Regle 1 : Consigne jusqu'au bout
@@ -33,3 +33,4 @@
 
 ### Ecran 5 - lesson - Regle 5 : Test de logique
 - Texte: "Verifie si le resultat est logique dans la situation."
+

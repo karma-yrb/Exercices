@@ -3,11 +3,11 @@
 ## Meta
 - Theme: Manager - economie + sociologie
 - Objectif: offre/demande, couts/profit, socialisation, image, synthese
-- Missions: 5
-- ScreensPerMission: 15
-- Duree cible: ~10 min par mission
+- Seances: 5
+- ScreensPerSeance: 15
+- Duree cible: ~10 min par Seance
 
-## Mission 1 - Le Marche du Son
+## Seance 1 - Le Marche du Son
 
 ### Objectifs pedagogiques et competences
 - Comprendre offre/demande et leurs variations.
@@ -46,7 +46,7 @@
 - Requirements:
   - keywords: ["offre"]
   - minWords: 1
-- Hint: "C'est l'un des deux mots du titre de la mission (ca commence par O)."
+- Hint: "C'est l'un des deux mots du titre de la Seance (ca commence par O)."
 - Feedback: "Correct. C'est le signal des producteurs."
 
 ### Ecran 4 - msg - Loi de l'Offre
@@ -129,7 +129,7 @@
 - Hint: "Parle du nombre de places (offre) et du nombre de fans (demande)."
 - Feedback: "Analyse valide. Tu relies offre, demande et prix d'equilibre."
 
-## Mission 2 - Couts & Profit
+## Seance 2 - Couts & Profit
 
 ### Objectifs pedagogiques et competences
 - Distinguer travail, capital, couts fixes/variables.
@@ -254,7 +254,7 @@
 - Hint: "Parle de faire monter le CA ou de faire baisser les couts."
 - Feedback: "Synthese valide. Tu relies CA, couts et profit."
 
-## Mission 3 - Identite & Socialisation
+## Seance 3 - Identite & Socialisation
 
 ### Objectifs pedagogiques et competences
 - Distinguer normes et valeurs.
@@ -375,7 +375,7 @@
 - Hint: "Parle des regles, des valeurs et des personnes autour."
 - Feedback: "Bonne synthese. Tu relies normes, valeurs et influence du groupe."
 
-## Mission 4 - L'Entreprise & son Image
+## Seance 4 - L'Entreprise & son Image
 
 ### Objectifs pedagogiques et competences
 - Comprendre culture d'entreprise et image.
@@ -491,7 +491,7 @@
 - Hint: "Relie reputation, confiance et achat."
 - Feedback: "Synthese valide. Tu relies image et ventes."
 
-## Mission 5 - Le Grand Audit
+## Seance 5 - Le Grand Audit
 
 ### Objectifs pedagogiques et competences
 - Mobiliser les notions centrales du module.
@@ -611,3 +611,4 @@
   - minWords: 6
 - Hint: "Parle de prix justes, couts maitrises et confiance."
 - Feedback: "Audit valide. Tu relies economie et image."
+

@@ -40,7 +40,7 @@ class WriteResponseValidator {
     extractWriteExercises() {
         try {
             const content = fs.readFileSync(this.draftPath, 'utf-8');
-            const missionBlocks = content.split(/## Mission \d+/).slice(1);
+            const missionBlocks = content.split(/## (?:Mission|Seance) \d+/).slice(1);
 
             missionBlocks.forEach((missionBlock, missionIdx) => {
                 const screenBlocks = missionBlock.split(/### (?:Ecran|Écran|Ã‰cran) \d+/).slice(1);

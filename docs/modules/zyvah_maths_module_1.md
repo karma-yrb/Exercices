@@ -3,13 +3,13 @@
 ## Meta
 - Theme: Studio Warm-Up - Révision des priorités opératoires
 - Objectif: Consolider les bases (parenthèses, multiplication/division prioritaires, lecture gauche→droite)
-- Missions: 1
-- ScreensPerMission: 15
+- Seances: 1
+- ScreensPerSeance: 15
 - Duree cible: ~8 min
 - Niveau: Révision Cycle 4 (warm-up avant calcul littéral Seconde)
 - Prerequis: Module_0 (Initiation)
 
-## Mission 1 - Studio Check : Les Priorités du Mixage
+## Seance 1 - Studio Check : Les Priorités du Mixage
 
 ### Objectifs pedagogiques et competences
 - Réviser rapidement les règles de priorités opératoires
@@ -297,7 +297,7 @@ Bien joué Zyvah ! Les bases sont solides. Maintenant, direction le **Module 2**
 ### Cohérence avec le projet
 - ✅ 15 écrans (conforme au standard)
 - ✅ Requirements avec keywords sur tous les write/challenge
-- ✅ Boss en fin de mission
+- ✅ Boss en fin de Seance
 - ✅ Contexte Studio (univers Zyvah)
 - ✅ Feedbacks encourageants et techniques
 
@@ -306,3 +306,4 @@ Cet échauffement prépare :
 - Les expressions avec parenthèses → nécessaires pour développer `(a+b)(c+d)`
 - La priorité des opérations → indispensable pour factoriser correctement
 - La lecture d'expressions → base pour manipuler des expressions littérales
+

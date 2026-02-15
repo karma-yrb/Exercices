@@ -52,7 +52,7 @@ class SyncValidator {
 
     extractMissionsFromDraft(content) {
         const missions = [];
-        const missionBlocks = content.split(/## Mission \d+/).slice(1);
+        const missionBlocks = content.split(/## (?:Mission|Seance) \d+/).slice(1);
 
         missionBlocks.forEach(block => {
             const screens = [];
@@ -92,7 +92,7 @@ class SyncValidator {
         const metaMatch = content.split('## Meta')[1];
         if (!metaMatch) return;
 
-        const missionsMatch = metaMatch.match(/-\s*Missions:\s*(\d+)/i);
+        const missionsMatch = metaMatch.match(/-\s*(?:Missions|Seances):\s*(\d+)/i);
         if (missionsMatch) this.expectedMissions = parseInt(missionsMatch[1], 10);
     }
 

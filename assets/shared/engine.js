@@ -65,6 +65,12 @@ function inferActorId(config) {
     return 'unknown';
 }
 
+function getUnitLabel(config) {
+    if (config && config.MISSION_LABEL) return String(config.MISSION_LABEL).trim().toUpperCase();
+    const actor = inferActorId(config);
+    return actor === 'zyvah' ? 'SEANCE' : 'MISSION';
+}
+
 function getTrackingSubject(config, pathParts) {
     if (config && config.TRACKING_SUBJECT) return String(config.TRACKING_SUBJECT);
     return pathParts[pathParts.length - 3] || 'General';
@@ -274,12 +280,15 @@ function injectStyles() {
 
 function injectModal() {
     if (document.getElementById('quit-modal')) return;
+    const config = window.APP_CONFIG || {};
+    const unitLabel = getUnitLabel(config);
+    const unitLabelLower = unitLabel.toLowerCase();
     const m = document.createElement('div');
     m.id = 'quit-modal';
     m.className = 'modal-overlay';
     m.innerHTML = `
         <div class="modal-content">
-            <div class="modal-title">Abandonner la mission ?</div>
+            <div class="modal-title">Abandonner la ${unitLabelLower} ?</div>
             <p class="modal-text">Ta progression dans cet exercice sera perdue. Es-tu sûr de vouloir nous quitter Agent ?</p>
             <div class="modal-btns">
                 <button class="btn-nav quit-cancel-btn" style="flex:1" onclick="hideQuitModal()">RESTER</button>
@@ -425,7 +434,8 @@ function renderLobby() {
     if (el.footer) el.footer.classList.add('hidden');
     
     const config = window.APP_CONFIG || { STORAGE_KEY: 'default_v1' };
-    const missionLabel = config.MISSION_LABEL || (window.weekData ? 'JOUR' : 'MISSION');
+    const unitLabel = getUnitLabel(config);
+    const unitLabelLower = unitLabel.toLowerCase();
     
     // Check if whole module is locked by prerequisite
     let moduleLocked = false;
@@ -453,7 +463,7 @@ function renderLobby() {
     if (el.grid) {
         el.grid.innerHTML = '';
         if (appData.length === 0) {
-            el.grid.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:20px;">Aucune mission disponible.</p>';
+            el.grid.innerHTML = `<p style="color:var(--text-dim); text-align:center; padding:20px;">Aucune ${unitLabelLower} disponible.</p>`;
             return;
         }
 
@@ -462,7 +472,7 @@ function renderLobby() {
                 <div class="lock-overlay-lobby" style="grid-column: 1 / -1; padding: 40px 20px; text-align: center; background: rgba(255,71,87,0.05); border: 2px dashed var(--danger); border-radius: 20px; margin: 20px 0;">
                     <div style="font-size: 3rem; margin-bottom: 15px;">🔒</div>
                     <h3 style="color: var(--danger); margin-bottom: 10px; font-weight: 800;">ACCÈS REFUSÉ</h3>
-                    <p style="color: var(--text-dim);">Agent Lovyc, tu dois d'abord terminer <b>${config.PREREQUISITE_KEY.includes('w1') ? 'le MODULE 1' : 'le module précédent'}</b> pour déverrouiller ces transmissions.</p>
+                    <p style="color: var(--text-dim);">Tu dois d'abord terminer <b>${config.PREREQUISITE_KEY.includes('w1') ? 'le MODULE 1' : 'le module précédent'}</b> pour déverrouiller ces transmissions.</p>
                 </div>
             `;
             return;
@@ -549,7 +559,9 @@ function renderStep() {
     
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
-        el.btnNext.innerText = isBoss ? 'VALIDER LA MISSION' : 'ÉTAPE SUIVANTE';
+        const config = window.APP_CONFIG || {};
+        const unitLabel = getUnitLabel(config);
+        el.btnNext.innerText = isBoss ? `VALIDER LA ${unitLabel}` : 'ÉTAPE SUIVANTE';
         el.btnNext.classList.toggle('boss-btn', isBoss);
     }
 
@@ -865,7 +877,8 @@ async function syncWithParent(dayId, status = 'TERMINE') {
     // Récupération des infos de la mission
     const day = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === dayId.toString());
     const missionId = dayId;
-    const missionTitle = day ? day.title : 'Mission';
+    const unitLabel = getUnitLabel(config);
+    const missionTitle = day ? day.title : unitLabel;
     
     // Calcul de la durée
     const endTime = new Date();

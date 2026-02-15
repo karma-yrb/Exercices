@@ -45,14 +45,14 @@ class MarkdownValidator {
         }
 
         // Vérifier présence des missions
-        const missionMatches = this.content.match(/## Mission \d+/g);
+        const missionMatches = this.content.match(/## (?:Mission|Seance) \d+/g);
         if (!missionMatches || missionMatches.length !== this.expectedMissions) {
             this.errors.push(`Nombre de missions incorrect: ${missionMatches?.length || 0}/${this.expectedMissions}`);
         }
     }
 
     checkMissions() {
-        const missions = this.content.split(/## Mission \d+/).slice(1);
+        const missions = this.content.split(/## (?:Mission|Seance) \d+/).slice(1);
         
         missions.forEach((mission, idx) => {
             const missionNum = idx + 1;
@@ -82,8 +82,8 @@ class MarkdownValidator {
         const metaMatch = this.content.split('## Meta')[1];
         if (!metaMatch) return;
 
-        const missionsMatch = metaMatch.match(/-\s*Missions:\s*(\d+)/i);
-        const screensMatch = metaMatch.match(/-\s*ScreensPerMission:\s*(\d+)/i);
+        const missionsMatch = metaMatch.match(/-\s*(?:Missions|Seances):\s*(\d+)/i);
+        const screensMatch = metaMatch.match(/-\s*ScreensPer(?:Mission|Seance):\s*(\d+)/i);
 
         if (missionsMatch) this.expectedMissions = parseInt(missionsMatch[1], 10);
         if (screensMatch) this.expectedScreens = parseInt(screensMatch[1], 10);

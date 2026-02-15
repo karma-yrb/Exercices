@@ -3,15 +3,15 @@
 ## Meta
 - Theme: Studio Maths - Calcul Littéral & Algèbre
 - Objectif: Développer, factoriser, manipuler expressions algébriques, résoudre équations
-- Missions: 5
-- ScreensPerMission: 15
-- Duree cible: ~12 min par mission
+- Seances: 5
+- ScreensPerSeance: 15
+- Duree cible: ~12 min par Seance
 - Niveau: Seconde Générale (Programme officiel BO 2019)
 - Prerequis: Module_1 (Révision priorités)
 
 ---
 
-## Mission 1 - Le Développement : Mixage de Variables
+## Seance 1 - Le Développement : Mixage de Variables
 
 ### Objectifs pedagogiques et competences (Seconde GT)
 - Développer une expression avec distributivité simple : `k(a + b)`
@@ -324,15 +324,15 @@ Développe cette formule pour obtenir l'expression du prix."
 
 **Hint:** "Applique la double distributivité : multiplie tous les termes entre eux, puis regroupe."
 
-**Feedback:** "**MISSION 1 TERMINÉE** ✅
+**Feedback:** "**Seance 1 TERMINÉE** ✅
 
-Bravo Zyvah ! Tu maîtrises le **développement** (simple et double distributivité). Direction la Mission 2 pour découvrir les **identités remarquables**, les formules magiques du calcul littéral !
+Bravo Zyvah ! Tu maîtrises le **développement** (simple et double distributivité). Direction la Seance 2 pour découvrir les **identités remarquables**, les formules magiques du calcul littéral !
 
 **Badge débloqué :** 🎛️ Développeur Studio"
 
 ---
 
-## Mission 2 - Les Identités Remarquables : Formules Magiques
+## Seance 2 - Les Identités Remarquables : Formules Magiques
 
 ### Objectifs pedagogiques et competences (Seconde GT)
 - Reconnaître et utiliser `(a + b)² = a² + 2ab + b²`
@@ -631,7 +631,7 @@ Utilise le preset adapté."
 
 **Hint:** "Aire d'un carré = côté × côté = `(x + 12)²`. Utilise le preset n°1."
 
-**Feedback:** "**MISSION 2 TERMINÉE** ✅
+**Feedback:** "**Seance 2 TERMINÉE** ✅
 
 Les 3 identités remarquables sont dans ta tête ! Tu peux maintenant développer des expressions complexes en un éclair.
 
@@ -639,7 +639,7 @@ Les 3 identités remarquables sont dans ta tête ! Tu peux maintenant développe
 
 ---
 
-## Mission 3 - Factorisation : Le Reverse Engineering
+## Seance 3 - Factorisation : Le Reverse Engineering
 
 ### Objectifs pedagogiques et competences (Seconde GT)
 - Factoriser avec un facteur commun : `ka + kb = k(a + b)`
@@ -924,17 +924,17 @@ Quelle est la **forme factorisée** ?"
 
 **Hint:** "Reconnaître : `x²`, `100 = 10²`, `20x = 2 × x × 10`. C'est quelle identité ?"
 
-**Feedback:** "**MISSION 3 TERMINÉE** ✅
+**Feedback:** "**Seance 3 TERMINÉE** ✅
 
 Bravo ! La factorisation n'a plus de secrets pour toi. Tu sais maintenant « refermer » les parenthèses et reconnaître les patterns.
 
-Direction Mission 4 : les **équations** !
+Direction Seance 4 : les **équations** !
 
 **Badge débloqué :** 🔄 Reverse Engineer"
 
 ---
 
-## Mission 4 - Équations : Trouver l'Inconnue
+## Seance 4 - Équations : Trouver l'Inconnue
 
 ### Objectifs pedagogiques et competences (Seconde GT)
 - Résoudre une équation du premier degré : `ax + b = c`
@@ -1244,17 +1244,17 @@ Résous cette équation. Donne les 2 solutions."
 
 **Hint:** "Factorise d'abord par `x`, puis applique le produit-nul."
 
-**Feedback:** "**MISSION 4 TERMINÉE** ✅
+**Feedback:** "**Seance 4 TERMINÉE** ✅
 
 Maîtrise totale des équations ! Tu sais isoler une variable, utiliser le produit-nul et mettre en équation des problèmes concrets.
 
-Dernière mission : le **Studio Master Challenge** !
+Dernière Seance : le **Studio Master Challenge** !
 
 **Badge débloqué :** 🎯 Equation Solver"
 
 ---
 
-## Mission 5 - Studio Master Challenge : Synthèse Complète
+## Seance 5 - Studio Master Challenge : Synthèse Complète
 
 ### Objectifs pedagogiques et competences (Seconde GT)
 - Mobiliser toutes les compétences de calcul littéral
@@ -1536,7 +1536,7 @@ Un studio propose un forfait dont le prix dépend de la durée `x` (en heures) :
 
 `Prix = (2x + 5)² - 4x²` €
 
-**Mission :**
+**Seance :**
 1. Simplifie cette expression au maximum
 2. Si `x = 3`, calcule le prix final
 
@@ -1596,19 +1596,19 @@ Ton niveau en maths est maintenant **aligné** avec le programme officiel de Sec
 ## Notes Techniques Globales - Module 2
 
 ### Conformité Programme Seconde GT
-✅ **Développer** : Distributivité simple et double (Missions 1)  
-✅ **Identités remarquables** : Les 3 formules (Mission 2)  
-✅ **Factoriser** : Facteur commun + identités (Mission 3)  
-✅ **Équations** : 1er degré + produit-nul (Mission 4)  
-✅ **Synthèse** : Problèmes intégrés (Mission 5)
+✅ **Développer** : Distributivité simple et double (Seances 1)  
+✅ **Identités remarquables** : Les 3 formules (Seance 2)  
+✅ **Factoriser** : Facteur commun + identités (Seance 3)  
+✅ **Équations** : 1er degré + produit-nul (Seance 4)  
+✅ **Synthèse** : Problèmes intégrés (Seance 5)
 
 **Source :** BO spécial n°1 du 22/01/2019 - Programme Maths Seconde GT
 
 ### Progression pédagogique
-- **5 missions × 15 écrans = 75 écrans**
-- Durée estimée : **~12 min/mission** (temps réaliste avec 15 écrans)
+- **5 Seances × 15 écrans = 75 écrans**
+- Durée estimée : **~12 min/Seance** (temps réaliste avec 15 écrans)
 - Ratio exercices : 40% quiz / 40% write / 15% msg / 5% challenge
-- Boss en fin de chaque mission pour validation
+- Boss en fin de chaque Seance pour validation
 
 ### Cohérence avec le projet
 - ✅ Format SPA (weekData avec engine.js)
@@ -1622,9 +1622,9 @@ Ton niveau en maths est maintenant **aligné** avec le programme officiel de Sec
 | Critère | Module_1 (Warm-Up) | Module_2 (Seconde GT) |
 |---------|-------------------|---------------------|
 | Niveau | Cycle 4 (Collège) | Seconde Générale |
-| Missions | 1 | 5 |
+| Seances | 1 | 5 |
 | Écrans totaux | 15 | 75 |
-| Durée | ~8 min | ~60 min (12 min/mission) |
+| Durée | ~8 min | ~60 min (12 min/Seance) |
 | Notions | Priorités opératoires | Calcul littéral complet |
 | Objectif | Révision rapide | Programme officiel BO 2019 |
 
@@ -1640,3 +1640,4 @@ Avant génération HTML, soumettre à l'agent CONSULTANT_TECHNIQUE_PEDAGOGIQUE p
 - **Semaine 2** : Fractions & Partage (Maths Module 3)
 - **Semaine 3** : Puissances & Multiplicateurs (Maths Module 4)
 - **Semaine 4** : Initiation SES (si non fait)
+

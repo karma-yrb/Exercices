@@ -194,7 +194,7 @@ class TestRunner {
             const metaMatch = content.split('## Meta')[1];
             if (!metaMatch) return 5;
 
-            const missionsMatch = metaMatch.match(/-\s*Missions:\s*(\d+)/i);
+            const missionsMatch = metaMatch.match(/-\s*(?:Missions|Seances):\s*(\d+)/i);
             if (missionsMatch) return parseInt(missionsMatch[1], 10);
         } catch (e) {
             return 5;

@@ -4,13 +4,13 @@
 - Theme: Initiation - regles SES
 - Objectif: consigne, acteurs, faits vs opinions, termes clairs, cause-effet
 - Duree cible: ~2-3 min
-- Missions: 1
-- ScreensPerMission: 5
+- Seances: 1
+- ScreensPerSeance: 5
 
-## Mission 1 - Initiation : Regles SES
+## Seance 1 - Initiation : Regles SES
 
 ### Objectifs pedagogiques et competences
-- Appliquer les regles de base avant de commencer les missions.
+- Appliquer les regles de base avant de commencer les Seances.
 
 ### Index technique (ordre des steps)
 1. lesson - Regle 1 : Consigne et contexte
@@ -33,3 +33,4 @@
 
 ### Ecran 5 - lesson - Regle 5 : Cause et effet
 - Texte: "Explique la consequence principale de la situation."
+

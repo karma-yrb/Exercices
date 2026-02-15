@@ -46,8 +46,8 @@ node tests/test-runner.js lovyc_fr_module_1
 ## Ce qui est teste
 
 ### 1. Validation Markdown (drafts)
-- Structure complete (15 ecrans par mission par defaut)
-- Support `Missions:` et `ScreensPerMission:` dans la section Meta
+- Structure complete (15 ecrans par mission/seance par defaut)
+- Support `Missions:` / `Seances:` et `ScreensPerMission:` / `ScreensPerSeance:` dans la section Meta
 - Pas d'options dupliquees dans les MCQ
 - Keywords presents dans les `write`/`challenge`
 - Format coherent (titre, question, feedback)
