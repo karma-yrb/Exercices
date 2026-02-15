@@ -18,7 +18,6 @@
   - Suite locale verte: `node tests/test-runner.js` -> 59/59.
 - Risques prioritaires:
   - Consentement IP: absence de preuve technique explicite en payload.
-  - Metadata tracking: fallback URL encore active tant que `TRACKING_SUBJECT` / `TRACKING_MODULE` ne sont pas declares dans les modules.
 - Decision de gate:
   - Pas de blocage release immediate.
   - Correctifs P0 requis avant prochaine revue data/compliance.
@@ -61,15 +60,15 @@
   - `assets/shared/engine_math.js:84`
 - Constat:
   - Le moteur supporte bien `APP_CONFIG.TRACKING_SUBJECT` et `APP_CONFIG.TRACKING_MODULE`.
-  - A date, ces champs ne sont pas declares dans les pages modules (scan repo: aucune occurrence dans `Lovyc/` et `Zyvah/`).
+  - Ces champs sont maintenant declares sur toutes les pages mission `Lovyc/` et `Zyvah/`.
 - Impact:
   - Changement de structure de dossiers/URL peut degrader la qualite des donnees tracking.
 - Action corrective:
   - Declarer explicitement `TRACKING_SUBJECT` et `TRACKING_MODULE` dans chaque `APP_CONFIG` de module/mission.
   - Conserver le parsing URL uniquement en fallback de secours.
 - Test de non-regression:
-  - Ajouter une regle validateur: warning/erreur si config tracking explicite absente sur pages mission.
-- Statut: `In progress`
+  - Regle validateur active: erreur si config tracking explicite absente sur pages mission.
+- Statut: `Closed`
 
 ### 3) [Mineur] Validation schema notes manuelles
 - Portee: `Workflow`
@@ -126,8 +125,7 @@
   - Introduire preuve technique de consentement quand IP est active.
   - Definir schema minimal et tests associes.
 - P1 (court terme):
-  - Declarer `TRACKING_SUBJECT` / `TRACKING_MODULE` dans tous les modules actifs.
-  - Ajouter controle automatique de presence config tracking explicite.
+  - Maintenir le controle automatique de presence config tracking explicite.
 - P2 (amelioration continue):
   - Revue RA-001 trimestrielle.
   - Durcir rapport console du test-runner (texte ASCII propre, lisibilite stable).

@@ -17,6 +17,8 @@ class TrackingPolicyValidator {
         this.checkPolicyDocument();
         this.checkEngine(path.join(this.rootDir, 'assets', 'shared', 'engine.js'), 'engine.js');
         this.checkEngine(path.join(this.rootDir, 'assets', 'shared', 'engine_math.js'), 'engine_math.js');
+        this.checkMissionTrackingConfig(path.join(this.rootDir, 'Lovyc'));
+        this.checkMissionTrackingConfig(path.join(this.rootDir, 'Zyvah'));
 
         return {
             valid: this.errors.length === 0,
@@ -110,6 +112,47 @@ class TrackingPolicyValidator {
         if (payloadBlock.includes('\nip:') || payloadBlock.includes('\n        ip:')) {
             this.errors.push(`${label}: ip ne doit pas etre present en dur dans payload`);
         }
+    }
+
+    checkMissionTrackingConfig(rootDir) {
+        if (!fs.existsSync(rootDir)) return;
+
+        const missionFiles = this.findMissionFiles(rootDir);
+        missionFiles.forEach((filePath) => {
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const appConfigMatch = content.match(/window\.APP_CONFIG\s*=\s*\{([\s\S]*?)\};/m);
+            if (!appConfigMatch) return;
+
+            const appConfig = appConfigMatch[1];
+            const relativePath = path.relative(this.rootDir, filePath).replace(/\\/g, '/');
+            if (!/TRACKING_SUBJECT\s*:/.test(appConfig)) {
+                this.errors.push(`${relativePath}: TRACKING_SUBJECT manquant dans APP_CONFIG`);
+            }
+            if (!/TRACKING_MODULE\s*:/.test(appConfig)) {
+                this.errors.push(`${relativePath}: TRACKING_MODULE manquant dans APP_CONFIG`);
+            }
+        });
+    }
+
+    findMissionFiles(startDir) {
+        const files = [];
+
+        const walk = (dirPath) => {
+            const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+            entries.forEach((entry) => {
+                const fullPath = path.join(dirPath, entry.name);
+                if (entry.isDirectory()) {
+                    walk(fullPath);
+                    return;
+                }
+                if (/^mission_\d+\.html$/i.test(entry.name)) {
+                    files.push(fullPath);
+                }
+            });
+        };
+
+        walk(startDir);
+        return files;
     }
 }
 
