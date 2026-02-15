@@ -39,7 +39,74 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     overflow-y: auto;
     animation: slideUp 0.4s ease-out; 
 }
+.view:not(.active) { display: none !important; }
 .view.active { display: flex !important; flex-direction: column; }
+
+#view-content.story-layout {
+    overflow: hidden;
+    gap: clamp(8px, 1.5vh, 14px);
+    padding-top: clamp(12px, 2vh, 20px);
+    padding-bottom: calc(clamp(10px, 1.7vh, 16px) + env(safe-area-inset-bottom, 0px));
+}
+#view-content.story-layout .step-header {
+    margin-bottom: clamp(4px, 1.1vh, 10px);
+}
+#view-content.story-layout #step-title {
+    font-size: clamp(1.35rem, 6.4vw, 1.8rem);
+    line-height: 1.15;
+}
+#view-content.story-layout #step-body {
+    min-height: 0;
+    display: flex;
+}
+#view-content.story-layout #step-body > .story-card {
+    width: 100%;
+    margin: 0;
+    padding: clamp(14px, 2.2vh, 24px) clamp(14px, 4vw, 22px);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(8px, 1.2vh, 14px);
+}
+#view-content.story-layout .story-title {
+    font-size: clamp(1.25rem, 5.8vw, 1.6rem);
+    line-height: 1.15;
+    margin-bottom: 0;
+}
+#view-content.story-layout .story-text {
+    font-size: clamp(1rem, 4.5vw, 1.2rem);
+    line-height: 1.28;
+}
+#view-content.story-layout .story-dots {
+    margin-top: clamp(6px, 1vh, 12px);
+}
+#view-content.story-layout .story-hint {
+    margin-top: clamp(4px, 0.8vh, 8px);
+    font-size: clamp(0.84rem, 3.4vw, 0.95rem);
+}
+
+#app.story-layout-active .footer {
+    padding: 14px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 18px));
+}
+#app.story-layout-active .btn-group {
+    justify-content: center;
+}
+#app.story-layout-active .btn-nav,
+#app.story-layout-active .btn-main {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+}
+#app.story-layout-active .btn-nav {
+    padding: 14px;
+    font-size: clamp(0.78rem, 3.2vw, 0.9rem);
+}
+#app.story-layout-active .btn-main {
+    padding: 15px;
+    font-size: clamp(0.92rem, 3.8vw, 1rem);
+}
 
 .lobby-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; color: var(--accent); }
 .lobby-intro { color: var(--text-dim); margin-bottom: 32px; line-height: 1.5; font-size: 0.95rem; }
@@ -89,23 +156,25 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 .btn-opt.correct { background: var(--success) !important; color: #000; font-weight: bold; border-color: var(--success); }
 .btn-opt.wrong { background: #ff4757 !important; color: #fff; border-color: #ff4757; }
 
-.footer { 
+.footer,
+.footer-nav,
+#footer {
     padding: 24px 24px 45px 24px; 
     background: var(--card); 
     border-top: 1px solid var(--border); 
     flex-shrink: 0;
 }
-.btn-group { display: flex; gap: 12px; }
+.btn-group { display: flex; gap: 12px; width: 100%; }
 .btn-nav {
     flex: 1; padding: 18px; 
     background: rgba(255,255,255,0.1); border: 1px solid var(--border);
     border-radius: 20px; color: #ffffff;
     font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
-    cursor: pointer;
+    cursor: pointer; white-space: nowrap;
 }
 .btn-main {
     flex: 3; padding: 20px; background: var(--accent); border: none; border-radius: 20px;
-    color: #000; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer;
+    color: #000; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer; white-space: nowrap;
 }
 .btn-main:disabled { opacity: 0.3; filter: grayscale(1); }
 
@@ -129,3 +198,16 @@ b { color: var(--accent); }
     75% { transform: translateX(10px); }
 }
 @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-height: 760px) {
+    #view-content.story-layout #step-title { font-size: clamp(1.2rem, 5.7vw, 1.45rem); }
+    #view-content.story-layout #step-body > .story-card { padding: 12px 12px; }
+    #view-content.story-layout .story-title { font-size: clamp(1.1rem, 5.2vw, 1.3rem); }
+    #view-content.story-layout .story-text { font-size: clamp(0.9rem, 4vw, 1rem); }
+    #app.story-layout-active .footer {
+        padding: 10px 12px;
+        padding-bottom: calc(10px + env(safe-area-inset-bottom, 16px));
+    }
+    #app.story-layout-active .btn-main,
+    #app.story-layout-active .btn-nav { padding: 12px; }
+}

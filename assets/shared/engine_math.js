@@ -209,8 +209,9 @@ function init() {
     try {
         // 1. Element Mapping
         el = {
+            app: document.getElementById('app'),
             lobby: document.getElementById('view-lobby'),
-           content: document.getElementById('view-content'),
+            content: document.getElementById('view-content'),
             success: document.getElementById('view-success'),
             grid: document.getElementById('days-grid'),
             bar: document.getElementById('main-bar'),
@@ -506,12 +507,29 @@ function updateGlobalProgress() {
     }
 }
 
+function setActiveView(viewName) {
+    ['lobby', 'content', 'success'].forEach((key) => {
+        if (el[key]) el[key].classList.remove('active');
+    });
+
+    if (el.footer) {
+        if (viewName === 'content') el.footer.classList.remove('hidden');
+        else el.footer.classList.add('hidden');
+    }
+
+    if (viewName && el[viewName]) {
+        el[viewName].classList.add('active');
+        if (typeof el[viewName].scrollTop === 'number') el[viewName].scrollTop = 0;
+    }
+
+    if (el.app && viewName !== 'content') {
+        el.app.classList.remove('story-layout-active');
+    }
+}
+
 function renderLobby() {
     if (!el.lobby) return;
-    el.lobby.classList.add('active');
-    if (el.content) el.content.classList.remove('active');
-    if (el.success) el.success.classList.remove('active');
-    if (el.footer) el.footer.classList.add('hidden');
+    setActiveView('lobby');
     
     const config = window.APP_CONFIG || { STORAGE_KEY: 'default_v1' };
     const unitLabel = getUnitLabel(config);
@@ -623,13 +641,14 @@ function renderStep() {
     
     const isBoss = step.type === 'challenge';
     
-    if (el.lobby) el.lobby.classList.remove('active');
-    if (el.content) el.content.classList.add('active');
-    if (el.footer) el.footer.classList.remove('hidden');
+    setActiveView('content');
     
     if (el.content) {
-        el.content.scrollTop = 0;
+        const hasStoryDots = !!document.getElementById('story-dots');
+        const useStoryLayout = hasStoryDots && (step.type === 'lesson' || step.type === 'msg');
         el.content.classList.toggle('boss-mode', isBoss);
+        el.content.classList.toggle('story-layout', useStoryLayout);
+        if (el.app) el.app.classList.toggle('story-layout-active', useStoryLayout);
     }
     
     if (el.stepTitle) el.stepTitle.innerText = step.title;
@@ -997,10 +1016,7 @@ function completeDay() {
 }
 
 function renderSuccess() {
-    if (el.lobby) el.lobby.classList.remove('active');
-    if (el.content) el.content.classList.remove('active');
-    if (el.footer) el.footer.classList.add('hidden');
-    if (el.success) el.success.classList.add('active');
+    setActiveView('success');
 }
 
 function getQuitHref(config) {

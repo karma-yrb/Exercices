@@ -39,10 +39,149 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     overflow-y: auto;
     animation: slideUp 0.4s ease; 
 }
+.view:not(.active) { display: none !important; }
 .view.active { display: flex !important; flex-direction: column; }
 #view-content { display: flex; flex-direction: column; gap: 16px; }
 #step-body { flex: 1; }
-#footer { margin-top: auto; display: flex; gap: 12px; }
+#footer { margin-top: auto; display: flex; gap: 12px; width: 100%; }
+
+#view-content.story-layout {
+    overflow: hidden;
+    gap: clamp(8px, 1.5vh, 14px);
+    padding-top: clamp(12px, 2vh, 20px);
+    padding-bottom: calc(clamp(10px, 1.7vh, 16px) + env(safe-area-inset-bottom, 0px));
+}
+#view-content.story-layout .step-header {
+    margin-bottom: clamp(4px, 1.1vh, 10px);
+}
+#view-content.story-layout #step-title {
+    font-size: clamp(1.32rem, 6.4vw, 1.9rem);
+    line-height: 1.14;
+}
+#view-content.story-layout #step-body {
+    min-height: 0;
+    display: flex;
+}
+#view-content.story-layout #step-body > .story-card {
+    width: 100%;
+    margin: 0;
+    padding: clamp(14px, 2.2vh, 24px) clamp(14px, 4vw, 22px);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(8px, 1.2vh, 14px);
+}
+#view-content.story-layout .story-title {
+    font-size: clamp(1.22rem, 5.8vw, 1.68rem);
+    line-height: 1.15;
+    margin-bottom: 0;
+}
+#view-content.story-layout .story-text {
+    font-size: clamp(0.98rem, 4.4vw, 1.2rem);
+    line-height: 1.28;
+}
+#view-content.story-layout .story-dots {
+    margin-top: clamp(6px, 1vh, 12px);
+}
+#view-content.story-layout .story-hint {
+    margin-top: clamp(4px, 0.8vh, 8px);
+    font-size: clamp(0.9rem, 3.6vw, 1.05rem);
+}
+
+#app.story-layout-active .footer {
+    padding: 14px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 18px));
+}
+#app.story-layout-active .btn-group {
+    justify-content: center;
+}
+#app.story-layout-active .btn-nav,
+#app.story-layout-active .btn-main {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+}
+#app.story-layout-active .btn-nav {
+    padding: 14px;
+    font-size: clamp(0.8rem, 3.4vw, 0.95rem);
+}
+#app.story-layout-active .btn-main {
+    padding: 15px;
+    font-size: clamp(0.95rem, 4vw, 1.1rem);
+}
+
+#view-success {
+    overflow: hidden;
+    justify-content: center;
+    padding-top: clamp(12px, 2.4vh, 20px);
+    padding-bottom: calc(clamp(12px, 2.4vh, 20px) + env(safe-area-inset-bottom, 0px));
+}
+#view-success .success-card {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(10px, 1.8vh, 16px);
+}
+#view-success .visual-anchor {
+    display: flex;
+    justify-content: center;
+}
+#view-success .visual-anchor svg {
+    width: min(42vw, 168px) !important;
+    height: min(42vw, 168px) !important;
+}
+#view-success .success-title {
+    margin: 0;
+    font-size: clamp(2rem, 10vw, 2.8rem);
+    line-height: 1.02;
+    font-weight: 900;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+}
+#view-success .success-text {
+    margin: 0 0 4px;
+    color: var(--text);
+    font-size: clamp(1rem, 5vw, 1.35rem);
+    line-height: 1.28;
+}
+#view-success .btn-main,
+#view-success .btn-nav {
+    flex: 0 0 auto;
+}
+#view-success .btn-main {
+    padding: clamp(15px, 2.2vh, 20px);
+    font-size: clamp(1rem, 4.6vw, 1.35rem);
+}
+#view-success .btn-nav {
+    padding: clamp(14px, 2vh, 18px);
+    font-size: clamp(0.9rem, 3.8vw, 1.05rem);
+}
+
+@media (max-height: 760px) {
+    #view-content.story-layout #step-title { font-size: clamp(1.15rem, 5.8vw, 1.45rem); }
+    #view-content.story-layout #step-body > .story-card { padding: 12px 12px; }
+    #view-content.story-layout .story-title { font-size: clamp(1.08rem, 5.1vw, 1.32rem); }
+    #view-content.story-layout .story-text { font-size: clamp(0.88rem, 4vw, 1rem); }
+    #app.story-layout-active .footer {
+        padding: 10px 12px;
+        padding-bottom: calc(10px + env(safe-area-inset-bottom, 16px));
+    }
+    #app.story-layout-active .btn-main,
+    #app.story-layout-active .btn-nav { padding: 12px; }
+
+    #view-success { padding-top: 12px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+    #view-success .success-card { gap: 10px; }
+    #view-success .visual-anchor svg {
+        width: min(34vw, 132px) !important;
+        height: min(34vw, 132px) !important;
+    }
+    #view-success .success-title { font-size: clamp(1.7rem, 8.6vw, 2.2rem); }
+    #view-success .success-text { font-size: clamp(0.92rem, 4.4vw, 1.05rem); }
+    #view-success .btn-main,
+    #view-success .btn-nav { padding: 14px; }
+}
 
 .lobby-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: var(--accent); }
 .lobby-intro { color: var(--text-dim); margin-bottom: 45px; line-height: 1.5; font-size: 1rem; }
@@ -89,7 +228,9 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 .btn-opt.correct { background: var(--success) !important; color: #000; border-color: var(--success); }
 .btn-opt.wrong { background: #ff4757 !important; color: #fff; border-color: #ff4757; }
 
-.footer { 
+.footer,
+.footer-nav,
+#footer {
     padding: 20px; 
     padding-bottom: calc(20px + env(safe-area-inset-bottom, 25px));
     background: var(--card); 
@@ -97,17 +238,17 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
     flex-shrink: 0;
     z-index: 10;
 }
-.btn-group { display: flex; gap: 12px; }
+.btn-group { display: flex; gap: 12px; width: 100%; }
 .btn-nav {
     flex: 1; padding: 18px; 
     background: rgba(255,255,255,0.1); border: 1px solid var(--border);
     border-radius: 18px; color: #ffffff;
     font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
-    cursor: pointer;
+    cursor: pointer; white-space: nowrap;
 }
 .btn-main { 
     flex: 3; padding: 20px; background: var(--accent); border: none; border-radius: 18px;
-    color: white; font-weight: 800; font-size: 1.1rem; cursor: pointer;
+    color: white; font-weight: 800; font-size: 1.1rem; cursor: pointer; white-space: nowrap;
 }
 .btn-main:disabled { opacity: 0.2; transform: scale(0.98); }
 
