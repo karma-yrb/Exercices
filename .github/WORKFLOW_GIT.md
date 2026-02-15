@@ -4,7 +4,12 @@
 
 Aucun changement ne part en remote sans validation automatique des tests.
 
-## Ce que fait `git commit` dans ce projet
+## Expression declencheuse du workflow
+
+- Expression utilisateur: `je valide`
+- Commande technique executee: `git commit`
+
+## Ce que fait `je valide` dans ce projet
 
 1. Hook `pre-commit` : lance `node tests/test-runner.js`.
 2. Si les tests echouent : commit bloque.
@@ -12,7 +17,7 @@ Aucun changement ne part en remote sans validation automatique des tests.
 4. Hook `post-commit` : lance `git push` automatiquement.
 5. Hook `pre-push` : relance `node tests/test-runner.js` (gate final).
 
-Donc, dans ce repo, `git commit` = tests + commit + push, et le push est lui aussi bloque si les tests ne passent pas.
+Donc, dans ce repo, `je valide` (alias workflow de `git commit`) = tests + commit + push, et le push est lui aussi bloque si les tests ne passent pas.
 Le deploiement Pages est ensuite conditionne par la CI GitHub (`Tests` obligatoires).
 
 ## Processus standard
@@ -44,7 +49,11 @@ node tests/test-runner.js <module>
 - Gate release: aucun `Critique` ouvert avant commit/push final.
 - Gate CI/CD: le workflow `.github/workflows/static.yml` execute `Tests` avant `Deploy Pages`.
 
-### 3) Commit
+### 3) Validation
+
+Expression attendue: `je valide`
+
+Commande executee:
 
 ```bash
 git add .

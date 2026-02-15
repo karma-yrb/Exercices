@@ -88,6 +88,27 @@ function getTrackingModule(config, pathParts) {
     return `${folder} / ${file}`.trim();
 }
 
+function getTrackingConsentProof(config) {
+    const mode = (config && config.TRACKING_CONSENT_MODE) ? String(config.TRACKING_CONSENT_MODE).trim() : '';
+    const actor = (config && config.TRACKING_CONSENT_ACTOR) ? String(config.TRACKING_CONSENT_ACTOR).trim() : '';
+    const atRaw = (config && config.TRACKING_CONSENT_AT) ? String(config.TRACKING_CONSENT_AT).trim() : '';
+
+    let at = '';
+    if (atRaw) {
+        const parsed = new Date(atRaw);
+        if (!Number.isNaN(parsed.getTime())) {
+            at = parsed.toISOString();
+        }
+    }
+
+    return {
+        valid: Boolean(mode && actor && at),
+        mode,
+        actor,
+        at
+    };
+}
+
 // ========================================
 // MATHEMATICAL NORMALIZATION FUNCTIONS
 // ========================================
@@ -1026,8 +1047,14 @@ async function syncWithParent(dayId, status = 'TERMINE') {
     }
 
     const includeIp = config.TRACKING_INCLUDE_IP === true;
+    const consentProof = getTrackingConsentProof(config);
+    const includeIpWithConsent = includeIp && consentProof.valid;
+    if (includeIp && !consentProof.valid) {
+        console.warn('TRACKING_INCLUDE_IP actif sans preuve de consentement valide: IP ignoree.');
+    }
+
     let clientIP = 'Inconnue';
-    if (includeIp) {
+    if (includeIpWithConsent) {
         try {
             const ipRes = await fetch('https://api.ipify.org?format=json');
             const ipJson = await ipRes.json();
@@ -1055,7 +1082,10 @@ async function syncWithParent(dayId, status = 'TERMINE') {
         event_time: endTime.toISOString(),
         tracking_version: 'v2_actor_device_session'
     };
-    if (includeIp) payload.ip = clientIP;
+    if (includeIpWithConsent) payload.ip = clientIP;
+    if (includeIpWithConsent) payload.consent_mode = consentProof.mode;
+    if (includeIpWithConsent) payload.consent_at = consentProof.at;
+    if (includeIpWithConsent) payload.consent_actor = consentProof.actor;
 
     try {
         await fetch(baseUrl, {

@@ -43,6 +43,13 @@ This policy defines the minimum safeguards for learner tracking data.
 - In family usage, consent is managed by the parent/guardian.
 - In non-family usage, consent must be explicit and documented.
 
+### Technical Consent Proof (when IP is enabled)
+- If `TRACKING_INCLUDE_IP === true`, consent proof fields must be configured:
+  - `TRACKING_CONSENT_MODE`
+  - `TRACKING_CONSENT_AT`
+  - `TRACKING_CONSENT_ACTOR`
+- If one of these fields is missing/invalid, IP must not be sent.
+
 ### Private Family Mode (project decision)
 - This project is operated in private family mode.
 - Parent/guardian acts as data controller and grants consent by configuration.

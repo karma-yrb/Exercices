@@ -35,6 +35,9 @@ class TrackingPolicyValidator {
         const content = fs.readFileSync(policyPath, 'utf-8');
         const requiredMarkers = [
             'TRACKING_INCLUDE_IP',
+            'TRACKING_CONSENT_MODE',
+            'TRACKING_CONSENT_AT',
+            'TRACKING_CONSENT_ACTOR',
             'false',
             'retention',
             'consent',
@@ -62,8 +65,28 @@ class TrackingPolicyValidator {
             this.errors.push(`${label}: includeIp doit etre strictement opt-in (=== true)`);
         }
 
-        if (!content.includes("if (includeIp) payload.ip = clientIP;")) {
-            this.errors.push(`${label}: payload.ip doit etre ajoute uniquement en opt-in`);
+        if (!content.includes("const consentProof = getTrackingConsentProof(config);")) {
+            this.errors.push(`${label}: preuve de consentement tracking manquante (consentProof)`);
+        }
+
+        if (!content.includes("const includeIpWithConsent = includeIp && consentProof.valid;")) {
+            this.errors.push(`${label}: includeIp doit etre conditionne par une preuve de consentement valide`);
+        }
+
+        if (!content.includes("if (includeIpWithConsent) payload.ip = clientIP;")) {
+            this.errors.push(`${label}: payload.ip doit etre ajoute uniquement en opt-in + consentement valide`);
+        }
+
+        if (!content.includes("if (includeIpWithConsent) payload.consent_mode = consentProof.mode;")) {
+            this.errors.push(`${label}: payload.consent_mode manquant en mode IP`);
+        }
+
+        if (!content.includes("if (includeIpWithConsent) payload.consent_at = consentProof.at;")) {
+            this.errors.push(`${label}: payload.consent_at manquant en mode IP`);
+        }
+
+        if (!content.includes("if (includeIpWithConsent) payload.consent_actor = consentProof.actor;")) {
+            this.errors.push(`${label}: payload.consent_actor manquant en mode IP`);
         }
 
         if (!content.includes('TRACKING_SUBJECT') || !content.includes('TRACKING_MODULE')) {

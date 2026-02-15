@@ -13,7 +13,7 @@ TEST_EXIT_CODE=$?
 
 if [ $TEST_EXIT_CODE -ne 0 ]; then
     echo "PUSH BLOQUE: tests en echec."
-    echo "Corrige puis recommence: git commit (ou git push apres correction)."
+    echo "Corrige puis recommence: je valide (commande technique: git commit), ou git push apres correction."
     exit 1
 fi
 

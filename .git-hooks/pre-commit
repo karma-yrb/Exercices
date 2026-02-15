@@ -19,7 +19,7 @@ if [ $TEST_EXIT_CODE -ne 0 ]; then
     echo "  1. Vérifie les erreurs ci-dessus"
     echo "  2. Corrige les fichiers concernés"
     echo "  3. Relance : npm test"
-    echo "  4. Réessaye : git commit"
+    echo "  4. Reessaye : je valide (commande technique: git commit)"
     echo ""
     exit 1
 fi
