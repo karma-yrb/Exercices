@@ -800,6 +800,19 @@ function renderSuccess() {
     if (el.success) el.success.classList.add('active');
 }
 
+function getQuitHref(config) {
+    if (config && typeof config.QUIT_HREF === 'string' && config.QUIT_HREF.trim()) {
+        return config.QUIT_HREF.trim();
+    }
+
+    const path = (window.location.pathname || '').replace(/\\/g, '/');
+    if (/\/module_\d+\/mission_\d+\.html$/i.test(path)) {
+        return '../index.html';
+    }
+
+    return 'index.html';
+}
+
 function abandonMission() {
     const lastDayId = state.currentDay;
     if (!lastDayId) return;
@@ -814,7 +827,7 @@ function abandonMission() {
 
     const config = window.APP_CONFIG || {};
     if (config.SINGLE_MISSION_MODE) {
-        window.location.href = 'index.html';
+        window.location.href = getQuitHref(config);
     } else {
         renderLobby();
         updateGlobalProgress();
