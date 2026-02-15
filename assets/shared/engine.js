@@ -856,7 +856,7 @@ function getQuitHref(config) {
 
     const path = (window.location.pathname || '').replace(/\\/g, '/');
     if (/\/module_\d+\/mission_\d+\.html$/i.test(path)) {
-        return '../index.html';
+        return 'index.html';
     }
 
     return 'index.html';
