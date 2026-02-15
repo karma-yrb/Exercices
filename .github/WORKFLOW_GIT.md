@@ -8,6 +8,8 @@ Aucun changement ne part en remote sans validation automatique des tests.
 
 - Expression utilisateur: `je valide`
 - Commande technique executee: `git commit`
+- Expression utilisateur: `lance resume`
+- Commande technique executee: `npm run resume`
 
 ## Ce que fait `je valide` dans ce projet
 
@@ -19,6 +21,18 @@ Aucun changement ne part en remote sans validation automatique des tests.
 
 Donc, dans ce repo, `je valide` (alias workflow de `git commit`) = tests + commit + push, et le push est lui aussi bloque si les tests ne passent pas.
 Le deploiement Pages est ensuite conditionne par la CI GitHub (`Tests` obligatoires).
+
+## Ce que fait `lance resume` dans ce projet
+
+1. Execute `node tools/workflow/lance-resume.js`.
+2. Genere automatiquement un handoff dans `.github/context/handoffs/`.
+3. Produit aussi une copie stable: `.github/context/handoffs/LAST_HANDOFF.md`.
+4. Le handoff contient:
+   - contexte de travail (branche, HEAD, resume),
+   - etat du depot (dirty/clean, fichiers modifies, commits a pousser),
+   - derniers commits,
+   - actions tests/release a faire.
+5. Variante avec tests executes: `npm run resume:tests`.
 
 ## Processus standard
 
@@ -64,6 +78,24 @@ Le commit declenche automatiquement les hooks:
 - pre-commit (tests)
 - post-commit (push)
 - pre-push (tests)
+
+### 4) Changement de conversation (handoff)
+
+Expression attendue: `lance resume`
+
+Commande executee:
+
+```bash
+npm run resume
+```
+
+Option avec execution des tests:
+
+```bash
+npm run resume:tests
+```
+
+Ensuite ouvrir un nouveau chat en joignant `./.github/context/handoffs/LAST_HANDOFF.md`.
 
 ## Cas particuliers
 

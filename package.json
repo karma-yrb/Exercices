@@ -6,7 +6,9 @@
     "test": "node tests/test-runner.js",
     "test:lovyc": "node tests/test-runner.js lovyc",
     "test:zyvah": "node tests/test-runner.js zyvah",
-    "notes:sync": "node tools/notes/sync-notes.js"
+    "notes:sync": "node tools/notes/sync-notes.js",
+    "resume": "node tools/workflow/lance-resume.js",
+    "resume:tests": "node tools/workflow/lance-resume.js --with-tests"
   },
   "keywords": [
     "pedagogie",
