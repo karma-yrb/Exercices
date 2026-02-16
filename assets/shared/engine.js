@@ -4,6 +4,7 @@
 let el = {};
 let state = null;
 let appData = [];
+let writeAttemptCount = 0;
 let inactivityMonitor = {
     lastActivity: Date.now(),
     intervalId: null,
@@ -69,6 +70,62 @@ function getUnitLabel(config) {
     if (config && config.MISSION_LABEL) return String(config.MISSION_LABEL).trim().toUpperCase();
     const actor = inferActorId(config);
     return actor === 'zyvah' ? 'SEANCE' : 'MISSION';
+}
+
+function isFrenchSubject(config) {
+    const subject = (config && config.TRACKING_SUBJECT) ? String(config.TRACKING_SUBJECT) : '';
+    const normalizedSubject = normalizeText(subject);
+    return normalizedSubject === 'francais' || normalizedSubject === 'fr';
+}
+
+function getWriteHintLevels(step) {
+    return {
+        base: step && (step.hintLight || step.hint1 || step.hint),
+        guided: step && (step.hintGuided || step.hint2),
+        solution: step && (step.hintSolution || step.hint3 || step.solutionHint)
+    };
+}
+
+function shouldTrackProgressiveWriteHints(step) {
+    const config = window.APP_CONFIG || {};
+    if (!step || step.type !== 'write') return false;
+    if (!isFrenchSubject(config)) return false;
+
+    const levels = getWriteHintLevels(step);
+    return Boolean(levels.guided || levels.solution);
+}
+
+function getActiveWriteHint(step) {
+    const levels = getWriteHintLevels(step);
+    if (!levels.base && !levels.guided && !levels.solution) return null;
+
+    if (shouldTrackProgressiveWriteHints(step)) {
+        if (levels.solution && writeAttemptCount >= 4) {
+            return { label: '💡 SOLUTION A RECOPIER', content: levels.solution };
+        }
+        if (levels.guided && writeAttemptCount >= 2) {
+            return { label: '💡 INDICE DETAILLE', content: levels.guided };
+        }
+    }
+
+    if (levels.base) return { label: '💡 INDICE', content: levels.base };
+    if (levels.guided) return { label: '💡 INDICE DETAILLE', content: levels.guided };
+    return { label: '💡 INDICE', content: levels.solution };
+}
+
+function registerWriteFailure(step) {
+    if (!shouldTrackProgressiveWriteHints(step)) return false;
+
+    const previous = writeAttemptCount;
+    writeAttemptCount += 1;
+
+    const levels = getWriteHintLevels(step);
+    const phase2Threshold = levels.guided ? 2 : Number.POSITIVE_INFINITY;
+    const phase3Threshold = levels.solution ? 4 : Number.POSITIVE_INFINITY;
+
+    const phase2Reached = previous < phase2Threshold && writeAttemptCount >= phase2Threshold;
+    const phase3Reached = previous < phase3Threshold && writeAttemptCount >= phase3Threshold;
+    return phase2Reached || phase3Reached;
 }
 
 function getTrackingSubject(config, pathParts) {
@@ -212,6 +269,7 @@ function boot() {
     }
 
     const currentDayData = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === state.currentDay);
+    writeAttemptCount = 0;
     if (state.currentDay && currentDayData && currentDayData.steps) {
         renderStep();
     } else {
@@ -224,6 +282,7 @@ function boot() {
         el.btnPrev.onclick = () => {
             if (state.currentStep > 0) {
                 state.currentStep--;
+                writeAttemptCount = 0;
                 renderStep();
                 saveState();
             } else {
@@ -237,6 +296,7 @@ function boot() {
             const day = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === state.currentDay);
             if (day && state.currentStep < day.steps.length - 1) {
                 state.currentStep++;
+                writeAttemptCount = 0;
                 renderStep();
             } else {
                 completeDay();
@@ -536,6 +596,7 @@ function startDay(dayIdStr) {
     state.startTime = new Date().toISOString(); // Record start time
     state.sessionId = makeTrackingId('sess');
     markSessionActivity();
+    writeAttemptCount = 0;
     saveState();
     renderStep();
 }
@@ -617,10 +678,11 @@ function renderStep() {
         // Dynamic Question Formatting (Extracting text inside <i> and wrapping it)
         let formattedQ = q.replace(/<i>(.*?)<\/i>/g, '<div class="tactical-data">$1</div>');
 
-        if (step.hint) {
+        const activeHint = getActiveWriteHint(step);
+        if (activeHint) {
             hintHtml = `
-                <button class="hint-btn" onclick="this.nextElementSibling.classList.toggle('hidden')">💡 INDICE</button>
-                <div class="hint-box hidden">${step.hint}</div>
+                <button class="hint-btn" onclick="this.nextElementSibling.classList.toggle('hidden')">${activeHint.label}</button>
+                <div class="hint-box hidden">${activeHint.content}</div>
             `;
         }
         el.stepBody.innerHTML = `
@@ -657,11 +719,13 @@ function renderStep() {
                             `;
                             if (el.btnNext) el.btnNext.disabled = false;
                         } else {
+                            const shouldRefreshHint = registerWriteFailure(step);
                             check.disabled = false;
                             check.innerText = 'RÉESSAYER LE SCAN';
                             input.classList.add('shake');
                             feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ' + pluginResult.msg + '</p>';
                             setTimeout(() => input.classList.remove('shake'), 400);
+                            if (shouldRefreshHint) setTimeout(() => renderStep(), 450);
                         }
                         return;
                     }
@@ -683,11 +747,13 @@ function renderStep() {
                         `;
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
+                        const shouldRefreshHint = registerWriteFailure(step);
                         check.disabled = false;
                         check.innerText = 'RÉESSAYER LE SCAN';
                         input.classList.add('shake');
                         feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> ' + result.msg + '</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
+                        if (shouldRefreshHint) setTimeout(() => renderStep(), 450);
                     }
                 } else {
                     const cleanVal = normalizeText(val);
@@ -700,9 +766,11 @@ function renderStep() {
                         feedArea.innerHTML = '<p style="color: var(--success); margin-top: 10px;"><b>✓</b> ' + feed + '</p>';
                         if (el.btnNext) el.btnNext.disabled = false;
                     } else {
+                        const shouldRefreshHint = registerWriteFailure(step);
                         input.classList.add('shake'); 
                         feedArea.innerHTML = '<p style="color: #ff4757; font-size: 0.85rem; margin-top: 10px;"><b>⚠️</b> Signal instable. Vérifie l\'ordre ou l\'orthographe !</p>';
                         setTimeout(() => input.classList.remove('shake'), 400);
+                        if (shouldRefreshHint) setTimeout(() => renderStep(), 450);
                     }
                 }
             };

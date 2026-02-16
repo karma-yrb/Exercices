@@ -41,22 +41,50 @@
         return thirdGroupWhitelist.has(normalized);
     }
 
-    function splitWordsNormalized(text, normalizeFn) {
-        return normalizeFn(text)
-            .split(/[\s']+/)
-            .map(w => w.trim())
-            .filter(Boolean);
+    function normalizeStrictText(text) {
+        return (text || '')
+            .toString()
+            .trim()
+            .replace(/[’`]/g, "'")
+            .replace(/\s+/g, ' ')
+            .toLowerCase();
     }
 
-    function hasToken(rawText, normalizedWords, token, normalizeFn) {
+    function escapeRegex(value) {
+        return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function stripDiacritics(value) {
+        return (value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function hasDiacritics(value) {
+        return stripDiacritics(value) !== value;
+    }
+
+    function hasTokenStrict(normalizedRawStrict, token) {
         if (!token) return false;
-        const source = String(token);
-        if (/[a-zA-Z\u00C0-\u017F]/.test(source)) {
-            const normalizedToken = normalizeFn(source);
-            if (!normalizedToken) return false;
-            return normalizedWords.includes(normalizedToken) || normalizedWords.some(w => w.startsWith(normalizedToken) || normalizedToken.startsWith(w));
+        const strictToken = normalizeStrictText(token);
+        if (!strictToken) return false;
+
+        if (/[a-zA-Z\u00C0-\u017F]/.test(strictToken)) {
+            const escaped = escapeRegex(strictToken);
+            const strictPattern = new RegExp("(^|[^\\p{L}\\p{N}\\-])" + escaped + "([^\\p{L}\\p{N}\\-]|$)", 'u');
+            if (strictPattern.test(normalizedRawStrict)) return true;
+
+            // Legacy FR content may still ship unaccented keywords in config.
+            // In that case accept accented learner input as equivalent token.
+            if (!hasDiacritics(strictToken)) {
+                const accentlessRaw = stripDiacritics(normalizedRawStrict);
+                const accentlessToken = stripDiacritics(strictToken);
+                const accentlessEscaped = escapeRegex(accentlessToken);
+                const loosePattern = new RegExp("(^|[^\\p{L}\\p{N}\\-])" + accentlessEscaped + "([^\\p{L}\\p{N}\\-]|$)", 'u');
+                return loosePattern.test(accentlessRaw);
+            }
+            return false;
         }
-        return rawText.includes(source);
+
+        return normalizedRawStrict.includes(strictToken);
     }
 
     function countSentences(text) {
@@ -93,10 +121,6 @@
                 if (filteredMatches.length > 0) {
                     const error = filteredMatches[0];
                     const token = text.substr(error.offset, error.length);
-                    const ruleId = (error.rule && error.rule.id) ? error.rule.id : '';
-                    if (ruleId.includes('PUNCTUATION_PARAGRAPH_END')) {
-                        return { ok: true, msg: '' };
-                    }
                     if (error.rule && error.rule.issueType && error.rule.issueType !== 'misspelling') {
                         return { ok: false, msg: 'Verifie la grammaire ou la ponctuation autour de: ' + (token || 'cette partie') + '.' };
                     }
@@ -127,22 +151,37 @@
                 return { handled: true, ok: false, msg: 'Message trop court pour etre valide.' };
             }
 
-            if (step.hint && normalizeText(step.hint) === normalizeText(trimmed)) {
+            const nonCopyHints = [step.hint, step.hintLight, step.hint1, step.hintGuided, step.hint2]
+                .filter(Boolean)
+                .map(h => normalizeText(h));
+            if (nonCopyHints.includes(normalizeText(trimmed))) {
                 return { handled: true, ok: false, msg: 'Reformule avec tes propres mots au lieu de copier l\'indice.' };
             }
 
             const normalizedRaw = normalizeText(trimmed);
+            const normalizedRawStrict = normalizeStrictText(trimmed);
             const antiCheatPhrases = ['objectif non atteint', 'il te manque', 'tu dois utiliser', 'reessayer le scan'];
             if (antiCheatPhrases.some(p => normalizedRaw.includes(p))) {
                 return { handled: true, ok: false, msg: 'Ne copie pas le message d\'erreur, reponds a la consigne.' };
             }
 
-            const normalizedWords = splitWordsNormalized(trimmed, normalizeText);
+            const expectsSentenceForm = mode === 'sentence' && !fillBlank && !hasOneWordTarget;
+            if (expectsSentenceForm) {
+                const firstLetterMatch = trimmed.match(/[A-Za-z\u00C0-\u017F]/);
+                if (firstLetterMatch && firstLetterMatch[0] !== firstLetterMatch[0].toUpperCase()) {
+                    return { handled: true, ok: false, msg: 'Commence ta phrase par une majuscule.' };
+                }
+
+                const withoutClosingMarks = trimmed.replace(/[\s"'»)\]]+$/u, '');
+                if (!/[.!?]$/.test(withoutClosingMarks)) {
+                    return { handled: true, ok: false, msg: 'Ajoute un point final (ou ? ! ) a la fin de la phrase.' };
+                }
+            }
 
             if (mustInclude.length > 0) {
                 for (const token of mustInclude) {
                     if (!token) continue;
-                    if (!hasToken(trimmed, normalizedWords, token, normalizeText)) {
+                    if (!hasTokenStrict(normalizedRawStrict, token)) {
                         if (/[a-zA-Z\u00C0-\u017F]/.test(token)) {
                             return { handled: true, ok: false, msg: 'Ta phrase doit contenir : ' + token + '.' };
                         }
@@ -153,7 +192,7 @@
 
             if (keywordGroups.length > 0) {
                 const missingGroups = keywordGroups.filter(group =>
-                    !Array.isArray(group) || !group.some(token => hasToken(trimmed, normalizedWords, token, normalizeText))
+                    !Array.isArray(group) || !group.some(token => hasTokenStrict(normalizedRawStrict, token))
                 );
                 if (missingGroups.length > 0) {
                     const expected = missingGroups
@@ -168,13 +207,13 @@
 
             if (keywords.length > 0) {
                 if (reqs.enforceKeywords) {
-                    missingKeywords = keywords.filter(k => !hasToken(trimmed, normalizedWords, k, normalizeText));
+                    missingKeywords = keywords.filter(k => !hasTokenStrict(normalizedRawStrict, k));
                     keywordsValidated = missingKeywords.length === 0;
                     if (!keywordsValidated) {
                         return { handled: true, ok: false, msg: 'Objectif non atteint. Il te manque : ' + missingKeywords.join(', ') + '.' };
                     }
                 } else {
-                    keywordsValidated = keywords.some(k => hasToken(trimmed, normalizedWords, k, normalizeText));
+                    keywordsValidated = keywords.some(k => hasTokenStrict(normalizedRawStrict, k));
                     if (!keywordsValidated) {
                         return { handled: true, ok: false, msg: 'Objectif non atteint. Tu dois utiliser au moins un mot-cle attendu (ex: ' + keywords[0] + ').' };
                     }
@@ -212,7 +251,8 @@
             }
 
             const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
-            const shouldCheckGrammar = (mode === 'sentence' || mode === 'verb' || mode === 'keywords') && wordCount > 1;
+            const containsLetters = /[A-Za-z\u00C0-\u017F]/.test(trimmed);
+            const shouldCheckGrammar = (mode === 'sentence' || mode === 'verb' || mode === 'keywords') && containsLetters;
             if (shouldCheckGrammar) {
                 const grammar = await checkGrammar(trimmed);
                 if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };
