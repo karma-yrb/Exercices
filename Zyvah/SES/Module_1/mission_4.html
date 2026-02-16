@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -81,138 +81,237 @@
     };
 
     const weekData = [
-        {
-            id: 4,
-            title: "L'Entreprise & son Image",
-            steps: [
-                {
-                    type: "msg",
-                    title: "Statut de l'Entreprise",
-                    body: `<p>Une entreprise n'est pas qu'une machine a cash. C'est une organisation sociale avec une culture.</p><div class="data-box">Identite = Logo + Valeurs + Comportement</div>`
+    {
+        "id": 4,
+        "title": "L'Entreprise & son Image",
+        "steps": [
+            {
+                "type": "msg",
+                "title": "Statut de l'Entreprise",
+                "body": "<p>Une entreprise n'est pas qu'une machine a cash. C'est une organisation sociale avec une culture.</p><div class=\"data-box\">Identite = Logo + Valeurs + Comportement</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Culture Studio",
+                "q": "Laquelle de ces actions renforce la culture d'entreprise d'un label ?",
+                "opts": [
+                    "Augmenter les prix",
+                    "Organiser un team-building",
+                    "Acheter des machines"
+                ],
+                "a": 1,
+                "feed": "Le team-building renforce les liens entre les agents.",
+                "question": "Laquelle de ces actions renforce la culture d'entreprise d'un label ?",
+                "options": [
+                    "Augmenter les prix",
+                    "Organiser un team-building",
+                    "Acheter des machines"
+                ],
+                "feedback": "Le team-building renforce les liens entre les agents.",
+                "answer": 1
+            },
+            {
+                "type": "write",
+                "title": "Image de Marque",
+                "q": "Quel mot désigne la perception d'une entreprise par le public ?",
+                "requirements": {
+                    "keywords": [
+                        "image",
+                        "réputation",
+                        "notoriété"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "quiz",
-                    title: "Culture Studio",
-                    q: "Laquelle de ces actions renforce la culture d'entreprise d'un label ?",
-                    opts: ["Augmenter les prix", "Organiser un team-building", "Acheter des machines"],
-                    a: 1,
-                    feed: "Le team-building renforce les liens entre les agents."
+                "hint": "C'est ce que les gens pensent de toi.",
+                "feed": "Oui. L'image de marque est capitale.",
+                "question": "Quel mot désigne la perception d'une entreprise par le public ?",
+                "feedback": "Oui. L'image de marque est capitale.",
+                "hint2": "Donne le mot central qui désigne la perception du public.",
+                "hint3": "Solution à recopier : « image »."
+            },
+            {
+                "type": "msg",
+                "title": "Réputation",
+                "body": "<p>La reputation se construit lentement et peut se perdre vite.</p><div class=\"data-box\">Actions + paroles = image publique</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Visibilité Réseaux",
+                "q": "Si un bad buzz se propage, l'image du label...",
+                "opts": [
+                    "Se renforce",
+                    "Se dégrade",
+                    "Ne change pas"
+                ],
+                "a": 1,
+                "feed": "Oui. La confiance baisse.",
+                "question": "Si un bad buzz se propage, l'image du label...",
+                "options": [
+                    "Se renforce",
+                    "Se dégrade",
+                    "Ne change pas"
+                ],
+                "feedback": "Oui. La confiance baisse.",
+                "answer": 1
+            },
+            {
+                "type": "write",
+                "title": "Communication Cohérente",
+                "q": "Donne un mot qui montre une communication claire et stable.",
+                "requirements": {
+                    "keywords": [
+                        "cohérente",
+                        "claire",
+                        "stable"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "write",
-                    title: "Image de Marque",
-                    q: "Quel mot designe la perception d'une entreprise par le public ?",
-                    requirements: {
-                        keywords: ["image", "reputation", "notoriete"],
-                        minWords: 1
-                    },
-                    hint: "C'est ce que les gens pensent de toi.",
-                    feed: "Oui. L'image de marque est capitale."
+                "hint": "L'opposé d'une communication confuse.",
+                "feed": "Oui. Une communication cohérente protège l'image.",
+                "question": "Donne un mot qui montre une communication claire et stable.",
+                "feedback": "Oui. Une communication cohérente protège l'image.",
+                "hint2": "Utilise le terme qui exprime une communication stable.",
+                "hint3": "Solution à recopier : « cohérente »."
+            },
+            {
+                "type": "msg",
+                "title": "Confiance Clients",
+                "body": "<p>Sans confiance, les clients n'achetent pas. La confiance est un capital invisible.</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Service Client",
+                "q": "Répondre vite aux plaintes, c'est bon pour...",
+                "opts": [
+                    "La confiance",
+                    "La perte",
+                    "Le chaos"
+                ],
+                "a": 0,
+                "feed": "Exact. Le client se sent respecté.",
+                "question": "Répondre vite aux plaintes, c'est bon pour...",
+                "options": [
+                    "La confiance",
+                    "La perte",
+                    "Le chaos"
+                ],
+                "feedback": "Exact. Le client se sent respecté.",
+                "answer": 0
+            },
+            {
+                "type": "write",
+                "title": "Valeur d'Entreprise",
+                "q": "Cite une valeur que doit porter un label.",
+                "requirements": {
+                    "keywords": [
+                        "respect",
+                        "qualité",
+                        "solidarité"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "msg",
-                    title: "Reputation",
-                    body: `<p>La reputation se construit lentement et peut se perdre vite.</p><div class="data-box">Actions + paroles = image publique</div>`
+                "hint": "C'est un idéal qui guide les comportements.",
+                "feed": "Bien. Une valeur renforce la culture.",
+                "question": "Cite une valeur que doit porter un label.",
+                "feedback": "Bien. Une valeur renforce la culture.",
+                "hint2": "Donne une valeur clé pour la culture d'entreprise.",
+                "hint3": "Solution à recopier : « respect »."
+            },
+            {
+                "type": "msg",
+                "title": "Normes et Loi",
+                "body": "<p>Une entreprise doit respecter les normes sociales et les lois.</p><div class=\"data-box\">Respect = image stable + clients rassures</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Bad Buzz",
+                "q": "Ignorer une crise d'image entraîne...",
+                "opts": [
+                    "Confiance",
+                    "Bad buzz",
+                    "Fidélité"
+                ],
+                "a": 1,
+                "feed": "Oui. Le silence aggrave la crise.",
+                "question": "Ignorer une crise d'image entraîne...",
+                "options": [
+                    "Confiance",
+                    "Bad buzz",
+                    "Fidélité"
+                ],
+                "feedback": "Oui. Le silence aggrave la crise.",
+                "answer": 1
+            },
+            {
+                "type": "write",
+                "title": "Transparence",
+                "q": "Pourquoi la transparence rassure les clients ?",
+                "requirements": {
+                    "keywords": [
+                        "confiance",
+                        "clients"
+                    ],
+                    "minWords": 2
                 },
-                {
-                    type: "quiz",
-                    title: "Visibilite Reseaux",
-                    q: "Si un bad buzz se propage, l'image du label...",
-                    opts: ["Se renforce", "Se degrade", "Ne change pas"],
-                    a: 1,
-                    feed: "Oui. La confiance baisse."
+                "hint": "Écris un mot lié à l'image positive.",
+                "feed": "Exact. La transparence renforce la confiance.",
+                "question": "Pourquoi la transparence rassure les clients ?",
+                "feedback": "Exact. La transparence renforce la confiance.",
+                "hint2": "Ta réponse doit contenir au moins 2 mots, dont confiance ou clients.",
+                "hint3": "Solution à recopier : « confiance clients »."
+            },
+            {
+                "type": "msg",
+                "title": "Positionnement",
+                "body": "<p>Le positionnement, c'est la place que tu veux occuper dans la tete du public.</p><div class=\"data-box\">Exemple : label premium vs label acces</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Cible de Marque",
+                "q": "Choisir un public cible, c'est...",
+                "opts": [
+                    "Parler à tout le monde",
+                    "Parler à un groupe précis",
+                    "Ne rien dire"
+                ],
+                "a": 1,
+                "feed": "Oui. Une marque claire choisit sa cible.",
+                "question": "Choisir un public cible, c'est...",
+                "options": [
+                    "Parler à tout le monde",
+                    "Parler à un groupe précis",
+                    "Ne rien dire"
+                ],
+                "feedback": "Oui. Une marque claire choisit sa cible.",
+                "answer": 1
+            },
+            {
+                "type": "challenge",
+                "title": "Synthèse Image",
+                "q": "Explique comment l'image d'un label influence ses ventes.",
+                "requirements": {
+                    "keywords": [
+                        "image",
+                        "ventes",
+                        "confiance"
+                    ],
+                    "minWords": 6
                 },
-                {
-                    type: "write",
-                    title: "Communication Coherente",
-                    q: "Donne un mot qui montre une communication claire et stable.",
-                    requirements: {
-                        keywords: ["coherente", "claire", "stable"],
-                        minWords: 1
-                    },
-                    hint: "L'opposite d'une communication confuse.",
-                    feed: "Oui. Une communication coherente protege l'image."
-                },
-                {
-                    type: "msg",
-                    title: "Confiance Clients",
-                    body: `<p>Sans confiance, les clients n'achetent pas. La confiance est un capital invisible.</p>`
-                },
-                {
-                    type: "quiz",
-                    title: "Service Client",
-                    q: "Repondre vite aux plaintes, c'est bon pour...",
-                    opts: ["La confiance", "La perte", "Le chaos"],
-                    a: 0,
-                    feed: "Exact. Le client se sent respecte."
-                },
-                {
-                    type: "write",
-                    title: "Valeur d'Entreprise",
-                    q: "Cite une valeur que doit porter un label.",
-                    requirements: {
-                        keywords: ["respect", "qualite", "solidarite"],
-                        minWords: 1
-                    },
-                    hint: "C'est un ideal qui guide les comportements.",
-                    feed: "Bien. Une valeur renforce la culture."
-                },
-                {
-                    type: "msg",
-                    title: "Normes et Loi",
-                    body: `<p>Une entreprise doit respecter les normes sociales et les lois.</p><div class="data-box">Respect = image stable + clients rassures</div>`
-                },
-                {
-                    type: "quiz",
-                    title: "Bad Buzz",
-                    q: "Ignorer une crise d'image entraine...",
-                    opts: ["Confiance", "Bad buzz", "Fidelite"],
-                    a: 1,
-                    feed: "Oui. Le silence aggrave la crise."
-                },
-                {
-                    type: "write",
-                    title: "Transparence",
-                    q: "Pourquoi la transparence rassure les clients ?",
-                    requirements: {
-                        keywords: ["confiance", "clients"],
-                        minWords: 2
-                    },
-                    hint: "Ecris un mot lie a l'image positive.",
-                    feed: "Exact. La transparence renforce la confiance."
-                },
-                {
-                    type: "msg",
-                    title: "Positionnement",
-                    body: `<p>Le positionnement, c'est la place que tu veux occuper dans la tete du public.</p><div class="data-box">Exemple : label premium vs label acces</div>`
-                },
-                {
-                    type: "quiz",
-                    title: "Cible de Marque",
-                    q: "Choisir un public cible, c'est...",
-                    opts: ["Parler a tout le monde", "Parler a un groupe precis", "Ne rien dire"],
-                    a: 1,
-                    feed: "Oui. Une marque claire choisit sa cible."
-                },
-                {
-                    type: "challenge",
-                    title: "Synthese Image",
-                    q: "Explique comment l'image d'un label influence ses ventes.",
-                    requirements: {
-                        keywords: ["image", "ventes", "confiance"],
-                        minWords: 6,
-                        enforceKeywords: true
-                    },
-                    hint: "Relie reputation, confiance et achat.",
-                    feed: "Synthese valide. Tu relies image et ventes."
-                }
-            ]
-        }
-    ];
+                "hint": "Relie réputation, confiance et achat.",
+                "feed": "Synthèse valide. Tu relies image et ventes.",
+                "question": "Explique comment l'image d'un label influence ses ventes.",
+                "feedback": "Synthèse valide. Tu relies image et ventes.",
+                "hint2": "Écris une phrase d'au moins 6 mots avec : image, confiance, ventes.",
+                "hint3": "Solution à recopier : « Une bonne image crée la confiance et soutient les ventes du label. »"
+            }
+        ]
+    }
+];
 </script>
-<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/shared/engine.js?v=20260216"></script>
 
 </body>
 </html>
+
 
 

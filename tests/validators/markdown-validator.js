@@ -45,14 +45,14 @@ class MarkdownValidator {
         }
 
         // Vérifier présence des missions
-        const missionMatches = this.content.match(/## (?:Mission|Seance) \d+/g);
+        const missionMatches = this.content.match(/## (?:Mission|S(?:e|é)ance) \d+/g);
         if (!missionMatches || missionMatches.length !== this.expectedMissions) {
             this.errors.push(`Nombre de missions incorrect: ${missionMatches?.length || 0}/${this.expectedMissions}`);
         }
     }
 
     checkMissions() {
-        const missions = this.content.split(/## (?:Mission|Seance) \d+/).slice(1);
+        const missions = this.content.split(/## (?:Mission|S(?:e|é)ance) \d+/).slice(1);
         
         missions.forEach((mission, idx) => {
             const missionNum = idx + 1;
@@ -70,7 +70,7 @@ class MarkdownValidator {
 
             // Vérifier que le dernier écran est un Boss
             if (screens && screens.length > 0 && this.expectedScreens >= 15) {
-                const lastScreenContent = mission.split(/### Ecran \d+/).pop();
+                const lastScreenContent = mission.split(/### (?:Ecran|Écran) \d+/).pop();
                 if (!lastScreenContent.includes('challenge') && !lastScreenContent.includes('Boss')) {
                     this.warnings.push(`Mission ${missionNum}: Écran 15 devrait être un Boss/challenge`);
                 }
@@ -82,8 +82,8 @@ class MarkdownValidator {
         const metaMatch = this.content.split('## Meta')[1];
         if (!metaMatch) return;
 
-        const missionsMatch = metaMatch.match(/-\s*(?:Missions|Seances):\s*(\d+)/i);
-        const screensMatch = metaMatch.match(/-\s*ScreensPer(?:Mission|Seance):\s*(\d+)/i);
+        const missionsMatch = metaMatch.match(/-\s*(?:Missions|Seances|Séances)\s*:\s*(\d+)/i);
+        const screensMatch = metaMatch.match(/-\s*ScreensPer(?:Mission|Seance|Séance)\s*:\s*(\d+)/i);
 
         if (missionsMatch) this.expectedMissions = parseInt(missionsMatch[1], 10);
         if (screensMatch) this.expectedScreens = parseInt(screensMatch[1], 10);
@@ -95,7 +95,7 @@ class MarkdownValidator {
         interactiveBlocks.forEach((block, idx) => {
             if (idx === 0) return; // Skip avant premier écran
             
-            const optionsMatch = block.match(/- Options: (.+)/);
+            const optionsMatch = block.match(/-\s*Options\s*:\s*(.+)/);
             if (optionsMatch) {
                 const options = optionsMatch[1].split('" / "')
                     .map(opt => opt.replace(/^"|"$/g, '').trim());
@@ -116,10 +116,12 @@ class MarkdownValidator {
             const block = writeBlocks[i + 1];
             if (!block) continue;
 
-            const hasKeywords = block.includes('Requirements:') && 
-                               (block.includes('keywords:') || block.includes('keywordGroups:') || block.includes('minWords:'));
+            const hasRequirements = /Requirements\s*:/i.test(block);
+            const hasKeywords = /keywords\s*:/i.test(block)
+                || /keywordGroups\s*:/i.test(block)
+                || /minWords\s*:/i.test(block);
             
-            if (!hasKeywords) {
+            if (!(hasRequirements && hasKeywords)) {
                 const screenMatch = block.match(/^([^\n]+)/);
                 this.warnings.push(`Écran write/challenge sans keywords: ${screenMatch ? screenMatch[1] : 'inconnu'}`);
             }

@@ -42,7 +42,7 @@ class WriteResponseValidator {
     extractWriteExercises() {
         try {
             const content = fs.readFileSync(this.draftPath, 'utf-8');
-            const missionBlocks = content.split(/## (?:Mission|Seance) \d+/).slice(1);
+            const missionBlocks = content.split(/## (?:Mission|S(?:e|é)ance) \d+/).slice(1);
 
             missionBlocks.forEach((missionBlock, missionIdx) => {
                 const screenBlocks = missionBlock.split(/### (?:Ecran|Écran|Ã‰cran) \d+/).slice(1);
@@ -51,13 +51,13 @@ class WriteResponseValidator {
                     const typeMatch = screenBlock.match(/- (write|challenge) -/i);
                     if (!typeMatch) return;
 
-                    const modeMatch = screenBlock.match(/mode:\s*"(.+?)"/i);
-                    const keywordsLine = screenBlock.match(/keywords:\s*(.+)/i);
+                    const modeMatch = screenBlock.match(/mode\s*:\s*"(.+?)"/i);
+                    const keywordsLine = screenBlock.match(/keywords\s*:\s*(.+)/i);
                     const keywordGroupLines = [...screenBlock.matchAll(/-\s*\[([^\]]+)\]/g)];
-                    const mustIncludeLine = screenBlock.match(/mustInclude:\s*(.+)/i);
-                    const minWordsMatch = screenBlock.match(/minWords:\s*(\d+)/i);
-                    const enforceMatch = screenBlock.match(/enforceKeywords:\s*(true|false)/i);
-                    const hint3Match = screenBlock.match(/- Hint3:\s*"([\s\S]*?)"/i);
+                    const mustIncludeLine = screenBlock.match(/mustInclude\s*:\s*(.+)/i);
+                    const minWordsMatch = screenBlock.match(/minWords\s*:\s*(\d+)/i);
+                    const enforceMatch = screenBlock.match(/enforceKeywords\s*:\s*(true|false)/i);
+                    const hint3Match = screenBlock.match(/-\s*Hint3\s*:\s*"([\s\S]*?)"/i);
 
                     const keywords = this.parseQuotedList(keywordsLine ? keywordsLine[1] : '');
                     const keywordGroups = keywordGroupLines
@@ -237,6 +237,8 @@ class WriteResponseValidator {
             .trim()
             .replace(/[’`]/g, "'")
             .replace(/\s+/g, ' ')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
             .toLowerCase();
     }
 
@@ -270,6 +272,7 @@ class WriteResponseValidator {
     evaluateResponse(testCase, response) {
         const { mode, keywords, keywordGroups = [], enforceKeywords, minWords, mustInclude } = testCase;
         const trimmed = (response || '').trim();
+        const hasOneWordTarget = Number(minWords || 0) <= 1;
 
         if (!trimmed) return false;
         if (trimmed.length < 2) return false;
@@ -279,7 +282,7 @@ class WriteResponseValidator {
             return keywords.some(kw => this.normalizeText(kw) === this.normalizeText(trimmed));
         }
 
-        if (mode === 'sentence' && trimmed.length < 10) return false;
+        if (mode === 'sentence' && !hasOneWordTarget && trimmed.length < 10) return false;
         if (minWords > 0 && this.countWords(trimmed) < minWords) return false;
 
         if (mustInclude.length > 0) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -81,142 +81,258 @@
     };
 
     const weekData = [
-        {
-            id: 3,
-            title: "Identite & Socialisation",
-            steps: [
-                {
-                    type: "msg",
-                    title: "Briefing Sociologie",
-                    body: `<p>La socialisation, c'est le processus par lequel tu apprends les regles (normes) et les valeurs de ton groupe.</p><div class="data-box">Normes = regles<br>Valeurs = ideaux</div>`
+    {
+        "id": 3,
+        "title": "Identite & Socialisation",
+        "steps": [
+            {
+                "type": "msg",
+                "title": "Briefing Sociologie",
+                "body": "<p>La socialisation, c'est le processus par lequel tu apprends les regles (normes) et les valeurs de ton groupe.</p><div class=\"data-box\">Normes = regles<br>Valeurs = ideaux</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Norme ou Valeur",
+                "q": "Dire bonjour à son équipe est une...",
+                "opts": [
+                    "Norme",
+                    "Valeur"
+                ],
+                "a": 0,
+                "feed": "Correct. C'est une règle de politesse apprise.",
+                "question": "Dire bonjour à son équipe est une...",
+                "options": [
+                    "Norme",
+                    "Valeur"
+                ],
+                "feedback": "Correct. C'est une règle de politesse apprise.",
+                "answer": 0
+            },
+            {
+                "type": "write",
+                "title": "Agents de Socialisation",
+                "q": "Cite un agent de socialisation à l'école.",
+                "requirements": {
+                    "keywords": [
+                        "professeur",
+                        "professeurs",
+                        "enseignant",
+                        "enseignants",
+                        "profs",
+                        "école"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "quiz",
-                    title: "Norme ou Valeur",
-                    q: "Dire bonjour a son equipe est une...",
-                    opts: ["Norme", "Valeur"],
-                    a: 0,
-                    feed: "Correct. C'est une regle de politesse apprise."
+                "hint": "Ce sont les personnes qui t'enseignent en classe.",
+                "feed": "L'école et les profs sont des agents majeurs.",
+                "question": "Cite un agent de socialisation à l'école.",
+                "feedback": "L'école et les profs sont des agents majeurs.",
+                "hint2": "Donne un agent de socialisation présent à l'école.",
+                "hint3": "Solution à recopier : « professeurs »."
+            },
+            {
+                "type": "quiz",
+                "title": "Sanction Sociale",
+                "q": "Si une manager ne respecte jamais ses rendez-vous, elle subit une sanction...",
+                "opts": [
+                    "Pécuniaire",
+                    "Sociale",
+                    "Les deux"
+                ],
+                "a": 2,
+                "feed": "Exact ! Amendes et mauvaise image peuvent tomber.",
+                "question": "Si une manager ne respecte jamais ses rendez-vous, elle subit une sanction...",
+                "options": [
+                    "Pécuniaire",
+                    "Sociale",
+                    "Les deux"
+                ],
+                "feedback": "Exact ! Amendes et mauvaise image peuvent tomber.",
+                "answer": 2
+            },
+            {
+                "type": "msg",
+                "title": "Socialisation Primaire",
+                "body": "<p>La socialisation primaire se fait dans l'enfance, surtout avec la famille.</p><div class=\"data-box\">Famille = premiers codes, premiers comportements</div>"
+            },
+            {
+                "type": "msg",
+                "title": "Socialisation Secondaire",
+                "body": "<p>La socialisation secondaire arrive plus tard : ecole, amis, travail, medias.</p><div class=\"data-box\">On ajuste son comportement selon les nouveaux groupes</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Agent Secondaire",
+                "q": "Quel est un agent de socialisation secondaire ?",
+                "opts": [
+                    "La famille",
+                    "Les amis",
+                    "Le bébé"
+                ],
+                "a": 1,
+                "feed": "Oui. Les amis influencent à l'adolescence.",
+                "question": "Quel est un agent de socialisation secondaire ?",
+                "options": [
+                    "La famille",
+                    "Les amis",
+                    "Le bébé"
+                ],
+                "feedback": "Oui. Les amis influencent à l'adolescence.",
+                "answer": 1
+            },
+            {
+                "type": "write",
+                "title": "Exemple de Norme",
+                "q": "Donne une norme simple au studio.",
+                "requirements": {
+                    "keywords": [
+                        "ponctualité",
+                        "heure",
+                        "respect",
+                        "respecter",
+                        "arriver"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "write",
-                    title: "Agents de Socialisation",
-                    q: "Cite un agent de socialisation a l'ecole.",
-                    requirements: {
-                        keywords: ["professeur", "professeurs", "enseignant", "enseignants", "profs", "ecole"],
-                        minWords: 1
-                    },
-                    hint: "Ce sont les personnes qui t'enseignent en classe.",
-                    feed: "L'ecole et les profs sont des agents majeurs."
+                "hint": "Par exemple : arriver à l'heure.",
+                "feed": "Bien. Une norme, c'est une règle à suivre.",
+                "question": "Donne une norme simple au studio.",
+                "feedback": "Bien. Une norme, c'est une règle à suivre.",
+                "hint2": "Écris une règle concrète attendue dans un studio.",
+                "hint3": "Solution à recopier : « ponctualité »."
+            },
+            {
+                "type": "msg",
+                "title": "Influence des Réseaux",
+                "body": "<p>Les reseaux sociaux diffusent des styles, des codes et des comportements.</p><div class=\"data-box\">Ils peuvent renforcer ou changer les normes</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Conformisme",
+                "q": "Si tout le monde s'habille pareil pour un clip, c'est un effet de...",
+                "opts": [
+                    "Conformisme",
+                    "Hasard",
+                    "Productivité"
+                ],
+                "a": 0,
+                "feed": "Oui. On suit la norme du groupe.",
+                "question": "Si tout le monde s'habille pareil pour un clip, c'est un effet de...",
+                "options": [
+                    "Conformisme",
+                    "Hasard",
+                    "Productivité"
+                ],
+                "feedback": "Oui. On suit la norme du groupe.",
+                "answer": 0
+            },
+            {
+                "type": "write",
+                "title": "Exemple de Valeur",
+                "q": "Donne une valeur importante dans une équipe.",
+                "requirements": {
+                    "keywords": [
+                        "respect",
+                        "solidarité",
+                        "confiance",
+                        "entraide"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "quiz",
-                    title: "Sanction Sociale",
-                    q: "Si une manager ne respecte jamais ses rendez-vous, elle subit une sanction...",
-                    opts: ["Pecuniaire", "Sociale", "Les deux"],
-                    a: 2,
-                    feed: "Exact ! Amendes et mauvaise image peuvent tomber."
+                "hint": "C'est un idéal qui guide le groupe.",
+                "feed": "Parfait. Une valeur guide les comportements.",
+                "question": "Donne une valeur importante dans une équipe.",
+                "feedback": "Parfait. Une valeur guide les comportements.",
+                "hint2": "Donne une valeur morale utile à une équipe.",
+                "hint3": "Solution à recopier : « respect »."
+            },
+            {
+                "type": "msg",
+                "title": "Sanction Positive",
+                "body": "<p>Une sanction peut aussi etre positive : recompense, confiance, promotion.</p><div class=\"data-box\">Bon comportement = valorisation</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Sanction Positive Exemple",
+                "q": "Quel exemple montre une sanction positive ?",
+                "opts": [
+                    "Prime",
+                    "Amende",
+                    "Exclusion"
+                ],
+                "a": 0,
+                "feed": "Oui. On récompense un bon comportement.",
+                "question": "Quel exemple montre une sanction positive ?",
+                "options": [
+                    "Prime",
+                    "Amende",
+                    "Exclusion"
+                ],
+                "feedback": "Oui. On récompense un bon comportement.",
+                "answer": 0
+            },
+            {
+                "type": "write",
+                "title": "Rôle des Pairs",
+                "q": "Cite en un mot ce qui influence beaucoup les choix des ados.",
+                "requirements": {
+                    "keywords": [
+                        "amis",
+                        "ami",
+                        "groupe",
+                        "pairs",
+                        "pair"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "msg",
-                    title: "Socialisation Primaire",
-                    body: `<p>La socialisation primaire se fait dans l'enfance, surtout avec la famille.</p><div class="data-box">Famille = premiers codes, premiers comportements</div>`
-                },
-                {
-                    type: "msg",
-                    title: "Socialisation Secondaire",
-                    body: `<p>La socialisation secondaire arrive plus tard : ecole, amis, travail, medias.</p><div class="data-box">On ajuste son comportement selon les nouveaux groupes</div>`
-                },
-                {
-                    type: "quiz",
-                    title: "Agent Secondaire",
-                    q: "Quel est un agent de socialisation secondaire ?",
-                    opts: ["La famille", "Les amis", "Le bebe"],
-                    a: 1,
-                    feed: "Oui. Les amis influencent a l'adolescence."
-                },
-                {
-                    type: "write",
-                    title: "Exemple de Norme",
-                    q: "Donne une norme simple au studio.",
-                    requirements: {
-                        keywords: ["ponctualite", "heure", "respect", "respecter", "arriver"],
-                        minWords: 1
-                    },
-                    hint: "Par exemple : arriver a l'heure.",
-                    feed: "Bien. Une norme, c'est une regle a suivre."
-                },
-                {
-                    type: "msg",
-                    title: "Influence des Reseaux",
-                    body: `<p>Les reseaux sociaux diffusent des styles, des codes et des comportements.</p><div class="data-box">Ils peuvent renforcer ou changer les normes</div>`
-                },
-                {
-                    type: "quiz",
-                    title: "Conformisme",
-                    q: "Si tout le monde s'habille pareil pour un clip, c'est un effet de...",
-                    opts: ["Conformisme", "Hasard", "Productivite"],
-                    a: 0,
-                    feed: "Oui. On suit la norme du groupe."
-                },
-                {
-                    type: "write",
-                    title: "Exemple de Valeur",
-                    q: "Donne une valeur importante dans une equipe.",
-                    requirements: {
-                        keywords: ["respect", "solidarite", "confiance", "entraide"],
-                        minWords: 1
-                    },
-                    hint: "C'est un ideal qui guide le groupe.",
-                    feed: "Parfait. Une valeur guide les comportements."
-                },
-                {
-                    type: "msg",
-                    title: "Sanction Positive",
-                    body: `<p>Une sanction peut aussi etre positive : recompense, confiance, promotion.</p><div class="data-box">Bon comportement = valorisation</div>`
-                },
-                {
-                    type: "quiz",
-                    title: "Sanction Positive Exemple",
-                    q: "Quel exemple montre une sanction positive ?",
-                    opts: ["Prime", "Amende", "Exclusion"],
-                    a: 0,
-                    feed: "Oui. On recompense un bon comportement."
-                },
-                {
-                    type: "write",
-                    title: "Role des Pairs",
-                    q: "Cite en un mot qui influence beaucoup les choix des ados.",
-                    requirements: {
-                        keywords: ["amis", "ami", "groupe", "pairs", "pair"],
-                        minWords: 1
-                    },
-                    hint: "Pense au cercle proche des ados.",
-                    feed: "Exact. Les pairs influencent fortement."
-                },
-                {
-                    type: "challenge",
-                    title: "Synthese Socialisation",
-                    q: "Explique comment la socialisation construit l'identite d'un artiste.",
-                    requirements: {
-                        keywordGroups: [
-                            ["norme", "normes", "regle", "regles"],
-                            ["valeur", "valeurs"],
-                            ["groupe", "entourage", "pairs", "famille"]
+                "hint": "Pense au cercle proche des ados.",
+                "feed": "Exact. Les pairs influencent fortement.",
+                "question": "Cite en un mot ce qui influence beaucoup les choix des ados.",
+                "feedback": "Exact. Les pairs influencent fortement.",
+                "hint2": "Nomme en un mot le groupe qui influence le plus les ados.",
+                "hint3": "Solution à recopier : « amis »."
+            },
+            {
+                "type": "challenge",
+                "title": "Synthèse Socialisation",
+                "q": "Explique comment la socialisation construit l'identité d'un artiste.",
+                "requirements": {
+                    "keywordGroups": [
+                        [
+                            "norme",
+                            "normes",
+                            "règle",
+                            "règles"
                         ],
-                        minWords: 8,
-                        minSentences: 2
-                    },
-                    hint: "Parle des regles, des valeurs et des personnes autour.",
-                    feed: "Bonne synthese. Tu relies normes, valeurs et influence du groupe."
-                }
-            ]
-        }
-    ];
+                        [
+                            "valeur",
+                            "valeurs"
+                        ],
+                        [
+                            "groupe",
+                            "entourage",
+                            "pairs",
+                            "famille"
+                        ]
+                    ],
+                    "minWords": 8,
+                    "minSentences": 2
+                },
+                "hint": "Parle des règles, des valeurs et des personnes autour.",
+                "feed": "Bonne synthèse. Tu relies normes, valeurs et influence du groupe.",
+                "question": "Explique comment la socialisation construit l'identité d'un artiste.",
+                "feedback": "Bonne synthèse. Tu relies normes, valeurs et influence du groupe.",
+                "hint2": "Fais 2 phrases avec : normes, valeurs, groupe/entourage.",
+                "hint3": "Solution à recopier : « Les normes du groupe guident les comportements de l'artiste. Les valeurs apprises avec l'entourage construisent son identité. »"
+            }
+        ]
+    }
+];
 </script>
-<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/shared/engine.js?v=20260216"></script>
 
 </body>
 </html>
+
 
 

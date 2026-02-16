@@ -52,7 +52,7 @@ class SyncValidator {
 
     extractMissionsFromDraft(content) {
         const missions = [];
-        const missionBlocks = content.split(/## (?:Mission|Seance) \d+/).slice(1);
+        const missionBlocks = content.split(/## (?:Mission|S(?:e|é)ance) \d+/).slice(1);
 
         missionBlocks.forEach(block => {
             const screens = [];
@@ -60,9 +60,9 @@ class SyncValidator {
 
             screenBlocks.forEach(screenBlock => {
                 const titleMatch = screenBlock.match(/- ([a-z]+) - (.+)/i);
-                const questionMatch = screenBlock.match(/- Question:\s*(.+)/i);
-                const optionsMatch = screenBlock.match(/- Options: (.+)/i);
-                const reponseMatch = screenBlock.match(/- Reponse: "(.+?)"/i);
+                const questionMatch = screenBlock.match(/-\s*Question\s*:\s*(.+)/i);
+                const optionsMatch = screenBlock.match(/-\s*Options\s*:\s*(.+)/i);
+                const reponseMatch = screenBlock.match(/-\s*R(?:eponse|éponse)\s*:\s*"(.+?)"/i);
 
                 if (!titleMatch) return;
 
@@ -72,7 +72,7 @@ class SyncValidator {
                     question: questionMatch ? this.cleanDraftQuestion(questionMatch[1]) : null
                 };
 
-                if (optionsMatch && screen.type === 'interactive') {
+                if (optionsMatch && (screen.type === 'interactive' || screen.type === 'quiz')) {
                     screen.options = optionsMatch[1]
                         .split('" / "')
                         .map(opt => opt.replace(/^"|"$/g, '').trim());
@@ -92,7 +92,7 @@ class SyncValidator {
         const metaMatch = content.split('## Meta')[1];
         if (!metaMatch) return;
 
-        const missionsMatch = metaMatch.match(/-\s*(?:Missions|Seances):\s*(\d+)/i);
+        const missionsMatch = metaMatch.match(/-\s*(?:Missions|Seances|Séances)\s*:\s*(\d+)/i);
         if (missionsMatch) this.expectedMissions = parseInt(missionsMatch[1], 10);
     }
 

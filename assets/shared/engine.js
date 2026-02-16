@@ -78,6 +78,14 @@ function isFrenchSubject(config) {
     return normalizedSubject === 'francais' || normalizedSubject === 'fr';
 }
 
+function supportsProgressiveWriteHintsSubject(config) {
+    const subject = (config && config.TRACKING_SUBJECT) ? String(config.TRACKING_SUBJECT) : '';
+    const normalizedSubject = normalizeText(subject);
+    return normalizedSubject === 'francais'
+        || normalizedSubject === 'fr'
+        || normalizedSubject === 'ses';
+}
+
 function getWriteHintLevels(step) {
     return {
         base: step && (step.hintLight || step.hint1 || step.hint),
@@ -88,8 +96,9 @@ function getWriteHintLevels(step) {
 
 function shouldTrackProgressiveWriteHints(step) {
     const config = window.APP_CONFIG || {};
-    if (!step || step.type !== 'write') return false;
-    if (!isFrenchSubject(config)) return false;
+    const supportsProgressiveHints = !!step && (step.type === 'write' || step.type === 'challenge');
+    if (!supportsProgressiveHints) return false;
+    if (!supportsProgressiveWriteHintsSubject(config)) return false;
 
     const levels = getWriteHintLevels(step);
     return Boolean(levels.guided || levels.solution);

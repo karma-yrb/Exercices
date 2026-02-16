@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
@@ -81,142 +81,247 @@
     };
 
     const weekData = [
-        {
-            id: 1,
-            title: "Le Marche du Son",
-            steps: [
-                {
-                    type: "msg",
-                    title: "Briefing Manager",
-                    body: `<p>Bienvenue dans le Game, Zyvah. Un marche, c'est partout ou des vendeurs (offre) et des acheteurs (demande) se rencontrent.</p><div class="data-box">Dans l'industrie musicale :<br>• Offre = Artistes, labels, salles.<br>• Demande = Fans, auditeurs.</div>`
+    {
+        "id": 1,
+        "title": "Le Marche du Son",
+        "steps": [
+            {
+                "type": "msg",
+                "title": "Briefing Manager",
+                "body": "<p>Bienvenue dans le Game, Zyvah. Un marche, c'est partout ou des vendeurs (offre) et des acheteurs (demande) se rencontrent.</p><div class=\"data-box\">Dans l'industrie musicale :<br>â€¢ Offre = Artistes, labels, salles.<br>â€¢ Demande = Fans, auditeurs.</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Identification Offre",
+                "q": "Qui représente l'OFFRE sur le marché du streaming ?",
+                "opts": [
+                    "Les fans",
+                    "Spotify",
+                    "Le prix"
+                ],
+                "a": 1,
+                "feed": "Exact ! Le vendeur propose le produit.",
+                "question": "Qui représente l'OFFRE sur le marché du streaming ?",
+                "options": [
+                    "Les fans",
+                    "Spotify",
+                    "Le prix"
+                ],
+                "feedback": "Exact ! Le vendeur propose le produit.",
+                "answer": 1
+            },
+            {
+                "type": "write",
+                "title": "Terminologie Offre",
+                "q": "Quel mot désigne l'ensemble des vendeurs sur un marché ?",
+                "requirements": {
+                    "keywords": [
+                        "offre"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "quiz",
-                    title: "Identification Offre",
-                    q: "Qui represente l'OFFRE sur le marche du streaming ?",
-                    opts: ["Les fans", "Spotify", "Le prix"],
-                    a: 1,
-                    feed: "Exact ! Le vendeur propose le produit."
+                "hint": "C'est l'un des deux mots du titre de la Séance (ça commence par O).",
+                "feed": "Correct. C'est le signal des producteurs.",
+                "question": "Quel mot désigne l'ensemble des vendeurs sur un marché ?",
+                "feedback": "Correct. C'est le signal des producteurs.",
+                "hint2": "Donne exactement le mot-clé qui désigne les vendeurs.",
+                "hint3": "Solution à recopier : « offre »."
+            },
+            {
+                "type": "msg",
+                "title": "Loi de l'Offre",
+                "body": "<p>Plus le prix est eleve, plus les producteurs veulent vendre.</p><div class=\"formula\">Prix <span>??</span> = Offre <span>??</span></div>"
+            },
+            {
+                "type": "msg",
+                "title": "Loi de la Demande",
+                "body": "<p>Inversement pour les fans : si c'est trop cher, ils achetent moins.</p><div class=\"formula\">Prix <span>??</span> = Demande <span>??</span></div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Mécanisme Prix",
+                "q": "Si le prix d'un disque passe de 20 à 50, que fait la demande ?",
+                "opts": [
+                    "Elle augmente",
+                    "Elle diminue",
+                    "Rien"
+                ],
+                "a": 1,
+                "feed": "Loi de base : trop cher = moins de clients.",
+                "question": "Si le prix d'un disque passe de 20 à 50, que fait la demande ?",
+                "options": [
+                    "Elle augmente",
+                    "Elle diminue",
+                    "Rien"
+                ],
+                "feedback": "Loi de base : trop cher = moins de clients.",
+                "answer": 1
+            },
+            {
+                "type": "msg",
+                "title": "Prix d'Équilibre",
+                "body": "<p>Le marche cherche toujours un point de rencontre : le moment ou tout ce qui est produit est achete.</p><div class=\"data-box\">Equilibre : Offre = Demande</div><p>A ce prix-la, il n'y a plus aucun stock invendu et plus aucun client frustre.</p>"
+            },
+            {
+                "type": "write",
+                "title": "Mot Clé Équilibre",
+                "q": "Comment appelle-t-on le prix où l'offre est égale à la demande ?",
+                "requirements": {
+                    "keywords": [
+                        "équilibre"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "write",
-                    title: "Terminologie Offre",
-                    q: "Quel mot designe l'ensemble des vendeurs sur un marche ?",
-                    requirements: {
-                        keywords: ["offre"],
-                        minWords: 1
-                    },
-                    hint: "C'est l'un des deux mots du titre de la Seance (ca commence par O).",
-                    feed: "Correct. C'est le signal des producteurs."
+                "hint": "C'est quand les deux côtés de la balance sont au même niveau (9 lettres).",
+                "feed": "Le prix d'équilibre ! Là où le marché se vide.",
+                "question": "Comment appelle-t-on le prix où l'offre est égale à la demande ?",
+                "feedback": "Le prix d'équilibre ! Là où le marché se vide.",
+                "hint2": "Écris le mot-clé du point de rencontre entre offre et demande.",
+                "hint3": "Solution à recopier : « équilibre »."
+            },
+            {
+                "type": "quiz",
+                "title": "Choc de Demande",
+                "q": "Une trend TikTok rend ton son viral. La demande EXPLOSE. Le prix...",
+                "opts": [
+                    "Va descendre",
+                    "Va monter",
+                    "Va disparaître"
+                ],
+                "a": 1,
+                "feed": "Forte demande + stock limité = hausse des prix.",
+                "question": "Une trend TikTok rend ton son viral. La demande EXPLOSE. Le prix...",
+                "options": [
+                    "Va descendre",
+                    "Va monter",
+                    "Va disparaître"
+                ],
+                "feedback": "Forte demande + stock limité = hausse des prix.",
+                "answer": 1
+            },
+            {
+                "type": "write",
+                "title": "Action Manager",
+                "q": "Si tu as trop de stock invendu, dois-tu monter ou baisser ton prix ?",
+                "requirements": {
+                    "keywords": [
+                        "baisser",
+                        "baisse",
+                        "baisses",
+                        "réduire",
+                        "réduit",
+                        "réduction"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "msg",
-                    title: "Loi de l'Offre",
-                    body: `<p>Plus le prix est eleve, plus les producteurs veulent vendre.</p><div class="formula">Prix <span>⬆️</span> = Offre <span>⬆️</span></div>`
+                "hint": "Pour attirer plus de clients (Demande), que fais-tu du prix ?",
+                "feed": "Baisser le prix attire la demande pour vider le stock.",
+                "question": "Si tu as trop de stock invendu, dois-tu monter ou baisser ton prix ?",
+                "feedback": "Baisser le prix attire la demande pour vider le stock.",
+                "hint2": "Si le stock reste invendu, il faut rendre le prix plus bas.",
+                "hint3": "Solution à recopier : « baisser »."
+            },
+            {
+                "type": "quiz",
+                "title": "Validation Marché",
+                "q": "Vrai ou Faux : Sur un marché, le prix est fixé uniquement par le vendeur ?",
+                "opts": [
+                    "VRAI",
+                    "FAUX"
+                ],
+                "a": 1,
+                "feed": "Faux ! L'acheteur (la demande) a aussi son mot à dire.",
+                "question": "Vrai ou Faux : Sur un marché, le prix est fixé uniquement par le vendeur ?",
+                "options": [
+                    "VRAI",
+                    "FAUX"
+                ],
+                "feedback": "Faux ! L'acheteur (la demande) a aussi son mot à dire.",
+                "answer": 1
+            },
+            {
+                "type": "msg",
+                "title": "Courbes en Mouvement",
+                "body": "<p>Quand la demande ou l'offre change, le prix d'equilibre bouge.</p><div class=\"data-box\">Plus de demande = prix monte<br>Plus d'offre = prix baisse</div>"
+            },
+            {
+                "type": "quiz",
+                "title": "Choc d'Offre",
+                "q": "Le coût des matières premières augmente. L'offre baisse. Le prix...",
+                "opts": [
+                    "Monte",
+                    "Baisse",
+                    "Ne change pas"
+                ],
+                "a": 0,
+                "feed": "Moins d'offre = tension = hausse des prix.",
+                "question": "Le coût des matières premières augmente. L'offre baisse. Le prix...",
+                "options": [
+                    "Monte",
+                    "Baisse",
+                    "Ne change pas"
+                ],
+                "feedback": "Moins d'offre = tension = hausse des prix.",
+                "answer": 0
+            },
+            {
+                "type": "write",
+                "title": "Effet Prix Bas",
+                "q": "Si le prix baisse, que fait en général la demande ?",
+                "requirements": {
+                    "keywords": [
+                        "augmente",
+                        "augmentation",
+                        "monte",
+                        "hausse"
+                    ],
+                    "minWords": 1
                 },
-                {
-                    type: "msg",
-                    title: "Loi de la Demande",
-                    body: `<p>Inversement pour les fans : si c'est trop cher, ils achetent moins.</p><div class="formula">Prix <span>⬆️</span> = Demande <span>⬇️</span></div>`
-                },
-                {
-                    type: "quiz",
-                    title: "Mecanisme Prix",
-                    q: "Si le prix d'un disque passe de 20 a 50, que fait la demande ?",
-                    opts: ["Elle augmente", "Elle diminue", "Rien"],
-                    a: 1,
-                    feed: "Loi de base : trop cher = moins de clients."
-                },
-                {
-                    type: "msg",
-                    title: "Prix d'Equilibre",
-                    body: `<p>Le marche cherche toujours un point de rencontre : le moment ou tout ce qui est produit est achete.</p><div class="data-box">Equilibre : Offre = Demande</div><p>A ce prix-la, il n'y a plus aucun stock invendu et plus aucun client frustre.</p>`
-                },
-                {
-                    type: "write",
-                    title: "Mot Cle Equilibre",
-                    q: "Comment appelle-t-on le prix ou l'offre est egale a la demande ?",
-                    requirements: {
-                        keywords: ["equilibre"],
-                        minWords: 1
-                    },
-                    hint: "C'est quand les deux cotes de la balance sont au meme niveau (9 lettres).",
-                    feed: "Le prix d'equilibre ! La ou le marche se vide."
-                },
-                {
-                    type: "quiz",
-                    title: "Choc de Demande",
-                    q: "Une trend TikTok rend ton son viral. La demande EXPLOSE. Le prix...",
-                    opts: ["Va descendre", "Va monter", "Va disparaitre"],
-                    a: 1,
-                    feed: "Forte demande + stock limite = hausse des prix."
-                },
-                {
-                    type: "write",
-                    title: "Action Manager",
-                    q: "Si tu as trop de stock invendu, dois-tu monter ou baisser ton prix ?",
-                    requirements: {
-                        keywords: ["baisser", "baisse", "baisses", "reduire", "reduit", "reduction"],
-                        minWords: 1
-                    },
-                    hint: "Pour attirer plus de clients (Demande), que fais-tu du prix ?",
-                    feed: "Baisser le prix attire la demande pour vider le stock."
-                },
-                {
-                    type: "quiz",
-                    title: "Validation Marche",
-                    q: "Vrai ou Faux : Sur un marche, le prix est fixe uniquement par le vendeur ?",
-                    opts: ["VRAI", "FAUX"],
-                    a: 1,
-                    feed: "Faux ! L'acheteur (la demande) a aussi son mot a dire."
-                },
-                {
-                    type: "msg",
-                    title: "Courbes en Mouvement",
-                    body: `<p>Quand la demande ou l'offre change, le prix d'equilibre bouge.</p><div class="data-box">Plus de demande = prix monte<br>Plus d'offre = prix baisse</div>`
-                },
-                {
-                    type: "quiz",
-                    title: "Choc d'Offre",
-                    q: "Le cout des matieres premieres augmente. L'offre baisse. Le prix...",
-                    opts: ["Monte", "Baisse", "Ne change pas"],
-                    a: 0,
-                    feed: "Moins d'offre = tension = hausse des prix."
-                },
-                {
-                    type: "write",
-                    title: "Effet Prix Bas",
-                    q: "Si le prix baisse, que fait en general la demande ?",
-                    requirements: {
-                        keywords: ["augmente", "augmentation", "monte", "hausse"],
-                        minWords: 1
-                    },
-                    hint: "Prix plus bas = plus de clients.",
-                    feed: "Oui ! La demande augmente quand le prix baisse."
-                },
-                {
-                    type: "challenge",
-                    title: "Synthese Marche",
-                    q: "Explique en 2 phrases comment se fixe le prix d'un concert.",
-                    requirements: {
-                        keywordGroups: [
-                            ["offre", "offres"],
-                            ["demande", "demandes"],
-                            ["equilibre", "equilibrer", "equilibres"]
+                "hint": "Prix plus bas = plus de clients.",
+                "feed": "Oui ! La demande augmente quand le prix baisse.",
+                "question": "Si le prix baisse, que fait en général la demande ?",
+                "feedback": "Oui ! La demande augmente quand le prix baisse.",
+                "hint2": "Complète avec le verbe qui indique une hausse de la demande.",
+                "hint3": "Solution à recopier : « augmente »."
+            },
+            {
+                "type": "challenge",
+                "title": "Synthèse Marché",
+                "q": "Explique en 2 phrases comment se fixe le prix d'un concert.",
+                "requirements": {
+                    "keywordGroups": [
+                        [
+                            "offre",
+                            "offres"
                         ],
-                        minWords: 8,
-                        minSentences: 2
-                    },
-                    hint: "Parle du nombre de places (offre) et du nombre de fans (demande).",
-                    feed: "Analyse valide. Tu relies offre, demande et prix d'equilibre."
-                }
-            ]
-        }
-    ];
+                        [
+                            "demande",
+                            "demandes"
+                        ],
+                        [
+                            "équilibre",
+                            "équilibrer",
+                            "équilibres"
+                        ]
+                    ],
+                    "minWords": 8,
+                    "minSentences": 2
+                },
+                "hint": "Parle du nombre de places (offre) et du nombre de fans (demande).",
+                "feed": "Analyse valide. Tu relies offre, demande et prix d'équilibre.",
+                "question": "Explique en 2 phrases comment se fixe le prix d'un concert.",
+                "feedback": "Analyse valide. Tu relies offre, demande et prix d'équilibre.",
+                "hint2": "Fais 2 phrases en utilisant explicitement : offre, demande, équilibre.",
+                "hint3": "Solution à recopier : « L'offre de places limitées rencontre la demande des fans. Le prix d'équilibre se fixe quand offre et demande se rejoignent. »"
+            }
+        ]
+    }
+];
 </script>
-<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/shared/engine.js?v=20260216"></script>
 
 </body>
 </html>
+
 
 
