@@ -520,7 +520,7 @@
   - keywords: ":"
 - Hint: "Place ':' juste avant la liste ou l'explication que tu annonces."
 - Hint2: "Écris 2 phrases complètes; dans l'une, introduis une explication avec « : »."
-- Hint3: "Exemple à recopier : « Rapport : la team est prête. Nous lançons le scan. »"
+- Hint3: "Exemple à recopier : « Rapport : la team est prête. Nous lançons le scan maintenant. »"
 - Feedback: "Rapport coherent."
 
 ### Écran 13 - write - Réécriture
@@ -672,7 +672,7 @@
   - minWords: 15
 - Hint: "Fais des phrases courtes et claires, puis vérifie accords et ponctuation."
 - Hint2: "Rédige 3 phrases et utilise au moins deux signes différents parmi , : ! ? ( )."
-- Hint3: "Exemple à recopier : « Nous avançons vite, la zone est ouverte. Rapport : deux drones approchent. Restez groupés ! »"
+- Hint3: "Exemple à recopier : « Nous avançons vite, la zone est ouverte. Rapport : deux drones approchent. Restez groupés cette nuit ! »"
 - Feedback: "Rapport solide."
 
 ### Écran 14 - write - Rapport Long

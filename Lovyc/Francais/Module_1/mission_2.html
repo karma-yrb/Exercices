@@ -46,231 +46,221 @@
     };
     var weekData = [
     {
-        id: 2,
-        title: "Accord Multi-joueurs",
-        steps: [
+        "id": 2,
+        "title": "Accord Multi-joueurs",
+        "steps": [
             {
-                type: "lesson",
-                title: "Le Serveur Squad",
-                content: "\n                              <div class=\"visual-anchor\">\n                                <svg viewBox=\"0 0 100 60\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                                  <circle cx=\"30\" cy=\"25\" r=\"5\" />\n                                  <circle cx=\"50\" cy=\"20\" r=\"6\" />\n                                  <circle cx=\"70\" cy=\"25\" r=\"5\" />\n                                  <path d=\"M20 50 L40 50 M60 50 L80 50\" opacity=\"0.5\" />\n                                  <path d=\"M40 45 L60 45\" stroke-width=\"3\" />\n                                  <text x=\"38\" y=\"55\" style=\"fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;\">-ENT</text>\n                                </svg>\n                              </div>\n                              <div class=\"content-chunk\">\n                                <p>Le code secret du pluriel pour les verbes du 1er groupe (en -ER), c'est l'extension <b>-ENT</b>.</p>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>Mode Solo :</b> Le joueur <b>tire</b>.<br>\n                                <b>Mode Squad :</b> Les joueurs <b>tirent</b>.\n                              </div>"
+                "type": "lesson",
+                "title": "Le Serveur Squad",
+                "content": "\n                              <div class=\"visual-anchor\">\n                                <svg viewBox=\"0 0 100 60\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                                  <circle cx=\"30\" cy=\"25\" r=\"5\" />\n                                  <circle cx=\"50\" cy=\"20\" r=\"6\" />\n                                  <circle cx=\"70\" cy=\"25\" r=\"5\" />\n                                  <path d=\"M20 50 L40 50 M60 50 L80 50\" opacity=\"0.5\" />\n                                  <path d=\"M40 45 L60 45\" stroke-width=\"3\" />\n                                  <text x=\"38\" y=\"55\" style=\"fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;\">-ENT</text>\n                                </svg>\n                              </div>\n                              <div class=\"content-chunk\">\n                                <p>Le code secret du pluriel pour les verbes du 1er groupe (en -ER), c'est l'extension <b>-ENT</b>.</p>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>Mode Solo :</b> Le joueur <b>tire</b>.<br>\n                                <b>Mode Squad :</b> Les joueurs <b>tirent</b>.\n                              </div>"
             },
             {
-                type: "lesson",
-                title: "Radar du Sujet",
-                content: "\n                              <div class=\"content-chunk\">\n                                <p>Avant de choisir la terminaison du verbe, tu dois trouver <b>qui fait l'action</b>.</p>\n                                <p>Si le sujet est <b>au pluriel</b> (ils/elles, mes amis, les joueurs...), le verbe prend souvent <b>-ent</b>.</p>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>Les agents</b> avancent.<br>\n                                <b>Mon agent</b> avance.\n                              </div>"
+                "type": "lesson",
+                "title": "Radar du Sujet",
+                "content": "\n                              <div class=\"content-chunk\">\n                                <p>Avant de choisir la terminaison du verbe, tu dois trouver <b>qui fait l'action</b>.</p>\n                                <p>Si le sujet est <b>au pluriel</b> (ils/elles, mes amis, les joueurs...), le verbe prend souvent <b>-ent</b>.</p>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>Les agents</b> avancent.<br>\n                                <b>Mon agent</b> avance.\n                              </div>"
             },
             {
-                type: "interactive",
-                title: "Scan de Sujet",
-                question: "\"Qui est le sujet dans cette phrase ?\" (Les soldats protegent la zone.)",
-                options: [
+                "type": "interactive",
+                "title": "Scan de Sujet",
+                "question": "\"Qui est le sujet dans cette phrase ?\" (Les soldats protègent la zone.)",
+                "options": [
                     "la zone",
-                    "protegent",
+                    "protègent",
                     "Les soldats"
                 ],
-                answer: 2,
-                feedback: "Exact. Le sujet, c'est qui fait l'action : Les soldats.",
-                q: "\"Qui est le sujet dans cette phrase ?\" (Les soldats protegent la zone.)"
+                "answer": 2,
+                "feedback": "Exact. Le sujet, c'est qui fait l'action : Les soldats."
             },
             {
-                type: "interactive",
-                title: "Patch Correctif 1",
-                question: "\"Choisis la bonne terminaison :\" (Mes coequipiers ____ la zone.)",
-                options: [
-                    "securise",
-                    "securisent",
-                    "securises"
+                "type": "interactive",
+                "title": "Patch Correctif 1",
+                "question": "\"Choisis la bonne terminaison :\" (Mes coéquipiers ____ la zone.)",
+                "options": [
+                    "sécurise",
+                    "sécurisent",
+                    "sécurisés"
                 ],
-                answer: 1,
-                feedback: "Bien joue ! Plusieurs coequipiers = terminaison -ent.",
-                q: "\"Choisis la bonne terminaison :\" (Mes coequipiers ____ la zone.)"
+                "answer": 1,
+                "feedback": "Bien joué ! Plusieurs coéquipiers = terminaison -ent."
             },
             {
-                type: "interactive",
-                title: "Patch Correctif 2",
-                question: "\"Choisis la bonne forme :\" (Les drones ____ le terrain.)",
-                options: [
+                "type": "interactive",
+                "title": "Patch Correctif 2",
+                "question": "\"Choisis la bonne forme :\" (Les drones ____ le terrain.)",
+                "options": [
                     "survole",
                     "survolent",
                     "survoles"
                 ],
-                answer: 1,
-                feedback: "Les drones = pluriel -> survolent.",
-                q: "\"Choisis la bonne forme :\" (Les drones ____ le terrain.)"
+                "answer": 1,
+                "feedback": "Les drones = pluriel -> survolent."
             },
             {
-                type: "write",
-                title: "Reparation Express",
-                question: "\"Corrige la terminaison :\" (Mes amis traverse la rue.)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Reparation Express",
+                "question": "\"Corrige la terminaison :\" (Mes amis traverse la rue.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "amis",
                         "traversent",
                         "rue"
                     ],
-                    enforceKeywords: true
+                    "enforceKeywords": true
                 },
-                hint: "Sujet pluriel = verbe en -ent.",
-                hint2: "Le sujet « Mes amis » est pluriel, donc le verbe doit finir par -ent.",
-                hint3: "Exemple à recopier : « Mes amis traversent la rue. »",
-                feedback: "Bien vu. Mes amis traversent.",
-                q: "\"Corrige la terminaison :\" (Mes amis traverse la rue.)"
+                "hint": "Sujet pluriel = verbe en -ent.",
+                "hint2": "Le sujet « Mes amis » est pluriel, donc le verbe doit finir par -ent.",
+                "hint3": "Exemple à recopier : « Mes amis traversent la rue. »",
+                "feedback": "Bien vu. Mes amis traversent."
             },
             {
-                type: "interactive",
-                title: "Verbes Irreguliers",
-                question: "\"Choisis la bonne forme :\" (Ils ____ prets.)",
-                options: [
+                "type": "interactive",
+                "title": "Verbes Irreguliers",
+                "question": "\"Choisis la bonne forme :\" (Ils ____ prêts.)",
+                "options": [
                     "sont",
                     "son",
                     "est"
                 ],
-                answer: 0,
-                feedback: "Avec ils, on dit: ils sont.",
-                q: "\"Choisis la bonne forme :\" (Ils ____ prets.)"
+                "answer": 0,
+                "feedback": "Avec ils, on dit: ils sont."
             },
             {
-                type: "write",
-                title: "Transmission Claire",
-                question: "\"Ecris une phrase correcte avec ces mots :\" (ils - l'extraction - avancent - vers)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Transmission Claire",
+                "question": "\"Écris une phrase correcte avec ces mots :\" (ils - l'extraction - avancent - vers)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "ils",
                         "avancent",
                         "l'extraction"
                     ],
-                    enforceKeywords: true
+                    "enforceKeywords": true
                 },
-                hint: "Commence par 'Ils...'.",
-                hint2: "Utilise les mots donnés dans l'ordre logique : Ils + avancent + vers + l'extraction.",
-                hint3: "Exemple à recopier : « Ils avancent vers l'extraction. »",
-                feedback: "Transmission fluide.",
-                q: "\"Ecris une phrase correcte avec ces mots :\" (ils - l'extraction - avancent - vers)"
+                "hint": "Commence par 'Ils...'.",
+                "hint2": "Utilise les mots donnés dans l'ordre logique : Ils + avancent + vers + l'extraction.",
+                "hint3": "Exemple à recopier : « Ils avancent vers l'extraction. »",
+                "feedback": "Transmission fluide."
             },
             {
-                type: "write",
-                title: "Correction de Bug",
-                question: "\"Reecris la phrase sans erreur :\" (Mes parents regarde mon match.)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Correction de Bug",
+                "question": "\"Réécris la phrase sans erreur :\" (Mes parents regarde mon match.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "parents",
                         "regardent",
                         "match"
                     ],
-                    enforceKeywords: true
+                    "enforceKeywords": true
                 },
-                hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale.",
-                hint2: "Avec « Mes parents », le verbe se met au pluriel et la phrase finit par un point.",
-                hint3: "Exemple à recopier : « Mes parents regardent mon match. »",
-                feedback: "Fix reussi ! Tes parents (ils) = regardent.",
-                q: "\"Reecris la phrase sans erreur :\" (Mes parents regarde mon match.)"
+                "hint": "Relis mot par mot, corrige l'accord et vérifie la ponctuation finale.",
+                "hint2": "Avec « Mes parents », le verbe se met au pluriel et la phrase finit par un point.",
+                "hint3": "Exemple à recopier : « Mes parents regardent mon match. »",
+                "feedback": "Fix réussi ! Tes parents (ils) = regardent."
             },
             {
-                type: "interactive",
-                title: "Faux Ami",
-                question: "\"Quel verbe est correct ?\" (Les coequipiers ____ la defense.)",
-                options: [
-                    "ameliore",
-                    "ameliorent",
-                    "ameliores"
+                "type": "interactive",
+                "title": "Faux Ami",
+                "question": "\"Quel verbe est correct ?\" (Les coéquipiers ____ la défense.)",
+                "options": [
+                    "améliore",
+                    "améliorent",
+                    "améliores"
                 ],
-                answer: 1,
-                feedback: "Pluriel -> ameliorent.",
-                q: "\"Quel verbe est correct ?\" (Les coequipiers ____ la defense.)"
+                "answer": 1,
+                "feedback": "Pluriel -> améliorent."
             },
             {
-                type: "write",
-                title: "Accord Cache",
-                question: "\"Complete la phrase :\" (Les joueurs ____ la finale ce soir.)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
-                        "joueurs",
-                        "gagnent",
-                        "finale"
-                    ],
-                    enforceKeywords: true
+                "type": "write",
+                "title": "Accord Cache",
+                "question": "\"Complète avec le verbe correct :\" (Les joueurs ____ la finale ce soir.)",
+                "requirements": {
+                    "mode": "verb",
+                    "keywords": [
+                        "gagnent"
+                    ]
                 },
-                hint: "Sujet pluriel = verbe en -ent.",
-                hint2: "Un seul mot attendu: verbe au présent, 3e personne du pluriel.",
-                hint3: "Réponse à recopier : « gagnent ».",
-                feedback: "Parfait.",
-                q: "\"Complete la phrase :\" (Les joueurs ____ la finale ce soir.)"
+                "hint": "Sujet pluriel 'Les joueurs' -> verbe en -ent. Écris seulement le verbe.",
+                "hint2": "Un seul mot attendu: verbe au présent, 3e personne du pluriel.",
+                "hint3": "Réponse à recopier : « gagnent ».",
+                "feedback": "Parfait. Les joueurs gagnent la finale ce soir."
             },
             {
-                type: "interactive",
-                title: "Pluriel Repere",
-                question: "\"Quel mot montre que le sujet est pluriel ?\" (Mes freres avancent vite.)",
-                options: [
+                "type": "interactive",
+                "title": "Pluriel Repere",
+                "question": "\"Quel mot montre que le sujet est pluriel ?\" (Mes frères avancent vite.)",
+                "options": [
                     "vite",
                     "mes",
                     "avancent"
                 ],
-                answer: 1,
-                feedback: "Oui. 'Mes' indique plusieurs.",
-                q: "\"Quel mot montre que le sujet est pluriel ?\" (Mes freres avancent vite.)"
+                "answer": 1,
+                "feedback": "Oui. 'Mes' indique plusieurs."
             },
             {
-                type: "write",
-                title: "Phrase Plurielle Libre",
-                question: "\"Ecris une phrase avec un sujet pluriel et un verbe au present.\"",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Phrase Plurielle Libre",
+                "question": "\"Écris une phrase avec un sujet pluriel et un verbe au présent.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "ils",
                         "elles",
-                        "mes",
-                        "les"
-                    ],
-                    enforceKeywords: true,
-                    minWords: 6
-                },
-                hint: "Commence par un groupe de plusieurs personnes.",
-                hint2: "Forme minimale: Sujet pluriel + verbe au présent + complément.",
-                hint3: "Exemple à recopier : « Ils avancent vers la base. »",
-                feedback: "Accord valide.",
-                q: "\"Ecris une phrase avec un sujet pluriel et un verbe au present.\""
-            },
-            {
-                type: "write",
-                title: "Rapport Squad",
-                question: "\"Redige deux phrases avec un sujet pluriel dans chacune.\"",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 10,
-                    keywords: [
-                        "ils",
-                        "elles",
-                        "mes",
-                        "les"
-                    ],
-                    enforceKeywords: true
-                },
-                hint: "Deux actions, deux accords.",
-                hint2: "Rédige deux phrases complètes, chacune avec un sujet pluriel.",
-                hint3: "Exemple à recopier : « Les joueurs avancent vite. Mes amis couvrent la zone. »",
-                feedback: "Rapport synchronise.",
-                q: "\"Redige deux phrases avec un sujet pluriel dans chacune.\""
-            },
-            {
-                type: "challenge",
-                title: "Boss de Fin - Mission 2",
-                question: "\"Reecris toute cette phrase sans aucune erreur :\" (terrain - sur - le - saute - joueurs - les)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                        "nous",
+                        "vous",
                         "joueurs",
-                        "sautent",
+                        "amis"
+                    ],
+                    "minWords": 6
+                },
+                "hint": "Commence par un sujet pluriel (ils/elles/nous/vous) et utilise un verbe conjugué au présent.",
+                "hint2": "Forme minimale: Sujet pluriel + verbe au présent + complément.",
+                "hint3": "Exemple à recopier : « Ils avancent vite vers la base. »",
+                "feedback": "Accord valide."
+            },
+            {
+                "type": "write",
+                "title": "Rapport Squad",
+                "question": "\"Rédige deux phrases avec un sujet pluriel dans chacune.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "ils",
+                        "elles",
+                        "nous",
+                        "vous",
+                        "joueurs",
+                        "amis"
+                    ],
+                    "minWords": 12,
+                    "minSentences": 2,
+                    "mustInclude": [
+                        "."
+                    ]
+                },
+                "hint": "Écris 2 phrases. Dans chaque phrase: sujet pluriel + verbe au présent accordé.",
+                "hint2": "Rédige deux phrases complètes, chacune avec un sujet pluriel.",
+                "hint3": "Exemple à recopier : « Les joueurs avancent vite pendant le match. Mes amis couvrent la zone. »",
+                "feedback": "Rapport synchronisé."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 2",
+                "question": "\"Réécris toute cette phrase sans aucune erreur :\" (terrain - sur - le - court - joueurs - les)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "joueurs",
+                        "courent",
                         "terrain"
                     ],
-                    enforceKeywords: true
+                    "enforceKeywords": true
                 },
-                hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale.",
-                feedback: "L'accord de la squad est parfait.",
-                q: "\"Reecris toute cette phrase sans aucune erreur :\" (terrain - sur - le - saute - joueurs - les)"
+                "hint": "Relis mot par mot, corrige l'accord et vérifie la ponctuation finale.",
+                "feedback": "L'accord de la squad est parfait."
             }
         ]
     }

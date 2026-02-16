@@ -46,265 +46,281 @@
     };
     var weekData = [
     {
-        id: 5,
-        title: "L'Ultime Deploiement",
-        steps: [
+        "id": 5,
+        "title": "L'Ultime Deploiement",
+        "steps": [
             {
-                type: "msg",
-                title: "Examen de Grade",
-                body: "<p>Agent Lovyc, c'est l'heure du <b>deploiement final</b>. Prouve que tu maitrises tout l'equipement tactique.</p>"
+                "type": "msg",
+                "title": "Examen de Grade",
+                "body": "<p>Agent Lovyc, c'est l'heure du <b>deploiement final</b>. Prouve que tu maitrises tout l'equipement tactique.</p>"
             },
             {
-                type: "interactive",
-                title: "Structure S+V+C",
-                question: "\"Quel flux de donnees respecte l'ordre S+V+C ?\"",
-                options: [
+                "type": "interactive",
+                "title": "Structure S+V+C",
+                "question": "\"Quel flux de données respecte l'ordre S+V+C ?\"",
+                "options": [
                     "Dujardin la rue descendait.",
                     "Dujardin descendait la rue.",
                     "La rue descendait Dujardin."
                 ],
-                answer: 1,
-                feedback: "Structure litteraire verrouillee.",
-                q: "\"Quel flux de donnees respecte l'ordre S+V+C ?\""
+                "answer": 1,
+                "feedback": "Structure littéraire verrouillée."
             },
             {
-                type: "interactive",
-                title: "Accord Squad",
-                question: "\"Choisis la bonne forme :\" (Les joueurs ____ la zone.)",
-                options: [
-                    "securise",
-                    "securisent",
-                    "securises"
+                "type": "interactive",
+                "title": "Accord Squad",
+                "question": "\"Choisis la bonne forme :\" (Les joueurs ____ la zone.)",
+                "options": [
+                    "sécurise",
+                    "sécurisent",
+                    "sécurisés"
                 ],
-                answer: 1,
-                feedback: "Pluriel -> -ent.",
-                q: "\"Choisis la bonne forme :\" (Les joueurs ____ la zone.)"
+                "answer": 1,
+                "feedback": "Pluriel -> -ent."
             },
             {
-                type: "write",
-                title: "S+V+C Libre",
-                question: "\"Ecris une phrase S+V+C au present.\"",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 6,
-                    keywords: [
-                        "je",
-                        "tu",
-                        "il",
-                        "elle",
-                        "nous",
-                        "vous",
-                        "ils",
-                        "elles"
+                "type": "write",
+                "title": "S+V+C Libre",
+                "question": "\"Écris une phrase S+V+C au présent.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywordGroups": [
+                        [
+                            "je",
+                            "nous",
+                            "ils",
+                            "elles",
+                            "lovyc",
+                            "équipe",
+                            "joueurs"
+                        ],
+                        [
+                            "avance",
+                            "avancent",
+                            "protège",
+                            "protègent",
+                            "attaque",
+                            "attaquent",
+                            "prépare",
+                            "préparent",
+                            "lance",
+                            "lancent"
+                        ],
+                        [
+                            "zone",
+                            "terrain",
+                            "stratégie",
+                            "match",
+                            "base"
+                        ]
                     ],
-                    enforceKeywords: false
+                    "minWords": 6
                 },
-                hint: "Verifie l'ordre Sujet + Verbe + Complement, puis ajoute un detail concret.",
-                hint2: "Commence par un sujet, ajoute un verbe au présent, puis un complément précis.",
-                hint3: "Exemple à recopier : « Les joueurs préparent la stratégie. »",
-                feedback: "Bonne structure.",
-                q: "\"Ecris une phrase S+V+C au present.\""
+                "hint": "Vérifie l'ordre Sujet + Verbe + Complément, puis ajoute un détail concret.",
+                "hint2": "Commence par un sujet, ajoute un verbe au présent, puis un complément précis.",
+                "hint3": "Exemple à recopier : « Les joueurs préparent la stratégie ensemble. »",
+                "feedback": "Bonne structure."
             },
             {
-                type: "write",
-                title: "Accord Pluriel",
-                question: "\"Corrige cette phrase (Hugo) en respectant le code -ENT :\" (Les hommes marche dans l'ombre.)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Accord Pluriel",
+                "question": "\"Corrige cette phrase (Hugo) en respectant le code -ENT :\" (Les hommes marche dans l'ombre.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "hommes",
                         "marchent",
                         "ombre"
                     ],
-                    enforceKeywords: true
+                    "enforceKeywords": true
                 },
-                hint: "Repere d'abord le sujet pluriel, puis accorde le verbe en -ent.",
-                hint2: "Le sujet « Les hommes » est pluriel : le verbe doit finir en -ent.",
-                hint3: "Exemple à recopier : « Les hommes marchent dans l'ombre. »",
-                feedback: "Liaison squad etablie.",
-                q: "\"Corrige cette phrase (Hugo) en respectant le code -ENT :\" (Les hommes marche dans l'ombre.)"
+                "hint": "Repere d'abord le sujet pluriel, puis accorde le verbe en -ent.",
+                "hint2": "Le sujet « Les hommes » est pluriel : le verbe doit finir en -ent.",
+                "hint3": "Exemple à recopier : « Les hommes marchent dans l'ombre. »",
+                "feedback": "Liaison squad etablie."
             },
             {
-                type: "interactive",
-                title: "Ponctuation Simple",
-                question: "\"Quelle phrase est la plus claire ?\"",
-                options: [
+                "type": "interactive",
+                "title": "Ponctuation Simple",
+                "question": "\"Quelle phrase est la plus claire ?\"",
+                "options": [
                     "Je charge, je tire.",
                     "Je charge. je tire.",
                     "Je charge je tire."
                 ],
-                answer: 0,
-                feedback: "Virgule utile.",
-                q: "\"Quelle phrase est la plus claire ?\""
+                "answer": 0,
+                "feedback": "Virgule utile."
             },
             {
-                type: "write",
-                title: "Point et Virgule",
-                question: "\"Ajoute une virgule et un point :\" (je - check - la - map - je - pars - vite)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Point et Virgule",
+                "question": "\"Ajoute une virgule et un point :\" (je - check - la - map - je - pars - vite)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "map"
                     ],
-                    mustInclude: [
+                    "mustInclude": [
                         ",",
                         "."
                     ],
-                    enforceKeywords: true,
-                    minWords: 7
+                    "enforceKeywords": true,
+                    "minWords": 7
                 },
-                hint: "Mets la virgule entre deux actions proches, puis le point pour cloturer l'idee.",
-                hint2: "Réécris en deux actions: virgule pour la micro-pause, point pour finir.",
-                hint3: "Exemple à recopier : « Je check la map, je pars vite. »",
-                feedback: "Ponctuation appliquee.",
-                q: "\"Ajoute une virgule et un point :\" (je - check - la - map - je - pars - vite)"
+                "hint": "Mets la virgule entre deux actions proches, puis le point pour clôturer l'idée.",
+                "hint2": "Réécris en deux actions: virgule pour la micro-pause, point pour finir.",
+                "hint3": "Exemple à recopier : « Je check la map, je pars vite. »",
+                "feedback": "Ponctuation appliquee."
             },
             {
-                type: "interactive",
-                title: "Homophones Rapides",
-                question: "\"Choisis la phrase correcte :\"",
-                options: [
+                "type": "interactive",
+                "title": "Homophones Rapides",
+                "question": "\"Choisis la phrase correcte :\"",
+                "options": [
                     "Il a rapide et il est fier.",
                     "Il est rapide et il a la finale.",
                     "Il et rapide et il a la finale."
                 ],
-                answer: 1,
-                feedback: "Homophones ok.",
-                q: "\"Choisis la phrase correcte :\""
+                "answer": 1,
+                "feedback": "Homophones ok."
             },
             {
-                type: "write",
-                title: "Phrase Mixte 1",
-                question: "\"Ecris une phrase avec a, et, est.\"",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Phrase Mixte 1",
+                "question": "\"Écris une phrase avec a, et, est.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "a",
                         "et",
                         "est"
                     ]
                 },
-                hint: "Teste chaque mot: a = avait, est = etait, et = et puis.",
-                hint2: "Fais une seule phrase avec les trois mots : a, et, est.",
-                hint3: "Exemple à recopier : « Il a une carte et il est prêt. »",
-                feedback: "Mix valide.",
-                q: "\"Ecris une phrase avec a, et, est.\""
+                "hint": "Teste chaque mot: a = avait, est = était, et = et puis.",
+                "hint2": "Fais une seule phrase avec les trois mots : a, et, est.",
+                "hint3": "Exemple à recopier : « Il a une carte et il est prêt. »",
+                "feedback": "Mix valide."
             },
             {
-                type: "write",
-                title: "Phrase Mixte 2",
-                question: "\"Ecris une phrase au pluriel avec une virgule.\"",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
-                        "ils",
-                        "elles",
-                        "nous",
-                        "vous"
+                "type": "write",
+                "title": "Phrase Mixte 2",
+                "question": "\"Écris une phrase au pluriel avec une virgule.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywordGroups": [
+                        [
+                            "ils",
+                            "elles",
+                            "nous",
+                            "vous",
+                            "joueurs",
+                            "amis"
+                        ],
+                        [
+                            "avancent",
+                            "courent",
+                            "jouent",
+                            "préparent",
+                            "protègent"
+                        ]
                     ],
-                    mustInclude: [
+                    "mustInclude": [
                         ","
                     ],
-                    enforceKeywords: true,
-                    minWords: 8
+                    "minWords": 8
                 },
-                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
-                hint2: "La phrase doit être au pluriel, avec une virgule entre deux actions.",
-                hint3: "Exemple à recopier : « Les joueurs avancent, ils couvrent la base. »",
-                feedback: "Bon rythme.",
-                q: "\"Ecris une phrase au pluriel avec une virgule.\""
+                "hint": "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
+                "hint2": "La phrase doit être au pluriel, avec une virgule entre deux actions.",
+                "hint3": "Exemple à recopier : « Les joueurs avancent, ils couvrent rapidement la base. »",
+                "feedback": "Bon rythme."
             },
             {
-                type: "interactive",
-                title: "Verification Finale 1",
-                question: "\"Quelle phrase est correcte ?\" (Les agents avance.)",
-                options: [
+                "type": "interactive",
+                "title": "Verification Finale 1",
+                "question": "\"Quelle phrase est correcte ?\" (Les agents avance.)",
+                "options": [
                     "Les agents avance.",
                     "Les agents avancent.",
                     "Les agents avancer."
                 ],
-                answer: 1,
-                feedback: "Accord valide.",
-                q: "\"Quelle phrase est correcte ?\" (Les agents avance.)"
+                "answer": 1,
+                "feedback": "Accord valide."
             },
             {
-                type: "interactive",
-                title: "Verification Finale 2",
-                question: "\"Quelle phrase respecte S+V+C ?\"",
-                options: [
-                    "La zone protege l'agent.",
-                    "L'agent protege la zone.",
-                    "Protege l'agent la zone."
+                "type": "interactive",
+                "title": "Verification Finale 2",
+                "question": "\"Quelle phrase respecte S+V+C ?\"",
+                "options": [
+                    "La zone protège l'agent.",
+                    "L'agent protège la zone.",
+                    "Protège l'agent la zone."
                 ],
-                answer: 1,
-                feedback: "Structure valide.",
-                q: "\"Quelle phrase respecte S+V+C ?\""
+                "answer": 1,
+                "feedback": "Structure valide."
             },
             {
-                type: "write",
-                title: "Micro Rapport",
-                question: "\"Ecris deux phrases S+V+C avec un sujet pluriel dans l'une.\"",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 12,
-                    keywords: [
-                        "ils",
-                        "elles",
-                        "nous",
-                        "vous"
-                    ],
-                    enforceKeywords: true
+                "type": "write",
+                "title": "Micro Rapport",
+                "question": "\"Écris deux phrases S+V+C avec un sujet pluriel dans l'une.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "minWords": 12
                 },
-                hint: "Verifie l'ordre Sujet + Verbe + Complement, puis ajoute un detail concret.",
-                hint2: "Écris deux phrases S+V+C, dont une avec un sujet pluriel.",
-                hint3: "Exemple à recopier : « Je prépare la tactique. Les joueurs lancent l'attaque. »",
-                feedback: "Rapport clair.",
-                q: "\"Ecris deux phrases S+V+C avec un sujet pluriel dans l'une.\""
+                "hint": "Vérifie l'ordre Sujet + Verbe + Complément, puis ajoute un détail concret.",
+                "hint2": "Écris deux phrases S+V+C, dont une avec un sujet pluriel.",
+                "hint3": "Exemple à recopier : « Je prépare la tactique pour le match final. Les joueurs lancent l'attaque. »",
+                "feedback": "Rapport clair."
             },
             {
-                type: "write",
-                title: "Rapport Global",
-                question: "\"Redige 3 phrases sur un match termine.\"",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 18,
-                    keywords: [
-                        "match",
-                        "victoire",
-                        "defaite",
-                        "score"
+                "type": "write",
+                "title": "Rapport Global",
+                "question": "\"Rédige 3 phrases sur un match terminé.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywordGroups": [
+                        [
+                            "match",
+                            "rencontre"
+                        ],
+                        [
+                            "équipe",
+                            "joueurs",
+                            "agents"
+                        ],
+                        [
+                            "stratégie",
+                            "tactique",
+                            "plan"
+                        ]
                     ],
-                    enforceKeywords: false
+                    "minWords": 18,
+                    "minSentences": 3
                 },
-                hint: "Fais des phrases courtes et claires, puis verifie accords et ponctuation.",
-                hint2: "Rédige 3 phrases: situation du match, action de l'équipe, bilan final.",
-                hint3: "Exemple à recopier : « Le match commence. Les joueurs appliquent la tactique. Notre équipe gagne la rencontre. »",
-                feedback: "Rapport complet.",
-                q: "\"Redige 3 phrases sur un match termine.\""
+                "hint": "Fais des phrases courtes et claires, puis vérifie accords et ponctuation.",
+                "hint2": "Rédige 3 phrases: situation du match, action de l'équipe, bilan final.",
+                "hint3": "Exemple à recopier : « Le match commence. Les joueurs appliquent la tactique avec une coordination solide. Notre équipe gagne la rencontre aujourd'hui. »",
+                "feedback": "Rapport complet."
             },
             {
-                type: "challenge",
-                title: "Ultime Boss - Module 1",
-                question: "\"Redige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au present, et le mot 'TACTIQUE'.\"",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
-                        "reussissent",
-                        "reussit",
-                        "reussis",
-                        "reussissons",
-                        "reussissez",
+                "type": "challenge",
+                "title": "Ultime Boss - Module 1",
+                "question": "\"Rédige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au présent, et le mot 'TACTIQUE'.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "réussissent",
+                        "réussit",
+                        "réussis",
+                        "réussissons",
+                        "réussissez"
+                    ],
+                    "mustInclude": [
+                        ",",
                         "tactique"
-                    ],
-                    mustInclude: [
-                        ","
-                    ],
-                    enforceKeywords: true,
-                    minWords: 12
+                    ]
                 },
-                hint: "Exemple : Tes missions reussissent, c'est une victoire tactique.",
-                feedback: "CODE ROUGE TERMINE. Felicitations Agent Lovyc !",
-                q: "\"Redige ton rapport final de mission. Tu dois utiliser au moins une virgule, le verbe 'REUSSIR' au present, et le mot 'TACTIQUE'.\""
+                "hint": "Vérifie les 3 contraintes: une virgule, une forme de 'réussir' au présent, et le mot 'tactique'.",
+                "feedback": "CODE ROUGE TERMINE. Félicitations Agent Lovyc !"
             }
         ]
     }

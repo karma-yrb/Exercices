@@ -46,209 +46,200 @@
     };
     var weekData = [
     {
-        id: 4,
-        title: "Filtres de Precision",
-        steps: [
+        "id": 4,
+        "title": "Filtres de Precision",
+        "steps": [
             {
-                type: "lesson",
-                title: "Le Scan a vs à",
-                content: "\n                              <div class=\"box-concept\">\n                                <b>a (sans accent) :</b> On peut dire <i>\"avait\"</i>. (Il a gagne -> Il avait gagne).<br>\n                                <b>a (avec accent) :</b> On ne peut pas. C'est une direction (Il va à Paris).\n                              </div>"
+                "type": "lesson",
+                "title": "Le Scan a vs à",
+                "content": "\n                              <div class=\"box-concept\">\n                                <b>a (sans accent) :</b> On peut dire <i>\"avait\"</i>. (Il a gagne -> Il avait gagne).<br>\n                                <b>a (avec accent) :</b> On ne peut pas. C'est une direction (Il va à Paris).\n                              </div>"
             },
             {
-                type: "lesson",
-                title: "Le Scan et / est",
-                content: "\n                              <div class=\"box-concept\">\n                                <b>et :</b> on peut dire <i>\"et puis\"</i>.<br>\n                                <b>est :</b> on peut dire <i>\"etait\"</i>.\n                              </div>"
+                "type": "lesson",
+                "title": "Le Scan et / est",
+                "content": "\n                              <div class=\"box-concept\">\n                                <b>et :</b> on peut dire <i>\"et puis\"</i>.<br>\n                                <b>est :</b> on peut dire <i>\"etait\"</i>.\n                              </div>"
             },
             {
-                type: "interactive",
-                title: "Test a 1",
-                question: "\"Choisis le bon code :\" (Lovyc ____ gagne son match.)",
-                options: [
+                "type": "interactive",
+                "title": "Test a 1",
+                "question": "\"Choisis le bon code :\" (Lovyc ____ gagne son match.)",
+                "options": [
                     "a (avait)",
                     "à"
                 ],
-                answer: 0,
-                feedback: "Bravo !",
-                q: "\"Choisis le bon code :\" (Lovyc ____ gagne son match.)"
+                "answer": 0,
+                "feedback": "Bravo !"
             },
             {
-                type: "interactive",
-                title: "Test a 2",
-                question: "\"Choisis le bon code :\" (Il va ____ la base.)",
-                options: [
+                "type": "interactive",
+                "title": "Test a 2",
+                "question": "\"Choisis le bon code :\" (Il va ____ la base.)",
+                "options": [
                     "a (avait)",
                     "à"
                 ],
-                answer: 1,
-                feedback: "Direction -> a avec accent.",
-                q: "\"Choisis le bon code :\" (Il va ____ la base.)"
+                "answer": 1,
+                "feedback": "Direction -> a avec accent."
             },
             {
-                type: "interactive",
-                title: "Test et 1",
-                question: "\"Choisis la bonne forme :\" (Le coach ____ calme.)",
-                options: [
+                "type": "interactive",
+                "title": "Test et 1",
+                "question": "\"Choisis la bonne forme :\" (Le coach ____ calme.)",
+                "options": [
                     "et",
                     "est"
                 ],
-                answer: 1,
-                feedback: "On peut dire etait.",
-                q: "\"Choisis la bonne forme :\" (Le coach ____ calme.)"
+                "answer": 1,
+                "feedback": "On peut dire était."
             },
             {
-                type: "interactive",
-                title: "Test est 1",
-                question: "\"Choisis la bonne forme :\" (Il parle ____ il explique.)",
-                options: [
+                "type": "interactive",
+                "title": "Test est 1",
+                "question": "\"Choisis la bonne forme :\" (Il parle ____ il explique.)",
+                "options": [
                     "et",
                     "est"
                 ],
-                answer: 0,
-                feedback: "On peut dire et puis.",
-                q: "\"Choisis la bonne forme :\" (Il parle ____ il explique.)"
+                "answer": 0,
+                "feedback": "On peut dire et puis."
             },
             {
-                type: "write",
-                title: "Combo Tactique",
-                question: "\"Reecris la phrase sans erreur :\" (et - est - rapide - le - pro-gamer - precis)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Combo Tactique",
+                "question": "\"Réécris la phrase sans erreur :\" (et - est - rapide - le - pro-gamer - précis)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "est",
                         "rapide",
                         "et",
-                        "precis"
+                        "précis"
                     ],
-                    enforceKeywords: true
+                    "enforceKeywords": true
                 },
-                hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale.",
-                hint2: "Remets les mots dans l'ordre : sujet + est + adjectifs reliés par et.",
-                hint3: "Exemple à recopier : « Le pro-gamer est rapide et précis. »",
-                feedback: "Parfait ! Il 'etait' rapide 'et puis' precis.",
-                q: "\"Reecris la phrase sans erreur :\" (et - est - rapide - le - pro-gamer - precis)"
+                "hint": "Relis mot par mot, corrige l'accord et vérifie la ponctuation finale.",
+                "hint2": "Remets les mots dans l'ordre : sujet + est + adjectifs reliés par et.",
+                "hint3": "Exemple à recopier : « Le pro-gamer est rapide et précis. »",
+                "feedback": "Parfait ! Il 'était' rapide 'et puis' précis."
             },
             {
-                type: "write",
-                title: "Correction Simple",
-                question: "\"Corrige :\" (il a la finale et il a fier)",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Correction Simple",
+                "question": "\"Corrige :\" (il a la finale et il et fier)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "a",
                         "et",
                         "est"
                     ]
                 },
-                hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale.",
-                hint2: "Le second « et » doit devenir « est » ; ajoute aussi majuscule et point.",
-                hint3: "Exemple à recopier : « Il a la finale et il est fier. »",
-                feedback: "Correctif applique.",
-                q: "\"Corrige :\" (il a la finale et il a fier)"
+                "hint": "Relis mot par mot, corrige l'accord et vérifie la ponctuation finale.",
+                "hint2": "Le second « et » doit devenir « est » ; ajoute aussi majuscule et point.",
+                "hint3": "Exemple à recopier : « Il a la finale et il est fier. »",
+                "feedback": "Correctif applique."
             },
             {
-                type: "interactive",
-                title: "Variante a / à",
-                question: "\"Choisis la bonne forme :\" (Elle ____ raison.)",
-                options: [
+                "type": "interactive",
+                "title": "Variante a / à",
+                "question": "\"Choisis la bonne forme :\" (Elle ____ raison.)",
+                "options": [
                     "a",
                     "à"
                 ],
-                answer: 0,
-                feedback: "Test 'avait'.",
-                q: "\"Choisis la bonne forme :\" (Elle ____ raison.)"
+                "answer": 0,
+                "feedback": "Test 'avait'."
             },
             {
-                type: "interactive",
-                title: "Variante et / est",
-                question: "\"Choisis la bonne forme :\" (Le signal ____ clair.)",
-                options: [
+                "type": "interactive",
+                "title": "Variante et / est",
+                "question": "\"Choisis la bonne forme :\" (Le signal ____ clair.)",
+                "options": [
                     "et",
                     "est"
                 ],
-                answer: 1,
-                feedback: "Test 'etait'.",
-                q: "\"Choisis la bonne forme :\" (Le signal ____ clair.)"
+                "answer": 1,
+                "feedback": "Test 'était'."
             },
             {
-                type: "write",
-                title: "Phrase Mixte",
-                question: "\"Ecris une phrase avec a et est correctement.\"",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Phrase Mixte",
+                "question": "\"Écris une phrase avec a et est correctement.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "a",
                         "est"
                     ]
                 },
-                hint: "Teste chaque mot: a = avait, est = etait, et = et puis.",
-                hint2: "Écris une phrase complète qui contient au moins « a » et « est ».",
-                hint3: "Exemple à recopier : « Il a une raquette et il est prêt. »",
-                feedback: "Phrase clean.",
-                q: "\"Ecris une phrase avec a et est correctement.\""
+                "hint": "Teste chaque mot: a = avait, est = était, et = et puis.",
+                "hint2": "Écris une phrase complète qui contient au moins « a » et « est ».",
+                "hint3": "Exemple à recopier : « Il a une raquette et il est prêt. »",
+                "feedback": "Phrase clean."
             },
             {
-                type: "write",
-                title: "Phrase Mixte 2",
-                question: "\"Ecris une phrase avec et et a correctement.\"",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [
+                "type": "write",
+                "title": "Phrase Mixte 2",
+                "question": "\"Écris une phrase avec et et a correctement.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "et",
                         "a"
-                    ]
+                    ],
+                    "enforceKeywords": true,
+                    "minWords": 6
                 },
-                hint: "Teste chaque mot: a = avait, est = etait, et = et puis.",
-                hint2: "Inclue « et » et « a » dans une phrase de 6 mots minimum.",
-                hint3: "Exemple à recopier : « Le joueur a une stratégie et avance. »",
-                feedback: "Validation ok.",
-                q: "\"Ecris une phrase avec et et a correctement.\""
+                "hint": "Teste chaque mot: a = avait, est = était, et = et puis.",
+                "hint2": "Inclue « et » et « a » dans une phrase de 6 mots minimum.",
+                "hint3": "Exemple à recopier : « Le joueur a une stratégie et avance. »",
+                "feedback": "Validation ok."
             },
             {
-                type: "interactive",
-                title: "Relecture Rapide",
-                question: "\"Quelle phrase est correcte ?\"",
-                options: [
+                "type": "interactive",
+                "title": "Relecture Rapide",
+                "question": "\"Quelle phrase est correcte ?\"",
+                "options": [
                     "Il a rapide et il est tard.",
                     "Il est rapide et il a tard.",
                     "Il est rapide et il a la finale."
                 ],
-                answer: 2,
-                feedback: "Lecture valide.",
-                q: "\"Quelle phrase est correcte ?\""
+                "answer": 2,
+                "feedback": "Lecture valide."
             },
             {
-                type: "write",
-                title: "Rapport Court",
-                question: "\"Ecris deux phrases courtes avec a et est.\"",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 8,
-                    keywords: [
+                "type": "write",
+                "title": "Rapport Court",
+                "question": "\"Écris deux phrases courtes avec a et est.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
                         "a",
-                        "est"
+                        "est",
+                        "et"
                     ],
-                    enforceKeywords: true
+                    "enforceKeywords": true,
+                    "minWords": 10,
+                    "minSentences": 2
                 },
-                hint: "Teste chaque mot: a = avait, est = etait, et = et puis.",
-                hint2: "Fais deux phrases courtes contenant a, est et et.",
-                hint3: "Exemple à recopier : « Il a la carte et il est calme. La team est prête et elle a un plan. »",
-                feedback: "Rapport en regle.",
-                q: "\"Ecris deux phrases courtes avec a et est.\""
+                "hint": "Teste chaque mot: a = avait, est = était, et = et puis.",
+                "hint2": "Fais deux phrases courtes contenant a, est et et.",
+                "hint3": "Exemple à recopier : « Il a la carte et il est calme. La team est prête et elle a un plan. »",
+                "feedback": "Rapport en règle."
             },
             {
-                type: "challenge",
-                title: "Boss de Fin - Mission 4",
-                question: "\"Corrige cette phrase pleine de parasites :\" (va - a - il - raquette - a - salle - la - et - une - il)",
-                requirements: {
-                    keywords: [
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 4",
+                "question": "\"Corrige cette phrase pleine de parasites :\" (va - a - il - raquette - a - salle - la - et - une - il)",
+                "requirements": {
+                    "keywords": [
                         "a",
                         "à",
                         "et"
                     ]
                 },
-                hint: "Utilise les tests : avait, et puis, avait.",
-                feedback: "Filtres actives. Ton message est cristallin.",
-                q: "\"Corrige cette phrase pleine de parasites :\" (va - a - il - raquette - a - salle - la - et - une - il)"
+                "hint": "Utilise les tests : avait, et puis, avait.",
+                "feedback": "Filtres actives. Ton message est cristallin."
             }
         ]
     }

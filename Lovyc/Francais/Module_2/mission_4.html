@@ -83,163 +83,204 @@
         TRACKING_MODULE: "Module_2",
     };
 
-    const weekData = [{
-        id: 4,
-        title: "Precision Technique",
-        steps: [
+    const weekData = [
+    {
+        "id": 4,
+        "title": "Precision Technique",
+        "steps": [
             {
-                type: "lesson",
-                title: "Le Briefing Expert",
-                content: `
-                    <div class="visual-anchor">
-                    <svg viewBox="0 0 100 40" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
-                        <text x="30" y="25" style="fill: var(--border); font-size: 15px;">( )</text>
-                        <text x="60" y="25" style="fill: var(--accent); font-size: 15px;">:</text>
-                    </svg>
-                    </div>
-                    <p>Pour etre un maitre de la comm, utilise les outils des pros :</p>
-                    <ul>
-                    <li><b>Les deux-points (:)</b> : Pour introduire une liste ou une explication.</li>
-                    <li><b>Les parentheses ()</b> : Pour ajouter une precision technique sans casser le rythme.</li>
-                    </ul>
-                    <div class="box-concept">
-                    Rapport : Lovyc a 3 items (rare, epique, legendaire).
-                    </div>`
+                "type": "lesson",
+                "title": "Le Briefing Expert",
+                "content": "\n                    <div class=\"visual-anchor\">\n                    <svg viewBox=\"0 0 100 40\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                        <text x=\"30\" y=\"25\" style=\"fill: var(--border); font-size: 15px;\">( )</text>\n                        <text x=\"60\" y=\"25\" style=\"fill: var(--accent); font-size: 15px;\">:</text>\n                    </svg>\n                    </div>\n                    <p>Pour etre un maitre de la comm, utilise les outils des pros :</p>\n                    <ul>\n                    <li><b>Les deux-points (:)</b> : Pour introduire une liste ou une explication.</li>\n                    <li><b>Les parentheses ()</b> : Pour ajouter une precision technique sans casser le rythme.</li>\n                    </ul>\n                    <div class=\"box-concept\">\n                    Rapport : Lovyc a 3 items (rare, epique, legendaire).\n                    </div>"
             },
             {
-                type: "lesson",
-                title: "Deux-points en Action",
-                content: `
-                    <div class="box-concept">Rapport : Lovyc a 3 items (rare, epique, legendaire).</div>`
+                "type": "lesson",
+                "title": "Deux-points en Action",
+                "content": "\n                    <div class=\"box-concept\">Rapport : Lovyc a 3 items (rare, epique, legendaire).</div>"
             },
             {
-                type: "interactive",
-                title: "Logistique de Phrase",
-                question: "Que permettent d'introduire les deux-points (:) ?",
-                options: ["Une pause pour respirer", "Une liste ou une explication", "Le nom de l'auteur"],
-                answer: 1,
-                feedback: "Exactement. C'est le signal de l'inventaire ou de la preuve."
+                "type": "interactive",
+                "title": "Logistique de Phrase",
+                "question": "\"Que permettent d'introduire les deux-points (:) ?\"",
+                "options": [
+                    "Une pause pour respirer",
+                    "Une liste ou une explication",
+                    "Le nom de l'auteur"
+                ],
+                "answer": 1,
+                "feedback": "Exactement. C'est le signal de l'inventaire ou de la preuve."
             },
             {
-                type: "interactive",
-                title: "Parentheses",
-                question: "A quoi servent les parentheses ?",
-                options: ["A crier", "A ajouter une precision", "A remplacer une virgule"],
-                answer: 1,
-                feedback: "Oui."
+                "type": "interactive",
+                "title": "Parentheses",
+                "question": "\"A quoi servent les parenthèses ?\"",
+                "options": [
+                    "A crier",
+                    "A ajouter une précision",
+                    "A remplacer une virgule"
+                ],
+                "answer": 1,
+                "feedback": "Oui."
             },
             {
-                type: "write",
-                title: "Saisie de Precision",
-                question: "Ajoute une precision entre parentheses sur la map (ex: map de nuit) dans cette phrase : <br><br><i>Nous arrivons sur la map.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["(", ")"]
+                "type": "write",
+                "title": "Saisie de Precision",
+                "question": "\"Ajoute une précision entre parenthèses sur la map dans cette phrase :\" (Nous arrivons sur la map.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "(",
+                        ")"
+                    ]
                 },
-                hint: "Insere tes parentheses juste apres le mot 'map'.",
-                feedback: "Donnee enregistree. L'escouade connait desormais les details."
+                "hint": "Insere tes parenthèses juste après le mot 'map'.",
+                "feedback": "Donnee enregistree.",
+                "hint2": "Ajoute une précision courte entre parenthèses juste après « map ».",
+                "hint3": "Exemple à recopier : « Nous arrivons sur la map (secteur nord). »"
             },
             {
-                type: "write",
-                title: "Liste avec Deux-points",
-                question: "Ecris une phrase avec deux-points pour une liste de deux objets.",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [":"]
+                "type": "write",
+                "title": "Liste avec Deux-points",
+                "question": "\"Écris une phrase avec deux-points pour une liste de deux objets.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ":"
+                    ]
                 },
-                hint: "Place ':' juste avant la liste ou l'explication que tu annonces.",
-                feedback: "Liste validee."
+                "hint": "Place ':' juste avant la liste ou l'explication que tu annonces.",
+                "feedback": "Liste validee.",
+                "hint2": "Écris une annonce, mets « : », puis ajoute deux objets dans la liste.",
+                "hint3": "Exemple à recopier : « J'emporte deux outils : le casque et le micro. »"
             },
             {
-                type: "interactive",
-                title: "Choix Correct",
-                question: "Quelle phrase est correcte ?",
-                options: ["J'ai besoin: du casque et du micro.", "J'ai besoin : du casque et du micro.", "J'ai besoin de: casque et micro."],
-                answer: 0,
-                feedback: "Espace avant et apres les deux-points."
+                "type": "interactive",
+                "title": "Choix Correct",
+                "question": "\"Quelle phrase est correcte ?\"",
+                "options": [
+                    "J'ai besoin: du casque et du micro.",
+                    "J'ai besoin : du casque et du micro.",
+                    "J'ai besoin de: casque et micro."
+                ],
+                "answer": 0,
+                "feedback": "Espace avant et après les deux-points."
             },
             {
-                type: "interactive",
-                title: "Parentheses Utiles",
-                question: "Quelle phrase utilise bien les parentheses ?",
-                options: ["La map (nuit) est dangereuse.", "La map (nuit est dangereuse.", "La map nuit) est dangereuse."],
-                answer: 0,
-                feedback: "Parentheses correctes."
+                "type": "interactive",
+                "title": "Parentheses Utiles",
+                "question": "\"Quelle phrase utilise bien les parenthèses ?\"",
+                "options": [
+                    "La map (nuit) est dangereuse.",
+                    "La map (nuit est dangereuse.",
+                    "La map nuit) est dangereuse."
+                ],
+                "answer": 0,
+                "feedback": "Parentheses correctes."
             },
             {
-                type: "write",
-                title: "Phrase Technique",
-                question: "Ecris une phrase avec deux-points et parentheses.",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [":", "(", ")"]
+                "type": "write",
+                "title": "Phrase Technique",
+                "question": "\"Écris une phrase avec deux-points et parenthèses.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ":",
+                        "(",
+                        ")"
+                    ]
                 },
-                hint: "Place ':' pour annoncer l'info, puis ajoute une precision courte entre parentheses.",
-                feedback: "Technique valide."
+                "hint": "Place ':' pour annoncer l'info, puis ajoute une précision courte entre parenthèses.",
+                "feedback": "Technique valide.",
+                "hint2": "Structure attendue: annonce avec « : » + précision entre « ( ) ».",
+                "hint3": "Exemple à recopier : « Rapport : la zone est stable (niveau 2). »"
             },
             {
-                type: "write",
-                title: "Precision Rapide",
-                question: "Ajoute une precision entre parentheses : <br><br><i>Le drone arrive.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["(", ")"]
+                "type": "write",
+                "title": "Precision Rapide",
+                "question": "\"Ajoute une précision entre parenthèses :\" (Le drone arrive.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "(",
+                        ")"
+                    ]
                 },
-                hint: "Ajoute une precision courte entre parentheses, collee a l'element precise.",
-                feedback: "Precision ajoutee."
+                "hint": "Ajoute une précision courte entre parenthèses, collée a l'élément précise.",
+                "feedback": "Precision ajoutee.",
+                "hint2": "Conserve la phrase de base et ajoute une information courte entre parenthèses.",
+                "hint3": "Exemple à recopier : « Le drone arrive (par l'est). »"
             },
             {
-                type: "interactive",
-                title: "Erreur a Eviter",
-                question: "Quelle phrase est incorrecte ?",
-                options: ["Rapport : deux drones (actifs).", "Rapport : deux drones (actifs.", "Rapport : deux drones actifs)."],
-                answer: 0,
-                feedback: "La vraie erreur serait d'oublier une parenthese."
+                "type": "interactive",
+                "title": "Erreur a Eviter",
+                "question": "\"Quelle phrase est incorrecte ?\"",
+                "options": [
+                    "Rapport : deux drones (actifs).",
+                    "Rapport : deux drones (actifs.",
+                    "Rapport : deux drones actifs)."
+                ],
+                "answer": 0,
+                "feedback": "La vraie erreur serait d'oublier une parenthese."
             },
             {
-                type: "write",
-                title: "Rapport Court",
-                question: "Ecris deux phrases avec un deux-points dans l'une.",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 10,
-                    keywords: [":"]
+                "type": "write",
+                "title": "Rapport Court",
+                "question": "\"Écris deux phrases avec un deux-points dans l'une.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "minWords": 10,
+                    "keywords": [
+                        ":"
+                    ]
                 },
-                hint: "Place ':' juste avant la liste ou l'explication que tu annonces.",
-                feedback: "Rapport coherent."
+                "hint": "Place ':' juste avant la liste ou l'explication que tu annonces.",
+                "feedback": "Rapport coherent.",
+                "hint2": "Écris 2 phrases complètes; dans l'une, introduis une explication avec « : ».",
+                "hint3": "Exemple à recopier : « Rapport : la team est prête. Nous lançons le scan maintenant. »"
             },
             {
-                type: "write",
-                title: "Reecriture",
-                question: "Reecris avec deux-points : <br><br><i>J'ai besoin de deux choses le casque et le micro</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [":"]
+                "type": "write",
+                "title": "Réécriture",
+                "question": "\"Réécris avec deux-points :\" (J'ai besoin de deux choses le casque et le micro)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ":"
+                    ]
                 },
-                hint: "Place ':' juste avant la liste ou l'explication que tu annonces.",
-                feedback: "Reecriture propre."
+                "hint": "Place ':' juste avant la liste ou l'explication que tu annonces.",
+                "feedback": "Réécriture propre.",
+                "hint2": "Ajoute « : » après « deux choses », puis conserve la liste.",
+                "hint3": "Exemple à recopier : « J'ai besoin de deux choses : le casque et le micro. »"
             },
             {
-                type: "interactive",
-                title: "Dernier Check",
-                question: "Quel signe introduit une liste ?",
-                options: [":", ",", "."],
-                answer: 0,
-                feedback: "Check."
+                "type": "interactive",
+                "title": "Dernier Check",
+                "question": "\"Quel signe introduit une liste ?\"",
+                "options": [
+                    ":",
+                    ",",
+                    "."
+                ],
+                "answer": 0,
+                "feedback": "Check."
             },
             {
-                type: "challenge",
-                title: "Boss de Fin - Mission 4",
-                question: "Ecris une phrase utilisant les deux-points (:) pour lister deux choses necessaires a ta mission :",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [":"]
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 4",
+                "question": "\"Écris une phrase utilisant les deux-points (:) pour lister deux choses nécessaires a ta mission :\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ":"
+                    ]
                 },
-                hint: "Ex: J'ai besoin de deux choses : mon clavier et mon casque.",
-                feedback: "Logistique impeccable. Tu es pret pour le deploiement final."
+                "hint": "Ex: J'ai besoin de deux choses : mon clavier et mon casque.",
+                "feedback": "Logistique impeccable. Tu es pret pour le déploiement final."
             }
         ]
-    }];
+    }
+];
 
     document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
 </script>

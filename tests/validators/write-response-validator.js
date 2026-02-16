@@ -21,6 +21,8 @@ class WriteResponseValidator {
             return { valid: true, errors: [], warnings: [] };
         }
 
+        this.validateCopyableSolutions();
+
         this.testCases.forEach(testCase => {
             const tested = this.generateAndTestResponses(testCase);
             if (tested < 5) {
@@ -55,12 +57,14 @@ class WriteResponseValidator {
                     const mustIncludeLine = screenBlock.match(/mustInclude:\s*(.+)/i);
                     const minWordsMatch = screenBlock.match(/minWords:\s*(\d+)/i);
                     const enforceMatch = screenBlock.match(/enforceKeywords:\s*(true|false)/i);
+                    const hint3Match = screenBlock.match(/- Hint3:\s*"([\s\S]*?)"/i);
 
                     const keywords = this.parseQuotedList(keywordsLine ? keywordsLine[1] : '');
                     const keywordGroups = keywordGroupLines
                         .map(match => this.parseQuotedList(match[1]))
                         .filter(group => group.length > 0);
                     const mustInclude = this.parseQuotedList(mustIncludeLine ? mustIncludeLine[1] : '');
+                    const copyableSolution = this.extractCopyableSolution(hint3Match ? hint3Match[1] : '');
 
                     if (keywords.length === 0 && keywordGroups.length === 0 && mustInclude.length === 0 && !minWordsMatch) return;
 
@@ -72,6 +76,7 @@ class WriteResponseValidator {
                         keywords,
                         keywordGroups,
                         mustInclude,
+                        copyableSolution,
                         enforceKeywords: enforceMatch ? enforceMatch[1].toLowerCase() === 'true' : false,
                         minWords: minWordsMatch ? parseInt(minWordsMatch[1], 10) : 0
                     });
@@ -80,6 +85,31 @@ class WriteResponseValidator {
         } catch (error) {
             this.errors.push(`Erreur lecture draft: ${error.message}`);
         }
+    }
+
+    extractCopyableSolution(hint3) {
+        if (!hint3) return null;
+        const text = hint3.trim();
+
+        const guillemets = text.match(/«\s*([\s\S]*?)\s*»/);
+        if (guillemets && guillemets[1]) return guillemets[1].trim();
+
+        const quoted = text.match(/"([\s\S]*?)"/);
+        if (quoted && quoted[1]) return quoted[1].trim();
+
+        return null;
+    }
+
+    validateCopyableSolutions() {
+        this.testCases.forEach(testCase => {
+            if (!testCase.copyableSolution) return;
+            const ok = this.evaluateResponse(testCase, testCase.copyableSolution);
+            if (!ok) {
+                this.errors.push(
+                    `Mission ${testCase.mission}, Ecran ${testCase.screen}: Hint3 "solution a recopier" invalide selon les requirements`
+                );
+            }
+        });
     }
 
     parseQuotedList(line) {
@@ -163,7 +193,7 @@ class WriteResponseValidator {
                 includeAllKeywords: true,
                 includeAnyKeyword: true,
                 includeMust: true
-            }).replace(new RegExp(`(^|[^\\p{L}\\p{N}'-])${this.escapeRegex(this.normalizeText(keywords[0]))}([^\\p{L}\\p{N}'-]|$)`, 'iu'), ' ');
+            }).replace(new RegExp(`(^|[^\\p{L}\\p{N}\\-])${this.escapeRegex(this.normalizeText(keywords[0]))}([^\\p{L}\\p{N}\\-]|$)`, 'iu'), ' ');
             this.testResponse(testCase, missingOne, false);
             testCount++;
         }
@@ -230,7 +260,7 @@ class WriteResponseValidator {
 
         if (this.tokenIsLexical(rawToken)) {
             const escaped = this.escapeRegex(rawToken);
-            const pattern = new RegExp(`(^|[^\\p{L}\\p{N}'-])${escaped}([^\\p{L}\\p{N}'-]|$)`, 'iu');
+            const pattern = new RegExp(`(^|[^\\p{L}\\p{N}\\-])${escaped}([^\\p{L}\\p{N}\\-]|$)`, 'iu');
             return pattern.test(rawText);
         }
 

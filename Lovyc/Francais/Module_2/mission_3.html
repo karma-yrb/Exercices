@@ -59,164 +59,202 @@
         TRACKING_MODULE: "Module_2",
     };
 
-    const weekData = [{
-        id: 3,
-        title: "L'Intensite (Points !?...)",
-        steps: [
+    const weekData = [
+    {
+        "id": 3,
+        "title": "L'Intensite (Points !?...)",
+        "steps": [
             {
-                type: "lesson",
-                title: "Briefing : Signaux de Fin",
-                content: `
-                    <div class="visual-anchor">
-                    <svg viewBox="0 0 100 40" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
-                        <circle cx="20" cy="20" r="1.5" fill="var(--accent)"/>
-                        <text x="45" y="25" style="fill: var(--accent); font-size: 15px; font-weight: 900;">!</text>
-                        <text x="75" y="25" style="fill: var(--accent); font-size: 15px; font-weight: 900;">?</text>
-                    </svg>
-                    </div>
-                    <p>Le point final (.) est neutre. Mais en situation critique, tu as besoin de plus :</p>
-                    <ul>
-                    <li><b>!</b> (Exclamation) : Pour l'urgence ou l'ordre.</li>
-                    <li><b>?</b> (Interrogation) : Pour le doute ou le scan.</li>
-                    <li><b>...</b> (Suspension) : Pour le suspens ou l'attente.</li>
-                    </ul>
-                    <p>Attention a ne pas en abuser, sinon ton signal devient illisible.</p>`
+                "type": "lesson",
+                "title": "Briefing : Signaux de Fin",
+                "content": "\n                    <div class=\"visual-anchor\">\n                    <svg viewBox=\"0 0 100 40\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                        <circle cx=\"20\" cy=\"20\" r=\"1.5\" fill=\"var(--accent)\"/>\n                        <text x=\"45\" y=\"25\" style=\"fill: var(--accent); font-size: 15px; font-weight: 900;\">!</text>\n                        <text x=\"75\" y=\"25\" style=\"fill: var(--accent); font-size: 15px; font-weight: 900;\">?</text>\n                    </svg>\n                    </div>\n                    <p>Le point final (.) est neutre. Mais en situation critique, tu as besoin de plus :</p>\n                    <ul>\n                    <li><b>!</b> (Exclamation) : Pour l'urgence ou l'ordre.</li>\n                    <li><b>?</b> (Interrogation) : Pour le doute ou le scan.</li>\n                    <li><b>...</b> (Suspension) : Pour le suspens ou l'attente.</li>\n                    </ul>\n                    <p>Attention a ne pas en abuser, sinon ton signal devient illisible.</p>"
             },
             {
-                type: "lesson",
-                title: "Nuances d'Intention",
-                content: `
-                    <p>Le signe change la force de ton message.</p>
-                    <div class="box-concept">Tu viens. / Tu viens ? / Tu viens !</div>`
+                "type": "lesson",
+                "title": "Nuances d'Intention",
+                "content": "\n                    <p>Le signe change la force de ton message.</p>\n                    <div class=\"box-concept\">Tu viens. / Tu viens ? / Tu viens !</div>"
             },
             {
-                type: "interactive",
-                title: "Analyse de Signal",
-                question: "Quelle ponctuation choisirais-tu pour une alerte imminente ?",
-                options: ["Le point simple (.)", "Le point d'exclamation (!)", "Les points de suspension (...)"],
-                answer: 1,
-                feedback: "Correct. L'urgence demande une exclamation."
+                "type": "interactive",
+                "title": "Analyse de Signal",
+                "question": "\"Quelle ponctuation choisirais-tu pour une alerte imminente ?\"",
+                "options": [
+                    "Le point simple (.)",
+                    "Le point d'exclamation (!)",
+                    "Les points de suspension (...)"
+                ],
+                "answer": 1,
+                "feedback": "Correct. L'urgence demande une exclamation."
             },
             {
-                type: "interactive",
-                title: "Signal d'Urgence",
-                question: "Quelle ponctuation convient ? <br><br><i>Attention au drone ____</i>",
-                options: ["!", "?", "."],
-                answer: 0,
-                feedback: "Alerte -> exclamation."
+                "type": "interactive",
+                "title": "Signal d'Urgence",
+                "question": "\"Quelle ponctuation convient ?\" (Attention au drone ____)",
+                "options": [
+                    "!",
+                    "?",
+                    "."
+                ],
+                "answer": 0,
+                "feedback": "Alerte -> exclamation."
             },
             {
-                type: "write",
-                title: "Nuance Tactique",
-                question: "Transforme cet ordre neutre en une question inquiete : <br><br><i>Le drone est encore en vol.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["?"]
+                "type": "write",
+                "title": "Nuance Tactique",
+                "question": "\"Transforme cet ordre neutre en une question inquiette :\" (Le drone est encore en vol.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "?"
+                    ]
                 },
-                hint: "Change juste le point final par un point d'interrogation.",
-                feedback: "Le doute est transmis. L'escouade va verifier."
+                "hint": "Change juste le point final par un point d'interrogation.",
+                "feedback": "Le doute est transmis.",
+                "hint2": "Garde la phrase complète et transforme le ton en question avec « ? ».",
+                "hint3": "Exemple à recopier : « Le drone est encore en vol ? »"
             },
             {
-                type: "write",
-                title: "Exclamation",
-                question: "Transforme la phrase en alerte forte : <br><br><i>Les ennemis arrivent.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["!"]
+                "type": "write",
+                "title": "Exclamation",
+                "question": "\"Transforme la phrase en alerte forte :\" (Les ennemis arrivent.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "!"
+                    ]
                 },
-                hint: "Garde une phrase complete et termine-la par un point d'exclamation.",
-                feedback: "Alerte envoyee."
+                "hint": "Garde une phrase complète et termine-la par un point d'exclamation.",
+                "feedback": "Alerte envoyee.",
+                "hint2": "Conserve le sens de la phrase et remplace le point final par « ! ».",
+                "hint3": "Exemple à recopier : « Les ennemis arrivent ! »"
             },
             {
-                type: "interactive",
-                title: "Point ou Question",
-                question: "Quelle phrase est une question ?",
-                options: ["Tu viens.", "Tu viens ?", "Tu viens !"],
-                answer: 0,
-                feedback: "Scan reussi."
+                "type": "interactive",
+                "title": "Point ou Question",
+                "question": "\"Quelle phrase est une question ?\"",
+                "options": [
+                    "Tu viens.",
+                    "Tu viens ?",
+                    "Tu viens !"
+                ],
+                "answer": 0,
+                "feedback": "Scan réussi."
             },
             {
-                type: "interactive",
-                title: "Suspension",
-                question: "Quel signe indique l'attente ?",
-                options: ["...", "!", "?"],
-                answer: 0,
-                feedback: "Suspens active."
+                "type": "interactive",
+                "title": "Suspension",
+                "question": "\"Quel signe indique l'attente ?\"",
+                "options": [
+                    "...",
+                    "!",
+                    "?"
+                ],
+                "answer": 0,
+                "feedback": "Suspens active."
             },
             {
-                type: "write",
-                title: "Phrase en Question",
-                question: "Ecris une question sur la mission en cours.",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["?"]
+                "type": "write",
+                "title": "Phrase en Question",
+                "question": "\"Écris une question sur la mission en cours.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "?"
+                    ]
                 },
-                hint: "Formule une phrase complete et termine-la par un point d'interrogation.",
-                feedback: "Question valide."
+                "hint": "Formule une phrase complète et termine-la par un point d'interrogation.",
+                "feedback": "Question valide.",
+                "hint2": "Tu peux commencer par « Où », « Quand », « Pourquoi » ou « Est-ce que ».",
+                "hint3": "Exemple à recopier : « Où est l'équipe de secours ? »"
             },
             {
-                type: "write",
-                title: "Phrase en Exclamation",
-                question: "Ecris une phrase d'action finissant par !",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["!"]
+                "type": "write",
+                "title": "Phrase en Exclamation",
+                "question": "\"Écris une phrase d'action finissant par !\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "!"
+                    ]
                 },
-                hint: "Garde une phrase complete et termine-la par un point d'exclamation.",
-                feedback: "Impact fort."
+                "hint": "Garde une phrase complète et termine-la par un point d'exclamation.",
+                "feedback": "Impact fort.",
+                "hint2": "Écris une action claire au présent et termine obligatoirement par « ! ».",
+                "hint3": "Exemple à recopier : « On fonce à gauche ! »"
             },
             {
-                type: "interactive",
-                title: "Choix Correct",
-                question: "Quel signe est le plus adapte pour un doute ?",
-                options: ["?", "!", "."],
-                answer: 0,
-                feedback: "Doute -> interrogation."
+                "type": "interactive",
+                "title": "Choix Correct",
+                "question": "\"Quel signe est le plus adapte pour un doute ?\"",
+                "options": [
+                    "?",
+                    "!",
+                    "."
+                ],
+                "answer": 0,
+                "feedback": "Doute -> interrogation."
             },
             {
-                type: "write",
-                title: "Mini Rapport",
-                question: "Ecris trois phrases avec . ? ! (une de chaque).",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [".", "?", "!"] ,
-                    minWords: 12
+                "type": "write",
+                "title": "Mini Rapport",
+                "question": "\"Écris trois phrases avec . ? ! (une de chaque).\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ".",
+                        "?",
+                        "!"
+                    ],
+                    "minWords": 12
                 },
-                hint: "Garde une phrase complete et termine-la par un point d'exclamation.",
-                feedback: "Rapport riche."
+                "hint": "Garde une phrase complète et termine-la par un point d'exclamation.",
+                "feedback": "Rapport riche.",
+                "hint2": "Écris 3 phrases: une avec « . », une avec « ? », une avec « ! ».",
+                "hint3": "Exemple à recopier : « Le signal est stable. Est-ce que la zone est sûre ? Protégez la base ! »"
             },
             {
-                type: "write",
-                title: "Reecriture Express",
-                question: "Reecris avec un ton inquiet : <br><br><i>Le signal est coupe.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["?"]
+                "type": "write",
+                "title": "Réécriture Express",
+                "question": "\"Réécris avec un ton inquiet :\" (Le signal est coupe.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "?"
+                    ]
                 },
-                hint: "Relis mot par mot, corrige l'accord et verifie la ponctuation finale.",
-                feedback: "Inquietude transmise."
+                "hint": "Relis mot par mot, corrige l'accord et vérifie la ponctuation finale.",
+                "feedback": "Inquietude transmise.",
+                "hint2": "Corrige l'orthographe de la phrase, puis transforme-la en question inquiète.",
+                "hint3": "Exemple à recopier : « Le signal est coupé ? »"
             },
             {
-                type: "interactive",
-                title: "Dernier Check",
-                question: "Quelle phrase montre une urgence ?",
-                options: ["On arrive.", "On arrive ?", "On arrive !"],
-                answer: 0,
-                feedback: "Urgence claire."
+                "type": "interactive",
+                "title": "Dernier Check",
+                "question": "\"Quelle phrase montre une urgence ?\"",
+                "options": [
+                    "On arrive.",
+                    "On arrive ?",
+                    "On arrive !"
+                ],
+                "answer": 0,
+                "feedback": "Urgence claire."
             },
             {
-                type: "challenge",
-                title: "Boss de Fin - Mission 3",
-                question: "Ecris une phrase d'action se terminant par des points de suspension (...) pour montrer que quelque chose arrive :",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["..."]
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 3",
+                "question": "\"Écris une phrase d'action se terminant par des points de suspension (...) pour montrer que quelque chose arrive :\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "..."
+                    ]
                 },
-                hint: "Ex: Les ombres approchent doucement...",
-                feedback: "Suspens reussi. Tes troupes sont en alerte."
+                "hint": "Ex: Les ombres approchent doucement...",
+                "feedback": "Suspens réussi. Tes troupes sont en alerte."
             }
         ]
-    }];
+    }
+];
 
     document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
 </script>

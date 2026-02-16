@@ -59,168 +59,222 @@
         TRACKING_MODULE: "Module_2",
     };
 
-    const weekData = [{
-        id: 5,
-        title: "L'Ultime Deploiement",
-        steps: [
+    const weekData = [
+    {
+        "id": 5,
+        "title": "L'Ultime Deploiement",
+        "steps": [
             {
-                type: "lesson",
-                title: "Briefing : Fusion de Styles",
-                content: `
-                    <p>Agent Lovyc, tu maitrises maintenant :</p>
-                    <ul>
-                    <li>La respiration (virgules).</li>
-                    <li>Le dialogue (tirets & incises).</li>
-                    <li>L'intensite (points !?...).</li>
-                    <li>La precision (deux-points & parentheses).</li>
-                    </ul>
-                    <p>C'est dire que ton signal est clean.</p>`
+                "type": "lesson",
+                "title": "Briefing : Fusion de Styles",
+                "content": "\n                    <p>Agent Lovyc, tu maitrises maintenant :</p>\n                    <ul>\n                    <li>La respiration (virgules).</li>\n                    <li>Le dialogue (tirets & incises).</li>\n                    <li>L'intensite (points !?...).</li>\n                    <li>La precision (deux-points & parentheses).</li>\n                    </ul>\n                    <p>C'est dire que ton signal est clean.</p>"
             },
             {
-                type: "interactive",
-                title: "Revue de Code",
-                question: "Quelle ponctuation est incorrecte ici : <br><i>L'agent (Lovyc) deploie : ses deux, drones</i>",
-                options: ["La parenthese", "Les deux-points", "La virgule entre 'deux' et 'drones'"],
-                answer: 2,
-                feedback: "Correct. On n'isole pas l'adjectif du nom avec une virgule."
+                "type": "interactive",
+                "title": "Revue de Code",
+                "question": "\"Quelle ponctuation est incorrecte ici :\" (L'agent (Lovyc) déploie : ses deux, drones)",
+                "options": [
+                    "La parenthese",
+                    "Les deux-points",
+                    "La virgule entre 'deux' et 'drones'"
+                ],
+                "answer": 2,
+                "feedback": "Correct. On n'isole pas l'adjectif du nom avec une virgule."
             },
             {
-                type: "interactive",
-                title: "Choix de Ponctuation",
-                question: "Quel signe sert a introduire une liste ?",
-                options: [":", ",", "!"],
-                answer: 0,
-                feedback: "Exact."
+                "type": "interactive",
+                "title": "Choix de Ponctuation",
+                "question": "\"Quel signe sert à introduire une liste ?\"",
+                "options": [
+                    ":",
+                    ",",
+                    "!"
+                ],
+                "answer": 0,
+                "feedback": "Exact."
             },
             {
-                type: "write",
-                title: "Rapport Tactique 1",
-                question: "Redige une phrase avec un dialogue court (a€”...) et une incise au present :",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["a€”", "Lovyc"]
+                "type": "write",
+                "title": "Rapport Tactique 1",
+                "question": "\"Rédige une phrase avec un dialogue court (—...) et une incise au present :\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "—",
+                        "Lovyc"
+                    ]
                 },
-                hint: "Ex: a€” Je passe a droite, dit Lovyc.",
-                feedback: "Communication claire."
+                "hint": "Ex: — Je passe a droite, dit Lovyc.",
+                "feedback": "Communication claire.",
+                "hint2": "Format attendu: tiret cadratin + parole + virgule + incise au présent.",
+                "hint3": "Exemple à recopier : « — Je passe à droite, dit Lovyc. »"
             },
             {
-                type: "write",
-                title: "Rapport Tactique 2",
-                question: "Redige une phrase contenant une liste de deux elements separes par deux-points (:) :",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [":"]
+                "type": "write",
+                "title": "Rapport Tactique 2",
+                "question": "\"Rédige une phrase contenant une liste de deux éléments separes par deux-points (:) :\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ":"
+                    ]
                 },
-                hint: "Ex: La zone contient deux menaces : un sniper et un char.",
-                feedback: "Cible identifiee."
+                "hint": "Ex: La zone contient deux menaces : un sniper et un char.",
+                "feedback": "Cible identifiee.",
+                "hint2": "Écris une annonce, puis « : » et une liste de deux éléments.",
+                "hint3": "Exemple à recopier : « La zone contient deux menaces : un sniper et un char. »"
             },
             {
-                type: "write",
-                title: "Rapport Tactique 3",
-                question: "Redige une phrase contenant des parentheses pour une precision :",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["(", ")"]
+                "type": "write",
+                "title": "Rapport Tactique 3",
+                "question": "\"Rédige une phrase contenant des parenthèses pour une précision :\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "(",
+                        ")"
+                    ]
                 },
-                hint: "Ajoute une precision courte entre parentheses, collee a l'element precise.",
-                feedback: "Precision ajoutee."
+                "hint": "Ajoute une précision courte entre parenthèses, collée a l'élément précise.",
+                "feedback": "Precision ajoutee.",
+                "hint2": "Ajoute une information technique entre parenthèses dans la phrase.",
+                "hint3": "Exemple à recopier : « La zone est active (niveau rouge). »"
             },
             {
-                type: "interactive",
-                title: "Dialogue Check",
-                question: "Quel element est obligatoire pour un dialogue ?",
-                options: ["Le tiret cadratin", "Les deux-points", "La parenthese"],
-                answer: 0,
-                feedback: "Correct."
+                "type": "interactive",
+                "title": "Dialogue Check",
+                "question": "\"Quel élément est obligatoire pour un dialogue ?\"",
+                "options": [
+                    "Le tiret cadratin",
+                    "Les deux-points",
+                    "La parenthese"
+                ],
+                "answer": 0,
+                "feedback": "Correct."
             },
             {
-                type: "write",
-                title: "Dialogue + Incise",
-                question: "Ecris une ligne de dialogue avec incise.",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["a€”"]
+                "type": "write",
+                "title": "Dialogue + Incise",
+                "question": "\"Écris une ligne de dialogue avec incise.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "—"
+                    ]
                 },
-                hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire.",
-                feedback: "Dialogue valide."
+                "hint": "Utilise un verbe de parole (dit, murmura, répondit) et garde une ponctuation claire.",
+                "feedback": "Dialogue valide.",
+                "hint2": "Commence par un tiret cadratin, écris la parole, puis l'incise.",
+                "hint3": "Exemple à recopier : « — Je couvre l'entrée, répondit Lovyc. »"
             },
             {
-                type: "interactive",
-                title: "Deux-points Check",
-                question: "Quelle phrase est correcte ?",
-                options: ["Je prends : casque et micro.", "Je prends deux choses : casque et micro.", "Je prends deux choses: casque et micro."],
-                answer: 1,
-                feedback: "Espace avant et apres les deux-points."
+                "type": "interactive",
+                "title": "Deux-points Check",
+                "question": "\"Quelle phrase est correcte ?\"",
+                "options": [
+                    "Je prends : casque et micro.",
+                    "Je prends deux choses : casque et micro.",
+                    "Je prends deux choses: casque et micro."
+                ],
+                "answer": 1,
+                "feedback": "Espace avant et après les deux-points."
             },
             {
-                type: "write",
-                title: "Parentheses",
-                question: "Ajoute une precision entre parentheses : <br><br><i>La zone est active.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["(", ")"]
+                "type": "write",
+                "title": "Parentheses",
+                "question": "\"Ajoute une précision entre parenthèses :\" (La zone est active.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "(",
+                        ")"
+                    ]
                 },
-                hint: "Ajoute une precision courte entre parentheses, collee a l'element precise.",
-                feedback: "Ok."
+                "hint": "Ajoute une précision courte entre parenthèses, collée a l'élément précise.",
+                "feedback": "Ok.",
+                "hint2": "Conserve la phrase et ajoute un détail court entre parenthèses.",
+                "hint3": "Exemple à recopier : « La zone est active (depuis l'aube). »"
             },
             {
-                type: "interactive",
-                title: "Virgule Check",
-                question: "Quelle phrase respire le mieux ?",
-                options: ["Je vise, je tire.", "Je vise je, tire.", "Je vise je tire."],
-                answer: 0,
-                feedback: "Virgule propre."
+                "type": "interactive",
+                "title": "Virgule Check",
+                "question": "\"Quelle phrase respire le mieux ?\"",
+                "options": [
+                    "Je vise, je tire.",
+                    "Je vise je, tire.",
+                    "Je vise je tire."
+                ],
+                "answer": 0,
+                "feedback": "Virgule propre."
             },
             {
-                type: "write",
-                title: "Mix Ponctuation",
-                question: "Ecris une phrase avec une virgule et un point d'exclamation.",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [",", "!"]
+                "type": "write",
+                "title": "Mix Ponctuation",
+                "question": "\"Écris une phrase avec une virgule et un point d'exclamation.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ",",
+                        "!"
+                    ]
                 },
-                hint: "Mets la virgule entre deux actions proches, puis le point pour cloturer l'idee.",
-                feedback: "Mix valide."
+                "hint": "Mets la virgule entre deux actions proches, puis le point pour clôturer l'idée.",
+                "feedback": "Mix valide.",
+                "hint2": "Écris une seule phrase avec une virgule pour la pause et « ! » en fin de phrase.",
+                "hint3": "Exemple à recopier : « On avance, protégez la base ! »"
             },
             {
-                type: "write",
-                title: "Micro Rapport",
-                question: "Ecris trois phrases avec au moins deux signes de ponctuation differents.",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 18,
-                    keywords: [",", ".", "!", "?", "phrase"],
-                    enforceKeywords: true
+                "type": "write",
+                "title": "Micro Rapport",
+                "question": "\"Écris trois phrases avec au moins deux signes de ponctuation différents.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "minWords": 15
                 },
-                hint: "Fais des phrases courtes et claires, puis verifie accords et ponctuation.",
-                feedback: "Rapport solide."
+                "hint": "Fais des phrases courtes et claires, puis vérifie accords et ponctuation.",
+                "feedback": "Rapport solide.",
+                "hint2": "Rédige 3 phrases et utilise au moins deux signes différents parmi , : ! ? ( ).",
+                "hint3": "Exemple à recopier : « Nous avançons vite, la zone est ouverte. Rapport : deux drones approchent. Restez groupés cette nuit ! »"
             },
             {
-                type: "write",
-                title: "Rapport Long",
-                question: "Redige un petit paragraphe (au moins 20 mots) avec virgule, deux-points et parentheses.",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 20,
-                    keywords: [",", ":", "(", ")"]
+                "type": "write",
+                "title": "Rapport Long",
+                "question": "\"Rédige un petit paragraphe (au moins 20 mots) avec virgule, deux-points et parenthèses.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "minWords": 20,
+                    "keywords": [
+                        ",",
+                        ":",
+                        "(",
+                        ")"
+                    ]
                 },
-                hint: "Place ':' pour annoncer l'info, puis ajoute une precision courte entre parentheses.",
-                feedback: "Rapport complet."
+                "hint": "Place ':' pour annoncer l'info, puis ajoute une précision courte entre parenthèses.",
+                "feedback": "Rapport complet.",
+                "hint2": "Ton paragraphe doit contenir au moins 20 mots et inclure , : ( ).",
+                "hint3": "Exemple à recopier : « Rapport final : notre équipe avance vite, puis sécurise la base (secteur nord), pendant que Lovyc couvre l'entrée et coordonne les drones. »"
             },
             {
-                type: "challenge",
-                title: "Boss de Fin - Module 2",
-                question: "Redige ton rapport final de 3 lignes (au moins 15 mots) incluant : une virgule, une parenthese et un point d'exclamation. Sois heroique !",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [",", "(", ")", "!"],
-                    minWords: 15
+                "type": "challenge",
+                "title": "Boss de Fin - Module 2",
+                "question": "\"Rédige ton rapport final de 3 lignes (au moins 15 mots) incluant : une virgule, une parenthese et un point d'exclamation. Sois héroïque !\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ",",
+                        "(",
+                        ")",
+                        "!"
+                    ],
+                    "minWords": 15
                 },
-                hint: "Utilise le textarea pour raconter ta victoire finale.",
-                feedback: "Felicitations Agent Lovyc. Ton grade 'Maitre des Comms' est officiellement valide. A demain pour de nouveaux defis !"
+                "hint": "Utilise le textarea pour raconter ta victoire finale.",
+                "feedback": "Félicitation Agent Lovyc. Ton grade 'Maitre des Comms' est officiellement valide. A demain pour de nouveaux defis !"
             }
         ]
-    }];
+    }
+];
 
     document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
 </script>

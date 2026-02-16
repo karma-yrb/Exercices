@@ -64,16 +64,16 @@
   - keywords: "regarde", "allume", "fixe", "nettoie", "prépare"
 - Hint: "Cherche une action concrète (regarde, allume, fixe...)"
 - Hint2: "Garde la structure « Lovyc ____ son écran de jeu. » et mets un verbe au présent."
-- Hint3: "Exemple à recopier : « Lovyc regarde son écran de jeu. »"
+- Hint3: "Réponse à recopier : « regarde »."
 - Feedback: "Bien !"
 
 ### Écran 7 - write - Saisie Tactique : Complément
-- Question: "Complete la phrase avec un complément simple :" (L'agent surveille ____.)
+- Question: "Complète la phrase avec un complément simple. Écris seulement le complément :" (L'agent surveille ____.)
 - Requirements:
   - mode: "sentence"
   - keywords: "zone", "map", "terrain", "couloir", "base"
 - Hint: "Un complément indique ce qu'il surveille."
-- Hint2: "Ajoute un groupe de mots après « surveille » pour dire ce qui est surveillé."
+- Hint2: "Écris uniquement la partie manquante, pas toute la phrase."
 - Hint3: "Exemple à recopier : « L'agent surveille la zone. »"
 - Feedback: "Cible verrouillée."
 
@@ -118,17 +118,17 @@
 - Feedback: "Oui. C'est l'action effectuée par l'agent."
 
 ### Écran 13 - write - Ajoute le Complément
-- Question: "Ajoute un complément pour compléter la phrase :" (Lovyc lance.)
+- Question: "Ajoute un complément pour compléter la phrase. Écris seulement le complément :" (Lovyc lance ____.)
 - Requirements:
   - mode: "sentence"
-  - minWords: 3
+  - minWords: 2
 - Hint: "Qu'est-ce qui peut être lancé ?"
-- Hint2: "Conserve « Lovyc lance ... » et ajoute un complément clair."
+- Hint2: "Écris uniquement la partie manquante, pas toute la phrase."
 - Hint3: "Exemple à recopier : « Lovyc lance une attaque. »"
 - Feedback: "Phrase complète."
 
 ### Écran 14 - write - Mini Rapport
-- Question: "Écris deux phrases S+V+C sur une préparation de match."
+- Question: "Écris deux phrases S+V+C sur une préparation de match. Utilise au moins un mot de chaque groupe : match/rencontre/terrain, équipe/joueurs/coach, stratégie/tactique/attaque/défense."
 - Requirements:
   - mode: "sentence"
   - keywordGroups:
@@ -137,9 +137,9 @@
     - ["stratégie", "tactique", "attaque", "défense"]
   - minWords: 12
   - minSentences: 2
-- Hint: "Phrase 1: qui prépare le match ? Phrase 2: quelle stratégie l'équipe applique ?"
-- Hint2: "Fais 2 phrases complètes: préparation du match, puis stratégie appliquée."
-- Hint3: "Exemple à recopier : « L'équipe prépare le match. Les joueurs appliquent une stratégie de défense. »"
+- Hint: "Tu dois faire apparaître trois idées: le match, l'équipe et la stratégie."
+- Hint2: "Phrase 1: qui prépare le match ? Phrase 2: quelle stratégie l'équipe applique ?"
+- Hint3: "Exemple à recopier : « L'équipe prépare le match. Les joueurs appliquent une stratégie de défense collective. »"
 - Feedback: "Rapport clair."
 
 ### Écran 15 - challenge - Boss de Fin - Mission 1
@@ -276,7 +276,7 @@
   - minWords: 6
 - Hint: "Commence par un sujet pluriel (ils/elles/nous/vous) et utilise un verbe conjugué au présent."
 - Hint2: "Forme minimale: Sujet pluriel + verbe au présent + complément."
-- Hint3: "Exemple à recopier : « Ils avancent vers la base. »"
+- Hint3: "Exemple à recopier : « Ils avancent vite vers la base. »"
 - Feedback: "Accord valide."
 
 ### Écran 14 - write - Rapport Squad
@@ -289,7 +289,7 @@
   - mustInclude: "."
 - Hint: "Écris 2 phrases. Dans chaque phrase: sujet pluriel + verbe au présent accordé."
 - Hint2: "Rédige deux phrases complètes, chacune avec un sujet pluriel."
-- Hint3: "Exemple à recopier : « Les joueurs avancent vite. Mes amis couvrent la zone. »"
+- Hint3: "Exemple à recopier : « Les joueurs avancent vite pendant le match. Mes amis couvrent la zone. »"
 - Feedback: "Rapport synchronisé."
 
 ### Écran 15 - challenge - Boss de Fin - Mission 2
@@ -390,7 +390,7 @@
   - minWords: 6
 - Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Hint2: "Ici, la virgule se place après « En match »."
-- Hint3: "Exemple à recopier : « En match, Lovyc reste calme. »"
+- Hint3: "Exemple à recopier : « En match, Lovyc reste toujours calme. »"
 - Feedback: "Respiration ok."
 
 ### Écran 10 - write - Ajout de Point
@@ -435,7 +435,7 @@
   - mustInclude: "."
 - Hint: "Phrase 1: une action d'entraînement. Phrase 2: un résultat ou une observation."
 - Hint2: "Rédige deux phrases courtes: une action, puis un résultat."
-- Hint3: "Exemple à recopier : « Je termine l'entraînement. Mon équipe gagne le match. »"
+- Hint3: "Exemple à recopier : « Je termine l'entraînement ce soir. Mon équipe gagne le match. »"
 - Feedback: "Rapport propre."
 
 ### Écran 14 - interactive - Derniere Verification
@@ -445,15 +445,20 @@
 - Feedback: "La virgule relie deux actions proches."
 
 ### Écran 15 - challenge - Boss de Fin - Mission 3
-- Question: "Réécris proprement ce message buggé :" (appel - plus - d' - l' - j' - batterie - arrête - y'a - de)
+- Question: "Réécris proprement ce message buggé :" (j' - arrête - l' - appel - il - n' - y - a - plus - de - batterie)
 - Requirements:
   - mode: "sentence"
   - keywordGroups:
-    - ["batterie"]
+    - ["arrête", "arrete"]
     - ["appel", "d'appel"]
-    - ["arrêtée", "arrête"]
+    - ["batterie"]
+    - ["il"]
+    - ["y"]
+    - ["a"]
   - mustInclude: "."
 - Hint: "Remets les mots dans l'ordre et corrige l'écriture des mots avant de ponctuer."
+- Hint2: "Version écrite attendue: J'arrête l'appel ... il n'y a plus de batterie."
+- Hint3: "Exemple à recopier : « J'arrête l'appel : il n'y a plus de batterie. »"
 - Feedback: "Le flux est fluide."
 
 ## Mission 4 - Filtres de Precision
@@ -639,7 +644,7 @@
   - minWords: 6
 - Hint: "Vérifie l'ordre Sujet + Verbe + Complément, puis ajoute un détail concret."
 - Hint2: "Commence par un sujet, ajoute un verbe au présent, puis un complément précis."
-- Hint3: "Exemple à recopier : « Les joueurs préparent la stratégie. »"
+- Hint3: "Exemple à recopier : « Les joueurs préparent la stratégie ensemble. »"
 - Feedback: "Bonne structure."
 
 ### Écran 5 - write - Accord Pluriel
@@ -699,7 +704,7 @@
   - minWords: 8
 - Hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions."
 - Hint2: "La phrase doit être au pluriel, avec une virgule entre deux actions."
-- Hint3: "Exemple à recopier : « Les joueurs avancent, ils couvrent la base. »"
+- Hint3: "Exemple à recopier : « Les joueurs avancent, ils couvrent rapidement la base. »"
 - Feedback: "Bon rythme."
 
 ### Écran 11 - interactive - Verification Finale 1
@@ -721,7 +726,7 @@
   - minWords: 12
 - Hint: "Vérifie l'ordre Sujet + Verbe + Complément, puis ajoute un détail concret."
 - Hint2: "Écris deux phrases S+V+C, dont une avec un sujet pluriel."
-- Hint3: "Exemple à recopier : « Je prépare la tactique. Les joueurs lancent l'attaque. »"
+- Hint3: "Exemple à recopier : « Je prépare la tactique pour le match final. Les joueurs lancent l'attaque. »"
 - Feedback: "Rapport clair."
 
 ### Écran 14 - write - Rapport Global
@@ -736,7 +741,7 @@
   - minSentences: 3
 - Hint: "Fais des phrases courtes et claires, puis vérifie accords et ponctuation."
 - Hint2: "Rédige 3 phrases: situation du match, action de l'équipe, bilan final."
-- Hint3: "Exemple à recopier : « Le match commence. Les joueurs appliquent la tactique. Notre équipe gagne la rencontre. »"
+- Hint3: "Exemple à recopier : « Le match commence. Les joueurs appliquent la tactique avec une coordination solide. Notre équipe gagne la rencontre aujourd'hui. »"
 - Feedback: "Rapport complet."
 
 ### Écran 15 - challenge - Ultime Boss - Module 1

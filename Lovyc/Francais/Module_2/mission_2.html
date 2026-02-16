@@ -59,162 +59,207 @@
         TRACKING_MODULE: "Module_2",
     };
 
-    const weekData = [{
-        id: 2,
-        title: "Dialogue & Incises",
-        steps: [
+    const weekData = [
+    {
+        "id": 2,
+        "title": "Dialogue & Incises",
+        "steps": [
             {
-                type: "lesson",
-                title: "Le Rapport de George Sand",
-                content: `
-                    <div class="visual-anchor">
-                    <svg viewBox="0 0 100 40" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
-                        <path d="M10 10 L30 10 M10 30 L30 30" opacity="0.5"/>
-                        <text x="40" y="25" style="fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;">— DIT-IL</text>
-                    </svg>
-                    </div>
-                    <p>Quand tu rapportes un dialogue, utilise le <b>tiret cadratin</b> (—) pour montrer qui parle. C'est la base de la precision litteraire.</p>
-                    <p>L'<b>incise</b> (ex: <i>dit l'agent</i>, <i>repond le coach</i>) permet de savoir qui a transmis l'info sans alourdir le texte.</p>
-                    <div class="box-concept">
-                    — La zone est securisee, <b>affirma Lovyc</b>.
-                    </div>`
+                "type": "lesson",
+                "title": "Le Rapport de George Sand",
+                "content": "\n                    <div class=\"visual-anchor\">\n                    <svg viewBox=\"0 0 100 40\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                        <path d=\"M10 10 L30 10 M10 30 L30 30\" opacity=\"0.5\"/>\n                        <text x=\"40\" y=\"25\" style=\"fill: var(--accent); font-size: 8px; font-weight: bold; font-family: monospace;\">— DIT-IL</text>\n                    </svg>\n                    </div>\n                    <p>Quand tu rapportes un dialogue, utilise le <b>tiret cadratin</b> (—) pour montrer qui parle. C'est la base de la precision litteraire.</p>\n                    <p>L'<b>incise</b> (ex: <i>dit l'agent</i>, <i>repond le coach</i>) permet de savoir qui a transmis l'info sans alourdir le texte.</p>\n                    <div class=\"box-concept\">\n                    — La zone est securisee, <b>affirma Lovyc</b>.\n                    </div>"
             },
             {
-                type: "lesson",
-                title: "Incise en Action",
-                content: `
-                    <p>L'incise est un petit bloc qui suit la parole et precise l'auteur.</p>
-                    <div class="box-concept">— On avance, <b>murmura l'agent</b>.</div>`
+                "type": "lesson",
+                "title": "Incise en Action",
+                "content": "\n                    <p>L'incise est un petit bloc qui suit la parole et precise l'auteur.</p>\n                    <div class=\"box-concept\">— On avance, <b>murmura l'agent</b>.</div>"
             },
             {
-                type: "interactive",
-                title: "Identification de Source",
-                question: "Dans cette phrase, quelle partie est l'incise ? <br><br><i>— Le patch arrive demain, murmura le developpeur.</i>",
-                options: ["— Le patch arrive demain", "murmura le developpeur", "le developpeur"],
-                answer: 1,
-                feedback: "Exactement. L'incise donne le ton et l'auteur de la parole."
+                "type": "interactive",
+                "title": "Identification de Source",
+                "question": "\"Dans cette phrase, quelle partie est l'incise ?\" (— Le patch arrive demain, murmura le développeur.)",
+                "options": [
+                    "— Le patch arrive demain",
+                    "murmura le développeur",
+                    "le développeur"
+                ],
+                "answer": 1,
+                "feedback": "Exactement. L'incise donne le ton et l'auteur de la parole."
             },
             {
-                type: "interactive",
-                title: "Dialogue Ou Incise",
-                question: "Ou se trouve la parole ? <br><br><i>— On tient la zone, dit Lovyc.</i>",
-                options: ["— On tient la zone", "dit Lovyc", "zone"],
-                answer: 0,
-                feedback: "Le dialogue commence avec le tiret."
+                "type": "interactive",
+                "title": "Dialogue Ou Incise",
+                "question": "\"Où se trouve la parole ?\" (— On tient la zone, dit Lovyc.)",
+                "options": [
+                    "— On tient la zone",
+                    "dit Lovyc",
+                    "zone"
+                ],
+                "answer": 0,
+                "feedback": "Le dialogue commence avec le tiret."
             },
             {
-                type: "write",
-                title: "Codage de Dialogue",
-                question: "Complete ce dialogue avec une incise de ton choix (ex: s'exclama Zyvah, repondit le chef) : <br><br><i>— Attention au sniper a gauche, _______.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["Lovyc", "Zyvah", "chef", "agent", "dit", "repondit", "s'exclama", "murmura", "hurla"]
+                "type": "write",
+                "title": "Codage de Dialogue",
+                "question": "\"Complète ce dialogue avec une incise de ton choix :\" (— Attention au sniper à gauche, _______.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "Lovyc",
+                        "Zyvah",
+                        "chef",
+                        "agent",
+                        "dit",
+                        "répondit",
+                        "s'exclama",
+                        "murmura"
+                    ]
                 },
-                hint: "Utilise un verbe de parole et un nom de personnage.",
-                feedback: "Parfait. On sait maintenant d'ou vient l'alerte."
+                "hint": "Utilise un verbe de parole et un nom de personnage.",
+                "feedback": "Parfait. On sait maintenant d'où vient l'alerte.",
+                "hint2": "Complète après la virgule avec une incise: verbe de parole + nom du personnage.",
+                "hint3": "Exemple à recopier : « — Attention au sniper à gauche, dit Lovyc. »"
             },
             {
-                type: "write",
-                title: "Incise Courte",
-                question: "Ecris une incise courte (ex: dit l'agent).",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["dit", "repondit", "murmura", "hurla"]
+                "type": "write",
+                "title": "Incise Courte",
+                "question": "\"Écris une incise courte (ex: dit l'agent).\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "dit",
+                        "répondit",
+                        "murmura",
+                        "hurla"
+                    ]
                 },
-                hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire.",
-                feedback: "Incise valide."
+                "hint": "Utilise un verbe de parole (dit, murmura, répondit) et garde une ponctuation claire.",
+                "feedback": "Incise valide.",
+                "hint2": "Forme minimale attendue: verbe de parole + groupe nominal.",
+                "hint3": "Exemple à recopier : « dit l'agent. »"
             },
             {
-                type: "interactive",
-                title: "Verbe de Parole",
-                question: "Quel mot est un verbe de parole ?",
-                options: ["murmura", "rapide", "casque"],
-                answer: 0,
-                feedback: "Verbe de parole detecte."
+                "type": "interactive",
+                "title": "Verbe de Parole",
+                "question": "\"Quel mot est un verbe de parole ?\"",
+                "options": [
+                    "murmura",
+                    "rapide",
+                    "casque"
+                ],
+                "answer": 0,
+                "feedback": "Verbe de parole detecte."
             },
             {
-                type: "write",
-                title: "Dialogue + Incise",
-                question: "Ecris une ligne complete de dialogue avec tiret et incise.",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["—"]
+                "type": "write",
+                "title": "Dialogue + Incise",
+                "question": "\"Écris une ligne complète de dialogue avec tiret et incise.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "—"
+                    ]
                 },
-                hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire.",
-                feedback: "Dialogue valide."
+                "hint": "Utilise un verbe de parole (dit, murmura, répondit) et garde une ponctuation claire.",
+                "feedback": "Dialogue valide.",
+                "hint2": "Format: tiret cadratin + parole + virgule + incise.",
+                "hint3": "Exemple à recopier : « — On avance maintenant, murmura Zyvah. »"
             },
             {
-                type: "interactive",
-                title: "Placement Virgule",
-                question: "Ou place-t-on la virgule ? <br><br><i>— On part ____ dit Lovyc.</i>",
-                options: ["avant dit", "apres dit", "pas de virgule"],
-                answer: 0,
-                feedback: "La virgule precede l'incise."
+                "type": "interactive",
+                "title": "Placement Virgule",
+                "question": "\"Où place-t-on la virgule ?\" (— On part ____ dit Lovyc.)",
+                "options": [
+                    "avant dit",
+                    "après dit",
+                    "pas de virgule"
+                ],
+                "answer": 0,
+                "feedback": "La virgule precede l'incise."
             },
             {
-                type: "write",
-                title: "Dialogue Rapide",
-                question: "Ecris un dialogue court avec un ordre (ex: Avance).",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["—"]
+                "type": "write",
+                "title": "Dialogue Rapide",
+                "question": "\"Écris un dialogue court avec un ordre (ex: Avance).\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "—"
+                    ]
                 },
-                hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire.",
-                feedback: "Ordre transmis."
+                "hint": "Utilise un verbe de parole (dit, murmura, répondit) et garde une ponctuation claire.",
+                "feedback": "Ordre transmis.",
+                "hint2": "Écris un ordre court au format: « — [ordre], dit [nom]. »",
+                "hint3": "Exemple à recopier : « — Avance immédiatement, dit Lovyc. »"
             },
             {
-                type: "interactive",
-                title: "Ligne Correcte",
-                question: "Quelle ligne est correcte ?",
-                options: ["— On avance, dit Lovyc.", "— On avance dit, Lovyc.", "On avance, — dit Lovyc."],
-                answer: 0,
-                feedback: "Format propre."
+                "type": "interactive",
+                "title": "Ligne Correcte",
+                "question": "\"Quelle ligne est correcte ?\"",
+                "options": [
+                    "— On avance, dit Lovyc.",
+                    "— On avance dit, Lovyc.",
+                    "On avance, — dit Lovyc."
+                ],
+                "answer": 0,
+                "feedback": "Format propre."
             },
             {
-                type: "write",
-                title: "Micro Dialogue",
-                question: "Ecris deux lignes de dialogue (deux phrases).",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 12,
-                    keywords: ["-"],
-                    enforceKeywords: true
+                "type": "write",
+                "title": "Micro Dialogue",
+                "question": "\"Écris deux lignes de dialogue (deux phrases).\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "minWords": 10
                 },
-                hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire.",
-                feedback: "Communication valide."
+                "hint": "Utilise un verbe de parole (dit, murmura, répondit) et garde une ponctuation claire.",
+                "feedback": "Communication valide.",
+                "hint2": "Rédige 2 phrases de dialogue complètes avec ponctuation correcte.",
+                "hint3": "Exemple à recopier : « — On avance, dit Lovyc. — Je couvre la zone, répondit Zyvah. »"
             },
             {
-                type: "write",
-                title: "Rapport de Mission",
-                question: "Ecris une phrase avec une incise mais sans dialogue.",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [","]
+                "type": "write",
+                "title": "Rapport de Mission",
+                "question": "\"Écris une phrase avec une incise mais sans dialogue.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ","
+                    ]
                 },
-                hint: "Utilise un verbe de parole (dit, murmura, repondit) et garde une ponctuation claire.",
-                feedback: "Incise integree."
+                "hint": "Utilise un verbe de parole (dit, murmura, répondit) et garde une ponctuation claire.",
+                "feedback": "Incise integree.",
+                "hint2": "Écris une phrase narrative sans tiret, avec une incise entre virgules.",
+                "hint3": "Exemple à recopier : « La zone est sécurisée, dit l'agent. »"
             },
             {
-                type: "interactive",
-                title: "Derniere Validation",
-                question: "Quel element est obligatoire pour montrer le dialogue ?",
-                options: ["Le tiret cadratin", "Les deux-points", "La parenthese"],
-                answer: 0,
-                feedback: "Correct."
+                "type": "interactive",
+                "title": "Dernière Validation",
+                "question": "\"Quel élément est obligatoire pour montrer le dialogue ?\"",
+                "options": [
+                    "Le tiret cadratin",
+                    "Les deux-points",
+                    "La parenthese"
+                ],
+                "answer": 0,
+                "feedback": "Correct."
             },
             {
-                type: "challenge",
-                title: "Boss de Fin - Mission 2",
-                question: "Ecris une courte ligne de dialogue commencant par un tiret cadratin (—) et finissant par une incise (ex: dit-il, repondit Lovyc) :",
-                requirements: {
-                    mode: "sentence",
-                    keywords: ["—"]
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 2",
+                "question": "\"Écris une courte ligne de dialogue commencant par un tiret cadratin (—) et finissant par une incise :\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "—"
+                    ]
                 },
-                hint: "N'oublie pas le tiret au debut et la virgule avant l'incise si necessaire.",
-                feedback: "Dialogue valide. La communication entre agents est fluide."
+                "hint": "N'oublie pas le tiret au debut et la virgule avant l'incise si necessaire.",
+                "feedback": "Dialogue valide. La communication entre agents est fluide."
             }
         ]
-    }];
+    }
+];
 
     document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
 </script>

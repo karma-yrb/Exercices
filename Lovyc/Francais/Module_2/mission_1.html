@@ -59,169 +59,202 @@
         TRACKING_MODULE: "Module_2",
     };
 
-    const weekData = [{
-        id: 1,
-        title: "Le Souffle : La Virgule",
-        steps: [
+    const weekData = [
+    {
+        "id": 1,
+        "title": "Le Souffle : La Virgule",
+        "steps": [
             {
-                type: "lesson",
-                title: "Briefing : Respiration Slam",
-                content: `
-                    <div class="visual-anchor">
-                    <svg viewBox="0 0 100 40" style="width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;">
-                        <path d="M10 20 Q30 5 50 20 T90 20" stroke-dasharray="2,2"/>
-                        <circle cx="50" cy="20" r="3" fill="var(--accent)"/>
-                        <text x="48" y="35" style="fill: var(--accent); font-size: 10px; font-weight: bold; font-family: monospace;">,</text>
-                    </svg>
-                    </div>
-                    <div class="content-chunk">
-                    <p>Comme dans un texte de <b>Gael Faye</b> ou un morceau d'<b>Oxmo Puccino</b>, la virgule n'est pas qu'un signe technique, c'est ton <b>souffle</b>.</p>
-                    <p>Elle sert a separer des elements dans une liste ou a marquer une courte pause sans couper le signal. C'est elle qui donne du "groove" a ta phrase.</p>
-                    </div>
-                    <div class="box-concept">
-                    aœ… J'ai pris mon casque<b>,</b> mes gants et ma souris.<br><br>
-                    <b>Exemple de Flaubert :</b><br>
-                    <i>"Elle etait pale, elle marchait vite, elle semblait chercher quelqu'un."</i>
-                    </div>`
+                "type": "lesson",
+                "title": "Briefing : Respiration Slam",
+                "content": "\n                    <div class=\"visual-anchor\">\n                    <svg viewBox=\"0 0 100 40\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                        <path d=\"M10 20 Q30 5 50 20 T90 20\" stroke-dasharray=\"2,2\"/>\n                        <circle cx=\"50\" cy=\"20\" r=\"3\" fill=\"var(--accent)\"/>\n                        <text x=\"48\" y=\"35\" style=\"fill: var(--accent); font-size: 10px; font-weight: bold; font-family: monospace;\">,</text>\n                    </svg>\n                    </div>\n                    <div class=\"content-chunk\">\n                    <p>Comme dans un texte de <b>Gael Faye</b> ou un morceau d'<b>Oxmo Puccino</b>, la virgule n'est pas qu'un signe technique, c'est ton <b>souffle</b>.</p>\n                    <p>Elle sert a separer des elements dans une liste ou a marquer une courte pause sans couper le signal. C'est elle qui donne du \"groove\" a ta phrase.</p>\n                    </div>\n                    <div class=\"box-concept\">\n                    aœ… J'ai pris mon casque<b>,</b> mes gants et ma souris.<br><br>\n                    <b>Exemple de Flaubert :</b><br>\n                    <i>\"Elle etait pale, elle marchait vite, elle semblait chercher quelqu'un.\"</i>\n                    </div>"
             },
             {
-                type: "lesson",
-                title: "Rythme et Liste",
-                content: `
-                    <div class="box-concept">
-                    J'ai pris mon casque, mes gants et ma souris.<br><br>
-                    Elle etait pale, elle marchait vite, elle semblait chercher quelqu'un.
-                    </div>`
+                "type": "lesson",
+                "title": "Rythme et Liste",
+                "content": "\n                    <div class=\"box-concept\">\n                    J'ai pris mon casque, mes gants et ma souris.<br><br>\n                    Elle etait pale, elle marchait vite, elle semblait chercher quelqu'un.\n                    </div>"
             },
             {
-                type: "interactive",
-                title: "Detection de Micro-coupure",
-                question: "Ou manque-t-il une virgule pour que la phrase soit fluide ? <br><br><i>Le capitaine Lovyc analyse la map il deploie ses drones.</i>",
-                options: ["Apres 'Lovyc'", "Apres 'map'", "Apres 'deploie'"],
-                answer: 1,
-                feedback: "Correct. La pause se fait entre deux actions distinctes."
+                "type": "interactive",
+                "title": "Détection de Micro-coupure",
+                "question": "\"Où manque-t-il une virgule pour que la phrase soit fluide ?\" (Le capitaine Lovyc analyse la map il déploie ses drones.)",
+                "options": [
+                    "Après 'Lovyc'",
+                    "Après 'map'",
+                    "Après 'déploie'"
+                ],
+                "answer": 1,
+                "feedback": "Correct. La pause se fait entre deux actions distinctes."
             },
             {
-                type: "interactive",
-                title: "Pause Juste",
-                question: "Ou placer la virgule ? <br><br><i>Quand le match commence on reste groupes.</i>",
-                options: ["Quand le match commence, on reste groupes.", "Quand le match, commence on reste groupes.", "Quand le match commence on, reste groupes."],
-                answer: 0,
-                feedback: "La virgule vient apres la subordonnee."
+                "type": "interactive",
+                "title": "Pause Juste",
+                "question": "\"Où placer la virgule ?\" (Quand le match commence on reste groupés.)",
+                "options": [
+                    "Quand le match commence, on reste groupés.",
+                    "Quand le match, commence on reste groupés.",
+                    "Quand le match commence on, reste groupés."
+                ],
+                "answer": 0,
+                "feedback": "La virgule vient après la subordonnée."
             },
             {
-                type: "write",
-                title: "Saisie Rythmique",
-                question: "Reecris cette phrase en ajoutant les <b>deux</b> virgules necessaires : <br><br><i>Le serveur sature le ping monte et le lag arrive.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [",", "serveur", "ping", "lag"]
+                "type": "write",
+                "title": "Saisie Rythmique",
+                "question": "\"Réécris cette phrase en ajoutant les deux virgules nécessaires :\" (Le serveur sature le ping monte et le lag arrive.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ",",
+                        "serveur",
+                        "ping",
+                        "lag"
+                    ]
                 },
-                hint: "Il y a trois actions. Separe les deux premieres par des virgules.",
-                feedback: "Bravo. Ton flow est desormais ininterrompu."
+                "hint": "Il y a trois actions. Sépare les deux premières par des virgules.",
+                "feedback": "Bravo. Ton flow est désormais ininterrompu.",
+                "hint2": "Repère les 3 actions (serveur sature / ping monte / lag arrive) et mets une virgule entre chaque action.",
+                "hint3": "Exemple à recopier : « Le serveur sature, le ping monte, et le lag arrive. »"
             },
             {
-                type: "write",
-                title: "Liste Claire",
-                question: "Ecris une phrase avec une liste de trois objets et une virgule.",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [",", "et"]
+                "type": "write",
+                "title": "Liste Claire",
+                "question": "\"Écris une phrase avec une liste de trois objets et une virgule.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ",",
+                        "et"
+                    ]
                 },
-                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
-                feedback: "Liste propre."
+                "hint": "Place la virgule à l'endroit de la micro-pause, entre les deux actions.",
+                "feedback": "Liste propre.",
+                "hint2": "Écris une phrase avec 3 objets : mets une virgule entre les deux premiers, puis « et » avant le dernier.",
+                "hint3": "Exemple à recopier : « Je prends mon casque, ma souris et mon micro. »"
             },
             {
-                type: "interactive",
-                title: "Virgule ou Point",
-                question: "Quel signe convient ? <br><br><i>Il ouvre la map ____ il repere la zone.</i>",
-                options: [",", ".", "rien"],
-                answer: 0,
-                feedback: "Deux actions proches -> virgule."
+                "type": "interactive",
+                "title": "Virgule ou Point",
+                "question": "\"Quel signe convient ?\" (Il ouvre la map ____ il repère la zone.)",
+                "options": [
+                    ",",
+                    ".",
+                    "rien"
+                ],
+                "answer": 0,
+                "feedback": "Deux actions proches -> virgule."
             },
             {
-                type: "interactive",
-                title: "Virgule Avant Mais",
-                question: "Ou placer la virgule ? <br><br><i>Il attaque mais il recule.</i>",
-                options: ["Il attaque, mais il recule.", "Il attaque mais, il recule.", "Il attaque mais il, recule."],
-                answer: 0,
-                feedback: "Virgule avant mais."
+                "type": "interactive",
+                "title": "Virgule Avant Mais",
+                "question": "\"Où placer la virgule ?\" (Il attaque mais il recule.)",
+                "options": [
+                    "Il attaque, mais il recule.",
+                    "Il attaque mais, il recule.",
+                    "Il attaque mais il, recule."
+                ],
+                "answer": 0,
+                "feedback": "Virgule avant mais."
             },
             {
-                type: "write",
-                title: "Virgule dans une Phrase Longue",
-                question: "Ajoute une virgule pour mieux respirer : <br><br><i>Le coach explique la strat et la team ecoute.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [","]
+                "type": "write",
+                "title": "Virgule dans une Phrase Longue",
+                "question": "\"Ajoute une virgule pour mieux respirer :\" (Le coach explique la strat et la team écoute.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ","
+                    ]
                 },
-                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
-                feedback: "Respiration ok."
+                "hint": "Place la virgule à l'endroit de la micro-pause, entre les deux actions.",
+                "feedback": "Respiration ok.",
+                "hint2": "Ici, la virgule se place avant « et la team écoute » pour marquer la respiration.",
+                "hint3": "Exemple à recopier : « Le coach explique la strat, et la team écoute. »"
             },
             {
-                type: "write",
-                title: "Virgule avec Apposition",
-                question: "Ajoute une virgule apres 'Lovyc' : <br><br><i>Lovyc le capitaine donne l'ordre.</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [","]
+                "type": "write",
+                "title": "Virgule avec Apposition",
+                "question": "\"Ajoute une virgule après 'Lovyc' :\" (Lovyc le capitaine donne l'ordre.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ","
+                    ]
                 },
-                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
-                feedback: "Apposition isolee."
+                "hint": "Place la virgule à l'endroit de la micro-pause, entre les deux actions.",
+                "feedback": "Apposition isolée.",
+                "hint2": "Le groupe « le capitaine » est en apposition : isole-le avec des virgules.",
+                "hint3": "Exemple à recopier : « Lovyc, le capitaine, donne l'ordre. »"
             },
             {
-                type: "interactive",
-                title: "Choix Correct",
-                question: "Quelle phrase est correcte ?",
-                options: ["Je charge, je tire.", "Je charge je, tire.", "Je charge, je tire,"],
-                answer: 0,
-                feedback: "Virgule juste."
+                "type": "interactive",
+                "title": "Choix Correct",
+                "question": "\"Quelle phrase est correcte ?\"",
+                "options": [
+                    "Je charge, je tire.",
+                    "Je charge je, tire.",
+                    "Je charge, je tire,"
+                ],
+                "answer": 0,
+                "feedback": "Virgule juste."
             },
             {
-                type: "write",
-                title: "Mini Rapport",
-                question: "Ecris deux phrases avec une virgule dans chacune.",
-                requirements: {
-                    mode: "sentence",
-                    minWords: 12,
-                    keywords: [",", "phrase", "virgule"],
-                    enforceKeywords: true
+                "type": "write",
+                "title": "Mini Rapport",
+                "question": "\"Écris deux phrases avec une virgule dans chacune.\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "minWords": 10
                 },
-                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
-                feedback: "Rapport rythme."
+                "hint": "Place la virgule à l'endroit de la micro-pause, entre les deux actions.",
+                "feedback": "Rapport rythme.",
+                "hint2": "Rédige 2 phrases complètes et mets une virgule dans chacune.",
+                "hint3": "Exemple à recopier : « Nous avançons vite, puis nous couvrons la zone. Le coach parle, et la team répond. »"
             },
             {
-                type: "write",
-                title: "Reecriture Live",
-                question: "Reecris avec virgules : <br><br><i>dans la base Lovyc prepare le match il verifie la map</i>",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [","]
+                "type": "write",
+                "title": "Réécriture Live",
+                "question": "\"Réécris avec virgules :\" (dans la base Lovyc prépare le match il vérifie la map)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ","
+                    ]
                 },
-                hint: "Place la virgule a l'endroit de la micro-pause, entre les deux actions.",
-                feedback: "Message fluide."
+                "hint": "Place la virgule à l'endroit de la micro-pause, entre les deux actions.",
+                "feedback": "Message fluide.",
+                "hint2": "Commence par une majuscule, ajoute les virgules utiles, puis termine par un point.",
+                "hint3": "Exemple à recopier : « Dans la base, Lovyc prépare le match, il vérifie la map. »"
             },
             {
-                type: "interactive",
-                title: "Dernier Check",
-                question: "Quelle phrase est la plus claire ?",
-                options: ["Le drone arrive, il scanne.", "Le drone arrive il scanne.", "Le drone arrive, il scanne,"],
-                answer: 0,
-                feedback: "Clarte obtenue."
+                "type": "interactive",
+                "title": "Dernier Check",
+                "question": "\"Quelle phrase est la plus claire ?\"",
+                "options": [
+                    "Le drone arrive, il scanne.",
+                    "Le drone arrive il scanne.",
+                    "Le drone arrive, il scanne,"
+                ],
+                "answer": 0,
+                "feedback": "Clarté obtenue."
             },
             {
-                type: "challenge",
-                title: "Boss de Fin - Mission 1",
-                question: "Redige une phrase listant 3 equipements tactiques (ex: radar, drone, radio) en utilisant correctement les virgules et le mot 'et' :",
-                requirements: {
-                    mode: "sentence",
-                    keywords: [",", "et"]
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 1",
+                "question": "\"Rédige une phrase listant 3 équipements tactiques en utilisant correctement les virgules et le mot 'et' :\"",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        ",",
+                        "et"
+                    ]
                 },
-                hint: "Objet 1, Objet 2 et Objet 3.",
-                feedback: "Transmission recue. Ton inventaire est clair, Agent."
+                "hint": "Objet 1, Objet 2 et Objet 3.",
+                "feedback": "Transmission recue. Ton inventaire est clair, Agent."
             }
         ]
-    }];
+    }
+];
 
     document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
 </script>
