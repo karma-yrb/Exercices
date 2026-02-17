@@ -155,6 +155,45 @@ function getTrackingConsentProof(config) {
     };
 }
 
+function getNullSessionTimeoutMs(config) {
+    const timeoutMin = Number(config && config.TRACKING_NULL_SESSION_TIMEOUT_MIN);
+    if (Number.isFinite(timeoutMin) && timeoutMin > 0) {
+        return Math.round(timeoutMin * 60000);
+    }
+    // Default: 6h max without completion/abandon signal.
+    return 6 * 60 * 60000;
+}
+
+function getTrackableSessionTiming(config) {
+    const endTime = new Date();
+    if (!state || !state.startTime) {
+        return { valid: false, reason: 'missing_start', endTime, timeoutMs: getNullSessionTimeoutMs(config) };
+    }
+
+    const startTime = new Date(state.startTime);
+    if (Number.isNaN(startTime.getTime())) {
+        return { valid: false, reason: 'invalid_start', endTime, timeoutMs: getNullSessionTimeoutMs(config) };
+    }
+
+    const elapsedMs = endTime.getTime() - startTime.getTime();
+    const timeoutMs = getNullSessionTimeoutMs(config);
+    if (!Number.isFinite(elapsedMs) || elapsedMs < 0) {
+        return { valid: false, reason: 'invalid_elapsed', endTime, startTime, elapsedMs, timeoutMs };
+    }
+    if (elapsedMs > timeoutMs) {
+        return { valid: false, reason: 'orphan_session', endTime, startTime, elapsedMs, timeoutMs };
+    }
+
+    return {
+        valid: true,
+        endTime,
+        startTime,
+        elapsedMs,
+        timeoutMs,
+        durationMin: Math.max(0, Math.round(elapsedMs / 60000))
+    };
+}
+
 // ========================================
 // MATHEMATICAL NORMALIZATION FUNCTIONS
 // ========================================
@@ -1089,9 +1128,19 @@ async function syncWithParent(dayId, status = 'TERMINE') {
     const unitLabel = getUnitLabel(config);
     const missionTitle = day ? day.title : unitLabel;
     
-    const endTime = new Date();
-    const startTime = state.startTime ? new Date(state.startTime) : endTime;
-    const durationMin = Math.max(0, Math.round((endTime - startTime) / 60000));
+    const sessionTiming = getTrackableSessionTiming(config);
+    if (!sessionTiming.valid) {
+        const timeoutMin = Math.round((sessionTiming.timeoutMs || 0) / 60000);
+        console.warn(`Synchro ignoree: session nulle (${sessionTiming.reason}). Fenetre max ${timeoutMin} min.`);
+        state.startTime = null;
+        state.sessionId = null;
+        saveState();
+        return;
+    }
+
+    const endTime = sessionTiming.endTime;
+    const startTime = sessionTiming.startTime;
+    const durationMin = sessionTiming.durationMin;
     const actorId = inferActorId(config);
     const deviceId = getOrCreateDeviceId();
     if (!state.sessionId) {

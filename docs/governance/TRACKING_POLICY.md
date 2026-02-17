@@ -67,6 +67,10 @@ This policy defines the minimum safeguards for learner tracking data.
 - Any tracking schema change must update:
   - this policy file,
   - tests validating tracking behavior.
+- A session without timely completion/abandon signal must be treated as null and must not be sent.
+  - Technical rule:
+    - `TRACKING_NULL_SESSION_TIMEOUT_MIN` (optional) defines the max session age before nullification.
+    - Default fallback is 360 minutes (6h) if not configured.
 
 ## Non-Regression Checks
 - Tests must verify:
