@@ -11,6 +11,9 @@ This policy defines the minimum safeguards for learner tracking data.
 - Technical rule:
   - `TRACKING_INCLUDE_IP` must be explicitly set to `true` to include `ip`.
   - If the flag is absent, false, or invalid, `ip` must not be sent.
+- Cloud tracking is disabled in local runtime by default (`file://`, `localhost`) unless explicitly allowed.
+  - `TRACKING_ALLOW_LOCAL === true` is required to allow local sync.
+  - `TRACKING_DISABLED === true` forces full tracking off.
 
 ## Allowed Fields
 - Required payload fields:
@@ -37,6 +40,12 @@ This policy defines the minimum safeguards for learner tracking data.
   - `APP_CONFIG.TRACKING_SUBJECT`
   - `APP_CONFIG.TRACKING_MODULE`
 - URL parsing is fallback only.
+- Device identity can be pinned with:
+  - `APP_CONFIG.TRACKING_DEVICE_ID` (optional stable override per trusted device)
+- Test devices can be excluded from cloud tracking:
+  - default exclusion prefix: `dev_tester_`
+  - optional explicit list: `APP_CONFIG.TRACKING_TEST_DEVICE_IDS`
+  - optional custom prefix: `APP_CONFIG.TRACKING_TEST_DEVICE_PREFIX`
 
 ## Consent
 - Consent is required before enabling IP tracking.
@@ -71,6 +80,7 @@ This policy defines the minimum safeguards for learner tracking data.
   - Technical rule:
     - `TRACKING_NULL_SESSION_TIMEOUT_MIN` (optional) defines the max session age before nullification.
     - Default fallback is 360 minutes (6h) if not configured.
+- Tester sessions must be neutralized at source (not sent to cloud tracking endpoint).
 
 ## Non-Regression Checks
 - Tests must verify:

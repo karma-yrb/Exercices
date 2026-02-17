@@ -58,6 +58,50 @@ function getOrCreateDeviceId() {
     }
 }
 
+function getTrackingDeviceId(config) {
+    if (config && typeof config.TRACKING_DEVICE_ID === 'string' && config.TRACKING_DEVICE_ID.trim()) {
+        return config.TRACKING_DEVICE_ID.trim();
+    }
+    return getOrCreateDeviceId();
+}
+
+function isLocalTrackingRuntime() {
+    if (!window || !window.location) return false;
+    const protocol = String(window.location.protocol || '').toLowerCase();
+    const hostname = String(window.location.hostname || '').toLowerCase();
+    if (protocol === 'file:') return true;
+    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') return true;
+    return false;
+}
+
+function shouldSendTracking(config) {
+    if (config && config.TRACKING_DISABLED === true) {
+        return { allowed: false, reason: 'tracking_disabled' };
+    }
+
+    const allowLocal = config && config.TRACKING_ALLOW_LOCAL === true;
+    if (!allowLocal && isLocalTrackingRuntime()) {
+        return { allowed: false, reason: 'local_runtime_disabled' };
+    }
+
+    return { allowed: true, reason: 'allowed' };
+}
+
+function isTesterDeviceId(config, deviceId) {
+    if (!deviceId || typeof deviceId !== 'string') return false;
+
+    const forcedTesterIds = (config && Array.isArray(config.TRACKING_TEST_DEVICE_IDS))
+        ? config.TRACKING_TEST_DEVICE_IDS.map(v => String(v))
+        : [];
+    if (forcedTesterIds.includes(deviceId)) return true;
+
+    const testerPrefix = (config && typeof config.TRACKING_TEST_DEVICE_PREFIX === 'string' && config.TRACKING_TEST_DEVICE_PREFIX.trim())
+        ? config.TRACKING_TEST_DEVICE_PREFIX.trim()
+        : 'dev_tester_';
+
+    return deviceId.startsWith(testerPrefix);
+}
+
 function inferActorId(config) {
     if (config && config.TRACKING_ACTOR_ID) return String(config.TRACKING_ACTOR_ID);
     const storageKey = (config && config.STORAGE_KEY) ? config.STORAGE_KEY.toLowerCase() : '';
@@ -1025,6 +1069,17 @@ function abandonMission() {
 
 async function syncWithParent(dayId, status = 'TERMINE') {
     const config = window.APP_CONFIG || {};
+    const deviceId = getTrackingDeviceId(config);
+    const trackingGate = shouldSendTracking(config);
+    if (!trackingGate.allowed) {
+        console.log(`Synchro Cloud ignoree (${trackingGate.reason}).`);
+        return;
+    }
+    if (isTesterDeviceId(config, deviceId)) {
+        console.log(`Synchro Cloud ignoree (tester_device_excluded: ${deviceId}).`);
+        return;
+    }
+
     const childName = (config.STORAGE_KEY && config.STORAGE_KEY.includes('lovyc')) ? 'Lovyc' : 'Zyvah';
     const pathParts = window.location.pathname.split('/');
     const subject = getTrackingSubject(config, pathParts);
@@ -1052,7 +1107,6 @@ async function syncWithParent(dayId, status = 'TERMINE') {
     const startTime = sessionTiming.startTime;
     const durationMin = sessionTiming.durationMin;
     const actorId = inferActorId(config);
-    const deviceId = getOrCreateDeviceId();
     if (!state.sessionId) {
         state.sessionId = makeTrackingId('sess');
         saveState();
