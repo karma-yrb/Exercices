@@ -143,7 +143,7 @@
 - Feedback: "Rapport clair."
 
 ### Écran 15 - challenge - Boss de Fin - Mission 1
-- Question: "Rédige deux phrases complètes (S+V+C) au présent, dont une avec le verbe 'ELIMINER'."
+- Question: "Rédige deux phrases complètes (S+V+C) au présent. Contraintes: un verbe de la famille 'éliminer', un mot de la famille adversaire/ennemi/opposant, et un sujet collectif équipe/joueurs/agents/escouade."
 - Requirements:
   - mode: "sentence"
   - keywordGroups:
@@ -154,6 +154,8 @@
   - minSentences: 2
   - mustInclude: "."
 - Hint: "Vérifie S+V+C dans chaque phrase, puis relis les accords."
+- Hint2: "Checklist: 2 phrases, 12 mots minimum, un verbe 'éliminer', un mot adversaire/ennemi/opposant et un sujet collectif (équipe/joueurs/agents/escouade)."
+- Hint3: "Exemple à recopier : « L'équipe élimine un adversaire dangereux. Les joueurs protègent ensuite la zone centrale. »"
 - Feedback: "Mission 1 accomplie a 100%."
 
 ## Mission 2 - Accord Multi-joueurs

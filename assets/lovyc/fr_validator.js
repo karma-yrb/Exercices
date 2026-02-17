@@ -91,6 +91,19 @@
         return (text.match(/[.!?]+/g) || []).length;
     }
 
+    function detectOralRegisterIssue(text) {
+        const normalized = normalizeStrictText(text);
+        const oralPatterns = [
+            { pattern: /\by'?a\b/u, source: "y'a", expected: 'il y a' },
+            { pattern: /(^|[.!?]\s*)y a\b/u, source: 'y a', expected: 'il y a' }
+        ];
+
+        for (const oral of oralPatterns) {
+            if (oral.pattern.test(normalized)) return oral;
+        }
+        return null;
+    }
+
     function isFillBlankStep(step) {
         const q = step && (step.q || step.question || '');
         const normalizedQ = (q || '').toLowerCase();
@@ -165,6 +178,18 @@
                 return { handled: true, ok: false, msg: 'Ne copie pas le message d\'erreur, reponds a la consigne.' };
             }
 
+            const requiresWrittenRegister = mode === 'sentence' || step.type === 'challenge';
+            if (requiresWrittenRegister) {
+                const oralIssue = detectOralRegisterIssue(trimmed);
+                if (oralIssue) {
+                    return {
+                        handled: true,
+                        ok: false,
+                        msg: 'Evite la forme orale "' + oralIssue.source + '". Ecris "' + oralIssue.expected + '".'
+                    };
+                }
+            }
+
             const expectsSentenceForm = mode === 'sentence' && !fillBlank && !hasOneWordTarget;
             if (expectsSentenceForm) {
                 const firstLetterMatch = trimmed.match(/[A-Za-z\u00C0-\u017F]/);
@@ -236,7 +261,7 @@
 
             if (mode === 'verb') {
                 if (trimmed.includes(' ')) {
-                    return { handled: true, ok: false, msg: 'Un seul verbe est attendu.' };
+                    return { handled: true, ok: false, msg: 'Seul un verbe est attendu.' };
                 }
                 if (!isVerbLike(trimmed, normalizeText)) {
                     return { handled: true, ok: false, msg: 'Ce mot ne ressemble pas a un verbe conjugue.' };
@@ -252,7 +277,9 @@
 
             const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
             const containsLetters = /[A-Za-z\u00C0-\u017F]/.test(trimmed);
-            const shouldCheckGrammar = (mode === 'sentence' || mode === 'verb' || mode === 'keywords') && containsLetters;
+            const shouldCheckGrammar = (mode === 'sentence' || mode === 'verb' || mode === 'keywords')
+                && containsLetters
+                && !fillBlank;
             if (shouldCheckGrammar) {
                 const grammar = await checkGrammar(trimmed);
                 if (!grammar.ok) return { handled: true, ok: false, msg: grammar.msg };

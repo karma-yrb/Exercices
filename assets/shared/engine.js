@@ -72,6 +72,46 @@ function getUnitLabel(config) {
     return actor === 'zyvah' ? 'SEANCE' : 'MISSION';
 }
 
+function renderBossVisual(config) {
+    const actor = inferActorId(config);
+
+    if (actor === 'zyvah') {
+        return `
+            <div class="boss-visual-container">
+                <svg viewBox="0 0 100 100" class="boss-svg" style="color: var(--accent);">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2" opacity="0.25" />
+                    <rect x="20" y="18" width="60" height="64" rx="10" fill="none" stroke="currentColor" stroke-width="3" />
+                    <path d="M30 68 V52 M42 68 V44 M54 68 V36 M66 68 V48" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                    <path d="M30 34 L42 30 L54 34 L66 26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="30" cy="34" r="2.5" fill="currentColor" />
+                    <circle cx="42" cy="30" r="2.5" fill="currentColor" />
+                    <circle cx="54" cy="34" r="2.5" fill="currentColor" />
+                    <circle cx="66" cy="26" r="2.5" fill="currentColor" />
+                </svg>
+                <div class="boss-label">DEFI MANAGER</div>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="boss-visual-container">
+            <svg viewBox="0 0 100 100" class="boss-svg" style="color: var(--danger);">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2" opacity="0.3" />
+                <path d="M25 40 L50 20 L75 40 L75 70 L50 90 L25 70 Z" fill="none" stroke="currentColor" stroke-width="3" />
+                <rect x="35" y="45" width="10" height="4" fill="currentColor">
+                    <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite" />
+                </rect>
+                <rect x="55" y="45" width="10" height="4" fill="currentColor">
+                    <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite" />
+                </rect>
+                <path d="M40 70 L60 70" fill="none" stroke="currentColor" stroke-width="2" />
+                <path d="M20 50 L10 50 M90 50 L80 50 M50 10 L50 20 M50 90 L50 80" stroke="currentColor" stroke-width="1" />
+            </svg>
+            <div class="boss-label">MENACE DETECTEE</div>
+        </div>
+    `;
+}
+
 function isFrenchSubject(config) {
     const subject = (config && config.TRACKING_SUBJECT) ? String(config.TRACKING_SUBJECT) : '';
     const normalizedSubject = normalizeText(subject);
@@ -626,6 +666,7 @@ function renderStep() {
     }
     
     const isBoss = step.type === 'challenge';
+    const config = window.APP_CONFIG || {};
     
     setActiveView('content');
     
@@ -648,7 +689,6 @@ function renderStep() {
     
     if (el.btnNext) {
         el.btnNext.disabled = ['interactive', 'quiz', 'challenge', 'write'].includes(step.type);
-        const config = window.APP_CONFIG || {};
         const unitLabel = getUnitLabel(config);
         el.btnNext.innerText = isBoss ? `VALIDER LA ${unitLabel}` : 'ÉTAPE SUIVANTE';
         el.btnNext.classList.toggle('boss-btn', isBoss);
@@ -666,23 +706,7 @@ function renderStep() {
         el.stepBody.innerHTML = body;
     } else if (step.type === 'write' || step.type === 'challenge') {
         let hintHtml = '';
-        let bossIcon = isBoss ? `
-            <div class="boss-visual-container">
-                <svg viewBox="0 0 100 100" class="boss-svg" style="color: var(--danger);">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2" opacity="0.3" />
-                    <path d="M25 40 L50 20 L75 40 L75 70 L50 90 L25 70 Z" fill="none" stroke="currentColor" stroke-width="3" />
-                    <rect x="35" y="45" width="10" height="4" fill="currentColor">
-                        <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite" />
-                    </rect>
-                    <rect x="55" y="45" width="10" height="4" fill="currentColor">
-                        <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite" />
-                    </rect>
-                    <path d="M40 70 L60 70" fill="none" stroke="currentColor" stroke-width="2" />
-                    <path d="M20 50 L10 50 M90 50 L80 50 M50 10 L50 20 M50 90 L50 80" stroke="currentColor" stroke-width="1" />
-                </svg>
-                <div class="boss-label">MENACE DÉTECTÉE</div>
-            </div>
-        ` : '';
+        const bossIcon = isBoss ? renderBossVisual(config) : '';
         
         // Dynamic Question Formatting (Extracting text inside <i> and wrapping it)
         let formattedQ = q.replace(/<i>(.*?)<\/i>/g, '<div class="tactical-data">$1</div>');

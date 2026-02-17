@@ -129,90 +129,39 @@
         TRACKING_MODULE: "Module_0",
     };
     var weekData = [
-        {
-            id: 1,
-            title: "Initiation - Regles d'ecriture",
-            expectedSteps: 5,
-            steps: [
-                {
-                    type: "lesson",
-                    title: "Regle 1 : Majuscule",
-                    content: `
-                              <div class="story-card">
-                                <div class="story-illustration">
-                                  <svg viewBox="0 0 120 120">
-                                    <path d="M20 90 L60 30 L100 90" />
-                                    <path d="M35 70 L85 70" />
-                                    <text x="60" y="106" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-size: 18px;">A</text>
-                                  </svg>
-                                </div>
-                                <div class="story-title">Majuscule</div>
-                                <div class="story-text">Commence chaque phrase par une majuscule.</div>
-                              </div>`
-                },
-                {
-                    type: "lesson",
-                    title: "Regle 2 : Point final",
-                    content: `
-                              <div class="story-card">
-                                <div class="story-illustration">
-                                  <svg viewBox="0 0 120 120">
-                                    <path d="M25 40 L95 40" />
-                                    <circle cx="90" cy="80" r="6" fill="var(--accent)" />
-                                  </svg>
-                                </div>
-                                <div class="story-title">Point final</div>
-                                <div class="story-text">Termine chaque phrase par un point.</div>
-                              </div>`
-                },
-                {
-                    type: "lesson",
-                title: "Regle 3 : Une phrase = une idee",
-                    content: `
-                              <div class="story-card">
-                                <div class="story-illustration">
-                                  <svg viewBox="0 0 120 120">
-                                    <circle cx="60" cy="50" r="22" />
-                                    <path d="M50 75 L70 75" />
-                                    <path d="M55 85 L65 85" />
-                                  </svg>
-                                </div>
-                                <div class="story-title">Une idee</div>
-                                <div class="story-text">Une phrase = une seule idee.</div>
-                              </div>`
-                },
-                {
-                    type: "lesson",
-                    title: "Regle 4 : Verbe obligatoire",
-                    content: `
-                              <div class="story-card">
-                                <div class="story-illustration">
-                                  <svg viewBox="0 0 120 120">
-                                    <path d="M30 30 L90 60 L30 90 Z" />
-                                  </svg>
-                                </div>
-                                <div class="story-title">Verbe obligatoire</div>
-                                <div class="story-text">Chaque phrase doit contenir un verbe.</div>
-                              </div>`
-                },
-                {
-                    type: "lesson",
-                title: "Regle 5 : Pas de langage SMS",
-                    content: `
-                              <div class="story-card">
-                                <div class="story-illustration">
-                                  <svg viewBox="0 0 120 120">
-                                    <circle cx="60" cy="60" r="30" />
-                                    <path d="M42 42 L78 78" />
-                                  </svg>
-                                </div>
-                                <div class="story-title">Pas de SMS</div>
-                                <div class="story-text">Pas de langage SMS dans les phrases.</div>
-                              </div>`
-                }
-            ]
-        }
-    ];
+    {
+        "id": 1,
+        "title": "Initiation - Regles d'ecriture",
+        "expectedSteps": 5,
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Règle 1 : Majuscule",
+                "content": "\n                              <div class=\"story-card\">\n                                <div class=\"story-illustration\">\n                                  <svg viewBox=\"0 0 120 120\">\n                                    <path d=\"M20 90 L60 30 L100 90\" />\n                                    <path d=\"M35 70 L85 70\" />\n                                    <text x=\"60\" y=\"106\" text-anchor=\"middle\" style=\"fill: var(--accent); font-family: var(--font-mono); font-size: 18px;\">A</text>\n                                  </svg>\n                                </div>\n                                <div class=\"story-title\">Majuscule</div>\n                                <div class=\"story-text\">Commence chaque phrase par une majuscule.</div>\n                              </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Règle 2 : Point final",
+                "content": "\n                              <div class=\"story-card\">\n                                <div class=\"story-illustration\">\n                                  <svg viewBox=\"0 0 120 120\">\n                                    <path d=\"M25 40 L95 40\" />\n                                    <circle cx=\"90\" cy=\"80\" r=\"6\" fill=\"var(--accent)\" />\n                                  </svg>\n                                </div>\n                                <div class=\"story-title\">Point final</div>\n                                <div class=\"story-text\">Termine chaque phrase par un point.</div>\n                              </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Règle 3 : Une phrase = une idée",
+                "content": "\n                              <div class=\"story-card\">\n                                <div class=\"story-illustration\">\n                                  <svg viewBox=\"0 0 120 120\">\n                                    <circle cx=\"60\" cy=\"50\" r=\"22\" />\n                                    <path d=\"M50 75 L70 75\" />\n                                    <path d=\"M55 85 L65 85\" />\n                                  </svg>\n                                </div>\n                                <div class=\"story-title\">Une idee</div>\n                                <div class=\"story-text\">Une phrase = une seule idee.</div>\n                              </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Règle 4 : Verbe obligatoire",
+                "content": "\n                              <div class=\"story-card\">\n                                <div class=\"story-illustration\">\n                                  <svg viewBox=\"0 0 120 120\">\n                                    <path d=\"M30 30 L90 60 L30 90 Z\" />\n                                  </svg>\n                                </div>\n                                <div class=\"story-title\">Verbe obligatoire</div>\n                                <div class=\"story-text\">Chaque phrase doit contenir un verbe.</div>\n                              </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Règle 5 : Pas de langage SMS",
+                "content": "\n                              <div class=\"story-card\">\n                                <div class=\"story-illustration\">\n                                  <svg viewBox=\"0 0 120 120\">\n                                    <circle cx=\"60\" cy=\"60\" r=\"30\" />\n                                    <path d=\"M42 42 L78 78\" />\n                                  </svg>\n                                </div>\n                                <div class=\"story-title\">Pas de SMS</div>\n                                <div class=\"story-text\">Pas de langage SMS dans les phrases.</div>\n                              </div>"
+            }
+        ]
+    }
+];
 </script>
 <script src="../../../assets/shared/engine.js?v=20260210"></script>
 <script>

@@ -21,8 +21,9 @@ Mandatory behaviors:
 - Respect global audit gate on important releases.
 - Keep validation policies separated by subject:
   - French modules: enforce accents, leading uppercase, and ending punctuation for sentence answers.
-  - French `write` steps can use progressive hints in 3 phases:
+  - French `write`/`challenge` steps can use progressive hints in 3 phases:
     - `hint`/`hint1` or `hintLight` (light clue),
     - `hint2` or `hintGuided` (clearer guidance after failures),
     - `hint3` or `hintSolution`/`solutionHint` (copyable model answer, late fallback).
+  - French written exercises must reject oral shortcuts (example: `y'a`) and require written-form equivalents (`il y a`).
   - Non-French modules: keep tolerance on form when not explicitly targeted by the exercise objective.
