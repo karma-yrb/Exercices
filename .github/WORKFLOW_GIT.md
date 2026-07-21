@@ -6,14 +6,14 @@ Aucun changement ne part en remote sans validation automatique des tests.
 
 ## Expression declencheuse du workflow
 
-- Expression utilisateur: `je valide`
+- Expression utilisateur: `lance pub`
 - Commande technique executee: `git commit`
 - Expression utilisateur: `lance resume`
 - Commande technique executee: `npm run resume`
 - Expression utilisateur: `do commit`
 - Commande technique executee: `npm run do-commit` (commit detaille du working tree)
 
-## Ce que fait `je valide` dans ce projet
+## Ce que fait `lance pub` dans ce projet
 
 1. Hook `pre-commit` : lance `node tests/test-runner.js`.
 2. Si les tests echouent : commit bloque.
@@ -21,7 +21,7 @@ Aucun changement ne part en remote sans validation automatique des tests.
 4. Hook `post-commit` : lance `git push` automatiquement.
 5. Hook `pre-push` : relance `node tests/test-runner.js` (gate final).
 
-Donc, dans ce repo, `je valide` (alias workflow de `git commit`) = tests + commit + push, et le push est lui aussi bloque si les tests ne passent pas.
+Donc, dans ce repo, `lance pub` (alias workflow de `git commit`) = tests + commit + push, et le push est lui aussi bloque si les tests ne passent pas.
 Le deploiement Pages est ensuite conditionne par la CI GitHub (`Tests` obligatoires).
 
 ## Ce que fait `lance resume` dans ce projet
@@ -67,7 +67,7 @@ node tests/test-runner.js <module>
 
 ### 3) Validation
 
-Expression attendue: `je valide`
+Expression attendue: `lance pub`
 
 Commande executee:
 

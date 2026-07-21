@@ -140,7 +140,7 @@ function makeActionChecklist(ctx) {
     }
 
     if (ctx.isDirty) {
-        items.push("Verifier puis valider les modifs locales: `je valide`.");
+        items.push("Verifier puis publier les modifs locales: `lance pub`.");
     } else if (ctx.ahead !== null && ctx.ahead > 0) {
         items.push(`Pousser les commit(s) locaux (${ctx.ahead}): \`git push\`.`);
     }
@@ -228,7 +228,7 @@ ${toBulletList(actions, "Aucune action requise.")}
 ## Commandes utiles
 - Generer handoff rapide: \`npm run resume\`
 - Generer handoff + execution tests: \`npm run resume:tests\`
-- Validation complete du repo: \`je valide\`
+- Validation complete du repo: \`lance pub\`
 `;
 }
 

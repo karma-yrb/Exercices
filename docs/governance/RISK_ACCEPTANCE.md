@@ -21,7 +21,7 @@
 
 ## RA-003 - Push direct sur main (solo) sans required status checks pre-push
 - **Date**: 2026-07-21
-- **Scope**: protection branche `main` + workflow `je valide` (commit/push direct)
+- **Scope**: protection branche `main` + workflow `lance pub` (commit/push direct)
 - **Decision**: conserver l'option A — push direct sur `main` apres tests locaux ; ne pas imposer `Require status checks to pass` ni `enforce_admins` pour ce flux
 - **Rationale**: projet en solo ; les hooks locaux (`pre-commit` / `pre-push`) + le job CI `Tests` avant `Deploy Pages` suffisent ; les required checks GitHub avant push sont incompatibles avec le flux direct documente dans `.github/WORKFLOW_GIT.md`
 - **Audit rule**: ne pas ouvrir de finding Critique/Majeur sur l'absence de required status checks / enforce_admins sur `main` tant que RA-003 est actif et que le deploy Pages reste conditionne par `Tests`
