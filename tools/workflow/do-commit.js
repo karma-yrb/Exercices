@@ -72,17 +72,14 @@ function parseStatus() {
     const raw = tryRun("git status --porcelain").out || "";
     if (!raw) return [];
     return raw.split(/\r?\n/).filter(Boolean).map((line) => {
-        // Porcelain v1: XY<space>PATH (path may start with '.')
-        const match = line.match(/^(?<code>.{2}) (?<file>.+)$/);
-        if (!match) {
-            return { code: "??", file: line.trim() };
-        }
-        let file = match.groups.file.trim();
+        // Format porcelain v1 garanti: XY + espace + path
+        const code = line.slice(0, 2);
+        let file = line.slice(3);
         if (file.startsWith("\"") && file.endsWith("\"")) {
             file = file.slice(1, -1).replace(/\\([\\\"])/g, "$1");
         }
-        if (file.includes(" -> ")) file = file.split(" -> ").pop().trim();
-        return { code: match.groups.code, file };
+        if (file.includes(" -> ")) file = file.split(" -> ").pop();
+        return { code, file: file.trim() };
     });
 }
 
