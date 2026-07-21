@@ -3,6 +3,9 @@
 ## Meta
 - Theme: Studio Maths - Calcul Littéral & Algèbre
 - Objectif: Développer, factoriser, manipuler expressions algébriques, résoudre équations
+- AgentPedago: PROF_MATH_SCIENCES_2NDE + ARCHITECTE_PEDAGO_WEB
+- SourcesPedago: CURRICULUM + PROGRESS + AGENTS_BASELINE
+- CartesLocalLibrary: local_library/cards/maths/*.json + local_library/cards/cross/*.json
 - Seances: 5
 - ScreensPerSeance: 15
 - Duree cible: ~12 min par Seance

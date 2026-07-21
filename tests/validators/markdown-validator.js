@@ -22,6 +22,7 @@ class MarkdownValidator {
             this.loadExpectations();
             
             this.checkStructure();
+            this.checkPedagogicalEvidence();
             this.checkMissions();
             this.checkDuplicateOptions();
             this.checkKeywords();
@@ -48,6 +49,47 @@ class MarkdownValidator {
         const missionMatches = this.content.match(/## (?:Mission|S(?:e|é)ance) \d+/g);
         if (!missionMatches || missionMatches.length !== this.expectedMissions) {
             this.errors.push(`Nombre de missions incorrect: ${missionMatches?.length || 0}/${this.expectedMissions}`);
+        }
+    }
+
+    extractMetaSection() {
+        const metaStart = this.content.search(/^## Meta\s*$/im);
+        if (metaStart === -1) return '';
+
+        const afterMeta = this.content.slice(metaStart + this.content.slice(metaStart).match(/^## Meta\s*$/im)[0].length);
+        const nextHeadingMatch = afterMeta.match(/\n##\s+/);
+        if (!nextHeadingMatch) return afterMeta;
+        return afterMeta.slice(0, nextHeadingMatch.index);
+    }
+
+    checkPedagogicalEvidence() {
+        const metaSection = this.extractMetaSection();
+        if (!metaSection) return;
+
+        const agentMatch = metaSection.match(/-\s*AgentPedago\s*:\s*(.+)/i);
+        const sourcesMatch = metaSection.match(/-\s*SourcesPedago\s*:\s*(.+)/i);
+        const cardsMatch = metaSection.match(/-\s*CartesLocalLibrary\s*:\s*(.+)/i);
+
+        if (!agentMatch) {
+            this.errors.push('Meta: AgentPedago manquant (preuve d\'usage agent)');
+        }
+
+        if (!sourcesMatch) {
+            this.errors.push('Meta: SourcesPedago manquant (preuve d\'usage SDV)');
+        } else {
+            const sources = sourcesMatch[1];
+            if (!/CURRICULUM/i.test(sources) || !/PROGRESS/i.test(sources)) {
+                this.errors.push('Meta: SourcesPedago doit contenir CURRICULUM et PROGRESS');
+            }
+        }
+
+        if (!cardsMatch) {
+            this.errors.push('Meta: CartesLocalLibrary manquant (preuve d\'usage local_library)');
+        } else {
+            const cards = cardsMatch[1];
+            if (!/local_library\/cards\//i.test(cards.replace(/\\/g, '/'))) {
+                this.errors.push('Meta: CartesLocalLibrary doit pointer vers local_library/cards/');
+            }
         }
     }
 
@@ -79,14 +121,23 @@ class MarkdownValidator {
     }
 
     loadExpectations() {
-        const metaMatch = this.content.split('## Meta')[1];
-        if (!metaMatch) return;
+        const metaSection = this.extractMetaSection();
+        if (!metaSection) return;
 
-        const missionsMatch = metaMatch.match(/-\s*(?:Missions|Seances|Séances)\s*:\s*(\d+)/i);
-        const screensMatch = metaMatch.match(/-\s*ScreensPer(?:Mission|Seance|Séance)\s*:\s*(\d+)/i);
+        const missionsMatch = metaSection.match(/-\s*(?:Missions|Seances|Séances)\s*:\s*(\d+)/i);
+        const screensMatch = metaSection.match(/-\s*ScreensPer(?:Mission|Seance|Séance)\s*:\s*(\d+)/i);
 
-        if (missionsMatch) this.expectedMissions = parseInt(missionsMatch[1], 10);
-        if (screensMatch) this.expectedScreens = parseInt(screensMatch[1], 10);
+        if (!missionsMatch) {
+            this.errors.push('Meta: Missions ou Seances manquant (nombre attendu obligatoire)');
+        } else {
+            this.expectedMissions = parseInt(missionsMatch[1], 10);
+        }
+
+        if (!screensMatch) {
+            this.errors.push('Meta: ScreensPerMission ou ScreensPerSeance manquant');
+        } else {
+            this.expectedScreens = parseInt(screensMatch[1], 10);
+        }
     }
 
     checkDuplicateOptions() {

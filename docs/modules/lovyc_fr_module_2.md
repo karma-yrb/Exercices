@@ -1,9 +1,15 @@
-﻿# Draft - Lovyc Français Module 2
+# Draft - Lovyc Français Module 2
 
 ## Meta
 - Thème: Tactical Comms - ponctuation avancée
 - Objectif: virgule, dialogue/incise, points ! ?, deux-points, parenthèses
 - Durée cible: ~10-12 min par mission
+
+- AgentPedago: PROF_FRANCAIS_4E + ARCHITECTE_PEDAGO_WEB
+- SourcesPedago: CURRICULUM + PROGRESS + AGENTS_BASELINE
+- CartesLocalLibrary: local_library/cards/francais/*.json
+- Missions: 5
+- ScreensPerMission: 15
 
 ## Mission 1 - Le Souffle : La Virgule
 

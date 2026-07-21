@@ -3,9 +3,12 @@
 ## Meta
 - Thème : Manager - économie + sociologie
 - Objectif : offre/demande, coûts/profit, socialisation, image, synthèse
-- Séances : 5
-- ScreensPerSeance : 15
-- Durée cible : ~10 min par Séance
+- AgentPedago: PROF_SES_2NDE + ARCHITECTE_PEDAGO_WEB
+- SourcesPedago: CURRICULUM + PROGRESS + AGENTS_BASELINE
+- CartesLocalLibrary: local_library/cards/ses/*.json + local_library/cards/cross/*.json
+- Seances: 5
+- ScreensPerSeance: 15
+- Duree cible: ~10 min par Seance
 
 ---
 

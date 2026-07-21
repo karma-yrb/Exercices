@@ -48,6 +48,7 @@ node tests/test-runner.js lovyc_fr_module_1
 ### 1. Validation Markdown (drafts)
 - Structure complete (15 ecrans par mission/seance par defaut)
 - Support `Missions:` / `Seances:` et `ScreensPerMission:` / `ScreensPerSeance:` dans la section Meta
+- Meta pedagogique obligatoire: `AgentPedago`, `SourcesPedago`, `CartesLocalLibrary`
 - Pas d'options dupliquees dans les MCQ
 - Keywords presents dans les `write`/`challenge`
 - Format coherent (titre, question, feedback)
@@ -74,6 +75,16 @@ node tests/test-runner.js lovyc_fr_module_1
 
 ### 5. Validation des chemins de navigation
 - Bloque tout lien vers `../Exercices/`
+
+### 6. Validation des checkpoints
+- Presence des `checkpoint_*.html` annonces dans le draft
+- Liens mission → checkpoint et checkpoint → suite resolus
+- Pages pause (hors `weekData`) : navigation + bouton CONTINUER
+
+### 7. Validation FR dediee
+- Presence de `assets/lovyc/fr_validator.js`
+- Regles critiques presentes (`y'a` interdit, majuscule initiale, ponctuation finale)
+- Chargement effectif du validator sur les missions FR avec `write/challenge`
 
 ## Format du rapport
 

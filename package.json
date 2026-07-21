@@ -8,7 +8,8 @@
     "test:zyvah": "node tests/test-runner.js zyvah",
     "notes:sync": "node tools/notes/sync-notes.js",
     "resume": "node tools/workflow/lance-resume.js",
-    "resume:tests": "node tools/workflow/lance-resume.js --with-tests"
+    "resume:tests": "node tools/workflow/lance-resume.js --with-tests",
+    "do-commit": "node tools/workflow/do-commit.js"
   },
   "keywords": [
     "pedagogie",

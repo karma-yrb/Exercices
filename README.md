@@ -2,7 +2,7 @@
 
 Portail d'exercices personnalisés pour enfants.
 
-## ���️ Guide de Création
+## Guide de Creation
 Tous les nouveaux exercices doivent respecter les normes définies par l'**Architecte Pédago-Web**.
 Les instructions de configuration sont situées dans `.github/agents/ARCHITECTE_PEDAGO_WEB.md`.
 
@@ -22,6 +22,10 @@ Regle: Toute modification de contenu doit d'abord mettre a jour le draft `.md`, 
 - Utilise un Module_0 (1 mission) avant le Module_1 si besoin.
 - Verrouille Module_1 avec `PREREQUISITE_KEY` sur le storage du Module_0.
 - Draft: `Missions:` et `ScreensPerMission:` dans la section Meta.
+
+## Parcours legacy
+- `Zyvah/Afro-Pop_Math_Tour/` est **hors pipeline** (pas de draft, hubs, moteurs partages, ni tests).
+- Decision tracee : `docs/governance/RISK_ACCEPTANCE.md` (RA-002) et README du dossier.
 
 ## Governance baseline
 - Public reproducible governance lives in `docs/governance/`.

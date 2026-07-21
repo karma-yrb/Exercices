@@ -10,6 +10,8 @@ Aucun changement ne part en remote sans validation automatique des tests.
 - Commande technique executee: `git commit`
 - Expression utilisateur: `lance resume`
 - Commande technique executee: `npm run resume`
+- Expression utilisateur: `do commit`
+- Commande technique executee: `npm run do-commit` (commit detaille du working tree)
 
 ## Ce que fait `je valide` dans ce projet
 
@@ -159,8 +161,13 @@ Zero derive de qualite (pedagogie, validation, accessibilite, securite).
 
 ## Protection branche (GitHub) pour ce flux direct
 
-Pour garder le flux simple `commit -> tests -> push` en direct sur `main`:
-- ne pas imposer `Require status checks to pass before merging/pushing` sur `main`.
-- laisser la CI `Tests` active pour verifier/apres push et pour le deploiement Pages.
+Decision projet (solo) : **option A** — documentee dans `docs/governance/RISK_ACCEPTANCE.md` (RA-003).
+
+Pour garder le flux simple `commit -> tests locaux -> push` en direct sur `main`:
+- ne pas imposer `Require status checks to pass before merging/pushing` sur `main` ;
+- ne pas activer `enforce_admins` uniquement pour forcer ce check ;
+- laisser la CI `Tests` active pour verifier apres push et **bloquer le deploiement Pages** si echec.
 
 Sinon GitHub affichera `Bypassed rule violations ... Required status check "Tests" is expected`, car cette regle est incompatible avec un push direct valide localement.
+
+Revoir cette decision si le projet devient multi-contributeurs (alors envisager option B : PR + check `Tests` obligatoire).

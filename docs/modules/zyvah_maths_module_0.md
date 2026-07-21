@@ -4,6 +4,9 @@
 - Theme: Initiation - regles de calcul
 - Objectif: consigne, donnees, priorites, unites, verification
 - Duree cible: ~2-3 min
+- AgentPedago: PROF_MATH_SCIENCES_2NDE + ARCHITECTE_PEDAGO_WEB
+- SourcesPedago: CURRICULUM + PROGRESS + AGENTS_BASELINE
+- CartesLocalLibrary: local_library/cards/maths/*.json + local_library/cards/cross/*.json
 - Seances: 1
 - ScreensPerSeance: 5
 

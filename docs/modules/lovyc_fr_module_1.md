@@ -1,9 +1,15 @@
-﻿# Draft - Lovyc Français Module 1
+# Draft - Lovyc Français Module 1
 
 ## Meta
 - Thème: Tactical Comms - structure de phrase et accords
 - Objectif: S+V+C, accord pluriel, ponctuation, homophones, synthèse
 - Durée cible: ~10-12 min par mission
+
+- AgentPedago: PROF_FRANCAIS_4E + ARCHITECTE_PEDAGO_WEB
+- SourcesPedago: CURRICULUM + PROGRESS + AGENTS_BASELINE
+- CartesLocalLibrary: local_library/cards/francais/*.json
+- Missions: 5
+- ScreensPerMission: 15
 
 ## Mission 1 - Le Noyau : S + V + C
 

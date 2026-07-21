@@ -14,6 +14,8 @@ const PathValidator = require('./validators/path-validator');
 const TrackingPolicyValidator = require('./validators/tracking-policy-validator');
 const NotesPipelineValidator = require('./validators/notes-pipeline-validator');
 const EncodingValidator = require('./validators/encoding-validator');
+const FrQualityValidator = require('./validators/fr-quality-validator');
+const CheckpointValidator = require('./validators/checkpoint-validator');
 
 class TestRunner {
     constructor() {
@@ -41,6 +43,7 @@ class TestRunner {
         }
 
         toTest.forEach(module => this.testModule(module));
+        this.testFrQuality();
         this.testEncodingIntegrity();
         this.testTrackingPolicy();
         this.testNotesPipeline();
@@ -110,7 +113,7 @@ class TestRunner {
         this.printResult('Draft Markdown', mdResult);
 
         // Test 2: Validation HTML (chaque mission)
-        console.log('\n🔍 Test 2/5: Validation Fichiers HTML...');
+        console.log('\n🔍 Test 2/6: Validation Fichiers HTML...');
         if (!fs.existsSync(module.htmlDir)) {
             console.log(`  ⚠️  Dossier HTML introuvable: ${module.htmlDir}`);
             this.results.warnings++;
@@ -129,7 +132,7 @@ class TestRunner {
         }
 
         // Test 3: Synchronisation Draft ↔ HTML
-        console.log('\n🔍 Test 3/5: Synchronisation Draft ↔ HTML...');
+        console.log('\n🔍 Test 3/6: Synchronisation Draft ↔ HTML...');
         if (fs.existsSync(module.htmlDir)) {
             const syncValidator = new SyncValidator(module.draftPath, module.htmlDir);
             const syncResult = syncValidator.validate();
@@ -139,7 +142,7 @@ class TestRunner {
         }
 
         // Test 4: Validation Réponses Write (10+ propositions)
-        console.log('\n🔍 Test 4/5: Tests Réponses Write (10+ propositions)...');
+        console.log('\n🔍 Test 4/6: Tests Réponses Write (10+ propositions)...');
         if (fs.existsSync(module.htmlDir)) {
             const writeValidator = new WriteResponseValidator(module.htmlDir, module.draftPath);
             const writeResult = writeValidator.validate();
@@ -149,10 +152,16 @@ class TestRunner {
         }
 
         // Test 5: Validation chemins interdits
-        console.log('\n🔍 Test 5/5: Validation des chemins de navigation...');
+        console.log('\n🔍 Test 5/6: Validation des chemins de navigation...');
         const pathValidator = new PathValidator(module.htmlDir);
         const pathResult = pathValidator.validate();
         this.printResult('Chemins', pathResult);
+
+        // Test 6: Checkpoints (pages pause hors weekData)
+        console.log('\n🔍 Test 6/6: Validation des checkpoints...');
+        const checkpointValidator = new CheckpointValidator(module.draftPath, module.htmlDir);
+        const checkpointResult = checkpointValidator.validate();
+        this.printResult('Checkpoints', checkpointResult);
     }
 
     testEncodingIntegrity() {
@@ -164,6 +173,17 @@ class TestRunner {
         const validator = new EncodingValidator(path.join(__dirname, '..'));
         const result = validator.validate();
         this.printResult('Encodage UTF-8', result);
+    }
+
+    testFrQuality() {
+        console.log(`\n${'='.repeat(60)}`);
+        console.log('FR QUALITY');
+        console.log(`${'='.repeat(60)}\n`);
+        console.log('Test Global: controles critiques du validateur FR...');
+
+        const validator = new FrQualityValidator(path.join(__dirname, '..'));
+        const result = validator.validate();
+        this.printResult('FR quality', result);
     }
 
     testTrackingPolicy() {
@@ -178,10 +198,10 @@ class TestRunner {
     }
 
     testNotesPipeline() {
-        console.log(`\n${'â•'.repeat(60)}`);
-        console.log('ðŸ“’ CONTROLE GLOBAL: NOTES PIPELINE');
-        console.log(`${'â•'.repeat(60)}\n`);
-        console.log('ðŸ” Test Global: qualite des donnees notes manuelles...');
+        console.log(`\n${'═'.repeat(60)}`);
+        console.log('CONTROLE GLOBAL: NOTES PIPELINE');
+        console.log(`${'═'.repeat(60)}\n`);
+        console.log('Test Global: qualite des donnees notes manuelles...');
 
         const validator = new NotesPipelineValidator(path.join(__dirname, '..'));
         const result = validator.validate();

@@ -189,11 +189,19 @@ class WriteResponseValidator {
         testCount++;
 
         if (enforceKeywords && keywords.length > 1) {
-            const missingOne = buildSentence({
-                includeAllKeywords: true,
-                includeAnyKeyword: true,
-                includeMust: true
-            }).replace(new RegExp(`(^|[^\\p{L}\\p{N}\\-])${this.escapeRegex(this.normalizeText(keywords[0]))}([^\\p{L}\\p{N}\\-]|$)`, 'iu'), ' ');
+            // Build a sentence that omits keywords[0] instead of regex-stripping it.
+            // Accent-normalized patterns fail to remove forms like "vérifie" vs "verifie".
+            const missingParts = [...keywords.slice(1), ...representativeGroups];
+            mustInclude.forEach(token => {
+                if (!missingParts.includes(token)) missingParts.push(token);
+            });
+            while (this.countWords(missingParts.join(' ')) < minWordsTarget) {
+                missingParts.push(filler[missingParts.length % filler.length]);
+            }
+            let missingOne = missingParts.join(' ');
+            if (!/[.!?]$/.test(missingOne) && !missingOne.includes('.')) {
+                missingOne += '.';
+            }
             this.testResponse(testCase, missingOne, false);
             testCount++;
         }

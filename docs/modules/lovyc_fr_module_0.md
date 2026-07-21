@@ -4,6 +4,9 @@
 - Thème: Initiation - règles d'écriture
 - Objectif: majuscule, point final, une idée par phrase, verbe obligatoire, pas de SMS
 - Durée cible: ~2-3 min
+- AgentPedago: PROF_FRANCAIS_4E + ARCHITECTE_PEDAGO_WEB
+- SourcesPedago: CURRICULUM + PROGRESS + AGENTS_BASELINE
+- CartesLocalLibrary: local_library/cards/francais/*.json
 - Missions: 1
 - ScreensPerMission: 5
 

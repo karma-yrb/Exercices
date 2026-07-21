@@ -4,6 +4,9 @@
 - Theme: Initiation - regles SES
 - Objectif: consigne, acteurs, faits vs opinions, termes clairs, cause-effet
 - Duree cible: ~2-3 min
+- AgentPedago: PROF_SES_2NDE + ARCHITECTE_PEDAGO_WEB
+- SourcesPedago: CURRICULUM + PROGRESS + AGENTS_BASELINE
+- CartesLocalLibrary: local_library/cards/ses/*.json + local_library/cards/cross/*.json
 - Seances: 1
 - ScreensPerSeance: 5
 
