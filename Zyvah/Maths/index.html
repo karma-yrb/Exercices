@@ -94,6 +94,7 @@
 </div>
 
 <script src="../../assets/shared/version.js"></script>
+<script src="../../assets/shared/storage-keys.js"></script>
 <script>
     (function setupMathsHub() {
         const initCard = document.getElementById('card-math-init');
@@ -111,10 +112,10 @@
             }
         };
 
-        const initDone = readDone('zyvah_maths_w0_v1');
-        const mod1Done = readDone('zyvah_maths_w1_v1');
-        const mod2Done = readDone('zyvah_maths_w2_v1');
-        const mod3Done = readDone('zyvah_maths_w3_v1');
+        const initDone = readDone(storageKey('zyvah_maths_w0'));
+        const mod1Done = readDone(storageKey('zyvah_maths_w1'));
+        const mod2Done = readDone(storageKey('zyvah_maths_w2'));
+        const mod3Done = readDone(storageKey('zyvah_maths_w3'));
         const mod4Done = readDone('zyvah_maths_w4_v1');
         const mod5Done = readDone('zyvah_maths_w5_v1');
         const mod6Done = readDone('zyvah_maths_w6_v1');

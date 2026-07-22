@@ -219,24 +219,25 @@
     </div>
 
     <script src="../assets/shared/version.js"></script>
+    <script src="../assets/shared/storage-keys.js"></script>
     <script>
         function updateProgress() {
             // INITIATION
-            const raw0 = localStorage.getItem('lovyc_fr_w0_v1');
+            const raw0 = localStorage.getItem(storageKey('lovyc_fr_w0'));
             const done0 = raw0 ? (JSON.parse(raw0).completedDays || []).length : 0;
             const p0 = (done0 / 1) * 100;
             document.getElementById('fr-s0-bar').style.width = p0 + '%';
             document.getElementById('fr-s0-count').innerText = `${done0}/1 MISSION`;
 
             // MODULE 1
-            const raw1 = localStorage.getItem('lovyc_fr_w1_v2');
+            const raw1 = localStorage.getItem(storageKey('lovyc_fr_w1'));
             const done1 = raw1 ? (JSON.parse(raw1).completedDays || []).length : 0;
             const p1 = (done1 / 5) * 100;
             document.getElementById('fr-s1-bar').style.width = p1 + '%';
             document.getElementById('fr-s1-count').innerText = `${done1}/5 MISSIONS`;
 
             // MODULE 2
-            const raw2 = localStorage.getItem('lovyc_fr_w2_v2');
+            const raw2 = localStorage.getItem(storageKey('lovyc_fr_w2'));
             const done2 = raw2 ? (JSON.parse(raw2).completedDays || []).length : 0;
             const p2 = (done2 / 5) * 100;
             document.getElementById('fr-s2-bar').style.width = p2 + '%';
@@ -270,9 +271,9 @@
         }
 
         function sendReport() {
-            const raw0 = localStorage.getItem('lovyc_fr_w0_v1');
-            const raw1 = localStorage.getItem('lovyc_fr_w1_v2');
-            const raw2 = localStorage.getItem('lovyc_fr_w2_v2');
+            const raw0 = localStorage.getItem(storageKey('lovyc_fr_w0'));
+            const raw1 = localStorage.getItem(storageKey('lovyc_fr_w1'));
+            const raw2 = localStorage.getItem(storageKey('lovyc_fr_w2'));
             
             const done0 = raw0 ? (JSON.parse(raw0).completedDays || []).length : 0;
             const done1 = raw1 ? (JSON.parse(raw1).completedDays || []).length : 0;

@@ -54,6 +54,7 @@
 </div>
 
 <script src="../../assets/shared/version.js"></script>
+<script src="../../assets/shared/storage-keys.js"></script>
 <script>
     (function setupSesHub() {
         const initCard = document.getElementById('card-ses-init');
@@ -71,8 +72,8 @@
             }
         };
 
-        const initDone = readDone('zyvah_ses_w0_v1');
-        const mod1Done = readDone('zyvah_ses_w1_v2');
+        const initDone = readDone(storageKey('zyvah_ses_w0'));
+        const mod1Done = readDone(storageKey('zyvah_ses_w1'));
         const percent = Math.round(((initDone / 1) + (mod1Done / 5)) / 2 * 100);
         if (bar) bar.style.width = percent + '%';
 

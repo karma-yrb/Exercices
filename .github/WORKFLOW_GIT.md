@@ -165,6 +165,41 @@ cp .git-hooks/pre-push .git/hooks/pre-push
 Zero regression. Zero bug pedagogique en production.
 Zero derive de qualite (pedagogie, validation, accessibilite, securite).
 
+## Versioning produit et release
+
+### Sources de verite
+
+| Element | Fichier(s) | Role |
+|---------|------------|------|
+| Version produit | `package.json` + `assets/shared/version.js` | Numero affiche (`APP_VERSION`), semver |
+| Notes de version | `CHANGELOG.md` + `assets/shared/releases.js` + `notes-de-version.html` | Historique lisible par module |
+| Cles progression | `assets/shared/storage-keys.js` + `APP_CONFIG.STORAGE_KEY` | Revision `_vK` par module |
+
+Ces trois axes sont **independants**. Bumper la version produit ne reset pas la progression ; bumper `_vK` ne change pas le semver.
+
+### Quand bumper quoi
+
+- **patch** (`2.5.1`) : correction bug / contenu / hub, sans nouvelle feature majeure.
+- **minor** (`2.6.0`) : nouveau module, feature visible, page notes mise a jour.
+- **major** (`3.0.0`) : rupture moteur / tracking / reset massif volontaire.
+- **`_vK` module** : uniquement si la structure d'etat ou le perimetre missions casse la compat progression. Mettre a jour le registre `storage-keys.js`, les HTML du module, et verifier les hubs (test `Storage keys`).
+
+### Checklist release
+
+1. Mettre a jour `package.json` et `assets/shared/version.js` (meme numero).
+2. Documenter les changements **par module** dans `CHANGELOG.md` et `assets/shared/releases.js`.
+3. Si reset progression necessaire : bump `_vK` + registre + HTML modules.
+4. `npm test` (inclut coherence storage keys).
+5. Commit (`do commit` ou `lance pub`).
+6. Tag Git annoté sur le commit de release :
+
+```bash
+git tag -a v2.5.0 -m "Release 2.5.0"
+# apres push : git push origin v2.5.0
+```
+
+Le tag marque la livraison ; il ne remplace pas le CHANGELOG.
+
 ## Protection branche (GitHub) pour ce flux direct
 
 Decision projet (solo) : **option A** — documentee dans `docs/governance/RISK_ACCEPTANCE.md` (RA-003).

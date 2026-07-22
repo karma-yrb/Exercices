@@ -14,15 +14,17 @@ Baseline de versioning produit : numéro unique, notes de version par module, af
 - Version produit unique `2.5.0` (`package.json` + `assets/shared/version.js`).
 - Page Notes de version avec historique par module.
 - Affichage permanent de la version (footer hub ou badge discret sur les pages exercice).
+- Registre `assets/shared/storage-keys.js` + validateur de cohérence hubs ↔ modules.
+- Règle release / tags documentée dans `.github/WORKFLOW_GIT.md`.
 
 ### Lovyc — Français
 - Modules 0, 1 et 2 en place (`lovyc_fr_w0_v1`, `w1_v2`, `w2_v2`).
-- Pas de changement pédagogique dans cette release — baseline documentée.
+- Hubs branchés sur le registre de clés.
 
 ### Zyvah — Maths
 - Modules 0 à 3 en place (`zyvah_maths_wN_v1`).
-- Pas de changement pédagogique dans cette release — baseline documentée.
+- **Fix** : hubs parents lisaient `zyvah_maths_w1_v2` alors que le module écrit `_v1` — alignés.
 
 ### Zyvah — SES
 - Modules 0 et 1 en place (`zyvah_ses_w0_v1`, `w1_v2`).
-- Pas de changement pédagogique dans cette release — baseline documentée.
+- Hubs branchés sur le registre de clés.

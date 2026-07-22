@@ -238,15 +238,16 @@
     </div>
 
     <script src="assets/shared/version.js"></script>
+    <script src="assets/shared/storage-keys.js"></script>
     <script>
         function updateDashboard() {
-            // Configuration des modules pour calcul
+            // Configuration des modules pour calcul (cles = registre storage-keys.js)
             const zyvahModules = [
-                { key: 'zyvah_maths_w1_v2', total: 2 },
-                { key: 'zyvah_ses_w1_v2', total: 2 }
+                { key: storageKey('zyvah_maths_w1'), total: 1 },
+                { key: storageKey('zyvah_ses_w1'), total: 5 }
             ];
             const lovycModules = [
-                { key: 'lovyc_fr_w1_v2', total: 3 }
+                { key: storageKey('lovyc_fr_w1'), total: 5 }
             ];
 
             function getProgress(modules) {
@@ -282,9 +283,9 @@
 
         function generateParentReport() {
             const keys = {
-                'Lovyc (Français)': 'lovyc_fr_w1_v2',
-                'Zyvah (Maths)': 'zyvah_maths_w1_v2',
-                'Zyvah (SES)': 'zyvah_ses_w1_v2'
+                'Lovyc (Français)': storageKey('lovyc_fr_w1'),
+                'Zyvah (Maths)': storageKey('zyvah_maths_w1'),
+                'Zyvah (SES)': storageKey('zyvah_ses_w1')
             };
 
             let report = "RAPPORT D'AVANCEMENT - " + new Date().toLocaleDateString() + "\n\n";

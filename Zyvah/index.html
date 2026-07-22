@@ -204,9 +204,9 @@
     </div>
 
     <script src="../assets/shared/version.js"></script>
+    <script src="../assets/shared/storage-keys.js"></script>
     <script>
         function updateProgress() {
-            // Lecture des données
             const getDone = (key) => {
                 const raw = localStorage.getItem(key);
                 if (!raw) return 0;
@@ -214,22 +214,20 @@
                 return (state.completedDays || []).length;
             };
 
-            const mathDone = getDone('zyvah_maths_w1_v2');
-            const sesDone = getDone('zyvah_ses_w1_v2');
-            
-            // Calcul Maths
-            const mathTotal = 5;
+            const mathDone = getDone(storageKey('zyvah_maths_w1'));
+            const sesDone = getDone(storageKey('zyvah_ses_w1'));
+
+            // Maths Module 1 = 1 seance active ; SES Module 1 = 5
+            const mathTotal = 1;
             const mathPercent = (mathDone / mathTotal) * 100;
             document.getElementById('math-bar').style.width = mathPercent + '%';
             document.getElementById('math-count').innerText = `${mathDone}/${mathTotal} SEANCES`;
 
-            // Calcul SES
             const sesTotal = 5;
             const sesPercent = (sesDone / sesTotal) * 100;
             document.getElementById('ses-bar').style.width = sesPercent + '%';
             document.getElementById('ses-count').innerText = `${sesDone}/${sesTotal} SEANCES`;
 
-            // Barre Globale
             const globalPercent = (mathPercent + sesPercent) / 2;
             document.getElementById('global-bar').style.width = globalPercent + '%';
         }
@@ -242,12 +240,11 @@
                 return (state.completedDays || []).length;
             };
 
-            const mathDone = getDone('zyvah_maths_w1_v2');
-            const sesDone = getDone('zyvah_ses_w1_v2');
-            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathDone}/5 SEANCES.\n- SES : ${sesDone}/5 SEANCES.`;
+            const mathDone = getDone(storageKey('zyvah_maths_w1'));
+            const sesDone = getDone(storageKey('zyvah_ses_w1'));
+            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathDone}/1 SEANCES.\n- SES : ${sesDone}/5 SEANCES.`;
             const bodyEncoded = encodeURIComponent(reportText);
 
-            // Ouverture du mail
             window.location.href = `mailto:karmafr@gmail.com?subject=Progression Zyvah&body=${bodyEncoded}`;
         }
 

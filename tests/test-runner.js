@@ -16,6 +16,7 @@ const NotesPipelineValidator = require('./validators/notes-pipeline-validator');
 const EncodingValidator = require('./validators/encoding-validator');
 const FrQualityValidator = require('./validators/fr-quality-validator');
 const CheckpointValidator = require('./validators/checkpoint-validator');
+const StorageKeysValidator = require('./validators/storage-keys-validator');
 
 class TestRunner {
     constructor() {
@@ -47,6 +48,7 @@ class TestRunner {
         this.testEncodingIntegrity();
         this.testTrackingPolicy();
         this.testNotesPipeline();
+        this.testStorageKeys();
 
         this.printSummary();
     }
@@ -206,6 +208,17 @@ class TestRunner {
         const validator = new NotesPipelineValidator(path.join(__dirname, '..'));
         const result = validator.validate();
         this.printResult('Notes pipeline', result);
+    }
+
+    testStorageKeys() {
+        console.log(`\n${'═'.repeat(60)}`);
+        console.log('CONTROLE GLOBAL: STORAGE KEYS');
+        console.log(`${'═'.repeat(60)}\n`);
+        console.log('Test Global: coherence registre / modules / hubs...');
+
+        const validator = new StorageKeysValidator(path.join(__dirname, '..'));
+        const result = validator.validate();
+        this.printResult('Storage keys', result);
     }
 
     getExpectedMissions(draftPath) {
