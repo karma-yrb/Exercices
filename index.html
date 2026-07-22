@@ -134,9 +134,12 @@
         
         <!-- HEADER -->
         <header class="mb-20">
-            <div class="flex items-center gap-4 mb-4">
-                <div class="h-1 w-12 bg-blue-500 rounded-full"></div>
-                <span class="text-blue-500 font-bold tracking-widest text-xs uppercase">Espace Éducation</span>
+            <div class="flex items-center gap-4 mb-4" style="justify-content:space-between;flex-wrap:wrap;">
+                <div class="flex items-center gap-4">
+                    <div class="h-1 w-12 bg-blue-500 rounded-full"></div>
+                    <span class="text-blue-500 font-bold tracking-widest text-xs uppercase">Espace Éducation</span>
+                </div>
+                <a href="notes-de-version.html" id="app-version-header" class="text-blue-400 font-bold tracking-widest text-xs uppercase" style="text-decoration:none;border:1px solid rgba(96,165,250,0.35);padding:6px 12px;border-radius:999px;">Version 2.5.0</a>
             </div>
             <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tighter">
                 Hello, <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Prêts pour la mission ?</span>
@@ -232,7 +235,7 @@
             <p class="text-slate-500 font-bold tracking-widest text-xs uppercase">© 2026 Dashboard d'Apprentissage Privé</p>
             <div class="flex gap-8">
                 <button onclick="generateParentReport()" class="text-blue-400 hover:text-blue-300 text-xs font-bold uppercase tracking-widest border border-blue-400/30 px-4 py-2 rounded-lg transition-all">📧 Générer Rapport Parent</button>
-                <a href="notes-de-version.html" id="app-version" class="text-slate-600 hover:text-blue-400 text-xs font-bold uppercase tracking-widest" style="text-decoration:none;">Version …</a>
+                <a href="notes-de-version.html" id="app-version" class="text-slate-400 hover:text-blue-400 text-xs font-bold uppercase tracking-widest" style="text-decoration:none;">Version …</a>
             </div>
         </footer>
     </div>

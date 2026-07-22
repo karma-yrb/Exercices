@@ -16,25 +16,33 @@ window.APP_VERSION = '2.5.0';
     function releaseNotesUrl() {
         const shared = sharedDirFromScript();
         if (!shared) return 'notes-de-version.html';
-        return shared + '../../notes-de-version.html';
+        try {
+            return new URL('../../notes-de-version.html', shared).href;
+        } catch (e) {
+            return shared + '../../notes-de-version.html';
+        }
     }
 
-    function fillFooterSlot(notesUrl) {
-        const el = document.getElementById('app-version');
-        if (!el) return false;
+    function fillLabeledSlots(notesUrl) {
         const label = 'Version ' + VERSION;
-        if (el.tagName === 'A') {
-            el.textContent = label;
-            el.setAttribute('href', notesUrl);
-        } else {
-            el.textContent = label;
-        }
-        return true;
+        let filled = false;
+        ['app-version', 'app-version-header'].forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (el.tagName === 'A') {
+                el.textContent = label;
+                el.setAttribute('href', notesUrl);
+            } else {
+                el.textContent = label;
+            }
+            filled = true;
+        });
+        return filled;
     }
 
     function injectBadge(notesUrl) {
         if (document.getElementById('app-version-badge')) return;
-        if (document.getElementById('app-version')) return;
+        if (!document.body) return;
 
         const badge = document.createElement('a');
         badge.id = 'app-version-badge';
@@ -44,38 +52,43 @@ window.APP_VERSION = '2.5.0';
         badge.setAttribute('aria-label', 'Version produit ' + VERSION + ' — ouvrir les notes de version');
         badge.style.cssText = [
             'position:fixed',
-            'right:10px',
-            'bottom:10px',
-            'z-index:9999',
-            'font-family:system-ui,Segoe UI,sans-serif',
-            'font-size:11px',
-            'font-weight:600',
-            'letter-spacing:0.04em',
+            'right:12px',
+            'bottom:12px',
+            'z-index:99999',
+            'font-family:Outfit,system-ui,Segoe UI,sans-serif',
+            'font-size:12px',
+            'font-weight:700',
+            'letter-spacing:0.08em',
+            'text-transform:uppercase',
             'text-decoration:none',
-            'color:rgba(148,163,184,0.85)',
-            'background:rgba(6,7,13,0.55)',
-            'border:1px solid rgba(255,255,255,0.08)',
+            'color:#e2e8f0',
+            'background:rgba(15,23,42,0.92)',
+            'border:1px solid rgba(96,165,250,0.45)',
             'border-radius:999px',
-            'padding:4px 10px',
-            'backdrop-filter:blur(6px)',
-            '-webkit-backdrop-filter:blur(6px)',
-            'opacity:0.75',
-            'transition:opacity 0.2s ease, color 0.2s ease'
+            'padding:6px 12px',
+            'box-shadow:0 4px 18px rgba(0,0,0,0.35)',
+            'backdrop-filter:blur(8px)',
+            '-webkit-backdrop-filter:blur(8px)',
+            'opacity:1',
+            'transition:color 0.2s ease, border-color 0.2s ease, background 0.2s ease'
         ].join(';');
         badge.addEventListener('mouseenter', () => {
-            badge.style.opacity = '1';
-            badge.style.color = 'rgba(96,165,250,0.95)';
+            badge.style.color = '#93c5fd';
+            badge.style.borderColor = 'rgba(147,197,253,0.8)';
+            badge.style.background = 'rgba(30,41,59,0.95)';
         });
         badge.addEventListener('mouseleave', () => {
-            badge.style.opacity = '0.75';
-            badge.style.color = 'rgba(148,163,184,0.85)';
+            badge.style.color = '#e2e8f0';
+            badge.style.borderColor = 'rgba(96,165,250,0.45)';
+            badge.style.background = 'rgba(15,23,42,0.92)';
         });
         document.body.appendChild(badge);
     }
 
     function render() {
         const notesUrl = releaseNotesUrl();
-        fillFooterSlot(notesUrl);
+        fillLabeledSlots(notesUrl);
+        // Always show a fixed badge so the version is visible without scrolling.
         injectBadge(notesUrl);
     }
 
