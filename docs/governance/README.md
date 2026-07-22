@@ -7,7 +7,7 @@ Why:
 - Audits still need a reproducible public baseline in the repository.
 
 Contents:
-- `AGENTS_BASELINE.md`: required roles and responsibilities.
+- `AGENTS_BASELINE.md`: roles, exclusive ownership, independent vs chain verification.
 - `CONTEXT_BASELINE.md`: minimum context contract needed by agents.
 - `TRACKING_POLICY.md`: tracking safeguards (IP opt-in, retention, consent).
 

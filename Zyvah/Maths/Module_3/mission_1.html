@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Seance 1 - Anatomie d'une part</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO : 0%</span>
+            <span id="session-tag">Seance 1/5</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title"></h2>
+        <div id="step-body"></div>
+        <div id="footer" class="footer">
+            <button id="btn-prev" class="btn-nav">RETOUR</button>
+            <button id="btn-next" class="btn-nav">ÉTAPE SUIVANTE</button>
+        </div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 24 24" style="width:100px;height:100px;fill:var(--accent);filter: drop-shadow(0 0 10px var(--accent-glow));">
+                    <path d="M12,4L12,14.71C11.53,14.26 10.89,14 10.19,14A2.69,2.69 0 0,0 7.5,16.69C7.5,18.18 8.7,19.38 10.19,19.38C11.68,19.38 12.88,18.18 12.88,16.69V7H17.31V4H12M10.19,18.13C9.4,18.13 8.75,17.48 8.75,16.69C8.75,15.9 9.4,15.25 10.19,15.25C10.97,15.25 11.63,15.9 11.63,16.69C11.63,17.48 10.97,18.13 10.19,18.13Z"/>
+                </svg>
+            </div>
+            <h1 class="success-title">Seance 1 TERMINÉE !</h1>
+            <p class="success-text">Anatomie d'une part</p>
+            <div class="box-concept next-mission-call"><span>DIRECTION</span><br>Seance 2</div>
+            <button onclick="window.location.href='index.html'" class="btn-main">RETOUR SEANCES</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w3_v1",
+        SINGLE_MISSION_MODE: true,
+        MISSION_LABEL: "SEANCE",
+        QUIT_HREF: "index.html",
+        TRACKING_SUBJECT: "Maths",
+        TRACKING_MODULE: "Module_3",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+    {
+        "id": 1,
+        "title": "Anatomie d'une part",
+        "steps": [
+            {
+                "type": "msg",
+                "title": "La part du gâteau (studio)",
+                "body": "<p class=\"content-chunk\">Zyvah, un split de cachets, c'est comme un <b>gâteau de gains</b>.<br><br>Une <b>fraction</b> <code>a/b</code> dit :<br>- <code>b</code> = en combien de <b>parts égales</b> on coupe le tout<br>- <code>a</code> = combien de ces parts tu prends</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Repérer numérateur / dénominateur",
+                "q": "Dans la fraction <code>2/5</code>, quel nombre indique le <b>nombre de parts prises</b> ?",
+                "opts": [
+                    "5",
+                    "2",
+                    "7"
+                ],
+                "a": 1,
+                "feed": "Exact ! <code>2</code> est le <b>numérateur</b> (parts prises). <code>5</code> est le <b>dénominateur</b> (parts totales)."
+            },
+            {
+                "type": "write",
+                "title": "Écrire une fraction simple",
+                "q": "Écris la fraction : Zyvah prend <b>3 parts</b> sur un split coupé en <b>8</b>.",
+                "requirements": {
+                    "keywords": [
+                        "3/8"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Parts prises / parts totales → numérateur / dénominateur.",
+                "feed": "Parfait ! <code>3/8</code> : 3 prises sur 8 parts égales."
+            },
+            {
+                "type": "quiz",
+                "title": "Fraction = partage égal",
+                "q": "Un cachet de <code>120€</code> est partagé en <b>4 parts égales</b>. Quelle fraction représente <b>une</b> part ?",
+                "opts": [
+                    "1/4",
+                    "4/1",
+                    "1/120"
+                ],
+                "a": 0,
+                "feed": "Oui ! Couper en 4 parts égales → chaque part = <code>1/4</code> du total."
+            },
+            {
+                "type": "write",
+                "title": "Quelle part a Zyvah ?",
+                "q": "Sur 10 features d'un EP, Zyvah en signe <b>4</b>. Quelle fraction du projet représente-t-il ?",
+                "requirements": {
+                    "keywords": [
+                        "4/10",
+                        "2/5"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Features signées / total des features.",
+                "feed": "Bien ! <code>4/10</code> (ou <code>2/5</code> si déjà simplifié). On verra la simplification en Seance 2."
+            },
+            {
+                "type": "msg",
+                "title": "Fraction d'une quantité",
+                "body": "<p class=\"content-chunk\">Pour calculer <b>une fraction d'une quantité</b> :<br><br><code>part = total × (a/b)</code>  <br>ou en pratique : `(total × a) ÷ b</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "1/2 de 80",
+                "q": "Combien font <code>1/2</code> de <code>80</code> vues boostées ?",
+                "opts": [
+                    "20",
+                    "40",
+                    "160"
+                ],
+                "a": 1,
+                "feed": "Exact ! <code>(80 × 1) ÷ 2 = 40</code>."
+            },
+            {
+                "type": "write",
+                "title": "1/4 d'un cachet",
+                "q": "Calcule <code>1/4</code> d'un cachet de <code>200€</code>.",
+                "requirements": {
+                    "keywords": [
+                        "50"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "(200 × 1) ÷ 4`.",
+                "feed": "Parfait ! <code>200 ÷ 4 = 50€</code>."
+            },
+            {
+                "type": "quiz",
+                "title": "Piège : 1/2 de 1/2",
+                "q": "Zyvah prend déjà <code>1/2</code> du master. Puis il en reverse encore <code>1/2</code> à un featuring. Quelle fraction du master reste au featuring ?",
+                "opts": [
+                    "1/2",
+                    "1/4",
+                    "1"
+                ],
+                "a": 1,
+                "feed": "Oui ! <code>1/2</code> de <code>1/2</code> = <code>1/4</code>. On multiplie les fractions (Seance 4)."
+            },
+            {
+                "type": "write",
+                "title": "3/5 des vues",
+                "q": "Un clip fait <code>1500</code> vues. Calcule <code>3/5</code> des vues.",
+                "requirements": {
+                    "keywords": [
+                        "900"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "(1500 × 3) ÷ 5`.",
+                "feed": "Génial ! <code>1500 × 3 = 4500</code>, <code>4500 ÷ 5 = 900</code>."
+            },
+            {
+                "type": "msg",
+                "title": "Tout, reste, parts",
+                "body": "<p class=\"content-chunk\">Le <b>tout</b> = <code>1 = b/b</code>.<br><br>Si tu donnes <code>a/b</code>, il reste <code>(b − a)/b</code>.</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Reste après 2/5",
+                "q": "Zyvah reverse <code>2/5</code> des royalties. Quelle fraction <b>reste</b> ?",
+                "opts": [
+                    "2/5",
+                    "3/5",
+                    "5/2"
+                ],
+                "a": 1,
+                "feed": "Exact ! <code>5/5 − 2/5 = 3/5</code>."
+            },
+            {
+                "type": "write",
+                "title": "Part + reste",
+                "q": "Sur un total de <code>1</code>, Zyvah garde <code>3/8</code>. Quelle fraction reverse-t-il ?",
+                "requirements": {
+                    "keywords": [
+                        "5/8"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "8/8 − 3/8`.",
+                "feed": "Parfait ! Reste <code>5/8</code>."
+            },
+            {
+                "type": "interactive",
+                "title": "Choisir la bonne lecture",
+                "q": "« <code>3/4</code> d'un cachet de <code>120€</code> » signifie :",
+                "opts": [
+                    "Couper en 3, prendre 4 parts",
+                    "Couper en 4, prendre 3 parts, soit `90€",
+                    "Prendre `3€` sur `4€"
+                ],
+                "a": 1,
+                "feed": "Oui : <code>(120 × 3) ÷ 4 = 90€</code>."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss Anatomie",
+                "q": "Cachet total = <code>240€</code>. Zyvah prend <code>3/8</code> du cachet. Calcule sa part en euros.",
+                "requirements": {
+                    "keywords": [
+                        "90"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "(240 × 3) ÷ 8`.",
+                "feed": "<b>BOSS S1 OK</b> ✅  <br><code>(240 × 3) ÷ 8 = 90€</code>. Tu lis une fraction et tu calcules une part. Direction Seance 2 : <b>simplifier le mix</b>."
+            }
+        ]
+    }
+];
+</script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Seance 2 - Simplifier le mix</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO : 0%</span>
+            <span id="session-tag">Seance 2/5</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title"></h2>
+        <div id="step-body"></div>
+        <div id="footer" class="footer">
+            <button id="btn-prev" class="btn-nav">RETOUR</button>
+            <button id="btn-next" class="btn-nav">ÉTAPE SUIVANTE</button>
+        </div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 24 24" style="width:100px;height:100px;fill:var(--accent);filter: drop-shadow(0 0 10px var(--accent-glow));">
+                    <path d="M12,4L12,14.71C11.53,14.26 10.89,14 10.19,14A2.69,2.69 0 0,0 7.5,16.69C7.5,18.18 8.7,19.38 10.19,19.38C11.68,19.38 12.88,18.18 12.88,16.69V7H17.31V4H12M10.19,18.13C9.4,18.13 8.75,17.48 8.75,16.69C8.75,15.9 9.4,15.25 10.19,15.25C10.97,15.25 11.63,15.9 11.63,16.69C11.63,17.48 10.97,18.13 10.19,18.13Z"/>
+                </svg>
+            </div>
+            <h1 class="success-title">Seance 2 TERMINÉE !</h1>
+            <p class="success-text">Simplifier le mix</p>
+            <div class="box-concept next-mission-call"><span>CHECKPOINT</span><br>Pause méritée</div>
+            <button onclick="window.location.href='checkpoint_1.html'" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w3_v1",
+        SINGLE_MISSION_MODE: true,
+        MISSION_LABEL: "SEANCE",
+        QUIT_HREF: "index.html",
+        TRACKING_SUBJECT: "Maths",
+        TRACKING_MODULE: "Module_3",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+    {
+        "id": 2,
+        "title": "Simplifier le mix",
+        "steps": [
+            {
+                "type": "msg",
+                "title": "Même son, track plus légère",
+                "body": "<p class=\"content-chunk\">Simplifier une fraction = <b>même valeur</b>, écriture plus légère.<br><br>Tu divises <b>numérateur et dénominateur</b> par le <b>même</b> nombre (un diviseur commun).<br><br><code>4/8 = 1/2</code> (divisé par 4)<br><br>Forme <b>irréductible</b> : plus aucun diviseur commun &gt; 1.</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Fraction déjà irréductible ?",
+                "q": "Laquelle est déjà <b>irréductible</b> ?",
+                "opts": [
+                    "4/6",
+                    "3/5",
+                    "10/15"
+                ],
+                "a": 1,
+                "feed": "Oui ! 3 et 5 n'ont pas de diviseur commun &gt; 1."
+            },
+            {
+                "type": "write",
+                "title": "Simplifier 4/8",
+                "q": "Simplifie <code>4/8</code> (forme irréductible).",
+                "requirements": {
+                    "keywords": [
+                        "1/2"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Divise haut et bas par 4.",
+                "feed": "Parfait ! <code>4/8 = 1/2</code>."
+            },
+            {
+                "type": "quiz",
+                "title": "Diviser num et dén",
+                "q": "Pour simplifier <code>6/9</code>, on divise haut et bas par :",
+                "opts": [
+                    "6",
+                    "3",
+                    "9"
+                ],
+                "a": 1,
+                "feed": "Exact ! <code>6÷3=2</code>, <code>9÷3=3</code> → <code>2/3</code>."
+            },
+            {
+                "type": "write",
+                "title": "Simplifier 12/18",
+                "q": "Simplifie <code>12/18</code>.",
+                "requirements": {
+                    "keywords": [
+                        "2/3"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Diviseur commun : 6.",
+                "feed": "Bien ! <code>12÷6=2</code>, <code>18÷6=3</code> → <code>2/3</code>."
+            },
+            {
+                "type": "msg",
+                "title": "Fractions égales",
+                "body": "<p class=\"content-chunk\">Deux fractions sont <b>égales</b> si elles représentent la même part.<br><br><code>1/2 = 2/4 = 3/6</code><br><br>Tu peux <b>amplifier</b> (×k) ou <b>simplifier</b> (÷k) haut et bas.</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "2/4 = ?",
+                "q": "2/4` est égal à :",
+                "opts": [
+                    "2/2",
+                    "1/2",
+                    "4/2"
+                ],
+                "a": 1,
+                "feed": "Oui ! Simplifié par 2."
+            },
+            {
+                "type": "write",
+                "title": "Égalité 3/5 et ?",
+                "q": "Complète pour garder la même valeur : `3/5 = ?/20",
+                "requirements": {
+                    "keywords": [
+                        "12"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Le dénominateur ×4 (5→20). Fais ×4 au numérateur aussi.",
+                "feed": "Exact ! <code>3×4=12</code> → <code>12/20</code>."
+            },
+            {
+                "type": "quiz",
+                "title": "Piège simplification partielle",
+                "q": "On simplifie <code>8/12</code> en divisant seulement le numérateur par 4 → <code>2/12</code>. C'est :",
+                "opts": [
+                    "Correct",
+                    "Incorrect : il faut diviser haut **et** bas",
+                    "Correct si on arrondit"
+                ],
+                "a": 1,
+                "feed": "Piège classique ! <code>8/12 = 2/3</code> (÷4 des deux côtés), pas <code>2/12</code>."
+            },
+            {
+                "type": "write",
+                "title": "Simplifier 20/30",
+                "q": "Simplifie <code>20/30</code>.",
+                "requirements": {
+                    "keywords": [
+                        "2/3"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Divise par 10.",
+                "feed": "Parfait ! <code>20/30 = 2/3</code>."
+            },
+            {
+                "type": "msg",
+                "title": "Comparer des parts",
+                "body": "<p class=\"content-chunk\">Pour comparer <code>a/b</code> et <code>c/d</code> :<br>1. Même dénominateur, ou<br>2. Produit en croix : compare <code>a×d</code> et `c×b</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Plus grand : 2/3 ou 3/5",
+                "q": "Quelle part est la plus grande : <code>2/3</code> ou <code>3/5</code> ?",
+                "opts": [
+                    "3/5",
+                    "2/3",
+                    "Elles sont égales"
+                ],
+                "a": 1,
+                "feed": "Oui ! <code>2×5=10 &gt; 3×3=9</code>."
+            },
+            {
+                "type": "write",
+                "title": "Comparer 3/8 et 1/2",
+                "q": "La plus grande entre <code>3/8</code> et <code>1/2</code> ? Réponds par la fraction.",
+                "requirements": {
+                    "keywords": [
+                        "1/2"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "1/2 = 4/8<code>. Compare à </code>3/8`.",
+                "feed": "Exact ! <code>4/8 &gt; 3/8</code> donc <code>1/2</code> gagne."
+            },
+            {
+                "type": "interactive",
+                "title": "Stratégie de comparaison",
+                "q": "Pour comparer vite <code>3/8</code> et <code>1/2</code>, la stratégie la plus propre :",
+                "opts": [
+                    "Convertir en décimaux approximatifs",
+                    "Mettre au même dénominateur (`1/2=4/8`)",
+                    "Regarder seulement les numérateurs"
+                ],
+                "a": 1,
+                "feed": "Oui : comparaison exacte, sans approximation."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss Simplification",
+                "q": "Simplifie <code>24/36</code>, puis dis si le résultat est plus grand, plus petit ou égal à <code>1/2</code>.  <br>Écris : la fraction simplifiée <b>et</b> le mot <code>plus</code>, <code>moins</code> ou <code>egal</code>.",
+                "requirements": {
+                    "keywords": [
+                        "2/3",
+                        "plus"
+                    ],
+                    "minWords": 2,
+                    "enforceKeywords": true
+                },
+                "hint": "Simplifie d'abord (÷12). Puis compare à <code>1/2</code>.",
+                "feed": "<b>BOSS S2 OK</b> ✅  <br><code>24/36 = 2/3</code> et <code>2/3 &gt; 1/2</code>. Mix allégé. Direction Seance 3 : <b>additionner &amp; soustraire</b>."
+            }
+        ]
+    }
+];
+</script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
+
+</body>
+</html>

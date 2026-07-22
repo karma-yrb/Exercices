@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zyvah - Studio Maths | Module 3 - Fractions & Partage</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO STUDIO MATHS : 0%</span>
+            <span id="session-tag">MODULE 3</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-lobby" class="view active">
+        <div style="display:flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h1 class="lobby-title">Studio Fractions & Partage</h1>
+                <p class="lobby-intro">Zyvah, découpe les gains comme un split de master. Remédiation Cycle 4 → pont Seconde.</p>
+            </div>
+            <div style="margin-top: 5px;">
+                <svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:var(--accent);filter: drop-shadow(0 0 5px var(--accent-glow));">
+                    <path d="M12,4L12,14.71C11.53,14.26 10.89,14 10.19,14A2.69,2.69 0 0,0 7.5,16.69C7.5,18.18 8.7,19.38 10.19,19.38C11.68,19.38 12.88,18.18 12.88,16.69V7H17.31V4H12M10.19,18.13C9.4,18.13 8.75,17.48 8.75,16.69C8.75,15.9 9.4,15.25 10.19,15.25C10.97,15.25 11.63,15.9 11.63,16.69C11.63,17.48 10.97,18.13 10.19,18.13Z"/>
+                </svg>
+            </div>
+        </div>
+        <div class="days-grid" id="days-grid"></div>
+        <a href="../index.html" class="btn-nav" style="margin-top: 30px; width: 100%; text-align: center; display: block; border: 1px solid rgba(255,255,255,0.1);">RETOUR STUDIO</a>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w3_v1",
+        MODULE_NAME: "Fractions & Partage",
+        MISSION_LABEL: "SEANCE",
+        PREREQUISITE_KEY: "zyvah_maths_w2_v1",
+        PREREQUISITE_MIN: 5,
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+    {
+        "id": 1,
+        "icon": "🎚️",
+        "title": "Anatomie d'une part",
+        "intro": "Seance 1/5 · ~12 min"
+    },
+    {
+        "id": 2,
+        "icon": "✨",
+        "title": "Simplifier le mix",
+        "intro": "Seance 2/5 · ~12 min"
+    },
+    {
+        "id": 3,
+        "icon": "➕",
+        "title": "Additionner & soustraire",
+        "intro": "Seance 3/5 · ~12 min"
+    },
+    {
+        "id": 4,
+        "icon": "✖️",
+        "title": "Multiplier, diviser, chaîner",
+        "intro": "Seance 4/5 · ~12 min"
+    },
+    {
+        "id": 5,
+        "icon": "🏆",
+        "title": "Split Master (synthèse)",
+        "intro": "Seance 5/5 · ~12 min"
+    }
+];
+</script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
+
+</body>
+</html>

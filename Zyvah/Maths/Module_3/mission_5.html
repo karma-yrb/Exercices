@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Seance 5 - Split Master (synthèse)</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO : 0%</span>
+            <span id="session-tag">Seance 5/5</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title"></h2>
+        <div id="step-body"></div>
+        <div id="footer" class="footer">
+            <button id="btn-prev" class="btn-nav">RETOUR</button>
+            <button id="btn-next" class="btn-nav">ÉTAPE SUIVANTE</button>
+        </div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 24 24" style="width:100px;height:100px;fill:var(--accent);filter: drop-shadow(0 0 10px var(--accent-glow));">
+                    <path d="M12,4L12,14.71C11.53,14.26 10.89,14 10.19,14A2.69,2.69 0 0,0 7.5,16.69C7.5,18.18 8.7,19.38 10.19,19.38C11.68,19.38 12.88,18.18 12.88,16.69V7H17.31V4H12M10.19,18.13C9.4,18.13 8.75,17.48 8.75,16.69C8.75,15.9 9.4,15.25 10.19,15.25C10.97,15.25 11.63,15.9 11.63,16.69C11.63,17.48 10.97,18.13 10.19,18.13Z"/>
+                </svg>
+            </div>
+            <h1 class="success-title">Seance 5 TERMINÉE !</h1>
+            <p class="success-text">Split Master (synthèse)</p>
+            <div class="box-concept next-mission-call"><span>MODULE TERMINÉ</span><br>Retour hub Maths</div>
+            <button onclick="window.location.href='../index.html'" class="btn-main">RETOUR HUB</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w3_v1",
+        SINGLE_MISSION_MODE: true,
+        MISSION_LABEL: "SEANCE",
+        QUIT_HREF: "index.html",
+        TRACKING_SUBJECT: "Maths",
+        TRACKING_MODULE: "Module_3",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+    {
+        "id": 5,
+        "title": "Split Master (synthèse)",
+        "steps": [
+            {
+                "type": "msg",
+                "title": "Night du Split Master",
+                "body": "<p class=\"content-chunk\">Zyvah, dernière séance : on enchaîne <b>tout</b>.<br><br>Checklist Split Master :<br>1. Lire la fraction / le %<br>2. Calculer la part<br>3. Simplifier<br>4. Gérer le reste<br>5. Vérifier que la somme des parts ≤ 1</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Lire le brief gains",
+                "q": "Cachet <code>400€</code>. Management <code>1/10</code>. Combien pour le management ?",
+                "opts": [
+                    "10€",
+                    "40€",
+                    "400€"
+                ],
+                "a": 1,
+                "feed": "Oui ! <code>400×1/10=40</code>."
+            },
+            {
+                "type": "write",
+                "title": "Part en euros",
+                "q": "Cachet <code>360€</code>. Zyvah prend <code>5/12</code>. Calcule sa part (€).",
+                "requirements": {
+                    "keywords": [
+                        "150"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "(360 × 5) ÷ 12`.",
+                "feed": "Parfait ! <code>1800 ÷ 12 = 150€</code>."
+            },
+            {
+                "type": "quiz",
+                "title": "Reste après deux splits",
+                "q": "Parts déjà versées : <code>1/4</code> + <code>1/3</code>. Quelle fraction reste ?",
+                "opts": [
+                    "5/12",
+                    "2/7",
+                    "7/12"
+                ],
+                "a": 0,
+                "feed": "Oui ! <code>3/12 + 4/12 = 7/12</code> → reste <code>5/12</code>."
+            },
+            {
+                "type": "write",
+                "title": "Addition de parts",
+                "q": "Calcule <code>1/6 + 1/3 + 1/2</code>.",
+                "requirements": {
+                    "keywords": [
+                        "1"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Dénominateur commun 6 : <code>1/6 + 2/6 + 3/6</code>.",
+                "feed": "Exact ! Total = <code>6/6 = 1</code> (split complet)."
+            },
+            {
+                "type": "msg",
+                "title": "Pourcentage = /100",
+                "body": "<p class=\"content-chunk\">Un <b>pourcentage</b> est une fraction sur 100.<br><br><code>25% = 25/100 = 1/4</code>  <br><code>20% = 20/100 = 1/5</code><br><br>Pour calculer <code>p%</code> d'une quantité :  <br><code>quantité × p ÷ 100</code>.</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "25% en fraction",
+                "q": "25%` en fraction irréductible :",
+                "opts": [
+                    "25/100",
+                    "1/4",
+                    "4/1"
+                ],
+                "a": 1,
+                "feed": "Oui ! <code>25/100 = 1/4</code>."
+            },
+            {
+                "type": "write",
+                "title": "20% de 150",
+                "q": "Calcule <code>20%</code> de <code>150</code> streams sponsorisés.",
+                "requirements": {
+                    "keywords": [
+                        "30"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "150 × 20 ÷ 100<code> ou </code>150 × 1/5`.",
+                "feed": "Bien ! <code>30</code> streams."
+            },
+            {
+                "type": "quiz",
+                "title": "Fraction → %",
+                "q": "3/5` = ?",
+                "opts": [
+                    "35%",
+                    "60%",
+                    "15%"
+                ],
+                "a": 1,
+                "feed": "Exact ! <code>3/5 = 60/100 = 60%</code>."
+            },
+            {
+                "type": "write",
+                "title": "Problème concert",
+                "q": "Recette concert = <code>1200€</code>. Frais = <code>1/4</code>. Combien reste-t-il après frais ?",
+                "requirements": {
+                    "keywords": [
+                        "900"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Reste = <code>3/4</code> de 1200.",
+                "feed": "Parfait ! Frais <code>300€</code>, reste <code>900€</code>."
+            },
+            {
+                "type": "msg",
+                "title": "Checklist anti-pièges",
+                "body": "<p class=\"content-chunk\">Avant de valider un split :<br>- ❌ Additionner num <b>et</b> dén<br>- ❌ Oublier de mettre au même dénominateur<br>- ❌ Diviser sans passer par l'inverse<br>- ❌ Accepter un dénominateur <code>0</code><br>- ✅ Simplifier le résultat final</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Diagnostic d'erreur",
+                "q": "Un élève écrit <code>1/2 + 1/5 = 2/7</code>. Quelle erreur ?",
+                "opts": [
+                    "Il a multiplié",
+                    "Il a additionné numérateurs **et** dénominateurs",
+                    "Il a simplifié trop tôt"
+                ],
+                "a": 1,
+                "feed": "Oui. Correct : <code>5/10 + 2/10 = 7/10</code>."
+            },
+            {
+                "type": "write",
+                "title": "Chaîne complète",
+                "q": "Cachet <code>480€</code>. Zyvah garde <code>5/8</code>. Sur sa part, il reverse <code>1/5</code> au manager. Combien (€) reçoit le manager ?",
+                "requirements": {
+                    "keywords": [
+                        "60"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "D'abord part Zyvah, puis <code>× 1/5</code>.",
+                "feed": "Excellent ! Part Zyvah <code>300€</code>, manager <code>60€</code>."
+            },
+            {
+                "type": "interactive",
+                "title": "Plan de résolution",
+                "q": "Pour le problème précédent, le bon plan est :",
+                "opts": [
+                    "%` d'abord, sans lire les fractions",
+                    "Calculer la part de Zyvah, puis la fraction de cette part",
+                    "Additionner `5/8` et `1/5` puis multiplier par 480"
+                ],
+                "a": 1,
+                "feed": "Oui : enchaînement <code>× 5/8</code> puis <code>× 1/5</code>."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss Split Master",
+                "q": "Recette = <code>2000€</code>.  <br>- Frais salle = <code>15%</code>  <br>- Sur le reste, Zyvah prend <code>3/5</code>  <br>Calcule la part de Zyvah (€).",
+                "requirements": {
+                    "keywords": [
+                        "1020"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Reste après frais = <code>85%</code> de 2000 = 1700. Puis <code>× 3/5</code>.",
+                "feed": "<b>SPLIT MASTER VALIDÉ</b> ✅  <br><br>Frais <code>300€</code> → reste <code>1700€</code> → Zyvah <code>1020€</code>."
+            }
+        ]
+    }
+];
+</script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
+
+</body>
+</html>

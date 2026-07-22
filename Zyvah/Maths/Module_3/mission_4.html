@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Seance 4 - Multiplier, diviser, chaîner</title>
+    <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">SYNCHRO : 0%</span>
+            <span id="session-tag">Seance 4/5</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title"></h2>
+        <div id="step-body"></div>
+        <div id="footer" class="footer">
+            <button id="btn-prev" class="btn-nav">RETOUR</button>
+            <button id="btn-next" class="btn-nav">ÉTAPE SUIVANTE</button>
+        </div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 24 24" style="width:100px;height:100px;fill:var(--accent);filter: drop-shadow(0 0 10px var(--accent-glow));">
+                    <path d="M12,4L12,14.71C11.53,14.26 10.89,14 10.19,14A2.69,2.69 0 0,0 7.5,16.69C7.5,18.18 8.7,19.38 10.19,19.38C11.68,19.38 12.88,18.18 12.88,16.69V7H17.31V4H12M10.19,18.13C9.4,18.13 8.75,17.48 8.75,16.69C8.75,15.9 9.4,15.25 10.19,15.25C10.97,15.25 11.63,15.9 11.63,16.69C11.63,17.48 10.97,18.13 10.19,18.13Z"/>
+                </svg>
+            </div>
+            <h1 class="success-title">Seance 4 TERMINÉE !</h1>
+            <p class="success-text">Multiplier, diviser, chaîner</p>
+            <div class="box-concept next-mission-call"><span>CHECKPOINT</span><br>Pause méritée</div>
+            <button onclick="window.location.href='checkpoint_2.html'" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "zyvah_maths_w3_v1",
+        SINGLE_MISSION_MODE: true,
+        MISSION_LABEL: "SEANCE",
+        QUIT_HREF: "index.html",
+        TRACKING_SUBJECT: "Maths",
+        TRACKING_MODULE: "Module_3",
+        BASE_PATH: "./"
+    };
+
+    const weekData = [
+    {
+        "id": 4,
+        "title": "Multiplier, diviser, chaîner",
+        "steps": [
+            {
+                "type": "msg",
+                "title": "Produit de parts",
+                "body": "<p class=\"content-chunk\">Multiplier deux fractions :<br><br>`(a/b) × (c/d) = (a×c)/(b×d)</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "1/2 × 1/3",
+                "q": "1/2 × 1/3` =",
+                "opts": [
+                    "2/3",
+                    "1/6",
+                    "1/5"
+                ],
+                "a": 1,
+                "feed": "Exact ! <code>(1×1)/(2×3)=1/6</code>."
+            },
+            {
+                "type": "write",
+                "title": "2/5 × 3/4",
+                "q": "Calcule <code>2/5 × 3/4</code> (forme irréductible).",
+                "requirements": {
+                    "keywords": [
+                        "3/10",
+                        "6/20"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "(2×3)/(5×4)`, puis simplifie.",
+                "feed": "Bien ! <code>6/20 = 3/10</code>."
+            },
+            {
+                "type": "quiz",
+                "title": "Fraction × entier",
+                "q": "1/4 × 8` =",
+                "opts": [
+                    "8/4",
+                    "2",
+                    "1/32"
+                ],
+                "a": 1,
+                "feed": "Oui ! <code>8/4 = 2</code> (l'entier = <code>8/1</code>)."
+            },
+            {
+                "type": "write",
+                "title": "3/8 × 4",
+                "q": "Calcule <code>3/8 × 4</code>.",
+                "requirements": {
+                    "keywords": [
+                        "3/2",
+                        "12/8",
+                        "1.5",
+                        "1,5"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "4 = 4/1`. Simplifie 4 et 8 avant.",
+                "feed": "Parfait ! <code>12/8 = 3/2</code>."
+            },
+            {
+                "type": "msg",
+                "title": "Diviser = × inverse",
+                "body": "<p class=\"content-chunk\">Diviser par une fraction = <b>multiplier par son inverse</b>.<br><br>Inverse de <code>a/b</code> = <code>b/a</code> (si <code>a ≠ 0</code>).<br><br><code>1/2 ÷ 1/4 = 1/2 × 4/1 = 2</code>.</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Inverse de 3/4",
+                "q": "L'inverse de <code>3/4</code> est :",
+                "opts": [
+                    "4/3",
+                    "3/4",
+                    "-3/4"
+                ],
+                "a": 0,
+                "feed": "Exact ! On inverse numérateur et dénominateur."
+            },
+            {
+                "type": "write",
+                "title": "1/2 ÷ 1/4",
+                "q": "Calcule <code>1/2 ÷ 1/4</code>.",
+                "requirements": {
+                    "keywords": [
+                        "2"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "× 4/1`.",
+                "feed": "Génial ! Combien de quarts dans une moitié ? <b>2</b>."
+            },
+            {
+                "type": "quiz",
+                "title": "Piège division",
+                "q": "Pour calculer <code>2/3 ÷ 1/3</code>, la méthode fiable est :",
+                "opts": [
+                    "Additionner les numérateurs",
+                    "Multiplier par l'inverse : `2/3 × 3/1",
+                    "Soustraire les dénominateurs"
+                ],
+                "a": 1,
+                "feed": "Exact ! Diviser = × l'inverse. Ici : <code>2/3 × 3/1 = 2</code>."
+            },
+            {
+                "type": "write",
+                "title": "3/5 ÷ 6/5",
+                "q": "Calcule <code>3/5 ÷ 6/5</code>.",
+                "requirements": {
+                    "keywords": [
+                        "1/2"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "× 5/6`, puis simplifie.",
+                "feed": "Parfait ! <code>(3/5)×(5/6)=3/6=1/2</code>."
+            },
+            {
+                "type": "msg",
+                "title": "Pont Seconde : a/b",
+                "body": "<p class=\"content-chunk\">En Seconde, <code>a/b</code> est aussi un <b>quotient</b>.<br><br>Règle d'or : <b>le dénominateur ne peut pas être 0</b>.<br><br><code>x/0</code> n'existe pas.  <br>Si tu as <code>3/(x−2)</code>, alors <code>x ≠ 2</code>.</p>"
+            },
+            {
+                "type": "quiz",
+                "title": "Dénominateur interdit",
+                "q": "Pour <code>5/(x−1)</code>, quelle valeur de <code>x</code> est <b>interdite</b> ?",
+                "opts": [
+                    "5",
+                    "1",
+                    "0"
+                ],
+                "a": 1,
+                "feed": "Oui ! Si <code>x=1</code>, dénominateur <code>0</code> → expression impossible."
+            },
+            {
+                "type": "write",
+                "title": "Simplifier avant multiplier",
+                "q": "Calcule en simplifiant d'abord : <code>4/9 × 3/8</code>.",
+                "requirements": {
+                    "keywords": [
+                        "1/6"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "Simplifie 4 et 8 (÷4), 3 et 9 (÷3).",
+                "feed": "Excellent ! Il reste <code>(1/3)×(1/2)=1/6</code>."
+            },
+            {
+                "type": "interactive",
+                "title": "Choisir l'opération",
+                "q": "« Combien de parts de <code>1/8</code> dans <code>3/4</code> ? » se traduit par :",
+                "opts": [
+                    "3/4 × 1/8",
+                    "3/4 ÷ 1/8",
+                    "3/4 + 1/8"
+                ],
+                "a": 1,
+                "feed": "Oui : division = nombre de parts. Résultat : 6."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss Produits",
+                "q": "Zyvah reverse <code>2/5</code> de son cachet à un feat. Le feat en reverse encore <code>1/2</code> à un arrangeur. Quelle fraction du cachet <b>initial</b> reçoit l'arrangeur ?",
+                "requirements": {
+                    "keywords": [
+                        "1/5",
+                        "2/10"
+                    ],
+                    "minWords": 1
+                },
+                "hint": "2/5 × 1/2`.",
+                "feed": "<b>BOSS S4 OK</b> ✅  <br><code>(2/5)×(1/2)=2/10=1/5</code>. Chaînage maîtrisé. Direction Seance 5 : <b>Split Master</b>."
+            }
+        ]
+    }
+];
+</script>
+
+<script src="../../../assets/shared/engine_math.js"></script>
+
+</body>
+</html>

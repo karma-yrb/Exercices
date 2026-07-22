@@ -9,6 +9,7 @@
     "notes:sync": "node tools/notes/sync-notes.js",
     "resume": "node tools/workflow/lance-resume.js",
     "resume:tests": "node tools/workflow/lance-resume.js --with-tests",
+    "verify": "node tools/workflow/lance-verification.js",
     "do-commit": "node tools/workflow/do-commit.js"
   },
   "keywords": [
