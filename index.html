@@ -67,6 +67,89 @@
         }
 
         svg { width: 24px; height: 24px; fill: currentColor; }
+
+        .parent-report {
+            margin-top: 4rem;
+            padding: 1.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.75rem;
+        }
+
+        .parent-report__content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            min-width: min(100%, 16rem);
+            flex: 1;
+        }
+
+        .parent-report__tag {
+            margin-bottom: 0.35rem;
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+            width: fit-content;
+        }
+
+        .parent-report__content p {
+            margin: 0;
+            max-width: 36rem;
+            line-height: 1.5;
+        }
+
+        .parent-report__btn {
+            flex-shrink: 0;
+            appearance: none;
+            border: 1px solid rgba(96, 165, 250, 0.35);
+            background: rgba(59, 130, 246, 0.12);
+            color: #93c5fd;
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.85rem 1.35rem;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+        }
+
+        .parent-report__btn:hover {
+            background: rgba(59, 130, 246, 0.22);
+            border-color: rgba(96, 165, 250, 0.55);
+            color: #bfdbfe;
+        }
+
+        .parent-report__btn:active {
+            transform: scale(0.98);
+        }
+
+        .site-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .parent-report {
+                padding: 1.5rem;
+            }
+
+            .parent-report__btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
     
         /* CSS replacement for Tailwind */
         .min-h-screen { min-height: 100vh; }
@@ -230,13 +313,22 @@
 
         </div>
 
-        <!-- FOOTER -->
-        <footer class="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-slate-500 font-bold tracking-widest text-xs uppercase">© 2026 Dashboard d'Apprentissage Privé</p>
-            <div class="flex gap-8">
-                <button onclick="generateParentReport()" class="text-blue-400 hover:text-blue-300 text-xs font-bold uppercase tracking-widest border border-blue-400/30 px-4 py-2 rounded-lg transition-all">📧 Générer Rapport Parent</button>
-                <a href="notes-de-version.html" id="app-version" class="text-slate-400 hover:text-blue-400 text-xs font-bold uppercase tracking-widest" style="text-decoration:none;">Version …</a>
+        <!-- ESPACE PARENTS -->
+        <section class="parent-report" aria-labelledby="parent-report-title">
+            <div class="parent-report__content">
+                <span class="subject-tag parent-report__tag">Espace parents</span>
+                <h3 id="parent-report-title" class="text-2xl font-bold">Rapport d'avancement</h3>
+                <p class="text-slate-400">Résumé des missions Lovyc et Zyvah, prêt à envoyer par e-mail.</p>
             </div>
+            <button type="button" onclick="generateParentReport()" class="parent-report__btn">
+                Générer le rapport
+            </button>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <p class="text-slate-500 font-bold tracking-widest text-xs uppercase">© 2026 Dashboard d'Apprentissage Privé</p>
+            <a href="notes-de-version.html" id="app-version" class="text-slate-400 text-xs font-bold uppercase tracking-widest" style="text-decoration:none;">Version …</a>
         </footer>
     </div>
 
