@@ -232,11 +232,12 @@
             <p class="text-slate-500 font-bold tracking-widest text-xs uppercase">© 2026 Dashboard d'Apprentissage Privé</p>
             <div class="flex gap-8">
                 <button onclick="generateParentReport()" class="text-blue-400 hover:text-blue-300 text-xs font-bold uppercase tracking-widest border border-blue-400/30 px-4 py-2 rounded-lg transition-all">📧 Générer Rapport Parent</button>
-                <span class="text-slate-600 text-xs font-bold uppercase tracking-widest">Version Local 2.5</span>
+                <a href="notes-de-version.html" id="app-version" class="text-slate-600 hover:text-blue-400 text-xs font-bold uppercase tracking-widest" style="text-decoration:none;">Version …</a>
             </div>
         </footer>
     </div>
 
+    <script src="assets/shared/version.js"></script>
     <script>
         function updateDashboard() {
             // Configuration des modules pour calcul

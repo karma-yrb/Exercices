@@ -1,6 +1,6 @@
 {
   "name": "centre-apprentissage-tests",
-  "version": "1.0.0",
+  "version": "2.5.0",
   "description": "Tests automatisés pour les modules pédagogiques",
   "scripts": {
     "test": "node tests/test-runner.js",

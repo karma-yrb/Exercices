@@ -7,6 +7,9 @@
  * Alias chat (C:\\Dev\\AGENTS.md): "do commit"
  * npm: npm run do-commit
  *
+ * Important: commit LOCAL uniquement. Pas de push.
+ * Le push reste reserve a `lance pub` (ou `git push` manuel).
+ *
  * Options:
  *   --summary "texte"   Contexte conversation / intention (ajoute au message)
  *   --dry-run           Affiche le message et la liste des fichiers, sans commit
@@ -240,7 +243,13 @@ function main() {
     const commit = spawnSync("git", commitArgs, {
         cwd: repoRoot,
         encoding: "utf8",
-        stdio: "inherit"
+        stdio: "inherit",
+        // Ne pas declencher le push auto du hook post-commit.
+        // Le push reste reserve a `lance pub` / git push manuel.
+        env: {
+            ...process.env,
+            SKIP_AUTO_PUSH: "1"
+        }
     });
 
     if (commit.status !== 0) {
@@ -249,6 +258,7 @@ function main() {
 
     const head = tryRun("git log -1 --oneline");
     console.log("\ndo-commit: OK — " + (head.out || "commit cree"));
+    console.log("do-commit: commit local uniquement (pas de push). Pour publier: lance pub");
 }
 
 main();

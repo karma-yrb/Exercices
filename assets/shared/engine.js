@@ -1,6 +1,16 @@
 // ENGINE SPA - UNIVERSAL (Robust Version)
 // Handles progress, navigation and rendering for all modules
 
+(function ensureProductVersion() {
+    if (window.APP_VERSION || document.querySelector('script[src*="version.js"]')) return;
+    const current = document.currentScript;
+    if (!current || !current.src) return;
+    const script = document.createElement('script');
+    script.src = current.src.replace(/engine(_math)?\.js(\?[^#]*)?(#.*)?$/i, 'version.js');
+    script.async = false;
+    document.head.appendChild(script);
+})();
+
 let el = {};
 let state = null;
 let appData = [];

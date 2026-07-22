@@ -1,18 +1,19 @@
 #!/bin/bash
-# Post-commit Hook - Push automatique
-# Le pre-commit a deja valide les tests. Ici on pousse automatiquement.
+# Post-commit Hook - Push automatique (reserve au flux `lance pub`)
+# Le pre-commit a deja valide les tests. Ici on pousse automatiquement
+# sauf si SKIP_AUTO_PUSH=1 (utilise par `do commit` pour rester local).
 
 if [ "$SKIP_AUTO_PUSH" = "1" ]; then
-    echo "??  Push automatique ignore (SKIP_AUTO_PUSH=1)."
+    echo "Push automatique ignore (SKIP_AUTO_PUSH=1)."
     exit 0
 fi
 
-echo "?? Push automatique en cours..."
+echo "Push automatique en cours..."
 
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 if [ -z "$BRANCH_NAME" ] || [ "$BRANCH_NAME" = "HEAD" ]; then
-    echo "??  Branche non detectee (detached HEAD). Push automatique annule."
+    echo "Branche non detectee (detached HEAD). Push automatique annule."
     exit 0
 fi
 
@@ -26,9 +27,9 @@ fi
 PUSH_EXIT_CODE=$?
 
 if [ $PUSH_EXIT_CODE -ne 0 ]; then
-    echo "? Push automatique echoue. Lance manuellement: git push"
+    echo "Push automatique echoue. Lance manuellement: git push"
     exit $PUSH_EXIT_CODE
 fi
 
-echo "? Push automatique termine."
+echo "Push automatique termine."
 exit 0

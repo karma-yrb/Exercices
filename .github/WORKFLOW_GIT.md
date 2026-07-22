@@ -11,7 +11,7 @@ Aucun changement ne part en remote sans validation automatique des tests.
 - Expression utilisateur: `lance resume`
 - Commande technique executee: `npm run resume`
 - Expression utilisateur: `do commit`
-- Commande technique executee: `npm run do-commit` (commit detaille du working tree)
+- Commande technique executee: `npm run do-commit` (commit detaille **local**, sans push)
 
 ## Ce que fait `lance pub` dans ce projet
 
@@ -24,6 +24,12 @@ Aucun changement ne part en remote sans validation automatique des tests.
 Donc, dans ce repo, `lance pub` (alias workflow de `git commit`) = tests + commit + push, et le push est lui aussi bloque si les tests ne passent pas.
 Le deploiement Pages est ensuite conditionne par la CI GitHub (`Tests` obligatoires).
 
+## Ce que fait `do commit` dans ce projet
+
+1. Execute `npm run do-commit`.
+2. Stage les changements, construit un message detaille, lance `git commit`.
+3. Force `SKIP_AUTO_PUSH=1` pour **ne pas** declencher le push du hook `post-commit`.
+4. Resultat: commit local uniquement. Publication = `lance pub` (ou `git push` manuel).
 ## Ce que fait `lance resume` dans ce projet
 
 1. Execute `node tools/workflow/lance-resume.js`.
