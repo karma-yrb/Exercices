@@ -72,6 +72,13 @@
             }
         };
 
+        const lockCard = (card) => {
+            card.classList.add('locked');
+            card.style.pointerEvents = 'none';
+            const icon = card.querySelector('.icon');
+            if (icon) icon.textContent = '🔒';
+        };
+
         const initDone = readDone(storageKey('zyvah_ses_w0'));
         const mod1Done = readDone(storageKey('zyvah_ses_w1'));
         const percent = Math.round(((initDone / 1) + (mod1Done / 5)) / 2 * 100);
@@ -85,8 +92,7 @@
 
         if (mod1Card) {
             if (initDone < 1) {
-                mod1Card.classList.add('locked');
-                mod1Card.style.pointerEvents = 'none';
+                lockCard(mod1Card);
             } else {
                 mod1Card.onclick = () => {
                     window.location.href = './Module_1/index.html';

@@ -112,6 +112,13 @@
             }
         };
 
+        const lockCard = (card) => {
+            card.classList.add('locked');
+            card.style.pointerEvents = 'none';
+            const icon = card.querySelector('.icon');
+            if (icon) icon.textContent = '🔒';
+        };
+
         const initDone = readDone(storageKey('zyvah_maths_w0'));
         const mod1Done = readDone(storageKey('zyvah_maths_w1'));
         const mod2Done = readDone(storageKey('zyvah_maths_w2'));
@@ -130,8 +137,7 @@
 
         if (mod1Card) {
             if (initDone < 1) {
-                mod1Card.classList.add('locked');
-                mod1Card.style.pointerEvents = 'none';
+                lockCard(mod1Card);
             } else {
                 mod1Card.onclick = () => {
                     window.location.href = './Module_1/index.html';
@@ -142,8 +148,7 @@
         const mod2Card = document.getElementById('card-math-2');
         if (mod2Card) {
             if (mod1Done < 1) {
-                mod2Card.classList.add('locked');
-                mod2Card.style.pointerEvents = 'none';
+                lockCard(mod2Card);
             } else {
                 mod2Card.onclick = () => {
                     window.location.href = './Module_2/index.html';
@@ -154,8 +159,7 @@
         const mod3Card = document.getElementById('card-math-3');
         if (mod3Card) {
             if (mod2Done < 5) {
-                mod3Card.classList.add('locked');
-                mod3Card.style.pointerEvents = 'none';
+                lockCard(mod3Card);
             } else {
                 mod3Card.onclick = () => {
                     window.location.href = './Module_3/index.html';
@@ -166,8 +170,7 @@
         const mod4Card = document.getElementById('card-math-4');
         if (mod4Card) {
             if (mod3Done < 5) {
-                mod4Card.classList.add('locked');
-                mod4Card.style.pointerEvents = 'none';
+                lockCard(mod4Card);
             } else {
                 mod4Card.onclick = () => {
                     window.location.href = './Module_4/index.html';
@@ -178,8 +181,7 @@
         const mod5Card = document.getElementById('card-math-5');
         if (mod5Card) {
             if (mod4Done < 5) {
-                mod5Card.classList.add('locked');
-                mod5Card.style.pointerEvents = 'none';
+                lockCard(mod5Card);
             } else {
                 mod5Card.onclick = () => {
                     window.location.href = './Module_5/index.html';
@@ -190,8 +192,7 @@
         const mod6Card = document.getElementById('card-math-6');
         if (mod6Card) {
             if (mod5Done < 5) {
-                mod6Card.classList.add('locked');
-                mod6Card.style.pointerEvents = 'none';
+                lockCard(mod6Card);
             } else {
                 mod6Card.onclick = () => {
                     window.location.href = './Module_6/index.html';
