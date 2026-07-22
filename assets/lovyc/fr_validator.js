@@ -106,7 +106,10 @@
 
     function isFillBlankStep(step) {
         const q = step && (step.q || step.question || '');
-        const normalizedQ = (q || '').toLowerCase();
+        const normalizedQ = (q || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
         return normalizedQ.includes('____') || normalizedQ.includes('complete la phrase');
     }
 

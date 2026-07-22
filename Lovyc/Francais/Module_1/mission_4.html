@@ -132,7 +132,8 @@
                         "a",
                         "et",
                         "est"
-                    ]
+                    ],
+                    "enforceKeywords": true
                 },
                 "hint": "Relis mot par mot, corrige l'accord et vérifie la ponctuation finale.",
                 "hint2": "Le second « et » doit devenir « est » ; ajoute aussi majuscule et point.",
@@ -170,7 +171,8 @@
                     "keywords": [
                         "a",
                         "est"
-                    ]
+                    ],
+                    "enforceKeywords": true
                 },
                 "hint": "Teste chaque mot: a = avait, est = était, et = et puis.",
                 "hint2": "Écris une phrase complète qui contient au moins « a » et « est ».",
@@ -232,13 +234,18 @@
                 "title": "Boss de Fin - Mission 4",
                 "question": "\"Corrige cette phrase pleine de parasites :\" (va - a - il - raquette - a - salle - la - et - une - il)",
                 "requirements": {
+                    "mode": "sentence",
                     "keywords": [
                         "a",
                         "à",
                         "et"
-                    ]
+                    ],
+                    "enforceKeywords": true,
+                    "minWords": 6
                 },
-                "hint": "Utilise les tests : avait, et puis, avait.",
+                "hint": "Utilise les tests : avait, et puis, direction (à).",
+                "hint2": "Ordre attendu : Il a une raquette et il va à la salle.",
+                "hint3": "Exemple à recopier : « Il a une raquette et il va à la salle. »",
                 "feedback": "Filtres actives. Ton message est cristallin."
             }
         ]

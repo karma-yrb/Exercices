@@ -388,6 +388,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ".", "?", "!"
+  - enforceKeywords: true
   - minWords: 12
 - Hint: "Garde une phrase complète et termine-la par un point d'exclamation."
 - Hint2: "Écris 3 phrases: une avec « . », une avec « ? », une avec « ! »."
@@ -687,6 +688,7 @@
   - mode: "sentence"
   - minWords: 20
   - keywords: ",", ":", "(", ")"
+  - enforceKeywords: true
 - Hint: "Place ':' pour annoncer l'info, puis ajoute une précision courte entre parenthèses."
 - Hint2: "Ton paragraphe doit contenir au moins 20 mots et inclure , : ( )."
 - Hint3: "Exemple à recopier : « Rapport final : notre équipe avance vite, puis sécurise la base (secteur nord), pendant que Lovyc couvre l'entrée et coordonne les drones. »"
@@ -697,9 +699,10 @@
 - Requirements:
   - mode: "sentence"
   - keywords: ",", "(", ")", "!"
+  - enforceKeywords: true
   - minWords: 15
 - Hint: "Utilise le textarea pour raconter ta victoire finale."
-- Feedback: "Félicitation Agent Lovyc. Ton grade 'Maitre des Comms' est officiellement valide. A demain pour de nouveaux defis !"
+- Feedback: "Félicitations Agent Lovyc. Ton grade 'Maître des Comms' est officiellement validé. À demain pour de nouveaux défis !"
 
 
 

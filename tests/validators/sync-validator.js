@@ -150,8 +150,8 @@ class SyncValidator {
                     );
                 } else {
                     screen.options.forEach((opt, optIdx) => {
-                        const draftOpt = this.normalizeText(opt);
-                        const htmlOpt = this.normalizeText(step.options[optIdx]);
+                        const draftOpt = this.normalizeOption(opt);
+                        const htmlOpt = this.normalizeOption(step.options[optIdx]);
                         if (draftOpt !== htmlOpt) {
                             this.warnings.push(
                                 `Mission ${missionNum}, Ecran ${idx + 1}, Option ${optIdx + 1}: Contenu different`
@@ -162,7 +162,7 @@ class SyncValidator {
 
                 if (screen.answer && step.answer !== undefined) {
                     const draftAnswerIdx = screen.options.findIndex(opt =>
-                        this.normalizeText(opt) === this.normalizeText(screen.answer)
+                        this.normalizeOption(opt) === this.normalizeOption(screen.answer)
                     );
                     if (draftAnswerIdx !== -1 && draftAnswerIdx !== step.answer) {
                         this.errors.push(
@@ -241,6 +241,37 @@ class SyncValidator {
             .replace(/[\u0300-\u036f]/g, '')
             .replace(/[()"]/g, '')
             .replace(/[^a-z0-9]/g, '');
+    }
+
+    // Conserve la ponctuation distinctive (. ? ! , : ; …) pour les QCM FR
+    normalizeOption(text) {
+        if (!text) return '';
+
+        const mojibakeFixed = text
+            .replace(/Ã©/g, 'é')
+            .replace(/Ã¨/g, 'è')
+            .replace(/Ãª/g, 'ê')
+            .replace(/Ã«/g, 'ë')
+            .replace(/Ã /g, 'à')
+            .replace(/Ã¢/g, 'â')
+            .replace(/Ã¤/g, 'ä')
+            .replace(/Ã´/g, 'ô')
+            .replace(/Ã¶/g, 'ö')
+            .replace(/Ã¹/g, 'ù')
+            .replace(/Ã»/g, 'û')
+            .replace(/Ã¼/g, 'ü')
+            .replace(/Ã¯/g, 'ï')
+            .replace(/Ã®/g, 'î')
+            .replace(/Ã§/g, 'ç');
+
+        return mojibakeFixed
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/["']/g, '')
+            .replace(/\s+/g, ' ')
+            .replace(/[^a-z0-9.?!,:;…()/\- ]/g, '')
+            .trim();
     }
 
     normalizeQuestion(text) {

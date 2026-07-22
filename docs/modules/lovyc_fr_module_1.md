@@ -538,6 +538,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "a", "et", "est"
+  - enforceKeywords: true
 - Hint: "Relis mot par mot, corrige l'accord et vérifie la ponctuation finale."
 - Hint2: "Le second « et » doit devenir « est » ; ajoute aussi majuscule et point."
 - Hint3: "Exemple à recopier : « Il a la finale et il est fier. »"
@@ -560,6 +561,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "a", "est"
+  - enforceKeywords: true
 - Hint: "Teste chaque mot: a = avait, est = était, et = et puis."
 - Hint2: "Écris une phrase complète qui contient au moins « a » et « est »."
 - Hint3: "Exemple à recopier : « Il a une raquette et il est prêt. »"
@@ -599,8 +601,13 @@
 ### Écran 15 - challenge - Boss de Fin - Mission 4
 - Question: "Corrige cette phrase pleine de parasites :" (va - a - il - raquette - a - salle - la - et - une - il)
 - Requirements:
+  - mode: "sentence"
   - keywords: "a", "à", "et"
-- Hint: "Utilise les tests : avait, et puis, avait."
+  - enforceKeywords: true
+  - minWords: 6
+- Hint: "Utilise les tests : avait, et puis, direction (à)."
+- Hint2: "Ordre attendu : Il a une raquette et il va à la salle."
+- Hint3: "Exemple à recopier : « Il a une raquette et il va à la salle. »"
 - Feedback: "Filtres actives. Ton message est cristallin."
 
 ## Mission 5 - L'Ultime Deploiement
@@ -682,7 +689,7 @@
   - minWords: 7
 - Hint: "Mets la virgule entre deux actions proches, puis le point pour clôturer l'idée."
 - Hint2: "Réécris en deux actions: virgule pour la micro-pause, point pour finir."
-- Hint3: "Exemple à recopier : « Je check la map, je pars vite. »"
+- Hint3: "Exemple à recopier : « Je vérifie la map, je pars vite. »"
 - Feedback: "Ponctuation appliquee."
 
 ### Écran 8 - interactive - Homophones Rapides
@@ -696,6 +703,7 @@
 - Requirements:
   - mode: "sentence"
   - keywords: "a", "et", "est"
+  - enforceKeywords: true
 - Hint: "Teste chaque mot: a = avait, est = était, et = et puis."
 - Hint2: "Fais une seule phrase avec les trois mots : a, et, est."
 - Hint3: "Exemple à recopier : « Il a une carte et il est prêt. »"
@@ -722,10 +730,10 @@
 - Feedback: "Accord valide."
 
 ### Écran 12 - interactive - Verification Finale 2
-- Question: "Quelle phrase respecte S+V+C ?"
+- Question: "Quelle phrase a un sens logique (qui agit sur quoi) ?"
 - Options: "La zone protège l'agent." / "L'agent protège la zone." / "Protège l'agent la zone."
 - Réponse: "L'agent protège la zone."
-- Feedback: "Structure valide."
+- Feedback: "Structure et sens valides : l'agent agit sur la zone."
 
 ### Écran 13 - write - Micro Rapport
 - Question: "Écris deux phrases S+V+C avec un sujet pluriel dans l'une."
