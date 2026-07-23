@@ -16,7 +16,6 @@ class TrackingPolicyValidator {
     validate() {
         this.checkPolicyDocument();
         this.checkEngine(path.join(this.rootDir, 'assets', 'shared', 'engine.js'), 'engine.js');
-        this.checkEngineShim(path.join(this.rootDir, 'assets', 'shared', 'engine_math.js'), 'engine_math.js');
         this.checkMissionTrackingConfig(path.join(this.rootDir, 'Lovyc'));
         this.checkMissionTrackingConfig(path.join(this.rootDir, 'Zyvah'));
 
@@ -53,21 +52,6 @@ class TrackingPolicyValidator {
                 this.errors.push(`Policy incomplete: "${marker}" manquant dans TRACKING_POLICY.md`);
             }
         });
-    }
-
-    checkEngineShim(enginePath, label) {
-        if (!fs.existsSync(enginePath)) {
-            this.errors.push(`Fichier manquant: ${label}`);
-            return;
-        }
-
-        const content = fs.readFileSync(enginePath, 'utf-8');
-        if (!content.includes('engine.js')) {
-            this.errors.push(`${label}: le shim doit deleguer au moteur unifie engine.js`);
-        }
-        if (content.includes('async function validateTactical') || content.includes('function renderLobby')) {
-            this.errors.push(`${label}: ne doit plus contenir une copie complete du moteur (utiliser engine.js)`);
-        }
     }
 
     checkEngine(enginePath, label) {

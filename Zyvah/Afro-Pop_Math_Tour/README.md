@@ -7,7 +7,7 @@ Ce dossier n'est **pas** un module standard du projet.
 ## Ce que ca implique
 
 - Pas de draft dans `docs/modules/`
-- Pas de moteur partage (`engine.js` / `engine_math.js`)
+- Pas de moteur partage (`engine.js`)
 - Pas de lien depuis les hubs (`Zyvah/index.html`, `Zyvah/Maths/`)
 - Pas de couverture par `tests/test-runner.js`
 - Pas de maintenance / evolution pedago-tech attendue

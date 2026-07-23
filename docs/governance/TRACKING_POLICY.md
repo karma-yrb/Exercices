@@ -3,7 +3,7 @@
 This policy defines the minimum safeguards for learner tracking data.
 
 ## Scope
-- Applies to `assets/shared/engine.js` and `assets/shared/engine_math.js`.
+- Applies to `assets/shared/engine.js`.
 - Applies to local/session tracking and optional cloud sync payload.
 
 ## Default Mode
