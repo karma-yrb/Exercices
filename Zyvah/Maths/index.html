@@ -68,7 +68,7 @@
                 <div class="icon">4</div>
                 <div class="day-info">
                     <h3>Module 4 : Puissances & Multiplicateurs</h3>
-                    <p>Regles des puissances et calculs rapides.</p>
+                    <p>Bientôt — module non publié.</p>
                 </div>
             </div>
 
@@ -76,7 +76,7 @@
                 <div class="icon">5</div>
                 <div class="day-info">
                     <h3>Module 5 : Pythagore</h3>
-                    <p>Distances, triangles rectangles, applications concretes.</p>
+                    <p>Bientôt — module non publié.</p>
                 </div>
             </div>
 
@@ -84,7 +84,7 @@
                 <div class="icon">6</div>
                 <div class="day-info">
                     <h3>Module 6 : Synthese</h3>
-                    <p>Problemes mixtes et consolidation generale.</p>
+                    <p>Bientôt — module non publié.</p>
                 </div>
             </div>
         </div>
@@ -95,111 +95,24 @@
 
 <script src="../../assets/shared/version.js"></script>
 <script src="../../assets/shared/storage-keys.js"></script>
+<script src="../../assets/shared/progress-report.js"></script>
 <script>
-    (function setupMathsHub() {
-        const initCard = document.getElementById('card-math-init');
-        const mod1Card = document.getElementById('card-math-1');
-        const bar = document.getElementById('main-bar');
-
-        const readDone = (key) => {
-            try {
-                const raw = localStorage.getItem(key);
-                if (!raw) return 0;
-                const data = JSON.parse(raw);
-                return (data.completedDays || []).length;
-            } catch (e) {
-                return 0;
-            }
-        };
-
-        const lockCard = (card) => {
-            card.classList.add('locked');
-            card.style.pointerEvents = 'none';
-            const icon = card.querySelector('.icon');
-            if (icon) icon.textContent = '🔒';
-        };
-
-        const initDone = readDone(storageKey('zyvah_maths_w0'));
-        const mod1Done = readDone(storageKey('zyvah_maths_w1'));
-        const mod2Done = readDone(storageKey('zyvah_maths_w2'));
-        const mod3Done = readDone(storageKey('zyvah_maths_w3'));
-        const mod4Done = readDone('zyvah_maths_w4_v1');
-        const mod5Done = readDone('zyvah_maths_w5_v1');
-        const mod6Done = readDone('zyvah_maths_w6_v1');
-        const percent = Math.round(((initDone / 1) + (mod1Done / 1) + (mod2Done / 5) + (mod3Done / 5) + (mod4Done / 5) + (mod5Done / 5) + (mod6Done / 5)) / 7 * 100);
-        if (bar) bar.style.width = percent + '%';
-
-        if (initCard) {
-            initCard.onclick = () => {
-                window.location.href = './Module_0/index.html';
-            };
-        }
-
-        if (mod1Card) {
-            if (initDone < 1) {
-                lockCard(mod1Card);
-            } else {
-                mod1Card.onclick = () => {
-                    window.location.href = './Module_1/index.html';
-                };
-            }
-        }
-
-        const mod2Card = document.getElementById('card-math-2');
-        if (mod2Card) {
-            if (mod1Done < 1) {
-                lockCard(mod2Card);
-            } else {
-                mod2Card.onclick = () => {
-                    window.location.href = './Module_2/index.html';
-                };
-            }
-        }
-
-        const mod3Card = document.getElementById('card-math-3');
-        if (mod3Card) {
-            if (mod2Done < 5) {
-                lockCard(mod3Card);
-            } else {
-                mod3Card.onclick = () => {
-                    window.location.href = './Module_3/index.html';
-                };
-            }
-        }
-
-        const mod4Card = document.getElementById('card-math-4');
-        if (mod4Card) {
-            if (mod3Done < 5) {
-                lockCard(mod4Card);
-            } else {
-                mod4Card.onclick = () => {
-                    window.location.href = './Module_4/index.html';
-                };
-            }
-        }
-
-        const mod5Card = document.getElementById('card-math-5');
-        if (mod5Card) {
-            if (mod4Done < 5) {
-                lockCard(mod5Card);
-            } else {
-                mod5Card.onclick = () => {
-                    window.location.href = './Module_5/index.html';
-                };
-            }
-        }
-
-        const mod6Card = document.getElementById('card-math-6');
-        if (mod6Card) {
-            if (mod5Done < 5) {
-                lockCard(mod6Card);
-            } else {
-                mod6Card.onclick = () => {
-                    window.location.href = './Module_6/index.html';
-                };
-            }
-        }
-    })();
+    ProgressReport.setupSubjectHub({
+        barId: 'main-bar',
+        percentMode: 'average',
+        steps: [
+            { moduleId: 'zyvah_maths_w0', cardId: 'card-math-init', href: './Module_0/index.html' },
+            { moduleId: 'zyvah_maths_w1', cardId: 'card-math-1', href: './Module_1/index.html', unlockAfter: 'zyvah_maths_w0' },
+            { moduleId: 'zyvah_maths_w2', cardId: 'card-math-2', href: './Module_2/index.html', unlockAfter: 'zyvah_maths_w1' },
+            { moduleId: 'zyvah_maths_w3', cardId: 'card-math-3', href: './Module_3/index.html', unlockAfter: 'zyvah_maths_w2' }
+        ],
+        // Modules 4–6 not published yet — no storage keys, always locked.
+        upcoming: [
+            { cardId: 'card-math-4' },
+            { cardId: 'card-math-5' },
+            { cardId: 'card-math-6' }
+        ]
+    });
 </script>
 
 </body>

@@ -263,46 +263,27 @@
     <script src="../assets/shared/progress-report.js"></script>
     <script>
         function updateProgress() {
-            const done0 = ProgressReport.getCompletedCount('lovyc_fr_w0');
-            const done1 = ProgressReport.getCompletedCount('lovyc_fr_w1');
-            const done2 = ProgressReport.getCompletedCount('lovyc_fr_w2');
-            const done3 = ProgressReport.getCompletedCount('lovyc_fr_w3');
-            const done4 = ProgressReport.getCompletedCount('lovyc_fr_w4');
-            const p0 = (done0 / 1) * 100;
-            const p1 = (done1 / 5) * 100;
-            const p2 = (done2 / 5) * 100;
-            const p3 = (done3 / 5) * 100;
-            const p4 = (done4 / 5) * 100;
+            const slots = [
+                { id: 'lovyc_fr_w0', bar: 'fr-s0-bar', count: 'fr-s0-count' },
+                { id: 'lovyc_fr_w1', bar: 'fr-s1-bar', count: 'fr-s1-count', lockCard: 'card-mod-1', lockChevron: 'chevron-mod-1', unlockAfter: 'lovyc_fr_w0' },
+                { id: 'lovyc_fr_w2', bar: 'fr-s2-bar', count: 'fr-s2-count', lockCard: 'card-mod-2', lockChevron: 'chevron-mod-2', unlockAfter: 'lovyc_fr_w1' },
+                { id: 'lovyc_fr_w3', bar: 'fr-s3-bar', count: 'fr-s3-count', lockCard: 'card-mod-3', lockChevron: 'chevron-mod-3', unlockAfter: 'lovyc_fr_w2' },
+                { id: 'lovyc_fr_w4', bar: 'fr-s4-bar', count: 'fr-s4-count', lockCard: 'card-mod-4', lockChevron: 'chevron-mod-4', unlockAfter: 'lovyc_fr_w3' }
+            ];
 
-            document.getElementById('fr-s0-bar').style.width = p0 + '%';
-            document.getElementById('fr-s0-count').innerText = `${done0}/1 MISSION`;
-            document.getElementById('fr-s1-bar').style.width = p1 + '%';
-            document.getElementById('fr-s1-count').innerText = `${done1}/5 MISSIONS`;
-            document.getElementById('fr-s2-bar').style.width = p2 + '%';
-            document.getElementById('fr-s2-count').innerText = `${done2}/5 MISSIONS`;
-            document.getElementById('fr-s3-bar').style.width = p3 + '%';
-            document.getElementById('fr-s3-count').innerText = `${done3}/5 MISSIONS`;
-            document.getElementById('fr-s4-bar').style.width = p4 + '%';
-            document.getElementById('fr-s4-count').innerText = `${done4}/5 MISSIONS`;
-
-            const lockCard = (cardId, chevronId) => {
-                const card = document.getElementById(cardId);
-                const chevron = document.getElementById(chevronId);
-                if (card) {
-                    card.style.opacity = "0.5";
-                    card.style.filter = "grayscale(1)";
-                    card.style.pointerEvents = "none";
+            slots.forEach((slot) => {
+                const progress = ProgressReport.getModuleProgress(slot.id);
+                ProgressReport.setBarWidth(slot.bar, progress.percent);
+                document.getElementById(slot.count).innerText = ProgressReport.countLabel(progress, true);
+                if (slot.unlockAfter && !ProgressReport.isComplete(slot.unlockAfter)) {
+                    ProgressReport.lockCard(document.getElementById(slot.lockCard), {
+                        mode: 'glass',
+                        chevron: document.getElementById(slot.lockChevron)
+                    });
                 }
-                if (chevron) chevron.innerHTML = '<span style="font-size: 20px;">🔒</span>';
-            };
+            });
 
-            if (done0 < 1) lockCard('card-mod-1', 'chevron-mod-1');
-            if (done1 < 5) lockCard('card-mod-2', 'chevron-mod-2');
-            if (done2 < 5) lockCard('card-mod-3', 'chevron-mod-3');
-            if (done3 < 5) lockCard('card-mod-4', 'chevron-mod-4');
-
-            const globalPercent = (p0 + p1 + p2 + p3 + p4) / 5;
-            document.getElementById('global-bar').style.width = globalPercent + '%';
+            ProgressReport.setBarWidth('global-bar', ProgressReport.getSubjectProgress('fr').averagePercent);
         }
 
         updateProgress();

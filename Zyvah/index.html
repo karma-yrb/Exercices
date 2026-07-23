@@ -208,21 +208,14 @@
     <script src="../assets/shared/progress-report.js"></script>
     <script>
         function updateProgress() {
-            const modules = ProgressReport.getTrackProgress('zyvah').modules;
-            const maths = modules.filter((m) => m.id.indexOf('maths') !== -1);
-            const ses = modules.filter((m) => m.id.indexOf('ses') !== -1);
+            const maths = ProgressReport.getSubjectProgress('maths');
+            const ses = ProgressReport.getSubjectProgress('ses');
 
-            const sum = (list) => list.reduce((acc, m) => ({ done: acc.done + m.done, total: acc.total + m.total }), { done: 0, total: 0 });
-            const mathAgg = sum(maths);
-            const sesAgg = sum(ses);
-            const mathPercent = mathAgg.total > 0 ? (mathAgg.done / mathAgg.total) * 100 : 0;
-            const sesPercent = sesAgg.total > 0 ? (sesAgg.done / sesAgg.total) * 100 : 0;
-
-            document.getElementById('math-bar').style.width = mathPercent + '%';
-            document.getElementById('math-count').innerText = `${mathAgg.done}/${mathAgg.total} SEANCES`;
-            document.getElementById('ses-bar').style.width = sesPercent + '%';
-            document.getElementById('ses-count').innerText = `${sesAgg.done}/${sesAgg.total} SEANCES`;
-            document.getElementById('global-bar').style.width = ((mathPercent + sesPercent) / 2) + '%';
+            ProgressReport.setBarWidth('math-bar', maths.percent);
+            document.getElementById('math-count').innerText = `${maths.done}/${maths.total} SEANCES`;
+            ProgressReport.setBarWidth('ses-bar', ses.percent);
+            document.getElementById('ses-count').innerText = `${ses.done}/${ses.total} SEANCES`;
+            ProgressReport.setBarWidth('global-bar', (maths.percent + ses.percent) / 2);
         }
 
         updateProgress();
