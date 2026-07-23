@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 2 | Module 3</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">LIENS LOGIQUES</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et structuree.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w3_v1",
+        SINGLE_MISSION_MODE: 2,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_3",
+    };
+
+    const weekData = [
+    {
+        "id": 2,
+        "title": "Réseau de Subordination",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Lien de Dépendance",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Une proposition subordonnée dépend d'une proposition principale. Elle apporte une précision utile au message.</p>\n                    <p>Elle peut commencer par quand, si, parce que, bien que ou pour que.</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Cinq Accès",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>quand : temps</p><p>si : condition</p><p>parce que : cause</p><p>bien que : opposition</p><p>pour que : but</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Repérer Quand",
+                "question": "Quel mot introduit un moment ?\" (Quand le drone arrive, Lovyc lance le scan.)",
+                "options": [
+                    "Quand",
+                    "Lovyc",
+                    "scan"
+                ],
+                "answer": 0,
+                "feedback": "quand » situe l'action dans le temps."
+            },
+            {
+                "type": "interactive",
+                "title": "Condition Si",
+                "question": "Quelle phrase exprime une condition ?",
+                "options": [
+                    "Si le signal revient, la squad avance.",
+                    "Parce que le signal revient, la squad avance.",
+                    "Quand le signal revient, la squad avance."
+                ],
+                "answer": 0,
+                "feedback": "si » pose une condition."
+            },
+            {
+                "type": "write",
+                "title": "Temps de Mission",
+                "question": "Écris une phrase avec « quand » et « squad ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "quand",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "quand » introduit le moment de l'action.",
+                "hint2": "Commence par « Quand » puis indique l'action de la squad.",
+                "hint3": "Exemple à recopier : « Quand le signal sonne, la squad rejoint la base.",
+                "feedback": "Temps identifié."
+            },
+            {
+                "type": "write",
+                "title": "Condition de Squad",
+                "question": "Écris une phrase avec « si » qui donne une condition.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "si",
+                        "drone"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "La condition commence avec « si ».",
+                "hint2": "Imagine une action qui dépend de l'état du drone.",
+                "hint3": "Exemple à recopier : « Si le drone détecte un danger, nous reculons.",
+                "feedback": "Condition validée."
+            },
+            {
+                "type": "interactive",
+                "title": "Cause Parce Que",
+                "question": "Quel connecteur introduit une cause ?",
+                "options": [
+                    "parce que",
+                    "pour que",
+                    "bien que"
+                ],
+                "answer": 0,
+                "feedback": "parce que » explique la cause."
+            },
+            {
+                "type": "interactive",
+                "title": "But Pour Que",
+                "question": "Quelle phrase exprime un but ?",
+                "options": [
+                    "Lovyc parle pour que la squad comprenne.",
+                    "Lovyc parle parce que la squad comprend.",
+                    "Lovyc parle bien que la squad comprend."
+                ],
+                "answer": 0,
+                "feedback": "Le but est introduit par « pour que »."
+            },
+            {
+                "type": "write",
+                "title": "Concession Bien Que",
+                "question": "Écris une phrase avec « bien que » et « map ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "bien que",
+                        "map"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "bien que » montre une difficulté qui n'empêche pas l'action.",
+                "hint2": "Présente un obstacle lié à la map, puis l'action continue.",
+                "hint3": "Exemple à recopier : « Bien que la map soit sombre, la squad avance.",
+                "feedback": "Concession réussie."
+            },
+            {
+                "type": "write",
+                "title": "Cause Complète",
+                "question": "Écris une phrase expliquant une décision avec « parce que ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "parce que",
+                        "Lovyc"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Donne d'abord la décision, puis sa raison.",
+                "hint2": "Utilise Lovyc dans la principale et « parce que » avant l'explication.",
+                "hint3": "Exemple à recopier : « Lovyc attend parce que la zone reste dangereuse.",
+                "feedback": "Cause bien reliée."
+            },
+            {
+                "type": "interactive",
+                "title": "Connecteur Adapté",
+                "question": "Quel connecteur convient ?\" (Nous chuchotons ____ le gardien ne nous entende pas.)",
+                "options": [
+                    "pour que",
+                    "parce que",
+                    "quand"
+                ],
+                "answer": 0,
+                "feedback": "Le but de l'action est exprimé."
+            },
+            {
+                "type": "write",
+                "title": "Ordre Conditionnel",
+                "question": "Rédige un ordre commençant par « si ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "si",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Formule une condition, puis un ordre ou une action.",
+                "hint2": "Commence par « Si la squad... », puis ajoute une conséquence.",
+                "hint3": "Exemple à recopier : « Si la squad entend l'alerte, elle se met à couvert.",
+                "feedback": "Ordre conditionnel prêt."
+            },
+            {
+                "type": "write",
+                "title": "Réécriture Subordonnée",
+                "question": "Réécris avec « quand » :\" (Le drone atterrit. Nous ouvrons la porte.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "quand",
+                        "drone"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Transforme la première action en repère temporel.",
+                "hint2": "Place « Quand le drone atterrit » avant l'action principale.",
+                "hint3": "Exemple à recopier : « Quand le drone atterrit, nous ouvrons la porte.",
+                "feedback": "Subordonnée connectée."
+            },
+            {
+                "type": "interactive",
+                "title": "Dernier Scan",
+                "question": "Quel connecteur introduit une concession ?",
+                "options": [
+                    "bien que",
+                    "si",
+                    "car"
+                ],
+                "answer": 0,
+                "feedback": "Même avec un obstacle, l'action continue."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 2",
+                "question": "Rédige une phrase de mission avec « si » et « pour que ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "si",
+                        "pour que"
+                    ],
+                    "minWords": 10,
+                    "enforceKeywords": true
+                },
+                "hint": "Pose une condition et indique le but.",
+                "hint2": "Utilise « si » au début et « pour que » pour expliquer l'objectif.",
+                "hint3": "Exemple à recopier : « Si la squad se tait, nous pouvons avancer pour que le gardien ne nous repère pas.",
+                "feedback": "Réseau de subordination maîtrisé."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

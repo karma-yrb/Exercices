@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 4 | Module 4</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">CONVAINCRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et structuree.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w4_v1",
+        SINGLE_MISSION_MODE: 4,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_4",
+    };
+
+    const weekData = [
+    {
+        "id": 4,
+        "title": "Structure du compte-rendu",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Briefing : Le rapport en quatre blocs",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Un compte-rendu convaincant suit un itinéraire clair : contexte → actions → résultat → conclusion.</p>\n                    <p>Contexte : où et quand ?</p><p>Actions : qu'avons-nous fait ?</p><p>Résultat : qu'est-il arrivé ?</p><p>Conclusion : que faut-il retenir ?</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Contexte, actions, résultat, conclusion",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Exemple : « À l'aube, la squad a atteint le pont. Elle a déployé deux drones. Le passage a été sécurisé. Donc, nous pouvons avancer.</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Identifier le contexte",
+                "question": "Quelle phrase donne le contexte d'une opération ?",
+                "options": [
+                    "Nous avons activé le drone.",
+                    "À l'aube, la squad se trouvait près du pont.",
+                    "Le pont est maintenant sécurisé."
+                ],
+                "answer": 1,
+                "feedback": "Correct. Le contexte situe le moment et le lieu."
+            },
+            {
+                "type": "interactive",
+                "title": "Identifier le résultat",
+                "question": "Quelle phrase présente un résultat ?",
+                "options": [
+                    "Nous avons lancé le scan.",
+                    "Le scan a révélé une route libre.",
+                    "Nous allons vérifier la route."
+                ],
+                "answer": 1,
+                "feedback": "C'est la conséquence observable de l'action."
+            },
+            {
+                "type": "write",
+                "title": "Contexte de mission",
+                "question": "Écris une phrase de contexte avec un lieu et un moment.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "aube",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Situe la squad dans le temps et l'espace.",
+                "hint2": "Tu peux commencer par « À l'aube » et placer la squad près d'un lieu.",
+                "hint3": "Exemple à recopier : « À l'aube, la squad se trouvait près du relais.",
+                "feedback": "Contexte enregistré."
+            },
+            {
+                "type": "write",
+                "title": "Action ordonnée",
+                "question": "Écris une phrase qui raconte une action de la squad.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "squad",
+                        "déployé"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Utilise un verbe d'action au passé composé.",
+                "hint2": "Indique ce que la squad a déployé pendant l'opération.",
+                "hint3": "Exemple à recopier : « La squad a déployé un drone au-dessus du pont.",
+                "feedback": "Action inscrite dans le rapport."
+            },
+            {
+                "type": "interactive",
+                "title": "Ordre du rapport",
+                "question": "Quel ordre convient à un compte-rendu ?",
+                "options": [
+                    "Conclusion → contexte → actions → résultat",
+                    "Contexte → actions → résultat → conclusion",
+                    "Résultat → actions → contexte → conclusion"
+                ],
+                "answer": 1,
+                "feedback": "C'est la structure qui rend le rapport facile à suivre."
+            },
+            {
+                "type": "interactive",
+                "title": "Connecteur de conclusion",
+                "question": "Quel connecteur introduit le mieux une conclusion ?",
+                "options": [
+                    "donc",
+                    "car",
+                    "pendant"
+                ],
+                "answer": 0,
+                "feedback": "Donc » annonce ce que l'on déduit du résultat."
+            },
+            {
+                "type": "write",
+                "title": "Résultat observé",
+                "question": "Écris une phrase qui indique le résultat d'un scan.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "a révélé"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Dis ce que le scan a permis de découvrir.",
+                "hint2": "Utilise la forme « Le scan a révélé... ».",
+                "hint3": "Exemple à recopier : « Le scan a révélé une entrée sécurisée.",
+                "feedback": "Résultat clair et vérifiable."
+            },
+            {
+                "type": "write",
+                "title": "Conclusion tactique",
+                "question": "Écris une conclusion qui commence par « Donc ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "donc"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Déduis une décision à partir d'un résultat.",
+                "hint2": "Commence par « Donc » et annonce la suite de la mission.",
+                "hint3": "Exemple à recopier : « Donc, la squad peut avancer vers la base.",
+                "feedback": "Conclusion opérationnelle validée."
+            },
+            {
+                "type": "interactive",
+                "title": "Bloc manquant",
+                "question": "Dans ce rapport, quel bloc manque ? « À l'aube, nous étions au pont. Nous avons déployé le drone. Le passage est libre.",
+                "options": [
+                    "Le contexte",
+                    "Les actions",
+                    "La conclusion"
+                ],
+                "answer": 2,
+                "feedback": "Il faut terminer par la décision à retenir."
+            },
+            {
+                "type": "write",
+                "title": "Rapport en quatre phrases",
+                "question": "Rédige un compte-rendu en quatre phrases : contexte, action, résultat, conclusion.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "donc"
+                    ],
+                    "minWords": 24,
+                    "enforceKeywords": true
+                },
+                "hint": "Écris une phrase par bloc du rapport.",
+                "hint2": "Termine par une conclusion qui utilise « Donc ».",
+                "hint3": "Exemple à recopier : « À l'aube, la squad était près du pont. Elle a lancé le scan. Le drone a révélé une route libre. Donc, nous pouvons avancer.",
+                "feedback": "Rapport complet : les quatre blocs sont en place."
+            },
+            {
+                "type": "write",
+                "title": "Réorganisation de transmission",
+                "question": "Écris une phrase qui relie une action à son résultat avec « puis ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "puis"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Raconte d'abord l'action, puis ce qui s'est produit.",
+                "hint2": "Utilise deux propositions reliées par « puis ».",
+                "hint3": "Exemple à recopier : « Nous avons activé le relais, puis les communications ont repris.",
+                "feedback": "Chronologie bien transmise."
+            },
+            {
+                "type": "interactive",
+                "title": "Dernier check",
+                "question": "Quelle phrase convient le mieux comme conclusion de rapport ?",
+                "options": [
+                    "À midi, le drone a décollé.",
+                    "Nous avons vérifié le tunnel.",
+                    "Donc, la squad peut emprunter le tunnel."
+                ],
+                "answer": 2,
+                "feedback": "La conclusion annonce la décision finale."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 4",
+                "question": "Rédige un compte-rendu structuré de l'opération en suivant contexte, actions, résultat et conclusion.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "aube",
+                        "déployé",
+                        "donc"
+                    ],
+                    "minWords": 25,
+                    "enforceKeywords": true
+                },
+                "hint": "Respecte les quatre étapes dans l'ordre.",
+                "hint2": "Situe la mission, raconte l'action, annonce le résultat et conclus avec « Donc ».",
+                "hint3": "Exemple à recopier : « À l'aube, la squad était près du relais. Elle a déployé un drone pour scanner la route. Le drone a révélé un passage libre. Donc, nous pouvons rejoindre la base.",
+                "feedback": "Boss validé. Ton rapport guide efficacement le commandement."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

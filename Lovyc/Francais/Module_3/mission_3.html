@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 3 | Module 3</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">LIENS LOGIQUES</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et structuree.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w3_v1",
+        SINGLE_MISSION_MODE: 3,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_3",
+    };
+
+    const weekData = [
+    {
+        "id": 3,
+        "title": "Chaîne Cause Conséquence",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Déclencheur et Effet",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>La cause explique pourquoi un fait arrive. La conséquence indique ce qui arrive ensuite.</p>\n                    <p>Le brouillard est dense, donc le drone vole bas.</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Connecteurs de Chaîne",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>parce que</p><p>car : cause</p><p>donc</p><p>alors</p><p>de sorte que : conséquence</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Repérer la Cause",
+                "question": "Quelle partie donne la cause ?\" (La squad attend parce que la porte est verrouillée.)",
+                "options": [
+                    "La squad attend",
+                    "parce que la porte est verrouillée",
+                    "la squad"
+                ],
+                "answer": 1,
+                "feedback": "Cette proposition explique l'attente."
+            },
+            {
+                "type": "interactive",
+                "title": "Repérer la Conséquence",
+                "question": "Quelle partie donne la conséquence ?\" (Le radar est actif, donc nous changeons de route.)",
+                "options": [
+                    "Le radar est actif",
+                    "donc nous changeons de route",
+                    "le radar"
+                ],
+                "answer": 1,
+                "feedback": "La conséquence suit « donc »."
+            },
+            {
+                "type": "write",
+                "title": "Cause avec Car",
+                "question": "Écris une phrase avec « car » et « squad ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "car",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "car » introduit la raison.",
+                "hint2": "Donne une action de la squad, puis explique-la avec « car ».",
+                "hint3": "Exemple à recopier : « La squad se cache, car le drone ennemi approche.",
+                "feedback": "Cause transmise."
+            },
+            {
+                "type": "write",
+                "title": "Conséquence avec Donc",
+                "question": "Écris une phrase avec « donc » et « signal ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "donc",
+                        "signal"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "donc » annonce le résultat.",
+                "hint2": "Présente l'état du signal, puis la conséquence.",
+                "hint3": "Exemple à recopier : « Le signal est stable, donc Lovyc lance la mission.",
+                "feedback": "Conséquence nette."
+            },
+            {
+                "type": "interactive",
+                "title": "Alors en Action",
+                "question": "Quel mot peut annoncer une conséquence ?",
+                "options": [
+                    "alors",
+                    "bien que",
+                    "ni"
+                ],
+                "answer": 0,
+                "feedback": "alors » peut marquer la suite logique."
+            },
+            {
+                "type": "interactive",
+                "title": "De Sorte Que",
+                "question": "Quelle phrase contient une conséquence ?",
+                "options": [
+                    "La squad avance de sorte que le pont est sécurisé.",
+                    "La squad avance parce que le pont est sécurisé.",
+                    "La squad avance bien que le pont est sécurisé."
+                ],
+                "answer": 0,
+                "feedback": "Le pont sécurisé est l'effet."
+            },
+            {
+                "type": "write",
+                "title": "Rapport de Cause",
+                "question": "Rédige un rapport avec « parce que ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "parce que",
+                        "rapport"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Explique clairement la raison d'une décision.",
+                "hint2": "Commence par « Rapport : » et ajoute une cause avec « parce que ».",
+                "hint3": "Exemple à recopier : « Rapport : nous reculons parce que le passage est miné.",
+                "feedback": "Rapport explicatif valide."
+            },
+            {
+                "type": "write",
+                "title": "Effet Tactique",
+                "question": "Écris une phrase avec « de sorte que ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "de sorte que",
+                        "drone"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Après ce connecteur, indique le résultat.",
+                "hint2": "Décris l'action du drone puis son effet observable.",
+                "hint3": "Exemple à recopier : « Le drone éclaire la route de sorte que la squad voit les pièges.",
+                "feedback": "Effet expliqué."
+            },
+            {
+                "type": "interactive",
+                "title": "Choix de Connecteur",
+                "question": "Quel connecteur complète la phrase ?\" (La batterie est vide, ____ le drone revient.)",
+                "options": [
+                    "donc",
+                    "car",
+                    "bien que"
+                ],
+                "answer": 0,
+                "feedback": "Le retour est une conséquence."
+            },
+            {
+                "type": "write",
+                "title": "Double Explication",
+                "question": "Écris une phrase avec « car » et « donc ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "car",
+                        "donc"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Explique une cause puis une conséquence.",
+                "hint2": "Utilise « car » pour la raison et « donc » pour la décision.",
+                "hint3": "Exemple à recopier : « Le radar sature, car l'orage approche, donc nous attendons.",
+                "feedback": "Chaîne complète."
+            },
+            {
+                "type": "write",
+                "title": "Réécriture de Chaîne",
+                "question": "Réécris avec « alors » :\" (La porte s'ouvre. La squad entre.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "alors",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "La deuxième action découle de la première.",
+                "hint2": "Relie les deux propositions par « alors ».",
+                "hint3": "Exemple à recopier : « La porte s'ouvre, alors la squad entre.",
+                "feedback": "Suite logique validée."
+            },
+            {
+                "type": "interactive",
+                "title": "Check de Logique",
+                "question": "Quel connecteur exprime une cause ?",
+                "options": [
+                    "car",
+                    "donc",
+                    "alors"
+                ],
+                "answer": 0,
+                "feedback": "car » répond à la question « pourquoi ? »."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 3",
+                "question": "Rédige un rapport avec « parce que » et « donc ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "parce que",
+                        "donc"
+                    ],
+                    "minWords": 12,
+                    "enforceKeywords": true
+                },
+                "hint": "Donne une cause puis la décision qui en résulte.",
+                "hint2": "Construis trois moments : fait, cause avec « parce que », conséquence avec « donc ».",
+                "hint3": "Exemple à recopier : « Nous changeons de route parce que le pont est détruit, donc la squad passe par le tunnel.",
+                "feedback": "Chaîne de cause maîtrisée."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

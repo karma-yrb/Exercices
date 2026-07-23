@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 3 | Module 4</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">CONVAINCRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et structuree.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w4_v1",
+        SINGLE_MISSION_MODE: 3,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_4",
+    };
+
+    const weekData = [
+    {
+        "id": 3,
+        "title": "Jugement nuancé",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Briefing : Garder le doute",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Un agent sérieux ne prétend pas tout savoir. Il nuance son jugement quand les informations sont incomplètes.</p>\n                    <p>Peut-être : hypothèse.</p><p>Il semble que : observation prudente.</p><p>Toutefois : réserve ou opposition.</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Les marqueurs de nuance",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>La nuance rend un rapport plus juste : elle montre ce qui est probable, possible ou limité.</p>\n                    <p>Exemple : « Il semble que le tunnel soit libre ; toutefois, le scan reste nécessaire.</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Identifier la nuance",
+                "question": "Quelle phrase exprime une hypothèse ?",
+                "options": [
+                    "Le drone est détruit.",
+                    "Peut-être que le drone est caché derrière la tour.",
+                    "Le drone est une machine."
+                ],
+                "answer": 1,
+                "feedback": "Correct. « Peut-être » indique une possibilité."
+            },
+            {
+                "type": "interactive",
+                "title": "Certitude ou hypothèse",
+                "question": "Quelle phrase est la plus prudente avant d'entrer dans le tunnel ?",
+                "options": [
+                    "Le tunnel est totalement vide.",
+                    "Il semble que le tunnel soit calme.",
+                    "Le tunnel sera toujours sûr."
+                ],
+                "answer": 1,
+                "feedback": "Le rapport reconnaît une information incertaine."
+            },
+            {
+                "type": "write",
+                "title": "Hypothèse tactique",
+                "question": "Écris une hypothèse sur la position des ennemis.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "peut-être"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Ne présente pas ton idée comme certaine.",
+                "hint2": "Commence par « Peut-être que » et indique une position.",
+                "hint3": "Exemple à recopier : « Peut-être que les ennemis attendent près du pont.",
+                "feedback": "Hypothèse transmise avec prudence."
+            },
+            {
+                "type": "write",
+                "title": "Réserve sur le plan",
+                "question": "Écris une phrase nuancée qui commence par « Il semble que ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "il semble"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Décris une observation qui n'est pas certaine.",
+                "hint2": "Utilise « Il semble que » suivi d'une proposition complète.",
+                "hint3": "Exemple à recopier : « Il semble que la route soit dégagée.",
+                "feedback": "Observation prudente validée."
+            },
+            {
+                "type": "interactive",
+                "title": "Connecteur nuancé",
+                "question": "Quel mot introduit une réserve ?",
+                "options": [
+                    "toutefois",
+                    "donc",
+                    "ensuite"
+                ],
+                "answer": 0,
+                "feedback": "Exact. Il permet de limiter une affirmation."
+            },
+            {
+                "type": "interactive",
+                "title": "Choix prudent",
+                "question": "Quelle phrase est la plus nuancée ?",
+                "options": [
+                    "La zone est sans danger.",
+                    "La zone est peut-être sans danger, mais le scan continue.",
+                    "La zone est forcément sans danger."
+                ],
+                "answer": 1,
+                "feedback": "Elle associe possibilité et prudence."
+            },
+            {
+                "type": "write",
+                "title": "Avis avec peut-être",
+                "question": "Donne un avis prudent sur l'heure du départ.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "peut-être"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Propose une heure sans l'imposer comme une certitude.",
+                "hint2": "Insère « peut-être » dans une phrase complète.",
+                "hint3": "Exemple à recopier : « Nous partirons peut-être à l'aube si le brouillard se lève.",
+                "feedback": "Décision prudente, communication fiable."
+            },
+            {
+                "type": "write",
+                "title": "Opposition mesurée",
+                "question": "Écris une phrase avec « toutefois » sur le plan d'attaque.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "toutefois"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Annonce une idée, puis ajoute une limite.",
+                "hint2": "Place « toutefois » avant la réserve sur le plan.",
+                "hint3": "Exemple à recopier : « Le plan est solide ; toutefois, le pont reste exposé.",
+                "feedback": "Réserve claire : le rapport reste nuancé."
+            },
+            {
+                "type": "interactive",
+                "title": "Nuance correcte",
+                "question": "Quelle phrase utilise correctement « toutefois » ?",
+                "options": [
+                    "Toutefois le drone vole.",
+                    "Le drone est utile ; toutefois, sa batterie est faible.",
+                    "Le drone toutefois est utile."
+                ],
+                "answer": 1,
+                "feedback": "La réserve s'oppose à l'idée précédente."
+            },
+            {
+                "type": "write",
+                "title": "Rapport prudent",
+                "question": "Rédige deux phrases : une hypothèse puis une réserve.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "peut-être",
+                        "toutefois"
+                    ],
+                    "minWords": 15,
+                    "enforceKeywords": true
+                },
+                "hint": "Commence par une possibilité observée.",
+                "hint2": "Ajoute ensuite une limite avec « toutefois ».",
+                "hint3": "Exemple à recopier : « Peut-être que le hangar est encore vide. Toutefois, nous devons vérifier chaque entrée avant d'avancer.",
+                "feedback": "Rapport prudent et crédible."
+            },
+            {
+                "type": "write",
+                "title": "Réécriture nuancée",
+                "question": "Réécris cette certitude de manière prudente : « Le relais est détruit.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "il semble"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Évite d'affirmer le fait sans preuve.",
+                "hint2": "Commence par « Il semble que » et conserve l'idée du relais.",
+                "hint3": "Exemple à recopier : « Il semble que le relais soit détruit.",
+                "feedback": "Réécriture nuancée réussie."
+            },
+            {
+                "type": "interactive",
+                "title": "Check de prudence",
+                "question": "Quel groupe de mots convient à une information incertaine ?",
+                "options": [
+                    "Il est certain que",
+                    "Il semble que",
+                    "Sans aucun doute"
+                ],
+                "answer": 1,
+                "feedback": "Le niveau de certitude est bien adapté."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 3",
+                "question": "Rédige un jugement nuancé sur le passage par le tunnel : propose une idée et ajoute une réserve.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "true"
+                    ],
+                    "keywordGroups": [
+                        [
+                            "il semble",
+                            "peut-être"
+                        ],
+                        [
+                            "toutefois",
+                            "mais"
+                        ]
+                    ],
+                    "minWords": 20,
+                    "enforceKeywords": true
+                },
+                "hint": "Exprime une possibilité, puis une limite.",
+                "hint2": "Utilise un marqueur d'incertitude et un connecteur de réserve.",
+                "hint3": "Exemple à recopier : « Il semble que le tunnel soit praticable ; toutefois, nous devons envoyer un drone avant de faire avancer toute la squad.",
+                "feedback": "Boss validé. Ton jugement reste prudent et convaincant."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

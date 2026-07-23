@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 4 | Module 3</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">LIENS LOGIQUES</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et structuree.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w3_v1",
+        SINGLE_MISSION_MODE: 4,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_3",
+    };
+
+    const weekData = [
+    {
+        "id": 4,
+        "title": "Balises Logiques",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Balises de Rapport",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Les connecteurs logiques organisent les idées d'un rapport et indiquent leur relation.</p>\n                    <p>cependant, néanmoins, pourtant, toutefois : opposition</p><p>ainsi : conséquence</p><p>en effet : explication</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Nuancer le Signal",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Ces mots évitent les messages trop simples : ils précisent une limite, une justification ou une conclusion.</p>\n                    <p>La route est longue ; cependant, la squad reste concentrée.</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Cependant",
+                "question": "Quel connecteur marque une opposition ?",
+                "options": [
+                    "cependant",
+                    "ainsi",
+                    "en effet"
+                ],
+                "answer": 0,
+                "feedback": "cependant » oppose deux informations."
+            },
+            {
+                "type": "interactive",
+                "title": "En Effet",
+                "question": "Quel connecteur introduit une justification ?",
+                "options": [
+                    "en effet",
+                    "pourtant",
+                    "toutefois"
+                ],
+                "answer": 0,
+                "feedback": "en effet » apporte une explication."
+            },
+            {
+                "type": "write",
+                "title": "Opposition avec Pourtant",
+                "question": "Écris une phrase avec « pourtant » et « squad ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "pourtant",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "pourtant » introduit un fait surprenant ou opposé.",
+                "hint2": "Annonce une difficulté, puis montre que la squad agit malgré elle.",
+                "hint3": "Exemple à recopier : « Le vent est fort, pourtant la squad avance.",
+                "feedback": "Opposition nuancée."
+            },
+            {
+                "type": "write",
+                "title": "Nuance avec Néanmoins",
+                "question": "Écris une phrase avec « néanmoins » et « drone ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "néanmoins",
+                        "drone"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "néanmoins » signifie « malgré cela ».",
+                "hint2": "Présente un problème, puis une action possible avec « néanmoins ».",
+                "hint3": "Exemple à recopier : « Le drone est lent ; néanmoins, il repère la sortie.",
+                "feedback": "Nuance bien placée."
+            },
+            {
+                "type": "interactive",
+                "title": "Ainsi",
+                "question": "Quel connecteur peut introduire une conclusion ?",
+                "options": [
+                    "ainsi",
+                    "pourtant",
+                    "en effet"
+                ],
+                "answer": 0,
+                "feedback": "ainsi » annonce un résultat."
+            },
+            {
+                "type": "interactive",
+                "title": "Toutefois",
+                "question": "Quelle phrase exprime une réserve ?",
+                "options": [
+                    "La zone semble calme ; toutefois, Lovyc reste prudent.",
+                    "La zone semble calme ; ainsi, Lovyc reste prudent.",
+                    "La zone semble calme ; en effet, Lovyc reste prudent."
+                ],
+                "answer": 0,
+                "feedback": "toutefois » introduit une limite."
+            },
+            {
+                "type": "write",
+                "title": "Justification Logique",
+                "question": "Écris une phrase avec « en effet » pour justifier un ordre.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "en effet",
+                        "ordre"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Justifie l'ordre par une information précise.",
+                "hint2": "Énonce un ordre, puis ajoute « en effet » et son explication.",
+                "hint3": "Exemple à recopier : « L'ordre est de patienter ; en effet, le pont est surveillé.",
+                "feedback": "Justification claire."
+            },
+            {
+                "type": "write",
+                "title": "Conclusion avec Ainsi",
+                "question": "Écris une phrase avec « ainsi » et « map ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "ainsi",
+                        "map"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "ainsi » relie une idée à son résultat.",
+                "hint2": "Présente une donnée de la map, puis conclus avec « ainsi ».",
+                "hint3": "Exemple à recopier : « La map indique une sortie ; ainsi, nous évitons le tunnel.",
+                "feedback": "Conclusion signalée."
+            },
+            {
+                "type": "interactive",
+                "title": "Connecteur Correct",
+                "question": "Quel connecteur complète la phrase ?\" (Le radar est précis ; ____ Lovyc confirme la cible.)",
+                "options": [
+                    "ainsi",
+                    "pourtant",
+                    "toutefois"
+                ],
+                "answer": 0,
+                "feedback": "La confirmation est la conséquence."
+            },
+            {
+                "type": "write",
+                "title": "Rapport Nuancé",
+                "question": "Rédige une phrase avec « cependant » et « rapport ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "cependant",
+                        "rapport"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Oppose deux éléments du rapport.",
+                "hint2": "Commence par « Rapport : » et introduis une réserve avec « cependant ».",
+                "hint3": "Exemple à recopier : « Rapport : la route est libre ; cependant, le signal reste faible.",
+                "feedback": "Rapport nuancé."
+            },
+            {
+                "type": "write",
+                "title": "Réécriture Logique",
+                "question": "Réécris avec « toutefois » :\" (La nuit tombe. Nous poursuivons la mission.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "toutefois",
+                        "mission"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "La deuxième idée se maintient malgré la première.",
+                "hint2": "Relie les deux propositions par « toutefois ».",
+                "hint3": "Exemple à recopier : « La nuit tombe ; toutefois, nous poursuivons la mission.",
+                "feedback": "Lien logique exact."
+            },
+            {
+                "type": "interactive",
+                "title": "Dernière Balise",
+                "question": "Quel connecteur apporte une explication ?",
+                "options": [
+                    "en effet",
+                    "néanmoins",
+                    "pourtant"
+                ],
+                "answer": 0,
+                "feedback": "La justification est repérée."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 4",
+                "question": "Rédige un rapport avec « cependant » et « ainsi ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "cependant",
+                        "ainsi"
+                    ],
+                    "minWords": 12,
+                    "enforceKeywords": true
+                },
+                "hint": "Ajoute une réserve, puis une conclusion.",
+                "hint2": "Présente une situation, utilise « cependant », puis termine avec une conséquence introduite par « ainsi ».",
+                "hint3": "Exemple à recopier : « Le tunnel est sombre ; cependant, le drone éclaire la route, ainsi la squad avance sans danger.",
+                "feedback": "Balises logiques activées."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

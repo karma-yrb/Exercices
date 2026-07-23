@@ -5,6 +5,8 @@ window.APP_STORAGE_KEYS = {
     lovyc_fr_w0: 'lovyc_fr_w0_v1',
     lovyc_fr_w1: 'lovyc_fr_w1_v2',
     lovyc_fr_w2: 'lovyc_fr_w2_v2',
+    lovyc_fr_w3: 'lovyc_fr_w3_v1',
+    lovyc_fr_w4: 'lovyc_fr_w4_v1',
     zyvah_maths_w0: 'zyvah_maths_w0_v1',
     zyvah_maths_w1: 'zyvah_maths_w1_v1',
     zyvah_maths_w2: 'zyvah_maths_w2_v1',

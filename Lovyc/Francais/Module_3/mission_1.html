@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 1 | Module 3</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">LIENS LOGIQUES</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et structuree.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w3_v1",
+        SINGLE_MISSION_MODE: 1,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_3",
+    };
+
+    const weekData = [
+    {
+        "id": 1,
+        "title": "Relais de Coordination",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Code des Relais",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Une conjonction de coordination relie deux mots ou deux propositions sans créer de dépendance.</p>\n                    <p>et : ajoute</p><p>mais : oppose</p><p>ou : choisit</p><p>donc : conclut</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Les Sept Connecteurs",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Retient la chaîne : mais, ou, et, donc, or, ni, car.</p>\n                    <p>Dans un rapport, le connecteur indique précisément le lien entre les informations.</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Identifier le Relais",
+                "question": "Quel mot coordonne les deux actions ?\" (Lovyc scanne la zone et la squad avance.)",
+                "options": [
+                    "Lovyc",
+                    "et",
+                    "zone"
+                ],
+                "answer": 1,
+                "feedback": "Exact. « et » ajoute une action."
+            },
+            {
+                "type": "interactive",
+                "title": "Choisir Mais",
+                "question": "Quelle phrase marque une opposition ?",
+                "options": [
+                    "Le drone arrive et il filme.",
+                    "Le drone arrive mais il ne filme pas.",
+                    "Le drone arrive donc il filme."
+                ],
+                "answer": 1,
+                "feedback": "mais » signale une opposition."
+            },
+            {
+                "type": "write",
+                "title": "Liaison avec Et",
+                "question": "Écris une phrase qui relie deux actions de la squad avec « et ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "et",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Ajoute une seconde action avec « et ».",
+                "hint2": "Commence par « La squad » et relie deux verbes avec « et ».",
+                "hint3": "Exemple à recopier : « La squad avance et sécurise le pont.",
+                "feedback": "Relais ajouté."
+            },
+            {
+                "type": "write",
+                "title": "Choix avec Ou",
+                "question": "Écris une phrase proposant deux itinéraires avec « ou ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "ou",
+                        "map"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "ou » présente un choix.",
+                "hint2": "Propose deux zones de la map séparées par « ou ».",
+                "hint3": "Exemple à recopier : « Nous passons par le nord ou par le sud de la map.",
+                "feedback": "Choix transmis."
+            },
+            {
+                "type": "interactive",
+                "title": "Signal Donc",
+                "question": "Quel connecteur exprime une conséquence ?",
+                "options": [
+                    "car",
+                    "donc",
+                    "mais"
+                ],
+                "answer": 1,
+                "feedback": "donc » annonce la conséquence."
+            },
+            {
+                "type": "interactive",
+                "title": "Cause avec Car",
+                "question": "Quelle phrase explique une cause ?",
+                "options": [
+                    "Le signal est faible, car le drone est loin.",
+                    "Le signal est faible, donc le drone est loin.",
+                    "Le signal est faible, mais le drone est loin."
+                ],
+                "answer": 0,
+                "feedback": "car » donne une explication."
+            },
+            {
+                "type": "write",
+                "title": "Opposition Tactique",
+                "question": "Écris une phrase avec « mais » pour opposer deux informations.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "mais",
+                        "drone"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Annonce une information, puis son contraire ou sa limite.",
+                "hint2": "Utilise « mais » entre deux propositions sur le drone.",
+                "hint3": "Exemple à recopier : « Le drone repère la cible, mais il manque de batterie.",
+                "feedback": "Opposition claire."
+            },
+            {
+                "type": "write",
+                "title": "Double Liaison",
+                "question": "Écris une phrase avec « et » puis « donc ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "et",
+                        "donc"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "et » ajoute, « donc » conclut.",
+                "hint2": "Relie deux actions avec « et », puis indique leur résultat avec « donc ».",
+                "hint3": "Exemple à recopier : « Lovyc observe et la squad écoute, donc le plan est prêt.",
+                "feedback": "Chaîne logique valide."
+            },
+            {
+                "type": "interactive",
+                "title": "Ni ou Et",
+                "question": "Quel connecteur complète la négation ?\" (La squad ne recule ____ n'abandonne.)",
+                "options": [
+                    "ni",
+                    "donc",
+                    "car"
+                ],
+                "answer": 0,
+                "feedback": "Après « ne », « ni » relie deux négations."
+            },
+            {
+                "type": "write",
+                "title": "Rapport Coordonné",
+                "question": "Rédige une phrase de rapport avec « car ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "car",
+                        "rapport"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "car » explique une information.",
+                "hint2": "Écris « Rapport : » puis donne une cause avec « car ».",
+                "hint3": "Exemple à recopier : « Rapport : nous attendons, car le passage est surveillé.",
+                "feedback": "Cause correctement signalée."
+            },
+            {
+                "type": "write",
+                "title": "Réécriture de Transmission",
+                "question": "Réécris en reliant les propositions avec « donc » :\" (La map est sûre. La squad entre.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "donc",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "La seconde proposition est la conséquence.",
+                "hint2": "Conserve les deux idées et place « donc » entre elles.",
+                "hint3": "Exemple à recopier : « La map est sûre, donc la squad entre.",
+                "feedback": "Transmission fluide."
+            },
+            {
+                "type": "interactive",
+                "title": "Check de Relais",
+                "question": "Quelle phrase est correctement coordonnée ?",
+                "options": [
+                    "Lovyc vérifie et la map.",
+                    "Lovyc vérifie la map et la squad attend.",
+                    "Lovyc vérifie donc la map et."
+                ],
+                "answer": 1,
+                "feedback": "Les deux propositions sont bien reliées."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 1",
+                "question": "Rédige un ordre tactique avec « mais » et « donc ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "mais",
+                        "donc"
+                    ],
+                    "minWords": 10,
+                    "enforceKeywords": true
+                },
+                "hint": "Oppose une difficulté, puis donne une conséquence.",
+                "hint2": "Utilise une première proposition avec « mais », puis une décision avec « donc ».",
+                "hint3": "Exemple à recopier : « Le passage est étroit, mais la squad est prête, donc nous avançons ensemble.",
+                "feedback": "Boss coordonné."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

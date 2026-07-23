@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 5 | Module 4</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">CONVAINCRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MODULE 4 VALIDE !</h1>
+            <p class="success-text">Ton signal est net. Les liens logiques tiennent. Direction le prochain module.</p>
+            <div class="box-concept next-mission-call">
+                <span>MODULE TERMINE</span><br>
+                POUR LE PROCHAIN MODULE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w4_v1",
+        SINGLE_MISSION_MODE: 5,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_4",
+    };
+
+    const weekData = [
+    {
+        "id": 5,
+        "title": "Synthèse Boss : compte-rendu argumenté complet",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Briefing : Rapport final",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Le rapport final doit convaincre : il présente les faits, une position, une raison, un exemple et une conclusion.</p>\n                    <p>Contexte et actions.</p><p>Thèse et argument.</p><p>Exemple et nuance.</p><p>Conclusion opérationnelle.</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "La chaîne pour convaincre",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Formule utile : « Je pense que..., parce que... Par exemple,... Toutefois,... Donc,...</p>\n                    <p>Chaque marqueur a une fonction : prendre position, justifier, prouver, nuancer et conclure.</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Repérer la thèse",
+                "question": "Quelle phrase est la thèse dans ce message ?",
+                "options": [
+                    "Le drone a observé le pont.",
+                    "Je pense que nous devons sécuriser le pont.",
+                    "Par exemple, deux ennemis se sont cachés près du pont."
+                ],
+                "answer": 1,
+                "feedback": "C'est la position que le rapport cherche à défendre."
+            },
+            {
+                "type": "interactive",
+                "title": "Repérer la nuance",
+                "question": "Quelle phrase ajoute une réserve utile ?",
+                "options": [
+                    "Le plan est parfait.",
+                    "Toutefois, le brouillard peut gêner les drones.",
+                    "Donc, nous avançons."
+                ],
+                "answer": 1,
+                "feedback": "La réserve rend la décision plus crédible."
+            },
+            {
+                "type": "write",
+                "title": "Thèse de commandement",
+                "question": "Écris une thèse sur la priorité de l'opération.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "je pense"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Choisis l'action que le commandement doit prioriser.",
+                "hint2": "Commence par « Je pense que » et formule une action précise.",
+                "hint3": "Exemple à recopier : « Je pense que nous devons protéger le relais en priorité.",
+                "feedback": "Priorité formulée clairement."
+            },
+            {
+                "type": "write",
+                "title": "Argument et preuve",
+                "question": "Écris une phrase avec une raison et un exemple concret.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "parce que",
+                        "par exemple"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Explique d'abord pourquoi l'action est utile.",
+                "hint2": "Utilise « parce que » puis ajoute « Par exemple » avec un fait.",
+                "hint3": "Exemple à recopier : « Il faut surveiller le toit parce que la zone est ouverte ; par exemple, un drone y a repéré un signal.",
+                "feedback": "Raison et preuve bien reliées."
+            },
+            {
+                "type": "interactive",
+                "title": "Structure complète",
+                "question": "Quel enchaînement construit le rapport le plus convaincant ?",
+                "options": [
+                    "Exemple → thèse → contexte → conclusion",
+                    "Contexte → actions → thèse → argument → exemple → conclusion",
+                    "Conclusion → argument → contexte → actions"
+                ],
+                "answer": 1,
+                "feedback": "La progression rend la décision facile à comprendre."
+            },
+            {
+                "type": "interactive",
+                "title": "Connecteur utile",
+                "question": "Quel connecteur sert à annoncer une conséquence ?",
+                "options": [
+                    "donc",
+                    "par exemple",
+                    "toutefois"
+                ],
+                "answer": 0,
+                "feedback": "Donc » prépare la conclusion tactique."
+            },
+            {
+                "type": "write",
+                "title": "Observation nuancée",
+                "question": "Écris une observation sur le tunnel avec une réserve.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "true"
+                    ],
+                    "keywordGroups": [
+                        [
+                            "il semble",
+                            "peut-être"
+                        ],
+                        [
+                            "toutefois",
+                            "mais"
+                        ]
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Ne présente pas l'état du tunnel comme absolument certain.",
+                "hint2": "Ajoute une possibilité puis une réserve avec un connecteur d'opposition.",
+                "hint3": "Exemple à recopier : « Il semble que le tunnel soit libre ; toutefois, le scan doit continuer.",
+                "feedback": "Observation nuancée, décision plus sûre."
+            },
+            {
+                "type": "write",
+                "title": "Conclusion convaincante",
+                "question": "Écris une conclusion de rapport qui commence par « Donc » et propose une action.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "donc"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Déduis une action à partir des informations recueillies.",
+                "hint2": "Commence par « Donc » et indique ce que la squad doit faire.",
+                "hint3": "Exemple à recopier : « Donc, la squad doit sécuriser le pont avant d'avancer.",
+                "feedback": "Conclusion claire pour le commandement."
+            },
+            {
+                "type": "interactive",
+                "title": "Rapport le plus solide",
+                "question": "Quel message est le plus convaincant ?",
+                "options": [
+                    "Avançons vers le pont.",
+                    "Je pense que nous devons sécuriser le pont parce que le relais est proche.",
+                    "Le pont existe."
+                ],
+                "answer": 1,
+                "feedback": "La thèse est soutenue par une raison."
+            },
+            {
+                "type": "write",
+                "title": "Mini compte-rendu argumenté",
+                "question": "Rédige un mini compte-rendu avec une thèse, un argument et un exemple.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "je pense",
+                        "parce que",
+                        "par exemple"
+                    ],
+                    "minWords": 25,
+                    "enforceKeywords": true
+                },
+                "hint": "Présente d'abord ta recommandation.",
+                "hint2": "Ajoute une raison avec « parce que », puis une preuve avec « Par exemple ».",
+                "hint3": "Exemple à recopier : « Je pense que nous devons protéger le relais parce que les communications sont fragiles. Par exemple, un message a été perdu lorsque le relais a cessé de fonctionner.",
+                "feedback": "Mini rapport solide : tu convaincs avec des preuves."
+            },
+            {
+                "type": "write",
+                "title": "Révision tactique",
+                "question": "Rédige une phrase de bilan qui contient une action, un résultat et une conclusion.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "donc"
+                    ],
+                    "minWords": 14,
+                    "enforceKeywords": true
+                },
+                "hint": "Raconte une action puis son effet.",
+                "hint2": "Termine par « donc » suivi de la décision de la squad.",
+                "hint3": "Exemple à recopier : « Nous avons lancé le scan, il a révélé une route sûre, donc la squad peut avancer.",
+                "feedback": "Bilan opérationnel cohérent."
+            },
+            {
+                "type": "interactive",
+                "title": "Validation finale",
+                "question": "Quel élément transforme une opinion en argumentation ?",
+                "options": [
+                    "Une raison précise",
+                    "Un mot très long",
+                    "Une répétition"
+                ],
+                "answer": 0,
+                "feedback": "La raison soutient la thèse et aide à convaincre."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Module 4",
+                "question": "Rédige le compte-rendu argumenté complet de ta mission : contexte, action, thèse, argument, exemple, nuance et conclusion.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "je pense",
+                        "parce que",
+                        "par exemple",
+                        "donc"
+                    ],
+                    "keywordGroups": [
+                        [
+                            "il semble",
+                            "peut-être"
+                        ],
+                        [
+                            "toutefois",
+                            "mais"
+                        ]
+                    ],
+                    "minWords": 25,
+                    "enforceKeywords": true
+                },
+                "hint": "Organise ton rapport : situe la mission, raconte l'action, puis défends une décision.",
+                "hint2": "Inclue « Je pense que », « parce que », « Par exemple », une nuance et une conclusion avec « Donc ».",
+                "hint3": "Exemple à recopier : « À l'aube, la squad a scanné le pont. Je pense que nous devons le sécuriser parce que le relais est proche. Par exemple, un drone a détecté une embuscade. Toutefois, il semble que le tunnel reste praticable. Donc, nous avançons avec prudence.",
+                "feedback": "Mission accomplie. Ton compte-rendu est structuré, nuancé et convaincant."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

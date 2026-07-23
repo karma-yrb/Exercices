@@ -209,6 +209,46 @@
                     <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
                 </div>
             </a>
+
+            <!-- FRANCAIS - MODULE 3 -->
+            <a href="./Francais/Module_3/index.html" class="glass-card card-fr" id="card-mod-3">
+                <div class="icon-box text-blue-400">
+                    <svg viewBox="0 0 24 24"><path d="M3,3H21V7H3V3M4,8H20V21H4V8M9.5,11A0.5,0.5 0 0,0 9,11.5V13H15V11.5A0.5,0.5 0 0,0 14.5,11H9.5Z"/></svg>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="subject-title text-blue-400">MODULE 3 : Liens</h3>
+                    <p class="mission-title text-slate-100">Phrase Complexe</p>
+                    <div class="prog-container">
+                        <div class="prog-bar-bg">
+                            <div id="fr-s3-bar" class="prog-bar-fill bg-blue-500"></div>
+                        </div>
+                        <p id="fr-s3-count" class="prog-text">0/5 MISSIONS</p>
+                    </div>
+                </div>
+                <div class="chevron text-blue-400" id="chevron-mod-3">
+                    <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                </div>
+            </a>
+
+            <!-- FRANCAIS - MODULE 4 -->
+            <a href="./Francais/Module_4/index.html" class="glass-card card-fr" id="card-mod-4">
+                <div class="icon-box text-blue-400">
+                    <svg viewBox="0 0 24 24"><path d="M18,15H16V17H18M18,11H16V13H18M20,19H12V17H14V15H12V13H14V11H12V9H20M10,7H8V5H10M10,11H8V9H10M10,15H8V13H10M10,19H8V17H10M6,7H4V5H6M6,11H4V9H6M6,15H4V13H6M6,19H4V17H6M12,7V5H14V7H12Z"/></svg>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="subject-title text-blue-400">MODULE 4 : Convaincre</h3>
+                    <p class="mission-title text-slate-100">Argumentation</p>
+                    <div class="prog-container">
+                        <div class="prog-bar-bg">
+                            <div id="fr-s4-bar" class="prog-bar-fill bg-blue-500"></div>
+                        </div>
+                        <p id="fr-s4-count" class="prog-text">0/5 MISSIONS</p>
+                    </div>
+                </div>
+                <div class="chevron text-blue-400" id="chevron-mod-4">
+                    <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                </div>
+            </a>
         </div>
 
         <button onclick="sendReport()" class="btn-report">
@@ -243,30 +283,45 @@
             document.getElementById('fr-s2-bar').style.width = p2 + '%';
             document.getElementById('fr-s2-count').innerText = `${done2}/5 MISSIONS`;
 
-            // VERROUILLAGE MODULE 1
-            if (done0 < 1) {
-                const card1 = document.getElementById('card-mod-1');
-                const chevron1 = document.getElementById('chevron-mod-1');
-                if (card1) {
-                    card1.style.opacity = "0.5";
-                    card1.style.filter = "grayscale(1)";
-                    card1.style.pointerEvents = "none";
+            // MODULE 3
+            const raw3 = localStorage.getItem(storageKey('lovyc_fr_w3'));
+            const done3 = raw3 ? (JSON.parse(raw3).completedDays || []).length : 0;
+            const p3 = (done3 / 5) * 100;
+            document.getElementById('fr-s3-bar').style.width = p3 + '%';
+            document.getElementById('fr-s3-count').innerText = `${done3}/5 MISSIONS`;
+
+            // MODULE 4
+            const raw4 = localStorage.getItem(storageKey('lovyc_fr_w4'));
+            const done4 = raw4 ? (JSON.parse(raw4).completedDays || []).length : 0;
+            const p4 = (done4 / 5) * 100;
+            document.getElementById('fr-s4-bar').style.width = p4 + '%';
+            document.getElementById('fr-s4-count').innerText = `${done4}/5 MISSIONS`;
+
+            const lockCard = (cardId, chevronId) => {
+                const card = document.getElementById(cardId);
+                const chevron = document.getElementById(chevronId);
+                if (card) {
+                    card.style.opacity = "0.5";
+                    card.style.filter = "grayscale(1)";
+                    card.style.pointerEvents = "none";
                 }
-                if (chevron1) chevron1.innerHTML = '<span style="font-size: 20px;">🔒</span>';
-            }
+                if (chevron) chevron.innerHTML = '<span style="font-size: 20px;">🔒</span>';
+            };
+
+            // VERROUILLAGE MODULE 1
+            if (done0 < 1) lockCard('card-mod-1', 'chevron-mod-1');
 
             // VERROUILLAGE MODULE 2
-            if (done1 < 5) {
-                const card2 = document.getElementById('card-mod-2');
-                const chevron2 = document.getElementById('chevron-mod-2');
-                card2.style.opacity = "0.5";
-                card2.style.filter = "grayscale(1)";
-                card2.style.pointerEvents = "none";
-                if (chevron2) chevron2.innerHTML = '<span style="font-size: 20px;">🔒</span>';
-            }
+            if (done1 < 5) lockCard('card-mod-2', 'chevron-mod-2');
 
-            // Barre Globale (Moyenne des trois modules)
-            const globalPercent = (p0 + p1 + p2) / 3;
+            // VERROUILLAGE MODULE 3
+            if (done2 < 5) lockCard('card-mod-3', 'chevron-mod-3');
+
+            // VERROUILLAGE MODULE 4
+            if (done3 < 5) lockCard('card-mod-4', 'chevron-mod-4');
+
+            // Barre Globale (Moyenne des modules)
+            const globalPercent = (p0 + p1 + p2 + p3 + p4) / 5;
             document.getElementById('global-bar').style.width = globalPercent + '%';
         }
 
@@ -274,12 +329,16 @@
             const raw0 = localStorage.getItem(storageKey('lovyc_fr_w0'));
             const raw1 = localStorage.getItem(storageKey('lovyc_fr_w1'));
             const raw2 = localStorage.getItem(storageKey('lovyc_fr_w2'));
+            const raw3 = localStorage.getItem(storageKey('lovyc_fr_w3'));
+            const raw4 = localStorage.getItem(storageKey('lovyc_fr_w4'));
             
             const done0 = raw0 ? (JSON.parse(raw0).completedDays || []).length : 0;
             const done1 = raw1 ? (JSON.parse(raw1).completedDays || []).length : 0;
             const done2 = raw2 ? (JSON.parse(raw2).completedDays || []).length : 0;
+            const done3 = raw3 ? (JSON.parse(raw3).completedDays || []).length : 0;
+            const done4 = raw4 ? (JSON.parse(raw4).completedDays || []).length : 0;
             
-            const reportText = `Salut !\n\nVoilà ma progression Lovyc :\n- Initiation : ${done0}/1 mission\n- Module 1 : ${done1}/5 missions\n- Module 2 : ${done2}/5 missions`;
+            const reportText = `Salut !\n\nVoilà ma progression Lovyc :\n- Initiation : ${done0}/1 mission\n- Module 1 : ${done1}/5 missions\n- Module 2 : ${done2}/5 missions\n- Module 3 : ${done3}/5 missions\n- Module 4 : ${done4}/5 missions`;
             const bodyEncoded = encodeURIComponent(reportText);
             
             window.location.href = `mailto:karmafr@gmail.com?subject=Progression Lovyc&body=${bodyEncoded}`;

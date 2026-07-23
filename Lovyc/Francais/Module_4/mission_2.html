@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 2 | Module 4</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">CONVAINCRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et structuree.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w4_v1",
+        SINGLE_MISSION_MODE: 2,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_4",
+    };
+
+    const weekData = [
+    {
+        "id": 2,
+        "title": "Argument et exemple",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Briefing : Prouver sa décision",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Une thèse devient convaincante quand tu ajoutes un argument : une raison qui explique ta décision.</p>\n                    <p>Exemple : « Il faut sécuriser le pont, parce qu'il est le seul passage vers la base.</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Argument et exemple",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>L'exemple rend l'argument concret. Il peut raconter un fait observé pendant l'opération.</p>\n                    <p>Thèse : ce que tu défends.</p><p>Argument : pourquoi tu le défends.</p><p>Exemple : une preuve précise.</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Identifier l'argument",
+                "question": "Dans quelle partie se trouve l'argument ?\" (Il faut envoyer un drone, car le brouillard cache les mouvements ennemis.)",
+                "options": [
+                    "Il faut envoyer un drone",
+                    "car le brouillard cache les mouvements ennemis",
+                    "un drone"
+                ],
+                "answer": 1,
+                "feedback": "Correct. L'argument explique la recommandation."
+            },
+            {
+                "type": "interactive",
+                "title": "Repérer l'exemple",
+                "question": "Quelle phrase contient un exemple concret ?",
+                "options": [
+                    "Il faut rester prudent.",
+                    "Par exemple, hier un drone a repéré une embuscade près du pont.",
+                    "La prudence est utile."
+                ],
+                "answer": 1,
+                "feedback": "L'exemple apporte un fait vérifiable."
+            },
+            {
+                "type": "write",
+                "title": "Argument de sécurité",
+                "question": "Écris une recommandation avec un argument introduit par « parce que ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "parce que"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Donne une décision puis sa raison.",
+                "hint2": "Place « parce que » entre la recommandation et l'explication.",
+                "hint3": "Exemple à recopier : « Il faut couvrir la sortie parce que le secteur est dangereux.",
+                "feedback": "Argument transmis : ta raison est visible."
+            },
+            {
+                "type": "write",
+                "title": "Exemple concret",
+                "question": "Écris une phrase qui commence par « Par exemple » et présente une preuve de terrain.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "par exemple"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Choisis un fait observé par un agent ou un drone.",
+                "hint2": "Commence par « Par exemple » et décris une action précise.",
+                "hint3": "Exemple à recopier : « Par exemple, le drone a repéré deux ennemis près du tunnel.",
+                "feedback": "Preuve concrète enregistrée."
+            },
+            {
+                "type": "interactive",
+                "title": "Connecteur de preuve",
+                "question": "Quel connecteur introduit le mieux une raison ?",
+                "options": [
+                    "parce que",
+                    "puis",
+                    "mais"
+                ],
+                "answer": 0,
+                "feedback": "Exact. Il relie une décision à sa cause."
+            },
+            {
+                "type": "interactive",
+                "title": "Argument ou détail",
+                "question": "Quelle phrase donne un argument pour protéger le relais ?",
+                "options": [
+                    "Le relais est gris.",
+                    "Il faut protéger le relais, car il transmet les ordres.",
+                    "Le relais est derrière le mur."
+                ],
+                "answer": 1,
+                "feedback": "La raison soutient bien la décision."
+            },
+            {
+                "type": "write",
+                "title": "Thèse avec raison",
+                "question": "Écris une thèse sur le drone et justifie-la avec « car ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "car"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Prends position sur l'usage du drone.",
+                "hint2": "Ajoute « car » suivi d'une raison complète.",
+                "hint3": "Exemple à recopier : « Le drone doit partir en éclaireur, car la route est inconnue.",
+                "feedback": "Thèse et argument sont reliés."
+            },
+            {
+                "type": "write",
+                "title": "Preuve de terrain",
+                "question": "Donne un exemple qui prouve que la squad doit rester groupée.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "par exemple",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Raconte un fait court qui montre un danger.",
+                "hint2": "Utilise « Par exemple » puis mentionne la squad.",
+                "hint3": "Exemple à recopier : « Par exemple, la squad isolée a perdu le contact avec le guide.",
+                "feedback": "Ton exemple soutient efficacement l'argument."
+            },
+            {
+                "type": "interactive",
+                "title": "Chaîne convaincante",
+                "question": "Quelle phrase associe le mieux décision et argument ?",
+                "options": [
+                    "Le tunnel est long.",
+                    "Il faut éviter le tunnel parce qu'il est surveillé.",
+                    "Le tunnel se trouve au nord."
+                ],
+                "answer": 1,
+                "feedback": "Décision plus raison : message convaincant."
+            },
+            {
+                "type": "write",
+                "title": "Rapport avec exemple",
+                "question": "Rédige deux phrases : une recommandation et un exemple qui la prouve.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "parce que",
+                        "par exemple"
+                    ],
+                    "minWords": 16,
+                    "enforceKeywords": true
+                },
+                "hint": "Formule d'abord ce qu'il faut faire.",
+                "hint2": "Ajoute une raison avec « parce que », puis un exemple avec « Par exemple ».",
+                "hint3": "Exemple à recopier : « Il faut surveiller le pont parce que la zone est exposée. Par exemple, un drone y a détecté un mouvement ennemi.",
+                "feedback": "Rapport convaincant : raison et preuve sont présentes."
+            },
+            {
+                "type": "write",
+                "title": "Réécriture de preuve",
+                "question": "Réécris cette idée avec un exemple : « le scan est utile ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "par exemple"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Transforme l'idée en preuve précise.",
+                "hint2": "Commence par « Par exemple » et montre ce que le scan révèle.",
+                "hint3": "Exemple à recopier : « Par exemple, le scan révèle les pièges avant l'avancée.",
+                "feedback": "Preuve reformulée avec précision."
+            },
+            {
+                "type": "interactive",
+                "title": "Dernier contrôle",
+                "question": "Quelle phrase apporte la preuve la plus utile ?",
+                "options": [
+                    "Le radar est actif.",
+                    "Par exemple, le radar a signalé trois drones hier soir.",
+                    "Le radar est important."
+                ],
+                "answer": 1,
+                "feedback": "La preuve est datée et concrète."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 2",
+                "question": "Rédige une recommandation argumentée avec une raison et un exemple concret pour convaincre ta squad.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "parce que",
+                        "par exemple"
+                    ],
+                    "minWords": 25,
+                    "enforceKeywords": true
+                },
+                "hint": "Choisis une décision tactique claire.",
+                "hint2": "Utilise « parce que » pour la raison et « Par exemple » pour la preuve.",
+                "hint3": "Exemple à recopier : « Il faut sécuriser le relais parce que toutes les équipes dépendent de ses messages. Par exemple, hier sa panne a isolé la squad du secteur nord.",
+                "feedback": "Boss validé. Ton argumentation résiste au briefing."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

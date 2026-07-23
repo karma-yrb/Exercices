@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 5 | Module 3</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">LIENS LOGIQUES</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MODULE 3 VALIDE !</h1>
+            <p class="success-text">Ton signal est net. Les liens logiques tiennent. Direction le prochain module.</p>
+            <div class="box-concept next-mission-call">
+                <span>MODULE TERMINE</span><br>
+                POUR LE PROCHAIN MODULE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w3_v1",
+        SINGLE_MISSION_MODE: 5,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_3",
+    };
+
+    const weekData = [
+    {
+        "id": 5,
+        "title": "Rapport de Mission Complexe",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Synthèse du Commandement",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Une phrase complexe contient plusieurs propositions reliées par coordination ou subordination.</p>\n                    <p>Coordination : et, mais, donc</p><p>Subordination : quand, si, parce que</p><p>Logique : cependant, ainsi, en effet</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "Récit de Mission",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Dans un récit, l'imparfait décrit le décor ou une action longue. Le passé simple raconte une action brève et terminée.</p>\n                    <p>La nuit était calme quand Lovyc ouvrit la porte.</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Coordination ou Subordination",
+                "question": "Quel mot introduit une subordonnée ?",
+                "options": [
+                    "quand",
+                    "mais",
+                    "donc"
+                ],
+                "answer": 0,
+                "feedback": "quand » introduit une subordonnée de temps."
+            },
+            {
+                "type": "interactive",
+                "title": "Imparfait ou Passé Simple",
+                "question": "Quel verbe est au passé simple ?",
+                "options": [
+                    "avançait",
+                    "ouvrit",
+                    "était"
+                ],
+                "answer": 1,
+                "feedback": "ouvrit » raconte une action ponctuelle."
+            },
+            {
+                "type": "write",
+                "title": "Décor à l'Imparfait",
+                "question": "Écris une phrase de décor avec « était » et « map ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "était",
+                        "map"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "L'imparfait décrit une situation qui dure.",
+                "hint2": "Décris l'ambiance de la map avec le verbe « était ».",
+                "hint3": "Exemple à recopier : « La map était silencieuse avant le départ de la squad.",
+                "feedback": "Décor installé."
+            },
+            {
+                "type": "write",
+                "title": "Action au Passé Simple",
+                "question": "Écris une phrase avec « entra » et « squad ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "entra",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Le passé simple raconte une action brève.",
+                "hint2": "Utilise « entra » pour raconter l'arrivée de la squad.",
+                "hint3": "Exemple à recopier : « La squad entra dans la base au signal de Lovyc.",
+                "feedback": "Action racontée."
+            },
+            {
+                "type": "interactive",
+                "title": "Connecteur de Récit",
+                "question": "Quel connecteur peut relier le décor et l'action ?\" (La map était sombre ____ Lovyc ouvrit la porte.)",
+                "options": [
+                    "quand",
+                    "car",
+                    "ni"
+                ],
+                "answer": 0,
+                "feedback": "quand » relie le moment et l'action."
+            },
+            {
+                "type": "interactive",
+                "title": "Phrase Complexe Correcte",
+                "question": "Quelle phrase complexe est correcte ?",
+                "options": [
+                    "Quand le drone arriva, la squad se cacha.",
+                    "Quand le drone arriva la squad, se cacha.",
+                    "Quand, le drone arriva la squad se cacha."
+                ],
+                "answer": 0,
+                "feedback": "La subordonnée est correctement ponctuée."
+            },
+            {
+                "type": "write",
+                "title": "Cause dans le Récit",
+                "question": "Écris une phrase de récit avec « parce que » et « drone ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "parce que",
+                        "drone"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Explique la raison d'une action passée.",
+                "hint2": "Raconte une décision de la squad, puis sa cause liée au drone.",
+                "hint3": "Exemple à recopier : « La squad recula parce que le drone repéra un piège.",
+                "feedback": "Cause intégrée au récit."
+            },
+            {
+                "type": "write",
+                "title": "Opposition de Mission",
+                "question": "Écris une phrase avec « mais » et « Lovyc » au passé.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "mais",
+                        "Lovyc"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Oppose deux actions ou deux faits du récit.",
+                "hint2": "Raconte une action de Lovyc, puis ajoute une limite avec « mais ».",
+                "hint3": "Exemple à recopier : « Lovyc avança, mais la porte resta fermée.",
+                "feedback": "Opposition narrative validée."
+            },
+            {
+                "type": "interactive",
+                "title": "Synthèse de Connecteurs",
+                "question": "Quel connecteur exprime une conséquence dans le récit ?",
+                "options": [
+                    "donc",
+                    "bien que",
+                    "quand"
+                ],
+                "answer": 0,
+                "feedback": "donc » indique le résultat."
+            },
+            {
+                "type": "write",
+                "title": "Rapport en Deux Temps",
+                "question": "Rédige une phrase avec « était » et « puis ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "était",
+                        "puis"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Décris d'abord le décor, puis raconte une action.",
+                "hint2": "Utilise « était » pour la situation et « puis » pour faire avancer le récit.",
+                "hint3": "Exemple à recopier : « Le couloir était vide, puis le drone apparut au plafond.",
+                "feedback": "Deux temps bien reliés."
+            },
+            {
+                "type": "write",
+                "title": "Réécriture Finale",
+                "question": "Réécris en une phrase complexe avec « quand » :\" (Le signal fut vert. La squad entra.)",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "quand",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Transforme le premier fait en repère temporel.",
+                "hint2": "Commence par « Quand le signal fut vert », puis ajoute l'action de la squad.",
+                "hint3": "Exemple à recopier : « Quand le signal fut vert, la squad entra dans la base.",
+                "feedback": "Phrase complexe complète."
+            },
+            {
+                "type": "interactive",
+                "title": "Contrôle Général",
+                "question": "Quelle phrase relie correctement deux idées ?",
+                "options": [
+                    "La porte était ouverte, donc la squad entra.",
+                    "La porte était ouverte donc, la squad entra.",
+                    "La porte était, ouverte donc la squad entra."
+                ],
+                "answer": 0,
+                "feedback": "Le connecteur est correctement placé."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Module 3",
+                "question": "Rédige un rapport final de mission avec « quand », « mais » et « donc », en utilisant un imparfait ou un passé simple.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "quand",
+                        "mais",
+                        "donc"
+                    ],
+                    "minWords": 18,
+                    "enforceKeywords": true
+                },
+                "hint": "Décris le contexte, ajoute un obstacle, puis donne la conséquence.",
+                "hint2": "Utilise « quand » pour le temps, « mais » pour l'obstacle et « donc » pour conclure l'action.",
+                "hint3": "Exemple à recopier : « Quand la map était calme, Lovyc avança, mais le drone signala un piège, donc la squad changea de route.",
+                "feedback": "Félicitations Agent Lovyc. Tu sais construire et transmettre une phrase complexe complète."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>

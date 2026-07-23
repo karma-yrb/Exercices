@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo= ">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lovyc - Mission 1 | Module 4</title>
+    <link rel="stylesheet" href="../../../assets/lovyc/tactical.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="header">
+        <div class="progress-meta">
+            <span id="progress-text">MISSION EN COURS</span>
+            <span id="session-tag">CONVAINCRE</span>
+        </div>
+        <div class="bar-container"><div id="main-bar" class="bar-fill"></div></div>
+    </div>
+
+    <div id="view-content" class="view active">
+        <h2 id="step-title" style="margin-bottom:20px;"></h2>
+        <div id="step-body"></div>
+    </div>
+
+    <div id="view-success" class="view">
+        <div class="success-card">
+            <div class="visual-anchor">
+                <svg viewBox="0 0 200 200" style="width: 180px; height: 180px;">
+                    <path d="M60 40 L140 40 L130 100 Q100 130 70 100 Z" fill="none" stroke="var(--accent)" stroke-width="4" />
+                    <text x="100" y="82" text-anchor="middle" style="fill: var(--accent); font-family: var(--font-mono); font-weight: 900; font-size: 20px;">MVP</text>
+                </svg>
+            </div>
+            <h1 class="success-title">MISSION ACCOMPLIE !</h1>
+            <p class="success-text">Ton grade a ete mis a jour. La transmission est fluide et structuree.</p>
+            <div class="box-concept next-mission-call">
+                <span>REVIENS DEMAIN</span><br>
+                POUR LA SUITE.
+            </div>
+            <button onclick="location.href='index.html'" class="btn-main">RETOUR</button>
+        </div>
+    </div>
+
+    <div class="footer-nav hidden" id="footer">
+        <div class="btn-group">
+            <button id="btn-prev" class="btn-nav hidden">RETOUR</button>
+            <button id="btn-next" class="btn-main">CONTINUER</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script>
+    window.APP_CONFIG = {
+        STORAGE_KEY: "lovyc_fr_w4_v1",
+        SINGLE_MISSION_MODE: 1,
+        TRACKING_SUBJECT: "Francais",
+        TRACKING_MODULE: "Module_4",
+    };
+
+    const weekData = [
+    {
+        "id": 1,
+        "title": "Thèse et avis clair",
+        "steps": [
+            {
+                "type": "lesson",
+                "title": "Briefing : Prendre position",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Pour convaincre une squad, commence par une thèse : c'est ton avis clair sur la meilleure décision.</p>\n                    <p>Je pense que... : annonce un avis.</p><p>Selon moi... : précise ta position.</p><p>Il faut... : formule une décision.</p>\n                    </div>"
+            },
+            {
+                "type": "lesson",
+                "title": "La thèse en transmission",
+                "content": "\n                    <div class=\"content-chunk\">\n                    <p>Une thèse répond à une question et ne reste pas vague. Elle indique ce que l'agent recommande.</p>\n                    <p>Exemple : « Je pense que la squad doit sécuriser le pont avant d'avancer.</p>\n                    </div>"
+            },
+            {
+                "type": "interactive",
+                "title": "Identifier l'avis",
+                "question": "Quelle phrase exprime une thèse ?",
+                "options": [
+                    "Le drone survole le secteur nord.",
+                    "Je pense que le secteur nord doit être sécurisé.",
+                    "Le secteur nord mesure deux kilomètres."
+                ],
+                "answer": 1,
+                "feedback": "Correct. La formule « Je pense que » annonce une position."
+            },
+            {
+                "type": "interactive",
+                "title": "Phrase de position",
+                "question": "Quelle transmission donne un avis clair sur l'itinéraire ?",
+                "options": [
+                    "Le tunnel est sous la colline.",
+                    "Selon moi, il faut passer par le tunnel.",
+                    "Le tunnel possède deux entrées."
+                ],
+                "answer": 1,
+                "feedback": "Position nette : la squad sait quoi envisager."
+            },
+            {
+                "type": "write",
+                "title": "Avis de l'agent",
+                "question": "Écris une thèse claire sur la meilleure zone à sécuriser.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "je pense"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Commence par « Je pense que ».",
+                "hint2": "Ajoute une décision précise concernant une zone.",
+                "hint3": "Exemple à recopier : « Je pense que nous devons sécuriser le pont.",
+                "feedback": "Thèse reçue. Ta position est compréhensible."
+            },
+            {
+                "type": "write",
+                "title": "Thèse sur la carte",
+                "question": "Donne ton avis sur l'utilisation d'un drone de reconnaissance.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "selon moi"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Utilise le marqueur « Selon moi ».",
+                "hint2": "Indique clairement ce que la squad devrait faire avec le drone.",
+                "hint3": "Exemple à recopier : « Selon moi, le drone doit scanner la rivière.",
+                "feedback": "Avis précis. Le commandement peut décider."
+            },
+            {
+                "type": "interactive",
+                "title": "Marqueur de thèse",
+                "question": "Quel groupe de mots annonce le mieux une opinion ?",
+                "options": [
+                    "Je pense que",
+                    "Hier matin",
+                    "Dans le hangar"
+                ],
+                "answer": 0,
+                "feedback": "Exact. Ce marqueur ouvre une thèse."
+            },
+            {
+                "type": "interactive",
+                "title": "Information ou avis",
+                "question": "Quelle phrase est une information et non une thèse ?",
+                "options": [
+                    "Il faut protéger la balise.",
+                    "À mon avis, la balise est prioritaire.",
+                    "La balise clignote en rouge."
+                ],
+                "answer": 2,
+                "feedback": "C'est un fait observé, pas une position."
+            },
+            {
+                "type": "write",
+                "title": "Position justifiée",
+                "question": "Écris une phrase où tu affirmes que la squad doit rester groupée.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "il faut",
+                        "squad"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Utilise « Il faut » pour exprimer une recommandation.",
+                "hint2": "Nomme la squad et indique l'action attendue.",
+                "hint3": "Exemple à recopier : « Il faut que la squad reste groupée.",
+                "feedback": "Recommandation claire, signal validé."
+            },
+            {
+                "type": "write",
+                "title": "Ordre argumenté",
+                "question": "Écris un avis clair sur le moment de lancer l'opération.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "à mon avis"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Commence par « À mon avis ».",
+                "hint2": "Choisis un moment précis pour le lancement.",
+                "hint3": "Exemple à recopier : « À mon avis, nous devons lancer l'opération à l'aube.",
+                "feedback": "Ton avis donne une direction à l'équipe."
+            },
+            {
+                "type": "interactive",
+                "title": "Thèse précise",
+                "question": "Quelle thèse est la plus précise ?",
+                "options": [
+                    "Il faut faire attention.",
+                    "Je pense que nous devons envoyer un drone sur le toit.",
+                    "La mission est importante."
+                ],
+                "answer": 1,
+                "feedback": "Elle contient une décision concrète."
+            },
+            {
+                "type": "write",
+                "title": "Message de squad",
+                "question": "Rédige deux phrases : une observation puis ton avis sur la suite.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "je pense"
+                    ],
+                    "minWords": 12,
+                    "enforceKeywords": true
+                },
+                "hint": "Commence par un fait observé, puis donne ton avis.",
+                "hint2": "Ta deuxième phrase peut commencer par « Je pense que ».",
+                "hint3": "Exemple à recopier : « Le pont est surveillé. Je pense que nous devons contourner la zone.",
+                "feedback": "Message structuré : fait puis position."
+            },
+            {
+                "type": "write",
+                "title": "Réécriture claire",
+                "question": "Réécris cette idée sous la forme d'une thèse : « passer par le tunnel est une bonne idée ».",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "je pense"
+                    ],
+                    "enforceKeywords": true
+                },
+                "hint": "Transforme l'idée en phrase complète.",
+                "hint2": "Ajoute « Je pense que » et une majuscule.",
+                "hint3": "Exemple à recopier : « Je pense que passer par le tunnel est une bonne idée.",
+                "feedback": "Ta thèse est maintenant formulée correctement."
+            },
+            {
+                "type": "interactive",
+                "title": "Check de transmission",
+                "question": "Quelle phrase permet le mieux de convaincre la squad d'agir ?",
+                "options": [
+                    "Le radar est là.",
+                    "Selon moi, il faut désactiver le radar maintenant.",
+                    "Le radar est métallique."
+                ],
+                "answer": 1,
+                "feedback": "La décision est explicite."
+            },
+            {
+                "type": "challenge",
+                "title": "Boss de Fin - Mission 1",
+                "question": "Rédige une thèse de mission en expliquant quelle action la squad doit accomplir en premier.",
+                "requirements": {
+                    "mode": "sentence",
+                    "keywords": [
+                        "je pense",
+                        "doit"
+                    ],
+                    "minWords": 20,
+                    "enforceKeywords": true
+                },
+                "hint": "Annonce clairement ta position avant de décrire l'action.",
+                "hint2": "Utilise « Je pense que » et précise l'action prioritaire de la squad.",
+                "hint3": "Exemple à recopier : « Je pense que la squad doit sécuriser le relais avant de traverser le pont, car cette action protège toute l'opération.",
+                "feedback": "Boss validé. Ta thèse donne un cap à l'opération."
+            }
+        ]
+    }
+];
+
+    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
+</script>
+
+</body>
+</html>
