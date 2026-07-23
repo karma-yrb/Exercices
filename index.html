@@ -303,11 +303,11 @@
                     <div class="absolute top-0 right-0 p-4 opacity-10">
                         <svg class="w-24 h-24" viewBox="0 0 24 24"><path d="M12,12L14.33,19L15,21L16,22L17,21L17.66,19L20,12L21,9L22,8L21,7L20,5L17.66,3L17,2L16,1L15,2L14.33,3L12,5L11,7L10,8L11,9L12,12Z"/></svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Progrès de la Mission</h3>
+                    <h3 class="text-2xl font-bold mb-4">Progrès global</h3>
                     <div class="w-full bg-white/5 rounded-full h-3 mb-4 overflow-hidden">
-                        <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-full w-[35%] rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-all duration-1000 group-hover:w-[45%]"></div>
+                        <div id="global-mission-bar" class="bg-gradient-to-r from-blue-500 to-purple-500 h-full w-0 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-all duration-1000"></div>
                     </div>
-                    <p class="text-slate-400 font-medium">Vous avez complété 3 sessions sur 10 prévues ce mois-ci. Continuez !</p>
+                    <p id="global-mission-text" class="text-slate-400 font-medium">Chargement de la progression…</p>
                 </div>
             </section>
 
@@ -344,6 +344,17 @@
             const lovyc = ProgressReport.getTrackProgress('lovyc');
             document.getElementById('lovyc-bar').style.width = lovyc.percent + '%';
             document.getElementById('lovyc-count').innerText = `${lovyc.done}/${lovyc.total} Missions`;
+
+            const totalDone = lovyc.done + zyvah.done;
+            const totalMissions = lovyc.total + zyvah.total;
+            const globalPercent = totalMissions > 0 ? (totalDone / totalMissions) * 100 : 0;
+            ProgressReport.setBarWidth('global-mission-bar', globalPercent);
+            const text = document.getElementById('global-mission-text');
+            if (text) {
+                text.textContent = totalDone === 0
+                    ? 'Pas encore de mission validée. Lance Lovyc ou Zyvah pour commencer.'
+                    : `Vous avez complété ${totalDone} mission(s) sur ${totalMissions}. Continuez !`;
+            }
         }
 
         window.onload = updateDashboard;
