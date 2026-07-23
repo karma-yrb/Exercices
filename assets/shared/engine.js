@@ -1,4 +1,4 @@
-// ENGINE SPA - UNIVERSAL (Robust Version)
+// ENGINE SPA - UNIVERSAL (FR + Maths)
 // Handles progress, navigation and rendering for all modules
 
 (function ensureProductVersion() {
@@ -46,6 +46,53 @@ function hasRequiredToken(rawText, normalizedWords, keyword) {
     }
     return rawText.includes(token);
 }
+
+function toIdString(value) {
+    return value === undefined || value === null ? null : value.toString();
+}
+
+function findDayById(dayId) {
+    const target = toIdString(dayId);
+    if (!target) return null;
+    return appData.find(d => d && toIdString(d.id) === target) || null;
+}
+
+function isMathMode(config) {
+    const cfg = config || window.APP_CONFIG || {};
+    if (cfg.MATH_MODE === true) return true;
+    const hay = `${cfg.TRACKING_SUBJECT || ''} ${cfg.STORAGE_KEY || ''}`;
+    return /maths?/i.test(hay);
+}
+
+const normalizeMath = (raw) => {
+    if (!raw) return "";
+    let result = raw.toString().trim().toLowerCase();
+    result = result.replace(/²/g, "^2");
+    result = result.replace(/³/g, "^3");
+    result = result.replace(/(\d)([a-z])/gi, "$1*$2");
+    result = result.replace(/\s+/g, "");
+    return result;
+};
+
+const extractNumbers = (raw) => {
+    if (!raw) return [];
+    const matches = raw.match(/-?\d+\.?\d*/g);
+    return matches ? matches.map(n => n.trim()) : [];
+};
+
+const sameNumbers = (arr1, arr2) => {
+    if (!arr1 || !arr2) return false;
+    if (arr1.length !== arr2.length) return false;
+    const sorted1 = arr1.slice().sort();
+    const sorted2 = arr2.slice().sort();
+    return sorted1.every((val, idx) => val === sorted2[idx]);
+};
+
+const containsMathSymbols = (raw) => {
+    if (!raw) return false;
+    return /[+\-*/^²³()=xyzabc\d]/i.test(raw);
+};
+
 
 const TRACKING_DEVICE_KEY = 'learning_device_id_v1';
 
@@ -192,6 +239,11 @@ function shouldTrackProgressiveWriteHints(step) {
     const config = window.APP_CONFIG || {};
     const supportsProgressiveHints = !!step && (step.type === 'write' || step.type === 'challenge');
     if (!supportsProgressiveHints) return false;
+
+    if (isMathMode(config)) {
+        return Boolean(step && (step.hint1 || step.hint2 || step.hint));
+    }
+
     if (!supportsProgressiveWriteHintsSubject(config)) return false;
 
     const levels = getWriteHintLevels(step);
@@ -199,6 +251,19 @@ function shouldTrackProgressiveWriteHints(step) {
 }
 
 function getActiveWriteHint(step) {
+    const config = window.APP_CONFIG || {};
+    if (isMathMode(config)) {
+        if (!(step && (step.hint1 || step.hint2 || step.hint))) return null;
+        if (writeAttemptCount >= 3 && step.hint2) {
+            return { label: '💡 INDICE DÉTAILLÉ', content: step.hint2 };
+        }
+        if (writeAttemptCount >= 2 && step.hint1) {
+            return { label: '💡 MÉTHODE', content: step.hint1 };
+        }
+        if (step.hint) return { label: '💡 INDICE', content: step.hint };
+        return null;
+    }
+
     const levels = getWriteHintLevels(step);
     if (!levels.base && !levels.guided && !levels.solution) return null;
 
@@ -221,6 +286,10 @@ function registerWriteFailure(step) {
 
     const previous = writeAttemptCount;
     writeAttemptCount += 1;
+
+    if (isMathMode()) {
+        return writeAttemptCount === 2 || writeAttemptCount === 3;
+    }
 
     const levels = getWriteHintLevels(step);
     const phase2Threshold = levels.guided ? 2 : Number.POSITIVE_INFINITY;
@@ -410,7 +479,7 @@ function boot() {
         }
     }
 
-    const currentDayData = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === state.currentDay);
+    const currentDayData = findDayById(state.currentDay);
     writeAttemptCount = 0;
     if (state.currentDay && currentDayData && currentDayData.steps) {
         renderStep();
@@ -435,7 +504,7 @@ function boot() {
 
     if (el.btnNext) {
         el.btnNext.onclick = () => {
-            const day = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === state.currentDay);
+            const day = findDayById(state.currentDay);
             if (day && state.currentStep < day.steps.length - 1) {
                 state.currentStep++;
                 writeAttemptCount = 0;
@@ -744,7 +813,7 @@ function startDay(dayIdStr) {
 }
 
 function renderStep() {
-    const day = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === state.currentDay);
+    const day = findDayById(state.currentDay);
     if (!day || !day.steps) {
         state.currentDay = null;
         renderLobby();
@@ -929,12 +998,11 @@ async function validateTactical(text, reqs, step) {
     const rawText = (text || '').trim();
     const hasOneWordTarget = Number(reqs && reqs.minWords) <= 1;
     const minChars = Number(reqs && reqs.minChars) || (hasOneWordTarget ? 1 : 3);
+    const mathMode = isMathMode();
 
     if (!rawText || rawText.length < minChars) {
-        return { ok: false, msg: 'Message trop court pour être valide.' };
+        return { ok: false, msg: mathMode ? 'Reponse trop courte.' : 'Message trop court pour être valide.' };
     }
-
-    const normalizedWords = splitNormalizedWords(rawText);
 
     if (step && step.hint && normalizeText(step.hint) === normalizeText(rawText)) {
         return { ok: false, msg: 'Reformule avec tes propres mots au lieu de copier l\'indice.' };
@@ -949,9 +1017,48 @@ async function validateTactical(text, reqs, step) {
     if (reqs && Array.isArray(reqs.forbidden)) {
         const forbiddenHit = reqs.forbidden.find(f => cleanRaw.includes(normalizeText(f)));
         if (forbiddenHit) {
-            return { ok: false, msg: `Tu dois remplacer "${forbiddenHit}".` };
+            return { ok: false, msg: 'Tu dois remplacer "' + forbiddenHit + '".' };
         }
     }
+
+    if (mathMode) {
+        const looksNumeric = !!(reqs && Array.isArray(reqs.keywords) && reqs.keywords.length > 0 && reqs.keywords.every(k => /^-?\d+(\.\d+)?$/.test(k)));
+        if (looksNumeric) {
+            const userNumbers = extractNumbers(rawText);
+            if (sameNumbers(userNumbers, reqs.keywords)) {
+                return { ok: true };
+            }
+            return { ok: false, msg: 'Resultat incorrect. Verifie ton calcul.' };
+        }
+
+        if (reqs && reqs.validationType === 'algebraic') {
+            const userMath = normalizeMath(rawText);
+            const normKeywords = (reqs.keywords || []).map(k => normalizeMath(k));
+            const allPresent = normKeywords.every(kw => userMath.includes(kw));
+            if (!allPresent) {
+                const missing = (reqs.keywords || []).filter((k, i) => !userMath.includes(normKeywords[i]));
+                return { ok: false, msg: 'Expression incomplete. Elements manquants : ' + missing.join(', ') };
+            }
+            if (reqs.minWords) {
+                const terms = userMath.split(/[\s+\-*/()]+/).filter(t => t.length > 0);
+                if (terms.length < reqs.minWords) {
+                    return { ok: false, msg: 'Expression trop simple. Detaille davantage.' };
+                }
+            }
+            return { ok: true };
+        }
+
+        if (reqs && reqs.validationType === 'equation' && reqs.expectNumbers) {
+            const userNumbers = extractNumbers(rawText);
+            const expectedNumbers = reqs.keywords || [];
+            if (sameNumbers(userNumbers, expectedNumbers)) {
+                return { ok: true };
+            }
+            return { ok: false, msg: 'Solutions incorrectes. Verifie tes calculs.' };
+        }
+    }
+
+    const normalizedWords = splitNormalizedWords(rawText);
 
     if (reqs && Array.isArray(reqs.keywordGroups) && reqs.keywordGroups.length > 0) {
         const missingGroups = reqs.keywordGroups.filter(group =>
@@ -965,7 +1072,7 @@ async function validateTactical(text, reqs, step) {
         }
     }
 
-    if (reqs && reqs.keywords) {
+    if (reqs && Array.isArray(reqs.keywords) && reqs.keywords.length > 0) {
         if (reqs.enforceKeywords) {
             const missing = reqs.keywords.filter(keyword => !hasRequiredToken(rawText, normalizedWords, keyword));
             if (missing.length > 0) {
@@ -982,15 +1089,19 @@ async function validateTactical(text, reqs, step) {
     if (reqs && reqs.minWords) {
         const words = rawText.split(/\s+/).filter(Boolean).length;
         if (words < reqs.minWords) {
-            return { ok: false, msg: `Ta reponse est trop courte (${words} mots). Minimum: ${reqs.minWords}.` };
+            return { ok: false, msg: 'Ta reponse est trop courte (' + words + ' mots). Minimum: ' + reqs.minWords + '.' };
         }
     }
 
     if (reqs && reqs.minSentences) {
         const sentenceCount = (rawText.match(/[.!?]+/g) || []).length;
         if (sentenceCount < reqs.minSentences) {
-            return { ok: false, msg: `Ajoute ${reqs.minSentences} phrase(s) complete(s).` };
+            return { ok: false, msg: 'Ajoute ' + reqs.minSentences + ' phrase(s) complete(s).' };
         }
+    }
+
+    if (mathMode && containsMathSymbols(rawText)) {
+        return { ok: true };
     }
 
     try {
@@ -1008,8 +1119,10 @@ async function validateTactical(text, reqs, step) {
             const error = data.matches[0];
             let msg = error.message;
             if (error.rule.issueType === 'misspelling') msg = 'Erreur de saisie : ' + error.context.text.substr(error.context.offset, error.context.length) + ' semble mal ecrit.';
-            if (msg.includes('Sujet et verbe ne semblent pas s’accorder')) msg = 'Alerte Accord : Ton verbe n\'est pas synchronisé avec ton sujet !';
-            
+            if (msg.includes('Sujet et verbe ne semblent pas s\'accorder') || msg.includes('Sujet et verbe ne semblent pas s’accorder')) {
+                msg = 'Alerte Accord : Ton verbe n\'est pas synchronisé avec ton sujet !';
+            }
+
             return { ok: false, msg: msg };
         }
     } catch (e) {
@@ -1096,7 +1209,7 @@ async function syncWithParent(dayId, status = 'TERMINE') {
     const moduleName = getTrackingModule(config, pathParts);
     
     // Récupération des infos de la mission
-    const day = appData.find(d => d && d.id !== undefined && d.id !== null && d.id.toString() === dayId.toString());
+    const day = findDayById(dayId);
     const missionId = dayId;
     const unitLabel = getUnitLabel(config);
     const missionTitle = day ? day.title : unitLabel;

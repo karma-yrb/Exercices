@@ -284,7 +284,7 @@ function missionHtml({ seance, steps, moduleNum, storageKey, isLast, checkpointA
     const weekData = ${JSON.stringify(weekData, null, 4)};
 </script>
 
-<script src="../../../assets/shared/engine_math.js"></script>
+<script src="../../../assets/shared/engine.js"></script>
 
 </body>
 </html>
@@ -349,7 +349,7 @@ function indexHtml({ seances, moduleNum, storageKey, prereqKey, prereqMin }) {
     const weekData = ${JSON.stringify(days, null, 4)};
 </script>
 
-<script src="../../../assets/shared/engine_math.js"></script>
+<script src="../../../assets/shared/engine.js"></script>
 
 </body>
 </html>
