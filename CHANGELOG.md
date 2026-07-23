@@ -6,6 +6,19 @@ Le numéro de version produit (`package.json` / `assets/shared/version.js`) est 
 
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnement sémantique.
 
+## [2.6.0] — 2026-07-23
+
+Lovyc Français : Modules 3 (phrase complexe) et 4 (argumentation / compte-rendu).
+
+### Lovyc — Français
+- **Module 3** : coordination, subordination, cause/conséquence, connecteurs logiques, synthèse (5 missions).
+- **Module 4** : thèse, argument/exemple, jugement nuancé, structure de compte-rendu, boss synthèse (5 missions).
+- Hub Lovyc : cartes M3/M4 + verrouillage en chaîne ; clés `lovyc_fr_w3_v1`, `lovyc_fr_w4_v1`.
+- Générateur HTML FR : `tools/workflow/build-fr-module-html.js`.
+
+### Produit / Portail
+- Version produit `2.6.0`.
+
 ## [2.5.0] — 2026-07-22
 
 Baseline de versioning produit : numéro unique, notes de version par module, affichage permanent sur le site.

@@ -1,6 +1,6 @@
 // Product version — keep in sync with package.json "version".
 // Not related to module STORAGE_KEY _vK revisions.
-window.APP_VERSION = '2.5.0';
+window.APP_VERSION = '2.6.0';
 
 (function mountProductVersionUi() {
     const VERSION = window.APP_VERSION || '?.?.?';

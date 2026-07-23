@@ -1,6 +1,30 @@
 // Release notes data — keep in sync with CHANGELOG.md and APP_VERSION.
 window.APP_RELEASES = [
     {
+        version: '2.6.0',
+        date: '2026-07-23',
+        summary: 'Lovyc Français : Modules 3 (phrase complexe) et 4 (argumentation / compte-rendu).',
+        modules: [
+            {
+                id: 'lovyc-fr',
+                label: 'Lovyc — Français',
+                changes: [
+                    'Module 3 : coordination, subordination, cause/conséquence, connecteurs, synthèse (5 missions).',
+                    'Module 4 : thèse, argument/exemple, jugement nuancé, compte-rendu, boss synthèse (5 missions).',
+                    'Hub Lovyc : cartes M3/M4 + verrouillage en chaîne ; clés lovyc_fr_w3_v1, lovyc_fr_w4_v1.',
+                    'Générateur HTML FR : tools/workflow/build-fr-module-html.js.'
+                ]
+            },
+            {
+                id: 'produit',
+                label: 'Produit / Portail',
+                changes: [
+                    'Version produit 2.6.0.'
+                ]
+            }
+        ]
+    },
+    {
         version: '2.5.0',
         date: '2026-07-22',
         summary: 'Baseline de versioning produit : numéro unique, notes de version par module, affichage permanent sur le site.',
