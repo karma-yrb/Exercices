@@ -251,7 +251,7 @@
             </a>
         </div>
 
-        <button onclick="sendReport()" class="btn-report">
+        <button type="button" onclick="sendReport('lovyc')" class="btn-report">
             Partager mon avancement
         </button>
 
@@ -260,40 +260,28 @@
 
     <script src="../assets/shared/version.js"></script>
     <script src="../assets/shared/storage-keys.js"></script>
+    <script src="../assets/shared/progress-report.js"></script>
     <script>
         function updateProgress() {
-            // INITIATION
-            const raw0 = localStorage.getItem(storageKey('lovyc_fr_w0'));
-            const done0 = raw0 ? (JSON.parse(raw0).completedDays || []).length : 0;
+            const done0 = ProgressReport.getCompletedCount('lovyc_fr_w0');
+            const done1 = ProgressReport.getCompletedCount('lovyc_fr_w1');
+            const done2 = ProgressReport.getCompletedCount('lovyc_fr_w2');
+            const done3 = ProgressReport.getCompletedCount('lovyc_fr_w3');
+            const done4 = ProgressReport.getCompletedCount('lovyc_fr_w4');
             const p0 = (done0 / 1) * 100;
+            const p1 = (done1 / 5) * 100;
+            const p2 = (done2 / 5) * 100;
+            const p3 = (done3 / 5) * 100;
+            const p4 = (done4 / 5) * 100;
+
             document.getElementById('fr-s0-bar').style.width = p0 + '%';
             document.getElementById('fr-s0-count').innerText = `${done0}/1 MISSION`;
-
-            // MODULE 1
-            const raw1 = localStorage.getItem(storageKey('lovyc_fr_w1'));
-            const done1 = raw1 ? (JSON.parse(raw1).completedDays || []).length : 0;
-            const p1 = (done1 / 5) * 100;
             document.getElementById('fr-s1-bar').style.width = p1 + '%';
             document.getElementById('fr-s1-count').innerText = `${done1}/5 MISSIONS`;
-
-            // MODULE 2
-            const raw2 = localStorage.getItem(storageKey('lovyc_fr_w2'));
-            const done2 = raw2 ? (JSON.parse(raw2).completedDays || []).length : 0;
-            const p2 = (done2 / 5) * 100;
             document.getElementById('fr-s2-bar').style.width = p2 + '%';
             document.getElementById('fr-s2-count').innerText = `${done2}/5 MISSIONS`;
-
-            // MODULE 3
-            const raw3 = localStorage.getItem(storageKey('lovyc_fr_w3'));
-            const done3 = raw3 ? (JSON.parse(raw3).completedDays || []).length : 0;
-            const p3 = (done3 / 5) * 100;
             document.getElementById('fr-s3-bar').style.width = p3 + '%';
             document.getElementById('fr-s3-count').innerText = `${done3}/5 MISSIONS`;
-
-            // MODULE 4
-            const raw4 = localStorage.getItem(storageKey('lovyc_fr_w4'));
-            const done4 = raw4 ? (JSON.parse(raw4).completedDays || []).length : 0;
-            const p4 = (done4 / 5) * 100;
             document.getElementById('fr-s4-bar').style.width = p4 + '%';
             document.getElementById('fr-s4-count').innerText = `${done4}/5 MISSIONS`;
 
@@ -308,40 +296,13 @@
                 if (chevron) chevron.innerHTML = '<span style="font-size: 20px;">🔒</span>';
             };
 
-            // VERROUILLAGE MODULE 1
             if (done0 < 1) lockCard('card-mod-1', 'chevron-mod-1');
-
-            // VERROUILLAGE MODULE 2
             if (done1 < 5) lockCard('card-mod-2', 'chevron-mod-2');
-
-            // VERROUILLAGE MODULE 3
             if (done2 < 5) lockCard('card-mod-3', 'chevron-mod-3');
-
-            // VERROUILLAGE MODULE 4
             if (done3 < 5) lockCard('card-mod-4', 'chevron-mod-4');
 
-            // Barre Globale (Moyenne des modules)
             const globalPercent = (p0 + p1 + p2 + p3 + p4) / 5;
             document.getElementById('global-bar').style.width = globalPercent + '%';
-        }
-
-        function sendReport() {
-            const raw0 = localStorage.getItem(storageKey('lovyc_fr_w0'));
-            const raw1 = localStorage.getItem(storageKey('lovyc_fr_w1'));
-            const raw2 = localStorage.getItem(storageKey('lovyc_fr_w2'));
-            const raw3 = localStorage.getItem(storageKey('lovyc_fr_w3'));
-            const raw4 = localStorage.getItem(storageKey('lovyc_fr_w4'));
-            
-            const done0 = raw0 ? (JSON.parse(raw0).completedDays || []).length : 0;
-            const done1 = raw1 ? (JSON.parse(raw1).completedDays || []).length : 0;
-            const done2 = raw2 ? (JSON.parse(raw2).completedDays || []).length : 0;
-            const done3 = raw3 ? (JSON.parse(raw3).completedDays || []).length : 0;
-            const done4 = raw4 ? (JSON.parse(raw4).completedDays || []).length : 0;
-            
-            const reportText = `Salut !\n\nVoilà ma progression Lovyc :\n- Initiation : ${done0}/1 mission\n- Module 1 : ${done1}/5 missions\n- Module 2 : ${done2}/5 missions\n- Module 3 : ${done3}/5 missions\n- Module 4 : ${done4}/5 missions`;
-            const bodyEncoded = encodeURIComponent(reportText);
-            
-            window.location.href = `mailto:karmafr@gmail.com?subject=Progression Lovyc&body=${bodyEncoded}`;
         }
 
         updateProgress();

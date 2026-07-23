@@ -197,7 +197,7 @@
             </a>
         </div>
 
-        <button onclick="sendReport()" class="btn-report">
+        <button type="button" onclick="sendReport('zyvah')" class="btn-report">
             Partager mon avancement
         </button>
 
@@ -205,47 +205,24 @@
 
     <script src="../assets/shared/version.js"></script>
     <script src="../assets/shared/storage-keys.js"></script>
+    <script src="../assets/shared/progress-report.js"></script>
     <script>
         function updateProgress() {
-            const getDone = (key) => {
-                const raw = localStorage.getItem(key);
-                if (!raw) return 0;
-                const state = JSON.parse(raw);
-                return (state.completedDays || []).length;
-            };
+            const modules = ProgressReport.getTrackProgress('zyvah').modules;
+            const maths = modules.filter((m) => m.id.indexOf('maths') !== -1);
+            const ses = modules.filter((m) => m.id.indexOf('ses') !== -1);
 
-            const mathDone = getDone(storageKey('zyvah_maths_w1'));
-            const sesDone = getDone(storageKey('zyvah_ses_w1'));
+            const sum = (list) => list.reduce((acc, m) => ({ done: acc.done + m.done, total: acc.total + m.total }), { done: 0, total: 0 });
+            const mathAgg = sum(maths);
+            const sesAgg = sum(ses);
+            const mathPercent = mathAgg.total > 0 ? (mathAgg.done / mathAgg.total) * 100 : 0;
+            const sesPercent = sesAgg.total > 0 ? (sesAgg.done / sesAgg.total) * 100 : 0;
 
-            // Maths Module 1 = 1 seance active ; SES Module 1 = 5
-            const mathTotal = 1;
-            const mathPercent = (mathDone / mathTotal) * 100;
             document.getElementById('math-bar').style.width = mathPercent + '%';
-            document.getElementById('math-count').innerText = `${mathDone}/${mathTotal} SEANCES`;
-
-            const sesTotal = 5;
-            const sesPercent = (sesDone / sesTotal) * 100;
+            document.getElementById('math-count').innerText = `${mathAgg.done}/${mathAgg.total} SEANCES`;
             document.getElementById('ses-bar').style.width = sesPercent + '%';
-            document.getElementById('ses-count').innerText = `${sesDone}/${sesTotal} SEANCES`;
-
-            const globalPercent = (mathPercent + sesPercent) / 2;
-            document.getElementById('global-bar').style.width = globalPercent + '%';
-        }
-
-        function sendReport() {
-            const getDone = (key) => {
-                const raw = localStorage.getItem(key);
-                if (!raw) return 0;
-                const state = JSON.parse(raw);
-                return (state.completedDays || []).length;
-            };
-
-            const mathDone = getDone(storageKey('zyvah_maths_w1'));
-            const sesDone = getDone(storageKey('zyvah_ses_w1'));
-            const reportText = `Salut !\n\nVoilà ma progression Zyvah :\n- Maths : ${mathDone}/1 SEANCES.\n- SES : ${sesDone}/5 SEANCES.`;
-            const bodyEncoded = encodeURIComponent(reportText);
-
-            window.location.href = `mailto:karmafr@gmail.com?subject=Progression Zyvah&body=${bodyEncoded}`;
+            document.getElementById('ses-count').innerText = `${sesAgg.done}/${sesAgg.total} SEANCES`;
+            document.getElementById('global-bar').style.width = ((mathPercent + sesPercent) / 2) + '%';
         }
 
         updateProgress();

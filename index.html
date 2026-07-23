@@ -334,69 +334,16 @@
 
     <script src="assets/shared/version.js"></script>
     <script src="assets/shared/storage-keys.js"></script>
+    <script src="assets/shared/progress-report.js"></script>
     <script>
         function updateDashboard() {
-            // Configuration des modules pour calcul (cles = registre storage-keys.js)
-            const zyvahModules = [
-                { key: storageKey('zyvah_maths_w1'), total: 1 },
-                { key: storageKey('zyvah_ses_w1'), total: 5 }
-            ];
-            const lovycModules = [
-                { key: storageKey('lovyc_fr_w1'), total: 5 }
-            ];
-
-            function getProgress(modules) {
-                let done = 0;
-                let total = 0;
-                modules.forEach(m => {
-                    const data = localStorage.getItem(m.key);
-                    if (data) {
-                        const state = JSON.parse(data);
-                        // engine.js v2 sauve un objet avec completedDays
-                        if (state.completedDays) {
-                            done += state.completedDays.length;
-                        } else if (Array.isArray(state)) {
-                            // Rétro-compatibilité engine v1
-                            done += state.length;
-                        }
-                    }
-                    total += m.total;
-                });
-                return { done, total, percent: (done / total) * 100 };
-            }
-
-            // Update Zyvah
-            const zyvah = getProgress(zyvahModules);
+            const zyvah = ProgressReport.getTrackProgress('zyvah');
             document.getElementById('zyvah-bar').style.width = zyvah.percent + '%';
             document.getElementById('zyvah-count').innerText = `${zyvah.done}/${zyvah.total} Missions`;
 
-            // Update Lovyc
-            const lovyc = getProgress(lovycModules);
+            const lovyc = ProgressReport.getTrackProgress('lovyc');
             document.getElementById('lovyc-bar').style.width = lovyc.percent + '%';
             document.getElementById('lovyc-count').innerText = `${lovyc.done}/${lovyc.total} Missions`;
-        }
-
-        function generateParentReport() {
-            const keys = {
-                'Lovyc (Français)': storageKey('lovyc_fr_w1'),
-                'Zyvah (Maths)': storageKey('zyvah_maths_w1'),
-                'Zyvah (SES)': storageKey('zyvah_ses_w1')
-            };
-
-            let report = "RAPPORT D'AVANCEMENT - " + new Date().toLocaleDateString() + "\n\n";
-            for (let name in keys) {
-                const data = localStorage.getItem(keys[name]);
-                if (data) {
-                    const state = JSON.parse(data);
-                    const done = state.completedDays ? state.completedDays.length : 0;
-                    report += `[${name}] : ${done} mission(s) validée(s).\n`;
-                } else {
-                    report += `[${name}] : Pas encore commencé.\n`;
-                }
-            }
-
-            const mailto = `mailto:karmafr@gmail.com?subject=Rapport d'apprentissage&body=${encodeURIComponent(report)}`;
-            window.location.href = mailto;
         }
 
         window.onload = updateDashboard;
