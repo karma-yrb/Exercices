@@ -23,18 +23,18 @@ const draftPath = path.join(repoRoot, "docs", "modules", `lovyc_fr_module_${modu
 const outDir = path.join(repoRoot, "Lovyc", "Francais", `Module_${moduleNum}`);
 
 const STORAGE_BY_NUM = {
-    0: "lovyc_fr_w0_v1",
-    1: "lovyc_fr_w1_v2",
-    2: "lovyc_fr_w2_v2",
-    3: "lovyc_fr_w3_v1",
-    4: "lovyc_fr_w4_v1"
+    0: "lovyc_fr_w0",
+    1: "lovyc_fr_w1",
+    2: "lovyc_fr_w2",
+    3: "lovyc_fr_w3",
+    4: "lovyc_fr_w4"
 };
 
 const PREREQ_BY_NUM = {
-    1: { key: "lovyc_fr_w0_v1", min: 1 },
-    2: { key: "lovyc_fr_w1_v2", min: 5 },
-    3: { key: "lovyc_fr_w2_v2", min: 5 },
-    4: { key: "lovyc_fr_w3_v1", min: 5 }
+    1: { key: "lovyc_fr_w0", min: 1 },
+    2: { key: "lovyc_fr_w1", min: 5 },
+    3: { key: "lovyc_fr_w2", min: 5 },
+    4: { key: "lovyc_fr_w3", min: 5 }
 };
 
 const MODULE_META = {
@@ -309,11 +309,10 @@ function missionHtml({ mission, steps, moduleNum, storageKey, isLast }) {
     </div>
 </div>
 
-<script src="../../../assets/shared/engine.js?v=20260210"></script>
-<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
+<script src="../../../assets/shared/storage-keys.js"></script>
 <script>
     window.APP_CONFIG = {
-        STORAGE_KEY: ${JSON.stringify(storageKey)},
+        STORAGE_KEY: storageKey(${JSON.stringify(storageKey)}),
         SINGLE_MISSION_MODE: ${mission.num},
         TRACKING_SUBJECT: "Francais",
         TRACKING_MODULE: "Module_${moduleNum}",
@@ -323,6 +322,8 @@ function missionHtml({ mission, steps, moduleNum, storageKey, isLast }) {
 
     document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
 </script>
+<script src="../../../assets/shared/engine.js?v=20260210"></script>
+<script src="../../../assets/lovyc/fr_validator.js?v=20260210"></script>
 
 </body>
 </html>
@@ -379,10 +380,11 @@ function indexHtml({ missions, intros, moduleNum, storageKey }) {
     </div>
 </div>
 
+<script src="../../../assets/shared/storage-keys.js"></script>
 <script>
     window.APP_CONFIG = {
-        STORAGE_KEY: ${JSON.stringify(storageKey)},
-        ${prereq ? `PREREQUISITE_KEY: ${JSON.stringify(prereq.key)},` : ""}
+        STORAGE_KEY: storageKey(${JSON.stringify(storageKey)}),
+        ${prereq ? `PREREQUISITE_KEY: storageKey(${JSON.stringify(prereq.key)}),` : ""}
         ${prereq ? `PREREQUISITE_MIN: ${prereq.min},` : ""}
         MODULE_NAME: "MODULE ${moduleNum}",
         MISSION_LABEL: "MISSION",

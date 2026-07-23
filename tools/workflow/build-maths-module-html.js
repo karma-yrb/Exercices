@@ -21,8 +21,8 @@ if (!Number.isInteger(moduleNum) || moduleNum < 0) {
 
 const draftPath = path.join(repoRoot, "docs", "modules", `zyvah_maths_module_${moduleNum}.md`);
 const outDir = path.join(repoRoot, "Zyvah", "Maths", `Module_${moduleNum}`);
-const storageKey = `zyvah_maths_w${moduleNum}_v1`;
-const prereqKey = moduleNum > 0 ? `zyvah_maths_w${moduleNum - 1}_v1` : null;
+const storageModuleId = `zyvah_maths_w${moduleNum}`;
+const prereqModuleId = moduleNum > 0 ? `zyvah_maths_w${moduleNum - 1}` : null;
 const prereqMin = moduleNum === 1 ? 1 : (moduleNum > 1 ? 5 : null);
 
 function mdInlineToHtml(text) {
@@ -208,7 +208,7 @@ function toStep(screen) {
     return null;
 }
 
-function missionHtml({ seance, steps, moduleNum, storageKey, isLast, checkpointAfter }) {
+function missionHtml({ seance, steps, moduleNum, storageModuleId, isLast, checkpointAfter }) {
     let successNext;
     if (checkpointAfter) {
         successNext = `<div class="box-concept next-mission-call"><span>CHECKPOINT</span><br>Pause méritée</div>
@@ -270,9 +270,10 @@ function missionHtml({ seance, steps, moduleNum, storageKey, isLast, checkpointA
     </div>
 </div>
 
+<script src="../../../assets/shared/storage-keys.js"></script>
 <script>
     window.APP_CONFIG = {
-        STORAGE_KEY: ${JSON.stringify(storageKey)},
+        STORAGE_KEY: storageKey(${JSON.stringify(storageModuleId)}),
         SINGLE_MISSION_MODE: true,
         MISSION_LABEL: "SEANCE",
         QUIT_HREF: "index.html",
@@ -291,7 +292,7 @@ function missionHtml({ seance, steps, moduleNum, storageKey, isLast, checkpointA
 `;
 }
 
-function indexHtml({ seances, moduleNum, storageKey, prereqKey, prereqMin }) {
+function indexHtml({ seances, moduleNum, storageModuleId, prereqModuleId, prereqMin }) {
     const days = seances.map((s) => ({
         id: s.num,
         icon: ["🎚️", "✨", "➕", "✖️", "🏆"][s.num - 1] || "🎧",
@@ -336,12 +337,13 @@ function indexHtml({ seances, moduleNum, storageKey, prereqKey, prereqMin }) {
     </div>
 </div>
 
+<script src="../../../assets/shared/storage-keys.js"></script>
 <script>
     window.APP_CONFIG = {
-        STORAGE_KEY: ${JSON.stringify(storageKey)},
+        STORAGE_KEY: storageKey(${JSON.stringify(storageModuleId)}),
         MODULE_NAME: "Fractions & Partage",
         MISSION_LABEL: "SEANCE",
-        ${prereqKey ? `PREREQUISITE_KEY: ${JSON.stringify(prereqKey)},` : ""}
+        ${prereqModuleId ? `PREREQUISITE_KEY: storageKey(${JSON.stringify(prereqModuleId)}),` : ""}
         ${prereqMin != null ? `PREREQUISITE_MIN: ${prereqMin},` : ""}
         BASE_PATH: "./"
     };
@@ -429,8 +431,8 @@ function main() {
         indexHtml({
             seances: built.map((b) => b.seance),
             moduleNum,
-            storageKey,
-            prereqKey,
+            storageModuleId,
+            prereqModuleId,
             prereqMin
         }),
         "utf8"
@@ -442,7 +444,7 @@ function main() {
             seance,
             steps,
             moduleNum,
-            storageKey,
+            storageModuleId,
             isLast: idx === built.length - 1,
             checkpointAfter
         });

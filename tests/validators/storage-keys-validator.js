@@ -75,13 +75,34 @@ class StorageKeysValidator {
                 .forEach((file) => {
                     const rel = path.relative(this.rootDir, path.join(dir, file)).replace(/\\/g, '/');
                     const content = fs.readFileSync(path.join(dir, file), 'utf8');
-                    const declared = [...content.matchAll(/STORAGE_KEY\s*:\s*['"]([a-z0-9_]+)['"]/gi)]
+
+                    if (!/STORAGE_KEY\s*:/.test(content)) {
+                        return;
+                    }
+
+                    if (!content.includes('storage-keys.js')) {
+                        this.errors.push(`${rel}: storage-keys.js doit etre charge avant APP_CONFIG`);
+                    }
+
+                    const literalKeys = [...content.matchAll(/STORAGE_KEY\s*:\s*['"]([a-z0-9_]+)['"]/gi)]
                         .map((m) => m[1]);
-                    declared.forEach((key) => {
-                        if (key !== expectedKey) {
-                            this.errors.push(`${rel}: STORAGE_KEY="${key}" (attendu ${expectedKey})`);
+                    literalKeys.forEach((key) => {
+                        this.errors.push(`${rel}: STORAGE_KEY litteral "${key}" (utiliser storageKey('${moduleId}'))`);
+                    });
+
+                    const viaHelper = [...content.matchAll(/STORAGE_KEY\s*:\s*storageKey\(\s*['"]([a-z0-9_]+)['"]\s*\)/gi)]
+                        .map((m) => m[1]);
+                    if (viaHelper.length === 0 && literalKeys.length === 0) {
+                        this.errors.push(`${rel}: STORAGE_KEY present mais forme non reconnue`);
+                    }
+                    viaHelper.forEach((id) => {
+                        if (id !== moduleId) {
+                            this.errors.push(`${rel}: storageKey('${id}') (attendu storageKey('${moduleId}'))`);
+                        } else if (registry[id] !== expectedKey) {
+                            this.errors.push(`${rel}: storageKey('${id}') ne matche pas le registre (${expectedKey})`);
                         }
                     });
+
                     this.extractKeyLiterals(content).forEach((key) => {
                         if (key.replace(/_v\d+$/, '') === prefix && key !== expectedKey) {
                             this.errors.push(`${rel}: cle obsolete ${key} (actif ${expectedKey})`);
