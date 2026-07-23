@@ -1,0 +1,28 @@
+/* Story initiation dots — used by Module_0 missions (Lovyc / Maths / SES). */
+.story-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.story-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.story-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 14px var(--accent-glow);
+    transform: scale(1.1);
+}
+
+.story-hint {
+    margin-top: 14px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}

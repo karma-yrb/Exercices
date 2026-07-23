@@ -1,0 +1,206 @@
+/* Shared studio/command hubs — Lovyc + Zyvah dashboards.
+   Theme via body.hub-lovyc | body.hub-zyvah and card accent classes. */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
+.hub-page {
+    --hub-accent: #3b82f6;
+    --hub-accent-soft: rgba(59, 130, 246, 0.1);
+    --hub-accent-border: rgba(59, 130, 246, 0.3);
+    --hub-accent-glow: rgba(59, 130, 246, 0.2);
+    --hub-report: #60a5fa;
+    --hub-bar: #3b82f6;
+    --hub-glow: #3b82f6;
+    --hub-glow-shadow: rgba(59, 130, 246, 0.5);
+
+    font-family: 'Outfit', sans-serif;
+    background-color: #06070d;
+    color: #ffffff;
+    margin: 0;
+    padding: 1.25rem;
+    min-height: 100vh;
+}
+
+.hub-page.hub-zyvah {
+    --hub-accent: #d946ef;
+    --hub-accent-soft: rgba(217, 70, 239, 0.1);
+    --hub-accent-border: rgba(217, 70, 239, 0.3);
+    --hub-accent-glow: rgba(217, 70, 239, 0.2);
+    --hub-report: #c084fc;
+    --hub-bar: linear-gradient(to right, #a855f7, #06b6d4);
+    --hub-glow: #d946ef;
+    --hub-glow-shadow: rgba(217, 70, 239, 0.5);
+}
+
+.hub-page .container {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.hub-page a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hub-page .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.hub-page .card-fr {
+    border-left: 4px solid #3b82f6;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.hub-page .card-maths {
+    border-left: 4px solid #a855f7;
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.hub-page .card-ses {
+    border-left: 4px solid #06b6d4;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.hub-page .icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    margin-right: 14px;
+    flex-shrink: 0;
+}
+
+.hub-page svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+
+.hub-page .glow-lovyc,
+.hub-page .glow-zyvah {
+    color: var(--hub-glow);
+    text-shadow: 0 0 20px var(--hub-glow-shadow);
+}
+
+.hub-page .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    background: var(--hub-accent-soft);
+    border: 1px solid var(--hub-accent-border);
+    box-shadow: 0 0 20px var(--hub-accent-glow);
+}
+
+.hub-page .flex { display: flex; }
+.hub-page .items-center { align-items: center; }
+.hub-page .flex-grow { flex-grow: 1; }
+.hub-page .text-slate-100 { color: #f1f5f9; }
+.hub-page .text-slate-300 { color: #cbd5e1; }
+.hub-page .text-slate-400 { color: #94a3b8; }
+.hub-page .text-blue-400 { color: #60a5fa; }
+.hub-page .text-purple-400 { color: #c084fc; }
+.hub-page .text-cyan-400 { color: #22d3ee; }
+.hub-page .bg-blue-500 { background-color: #3b82f6; }
+.hub-page .bg-purple-500 { background-color: #a855f7; }
+.hub-page .bg-cyan-500 { background-color: #06b6d4; }
+.hub-page .bg-white\/10 { background-color: rgba(255, 255, 255, 0.1); }
+
+.hub-page header { margin-bottom: 2rem; }
+.hub-page .header-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.hub-page .title-h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.05em;
+}
+.hub-page .subtitle {
+    color: #64748b;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+}
+
+.hub-page .global-bar-container {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.hub-page .global-bar-fill {
+    height: 100%;
+    background: var(--hub-bar);
+    width: 0%;
+    transition: all 1s ease;
+}
+
+.hub-page .subject-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0;
+}
+.hub-page .mission-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 2px 0 0 0;
+}
+
+.hub-page .prog-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 10px;
+}
+.hub-page .prog-bar-bg {
+    flex-grow: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 140px;
+}
+.hub-page .prog-bar-fill { height: 100%; transition: all 1s ease; }
+.hub-page .prog-text {
+    font-size: 10px;
+    font-weight: 800;
+    color: #cbd5e1;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.hub-page .chevron { opacity: 0.5; margin-left: 8px; }
+
+.hub-page .btn-report {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    color: var(--hub-report);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+}

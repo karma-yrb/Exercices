@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Zyvah - Initiation Maths</title>
     <link rel="stylesheet" href="../../../assets/zyvah/studio.css">
+    <link rel="stylesheet" href="../../../assets/shared/story-nav.css">
     <style>
         .story-card {
             background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
@@ -45,34 +46,6 @@
         .story-text {
             font-size: 1.15rem;
             line-height: 1.55;
-        }
-
-        .story-dots {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 18px;
-        }
-
-        .story-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .story-dot.active {
-            background: var(--accent);
-            box-shadow: 0 0 14px var(--accent-glow);
-            transform: scale(1.1);
-        }
-
-        .story-hint {
-            margin-top: 14px;
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.9rem;
         }
 
         #step-title {
@@ -235,72 +208,12 @@
     ];
 </script>
 <script src="../../../assets/shared/engine.js?v=20260217"></script>
+<script src="../../../assets/shared/story-nav.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => initEngine(weekData));
-
-    (function setupStorySwipe() {
-        const area = document.getElementById('view-content');
-        if (!area) return;
-
-        let startX = 0;
-        let startY = 0;
-        let startTime = 0;
-
-        area.addEventListener('touchstart', (e) => {
-            const touch = e.changedTouches[0];
-            startX = touch.clientX;
-            startY = touch.clientY;
-            startTime = Date.now();
-        }, { passive: true });
-
-        area.addEventListener('touchend', (e) => {
-            const touch = e.changedTouches[0];
-            const deltaX = touch.clientX - startX;
-            const deltaY = touch.clientY - startY;
-            const elapsed = Date.now() - startTime;
-
-            if (elapsed > 650) return;
-            if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
-
-            if (deltaX < 0) {
-                document.getElementById('btn-next')?.click();
-            } else {
-                document.getElementById('btn-prev')?.click();
-            }
-        }, { passive: true });
-    })();
-
-    (function setupStoryDots() {
-        const dots = document.getElementById('story-dots');
-        if (!dots || !weekData[0] || !weekData[0].steps) return;
-
-        const total = weekData[0].steps.length;
-
-        function getCurrentStep() {
-            try {
-                const saved = localStorage.getItem(window.APP_CONFIG.STORAGE_KEY);
-                const parsed = saved ? JSON.parse(saved) : null;
-                if (parsed && parsed.currentDay === '1' && typeof parsed.currentStep === 'number') {
-                    return parsed.currentStep;
-                }
-            } catch (e) {
-                return 0;
-            }
-            return 0;
-        }
-
-        function renderDots() {
-            const current = Math.max(0, Math.min(total - 1, getCurrentStep()));
-            let html = '';
-            for (let i = 0; i < total; i++) {
-                html += `<span class="story-dot ${i === current ? 'active' : ''}"></span>`;
-            }
-            dots.innerHTML = html;
-        }
-
-        renderDots();
-        setInterval(renderDots, 300);
-    })();
+    document.addEventListener('DOMContentLoaded', () => {
+        initEngine(weekData);
+        initStoryNav({ weekData: weekData });
+    });
 </script>
 </body>
 </html>
