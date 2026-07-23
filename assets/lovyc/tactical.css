@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('../shared/exercise-shell.css');
 
 :root {
     --bg: #06070d;
@@ -12,6 +13,12 @@
     --border: rgba(0, 252, 244, 0.15);
     --font-main: 'Outfit', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+    --story-step-title-size: clamp(1.3rem, 6.1vw, 1.75rem);
+    --story-card-title-size: clamp(1.2rem, 5.7vw, 1.55rem);
+    --story-card-text-size: clamp(0.98rem, 4.3vw, 1.16rem);
+    --story-hint-size: clamp(0.84rem, 3.4vw, 0.95rem);
+    --story-btn-nav-size: clamp(0.76rem, 3.2vw, 0.9rem);
+    --story-btn-main-size: clamp(0.9rem, 3.7vw, 1rem);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -79,70 +86,8 @@ body::before {
 .view:not(.active) { display: none !important; }
 .view.active { display: flex !important; flex-direction: column; }
 
-#view-content.story-layout {
-    overflow: hidden;
-    gap: clamp(8px, 1.5vh, 14px);
-    padding-top: clamp(12px, 2vh, 20px);
-    padding-bottom: calc(clamp(10px, 1.7vh, 16px) + env(safe-area-inset-bottom, 0px));
-}
-#view-content.story-layout #step-title {
-    margin-bottom: clamp(6px, 1.1vh, 12px) !important;
-    font-size: clamp(1.3rem, 6.1vw, 1.75rem);
-    line-height: 1.14;
-}
-#view-content.story-layout #step-body {
-    min-height: 0;
-    display: flex;
-}
-#view-content.story-layout #step-body > .story-card {
-    width: 100%;
-    margin: 0;
-    padding: clamp(14px, 2.2vh, 24px) clamp(14px, 4vw, 22px);
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: clamp(8px, 1.2vh, 14px);
-}
-#view-content.story-layout .story-title {
-    font-size: clamp(1.2rem, 5.7vw, 1.55rem);
-    line-height: 1.15;
-    margin-bottom: 0;
-}
-#view-content.story-layout .story-text {
-    font-size: clamp(0.98rem, 4.3vw, 1.16rem);
-    line-height: 1.28;
-}
-#view-content.story-layout .story-dots {
-    margin-top: clamp(6px, 1vh, 12px);
-}
-#view-content.story-layout .story-hint {
-    margin-top: clamp(4px, 0.8vh, 8px);
-    font-size: clamp(0.84rem, 3.4vw, 0.95rem);
-}
 
-#app.story-layout-active .footer {
-    padding: 14px;
-    padding-bottom: calc(14px + env(safe-area-inset-bottom, 18px));
-}
-#app.story-layout-active .btn-group {
-    justify-content: center;
-}
-#app.story-layout-active .btn-nav,
-#app.story-layout-active .btn-main {
-    flex: 1 1 0;
-    min-width: 0;
-    text-align: center;
-}
-#app.story-layout-active .btn-nav {
-    padding: 14px;
-    font-size: clamp(0.76rem, 3.2vw, 0.9rem);
-}
-#app.story-layout-active .btn-main {
-    padding: 15px;
-    font-size: clamp(0.9rem, 3.7vw, 1rem);
-    letter-spacing: 1px;
-}
+
 
 .lobby-title {
     font-size: 2rem; font-weight: 900; margin-bottom: 8px; 
@@ -310,16 +255,9 @@ i { color: var(--text-dim); font-style: italic; }
 }
 
 @media (max-height: 760px) {
-    #view-content.story-layout #step-title { font-size: clamp(1.12rem, 5.5vw, 1.35rem); }
-    #view-content.story-layout #step-body > .story-card { padding: 12px 12px; }
-    #view-content.story-layout .story-title { font-size: clamp(1.05rem, 5vw, 1.25rem); }
-    #view-content.story-layout .story-text { font-size: clamp(0.88rem, 3.9vw, 0.98rem); }
-    #app.story-layout-active .footer {
         padding: 10px 12px;
         padding-bottom: calc(10px + env(safe-area-inset-bottom, 16px));
     }
-    #app.story-layout-active .btn-main,
-    #app.story-layout-active .btn-nav { padding: 12px; }
 }
 
 /* Boss Mode Styles */

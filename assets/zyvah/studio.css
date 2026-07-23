@@ -1,3 +1,4 @@
+@import url('../shared/exercise-shell.css');
 :root {
     --bg: #0f0a1a;
     --card: #1a1429;
@@ -8,6 +9,12 @@
     --text-dim: #94a3b8;
     --border: #332a4d;
     --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --story-step-title-size: clamp(1.32rem, 6.4vw, 1.9rem);
+    --story-card-title-size: clamp(1.22rem, 5.8vw, 1.68rem);
+    --story-card-text-size: clamp(0.98rem, 4.4vw, 1.2rem);
+    --story-hint-size: clamp(0.9rem, 3.6vw, 1.05rem);
+    --story-btn-nav-size: clamp(0.8rem, 3.4vw, 0.95rem);
+    --story-btn-main-size: clamp(0.95rem, 4vw, 1.1rem);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); -webkit-tap-highlight-color: transparent; }
@@ -45,71 +52,8 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 #step-body { flex: 1; }
 #footer { margin-top: auto; display: flex; gap: 12px; width: 100%; }
 
-#view-content.story-layout {
-    overflow: hidden;
-    gap: clamp(8px, 1.5vh, 14px);
-    padding-top: clamp(12px, 2vh, 20px);
-    padding-bottom: calc(clamp(10px, 1.7vh, 16px) + env(safe-area-inset-bottom, 0px));
-}
-#view-content.story-layout .step-header {
-    margin-bottom: clamp(4px, 1.1vh, 10px);
-}
-#view-content.story-layout #step-title {
-    font-size: clamp(1.32rem, 6.4vw, 1.9rem);
-    line-height: 1.14;
-}
-#view-content.story-layout #step-body {
-    min-height: 0;
-    display: flex;
-}
-#view-content.story-layout #step-body > .story-card {
-    width: 100%;
-    margin: 0;
-    padding: clamp(14px, 2.2vh, 24px) clamp(14px, 4vw, 22px);
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: clamp(8px, 1.2vh, 14px);
-}
-#view-content.story-layout .story-title {
-    font-size: clamp(1.22rem, 5.8vw, 1.68rem);
-    line-height: 1.15;
-    margin-bottom: 0;
-}
-#view-content.story-layout .story-text {
-    font-size: clamp(0.98rem, 4.4vw, 1.2rem);
-    line-height: 1.28;
-}
-#view-content.story-layout .story-dots {
-    margin-top: clamp(6px, 1vh, 12px);
-}
-#view-content.story-layout .story-hint {
-    margin-top: clamp(4px, 0.8vh, 8px);
-    font-size: clamp(0.9rem, 3.6vw, 1.05rem);
-}
 
-#app.story-layout-active .footer {
-    padding: 14px;
-    padding-bottom: calc(14px + env(safe-area-inset-bottom, 18px));
-}
-#app.story-layout-active .btn-group {
-    justify-content: center;
-}
-#app.story-layout-active .btn-nav,
-#app.story-layout-active .btn-main {
-    flex: 1 1 0;
-    min-width: 0;
-    text-align: center;
-}
-#app.story-layout-active .btn-nav {
-    padding: 14px;
-    font-size: clamp(0.8rem, 3.4vw, 0.95rem);
-}
-#app.story-layout-active .btn-main {
-    padding: 15px;
-    font-size: clamp(0.95rem, 4vw, 1.1rem);
-}
+
 
 #view-success {
     overflow: hidden;
@@ -160,16 +104,9 @@ body { background: var(--bg); color: var(--text); overflow: hidden; height: 100v
 }
 
 @media (max-height: 760px) {
-    #view-content.story-layout #step-title { font-size: clamp(1.15rem, 5.8vw, 1.45rem); }
-    #view-content.story-layout #step-body > .story-card { padding: 12px 12px; }
-    #view-content.story-layout .story-title { font-size: clamp(1.08rem, 5.1vw, 1.32rem); }
-    #view-content.story-layout .story-text { font-size: clamp(0.88rem, 4vw, 1rem); }
-    #app.story-layout-active .footer {
         padding: 10px 12px;
         padding-bottom: calc(10px + env(safe-area-inset-bottom, 16px));
     }
-    #app.story-layout-active .btn-main,
-    #app.story-layout-active .btn-nav { padding: 12px; }
 
     #view-success { padding-top: 12px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
     #view-success .success-card { gap: 10px; }
