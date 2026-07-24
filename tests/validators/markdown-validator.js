@@ -181,12 +181,19 @@ class MarkdownValidator {
 
     checkAmbiguousQuestions() {
         const forbiddenPhrases = [
-            { phrase: 'Quel mot est un Verbe ?', suggestion: 'Utiliser "Quel mot indique l\'action"' },
-            { phrase: 'Quel mot est un verbe ?', suggestion: 'Utiliser "Quel mot indique l\'action"' }
+            { phrase: "quel mot est L'Agent", suggestion: 'Utiliser "Quel mot est le sujet ?"' },
+            { phrase: 'Quel mot indique l\'action', suggestion: 'Utiliser "Quel mot est le verbe ?"' },
+            { phrase: 'ordre S+V+C', suggestion: 'Utiliser "ordre sujet + verbe + complément"' },
+            { phrase: 'ordre S + V + C', suggestion: 'Utiliser "ordre sujet + verbe + complément"' },
+            { phrase: 'phrases S+V+C', suggestion: 'Utiliser "phrases avec sujet, verbe et complément"' },
+            { phrase: 'phrase S+V+C', suggestion: 'Utiliser "phrase avec sujet, verbe et complément"' },
+            { phrase: 'L\'Agent (Sujet)', suggestion: 'Utiliser directement "Le sujet"' },
+            { phrase: 'L\'Action (Verbe)', suggestion: 'Utiliser directement "Le verbe"' },
+            { phrase: 'L\'Objectif (Complément)', suggestion: 'Utiliser directement "Le complément"' },
+            { phrase: 'flux de données', suggestion: 'Formuler la consigne en français clair (sujet, verbe, complément)' }
         ];
 
         forbiddenPhrases.forEach(({ phrase, suggestion }) => {
-            // Recherche exacte avec le point d'interrogation pour éviter les faux positifs
             if (this.content.includes(phrase)) {
                 this.warnings.push(`Question ambiguë détectée: "${phrase}" → ${suggestion}`);
             }

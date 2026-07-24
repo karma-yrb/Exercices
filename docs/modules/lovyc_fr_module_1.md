@@ -2,7 +2,7 @@
 
 ## Meta
 - Thème: Tactical Comms - structure de phrase et accords
-- Objectif: S+V+C, accord pluriel, ponctuation, homophones, synthèse
+- Objectif: sujet + verbe + complément, accord pluriel, ponctuation, homophones, synthèse
 - Durée cible: ~10-12 min par mission
 
 - AgentPedago: PROF_FRANCAIS_4E + ARCHITECTE_PEDAGO_WEB
@@ -11,100 +11,100 @@
 - Missions: 5
 - ScreensPerMission: 15
 
-## Mission 1 - Le Noyau : S + V + C
+## Mission 1 - Le Noyau : sujet, verbe, complément
 
 ### Objectifs pédagogiques et compétences
 - Identifier sujet, verbe, complément dans une phrase simple.
-- Produire une phrase correcte au présent (S+V+C).
+- Produire une phrase correcte au présent (sujet + verbe + complément).
 - Verbaliser le rôle de chaque élément.
 
 ### Index technique (ordre des steps)
 1. lesson - Briefing : La Squad de Base
-2. lesson - Carte Tactique SVC
-3. interactive - Scan de Zone : Sujet
-4. interactive - Scan de Zone : Verbe
-5. interactive - Scan de Zone : Complément
-6. write - Saisie Tactique : Verbe
-7. write - Saisie Tactique : Complément
-8. interactive - Ordre de Mission
-9. write - Phrase SVC Contrôlée
-10. interactive - Sujet Cache
+2. lesson - Repérer sujet, verbe, complément
+3. interactive - Repérer le sujet
+4. interactive - Repérer le verbe
+5. interactive - Repérer le complément
+6. write - Compléter le verbe
+7. write - Compléter le complément
+8. interactive - Ordre de la phrase
+9. write - Phrase contrôlée
+10. interactive - Trouver le sujet
 11. write - Réordonnancement Express
-12. interactive - Verbe ou Nom ?
-13. write - Ajoute le Complément
+12. interactive - Verbe ou nom ?
+13. write - Ajoute le complément
 14. write - Mini Rapport
 15. challenge - Boss de Fin - Mission 1
 
 ### Écran 1 - lesson - Briefing : La Squad de Base
-- Texte: "Agent Lovyc, une phrase, c'est comme ta squad : chaque membre a un rôle vital. Sans Action (verbe), la mission ne bouge pas."
+- Texte: "Agent Lovyc, une phrase, c'est comme ta squad : chaque membre a un rôle vital. Sans verbe, la phrase ne bouge pas."
 - Texte: "Tu as besoin de trois éléments :"
-- Encadre: "[1] L'Agent (Sujet) : Qui lance l'action ?" / "[2] L'Action (Verbe) : Que fait-on ?" / "[3] L'Objectif (Complément) : Quel est le but ?"
+- Encadre: "[1] Le sujet : Qui fait l'action ?" / "[2] Le verbe : Que fait-on ?" / "[3] Le complément : Quoi ? Où ? À qui ?"
 
-### Écran 2 - lesson - Carte Tactique SVC
-- Texte: "Pour retrouver le Sujet, pose la question: Qui est-ce qui ... ?"
-- Texte: "Pour le Verbe: Qu'est-ce qu'il fait ?"
-- Texte: "Pour le Complément: Quoi ? Où ? À qui ?"
+### Écran 2 - lesson - Repérer sujet, verbe, complément
+- Texte: "Pour trouver le sujet, demande : Qui est-ce qui ... ?"
+- Texte: "Pour le verbe : Qu'est-ce qu'il fait ?"
+- Texte: "Pour le complément : Quoi ? Où ? À qui ?"
 
-### Écran 3 - interactive - Scan de Zone : Sujet
-- Question: "Dans cette phrase, quel mot est L'Agent ?" (Le pro-gamer lance une attaque parfaite.)
+### Écran 3 - interactive - Repérer le sujet
+- Question: "Dans cette phrase, quel mot est le sujet ?" (Le pro-gamer lance une attaque parfaite.)
 - Options: "l'attaque" / "Le pro-gamer" / "parfaite"
 - Réponse: "Le pro-gamer"
-- Feedback: "Correct ! C'est le pro-gamer qui agit."
+- Feedback: "Correct ! Le sujet, c'est le pro-gamer."
 
-### Écran 4 - interactive - Scan de Zone : Verbe
-- Question: "Trouve le Verbe :" (Le pro-gamer lance une attaque parfaite.)
+### Écran 4 - interactive - Repérer le verbe
+- Question: "Trouve le verbe :" (Le pro-gamer lance une attaque parfaite.)
 - Options: "lance" / "une attaque" / "pro-gamer"
 - Réponse: "lance"
-- Feedback: "Exact ! 'Lance' est l'action."
+- Feedback: "Exact ! « lance » est le verbe."
 
-### Écran 5 - interactive - Scan de Zone : Complément
+### Écran 5 - interactive - Repérer le complément
 - Question: "Quel est le Complément ?" (Le pro-gamer lance une attaque parfaite.)
 - Options: "pro-gamer" / "lance" / "une attaque parfaite"
 - Réponse: "une attaque parfaite"
-- Feedback: "Bien vu. C'est l'objectif de l'action."
+- Feedback: "Bien vu. C'est le complément."
 
-### Écran 6 - write - Saisie Tactique : Verbe
-- Question: "Écris le mot qui manque (le Verbe) :" (Lovyc ____ son écran de jeu.)
+### Écran 6 - write - Compléter le verbe
+- Question: "Écris le verbe qui manque :" (Lovyc ____ son écran de jeu.)
 - Requirements:
   - mode: "verb"
   - keywords: "regarde", "allume", "fixe", "nettoie", "prépare"
-- Hint: "Cherche une action concrète (regarde, allume, fixe...)"
+- Hint: "Cherche un verbe au présent (regarde, allume, fixe...)"
 - Hint2: "Garde la structure « Lovyc ____ son écran de jeu. » et mets un verbe au présent."
 - Hint3: "Réponse à recopier : « regarde »."
 - Feedback: "Bien !"
 
-### Écran 7 - write - Saisie Tactique : Complément
+### Écran 7 - write - Compléter le complément
 - Question: "Complète la phrase avec un complément simple. Écris seulement le complément :" (L'agent surveille ____.)
 - Requirements:
   - mode: "sentence"
   - keywords: "zone", "map", "terrain", "couloir", "base"
-- Hint: "Un complément indique ce qu'il surveille."
+- Hint: "Le complément dit ce qu'il surveille."
 - Hint2: "Écris uniquement la partie manquante, pas toute la phrase."
 - Hint3: "Exemple à recopier : « L'agent surveille la zone. »"
 - Feedback: "Cible verrouillée."
 
-### Écran 8 - interactive - Ordre de Mission
-- Question: "Quelle phrase respecte l'ordre S + V + C ?"
+### Écran 8 - interactive - Ordre de la phrase
+- Question: "Quelle phrase respecte l'ordre sujet + verbe + complément ?"
 - Options: "Le drone la zone surveille." / "Le drone surveille la zone." / "Surveille le drone la zone."
 - Réponse: "Le drone surveille la zone."
-- Feedback: "Structure claire et efficace."
+- Feedback: "Structure claire : sujet, puis verbe, puis complément."
 
-### Écran 9 - write - Phrase SVC Contrôlée
-- Question: "Écris une phrase S + V + C avec ces mots :" (coach - explique - stratégie)
+### Écran 9 - write - Phrase contrôlée
+- Question: "Écris une phrase avec un sujet, un verbe et un complément, en utilisant ces mots :" (coach - explique - stratégie)
 - Requirements:
   - mode: "sentence"
   - keywords: "coach", "explique", "stratégie"
   - enforceKeywords: true
 - Hint: "Place d'abord le sujet."
-- Hint2: "Ordre attendu : Sujet + Verbe + Complément avec les trois mots imposés."
+- Hint2: "Ordre attendu : sujet + verbe + complément avec les trois mots imposés."
 - Hint3: "Exemple à recopier : « Le coach explique la stratégie. »"
-- Feedback: "Flux valide."
+- Feedback: "Phrase valide."
 
-### Écran 10 - interactive - Sujet Cache
-- Question: "Quel est le Sujet (qui fait l'action) ?" (Dans le lobby, les joueurs discutent.)
+### Écran 10 - interactive - Trouver le sujet
+- Question: "Quel est le sujet ?" (Dans le lobby, les joueurs discutent.)
 - Options: "le lobby" / "les joueurs" / "discutent"
 - Réponse: "les joueurs"
-- Feedback: "Oui. Ce sont eux qui agissent."
+- Feedback: "Oui. Le sujet, ce sont les joueurs."
 
 ### Écran 11 - write - Réordonnancement Express
 - Question: "Remets dans l'ordre pour former une phrase :" (zone - sécurise - l'agent - la)
@@ -117,13 +117,13 @@
 - Hint3: "Exemple à recopier : « L'agent sécurise la zone. »"
 - Feedback: "Ordre confirme."
 
-### Écran 12 - interactive - Verbe ou Nom ?
-- Question: "Quel mot indique l'action dans cette phrase ?" (L'agent attaque la zone.)
+### Écran 12 - interactive - Verbe ou nom ?
+- Question: "Quel mot est le verbe dans cette phrase ?" (L'agent attaque la zone.)
 - Options: "agent" / "attaque" / "zone"
 - Réponse: "attaque"
-- Feedback: "Oui. C'est l'action effectuée par l'agent."
+- Feedback: "Oui. « attaque » est le verbe."
 
-### Écran 13 - write - Ajoute le Complément
+### Écran 13 - write - Ajoute le complément
 - Question: "Ajoute un complément pour compléter la phrase. Écris seulement le complément :" (Lovyc lance ____.)
 - Requirements:
   - mode: "sentence"
@@ -134,7 +134,7 @@
 - Feedback: "Phrase complète."
 
 ### Écran 14 - write - Mini Rapport
-- Question: "Écris deux phrases S+V+C sur une préparation de match. Utilise au moins un mot de chaque groupe : match/rencontre/terrain, équipe/joueurs/coach, stratégie/tactique/attaque/défense."
+- Question: "Écris deux phrases avec sujet, verbe et complément sur une préparation de match. Utilise au moins un mot de chaque groupe : match/rencontre/terrain, équipe/joueurs/coach, stratégie/tactique/attaque/défense."
 - Requirements:
   - mode: "sentence"
   - keywordGroups:
@@ -149,7 +149,7 @@
 - Feedback: "Rapport clair."
 
 ### Écran 15 - challenge - Boss de Fin - Mission 1
-- Question: "Rédige deux phrases complètes (S+V+C) au présent. Contraintes: un verbe de la famille 'éliminer', un mot de la famille adversaire/ennemi/opposant, et un sujet collectif équipe/joueurs/agents/escouade."
+- Question: "Rédige deux phrases complètes au présent, chacune avec un sujet, un verbe et un complément. Contraintes: un verbe de la famille 'éliminer', un mot de la famille adversaire/ennemi/opposant, et un sujet collectif équipe/joueurs/agents/escouade."
 - Requirements:
   - mode: "sentence"
   - keywordGroups:
@@ -159,7 +159,7 @@
   - minWords: 12
   - minSentences: 2
   - mustInclude: "."
-- Hint: "Vérifie S+V+C dans chaque phrase, puis relis les accords."
+- Hint: "Vérifie le sujet, le verbe et le complément dans chaque phrase, puis relis les accords."
 - Hint2: "Checklist: 2 phrases, 12 mots minimum, un verbe 'éliminer', un mot adversaire/ennemi/opposant et un sujet collectif (équipe/joueurs/agents/escouade)."
 - Hint3: "Exemple à recopier : « L'équipe élimine un adversaire dangereux. Les joueurs protègent ensuite la zone centrale. »"
 - Feedback: "Mission 1 accomplie a 100%."
@@ -613,14 +613,14 @@
 ## Mission 5 - L'Ultime Deploiement
 
 ### Objectifs pédagogiques et compétences
-- Mobiliser S+V+C et accord pluriel dans une synthèse.
+- Mobiliser sujet + verbe + complément et accord pluriel dans une synthèse.
 - Produire un court rapport avec contraintes formelles.
 
 ### Index technique (ordre des steps)
 1. msg - Examen de Grade
-2. interactive - Structure S+V+C
+2. interactive - Structure sujet + verbe + complément
 3. interactive - Accord Squad
-4. write - S+V+C Libre
+4. write - Phrase libre
 5. write - Accord Pluriel
 6. interactive - Ponctuation Simple
 7. write - Point et Virgule
@@ -636,11 +636,11 @@
 ### Écran 1 - msg - Examen de Grade
 - Texte: "Agent Lovyc, c'est l'heure du déploiement final. Prouve que tu maîtrises tout l'équipement tactique."
 
-### Écran 2 - interactive - Structure S+V+C
-- Question: "Quel flux de données respecte l'ordre S+V+C ?"
+### Écran 2 - interactive - Structure sujet + verbe + complément
+- Question: "Quelle phrase respecte l'ordre sujet + verbe + complément ?"
 - Options: "Dujardin la rue descendait." / "Dujardin descendait la rue." / "La rue descendait Dujardin."
 - Réponse: "Dujardin descendait la rue."
-- Feedback: "Structure littéraire verrouillée."
+- Feedback: "Oui : sujet, puis verbe, puis complément."
 
 ### Écran 3 - interactive - Accord Squad
 - Question: "Choisis la bonne forme :" (Les joueurs ____ la zone.)
@@ -648,8 +648,8 @@
 - Réponse: "sécurisent"
 - Feedback: "Pluriel -> -ent."
 
-### Écran 4 - write - S+V+C Libre
-- Question: "Écris une phrase S+V+C au présent."
+### Écran 4 - write - Phrase libre
+- Question: "Écris une phrase au présent avec un sujet, un verbe et un complément."
 - Requirements:
   - mode: "sentence"
   - keywordGroups:
@@ -657,7 +657,7 @@
     - ["avance", "avancent", "protège", "protègent", "attaque", "attaquent", "prépare", "préparent", "lance", "lancent"]
     - ["zone", "terrain", "stratégie", "match", "base"]
   - minWords: 6
-- Hint: "Vérifie l'ordre Sujet + Verbe + Complément, puis ajoute un détail concret."
+- Hint: "Vérifie l'ordre sujet + verbe + complément, puis ajoute un détail concret."
 - Hint2: "Commence par un sujet, ajoute un verbe au présent, puis un complément précis."
 - Hint3: "Exemple à recopier : « Les joueurs préparent la stratégie ensemble. »"
 - Feedback: "Bonne structure."
@@ -736,12 +736,12 @@
 - Feedback: "Structure et sens valides : l'agent agit sur la zone."
 
 ### Écran 13 - write - Micro Rapport
-- Question: "Écris deux phrases S+V+C avec un sujet pluriel dans l'une."
+- Question: "Écris deux phrases avec sujet, verbe et complément ; l'une des deux doit avoir un sujet pluriel."
 - Requirements:
   - mode: "sentence"
   - minWords: 12
-- Hint: "Vérifie l'ordre Sujet + Verbe + Complément, puis ajoute un détail concret."
-- Hint2: "Écris deux phrases S+V+C, dont une avec un sujet pluriel."
+- Hint: "Vérifie l'ordre sujet + verbe + complément, puis ajoute un détail concret."
+- Hint2: "Écris deux phrases avec sujet, verbe et complément ; l'une avec un sujet pluriel."
 - Hint3: "Exemple à recopier : « Je prépare la tactique pour le match final. Les joueurs lancent l'attaque. »"
 - Feedback: "Rapport clair."
 

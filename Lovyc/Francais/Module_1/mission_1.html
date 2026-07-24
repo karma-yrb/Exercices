@@ -48,58 +48,58 @@
     var weekData = [
     {
         "id": 1,
-        "title": "Le Noyau : S + V + C",
+        "title": "Le Noyau : sujet, verbe, complément",
         "steps": [
             {
                 "type": "lesson",
                 "title": "Briefing : La Squad de Base",
-                "content": "\n                              <div class=\"visual-anchor\">\n                                <svg viewBox=\"0 0 100 60\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                                  <circle cx=\"50\" cy=\"20\" r=\"8\" />\n                                  <path d=\"M35 50 L35 45 C35 38 42 34 50 34 C58 34 65 38 65 45 L65 50\" />\n                                  <circle cx=\"20\" cy=\"25\" r=\"5\" opacity=\"0.4\" />\n                                  <path d=\"M10 50 L10 47 C10 42 15 40 20 40 C25 40 30 42 30 47 L30 50\" opacity=\"0.4\" />\n                                  <circle cx=\"80\" cy=\"25\" r=\"5\" opacity=\"0.4\" />\n                                  <path d=\"M70 50 L70 47 C70 42 75 40 80 40 C85 40 90 42 90 47 L90 50\" opacity=\"0.4\" />\n                                </svg>\n                              </div>\n                              <div class=\"content-chunk\">\n                                <p>Agent Lovyc, une phrase, c'est comme ta squad : chaque membre a un role vital. Sans Action (verbe), la mission ne bouge pas.</p>\n                                <p>Tu as besoin de trois elements :</p>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>[1] L'Agent (Sujet)</b> : Qui lance l'action ?<br>\n                                <b>[2] L'Action (Verbe)</b> : Que fait-on ?<br>\n                                <b>[3] L'Objectif (Complement)</b> : Quel est le but ?\n                              </div>"
+                "content": "\n                              <div class=\"visual-anchor\">\n                                <svg viewBox=\"0 0 100 60\" style=\"width: 140px; height: auto; stroke: var(--accent); fill: none; stroke-width: 1.5;\">\n                                  <circle cx=\"50\" cy=\"20\" r=\"8\" />\n                                  <path d=\"M35 50 L35 45 C35 38 42 34 50 34 C58 34 65 38 65 45 L65 50\" />\n                                  <circle cx=\"20\" cy=\"25\" r=\"5\" opacity=\"0.4\" />\n                                  <path d=\"M10 50 L10 47 C10 42 15 40 20 40 C25 40 30 42 30 47 L30 50\" opacity=\"0.4\" />\n                                  <circle cx=\"80\" cy=\"25\" r=\"5\" opacity=\"0.4\" />\n                                  <path d=\"M70 50 L70 47 C70 42 75 40 80 40 C85 40 90 42 90 47 L90 50\" opacity=\"0.4\" />\n                                </svg>\n                              </div>\n                              <div class=\"content-chunk\">\n                                <p>Agent Lovyc, une phrase, c'est comme ta squad : chaque membre a un role vital. Sans <b>verbe</b>, la phrase ne bouge pas.</p>\n                                <p>Tu as besoin de trois elements :</p>\n                              </div>\n                              <div class=\"box-concept\">\n                                <b>[1] Le sujet</b> : Qui fait l'action ?<br>\n                                <b>[2] Le verbe</b> : Que fait-on ?<br>\n                                <b>[3] Le complément</b> : Quoi ? Où ? À qui ?\n                              </div>"
             },
             {
                 "type": "lesson",
-                "title": "Carte Tactique SVC",
-                "content": "\n                              <div class=\"content-chunk\">\n                                <p>Pour trouver le <b>Sujet</b>, demande : <b>Qui est-ce qui ... ?</b></p>\n                                <p>Pour le <b>Verbe</b> : <b>Qu'est-ce qu'il fait ?</b></p>\n                                <p>Pour le <b>Complement</b> : <b>Quoi ? Ou ? A qui ?</b></p>\n                              </div>"
+                "title": "Repérer sujet, verbe, complément",
+                "content": "\n                              <div class=\"content-chunk\">\n                                <p>Pour trouver le <b>sujet</b>, demande : <b>Qui est-ce qui ... ?</b></p>\n                                <p>Pour le <b>verbe</b> : <b>Qu'est-ce qu'il fait ?</b></p>\n                                <p>Pour le <b>complément</b> : <b>Quoi ? Où ? À qui ?</b></p>\n                              </div>"
             },
             {
                 "type": "interactive",
-                "title": "Scan de Zone : Sujet",
-                "question": "\"Dans cette phrase, quel mot est L'Agent ?\" (Le pro-gamer lance une attaque parfaite.)",
+                "title": "Repérer le sujet",
+                "question": "\"Dans cette phrase, quel mot est le sujet ?\" (Le pro-gamer lance une attaque parfaite.)",
                 "options": [
                     "l'attaque",
                     "Le pro-gamer",
                     "parfaite"
                 ],
                 "answer": 1,
-                "feedback": "Correct ! C'est le pro-gamer qui agit."
+                "feedback": "Correct ! Le sujet, c'est le pro-gamer."
             },
             {
                 "type": "interactive",
-                "title": "Scan de Zone : Verbe",
-                "question": "\"Trouve le Verbe :\" (Le pro-gamer lance une attaque parfaite.)",
+                "title": "Repérer le verbe",
+                "question": "\"Trouve le verbe :\" (Le pro-gamer lance une attaque parfaite.)",
                 "options": [
                     "lance",
                     "une attaque",
                     "pro-gamer"
                 ],
                 "answer": 0,
-                "feedback": "Exact ! 'Lance' est l'action."
+                "feedback": "Exact ! « lance » est le verbe."
             },
             {
                 "type": "interactive",
-                "title": "Scan de Zone : Complément",
-                "question": "\"Quel est le Complément ?\" (Le pro-gamer lance une attaque parfaite.)",
+                "title": "Repérer le complément",
+                "question": "\"Quel est le complément ?\" (Le pro-gamer lance une attaque parfaite.)",
                 "options": [
                     "pro-gamer",
                     "lance",
                     "une attaque parfaite"
                 ],
                 "answer": 2,
-                "feedback": "Bien vu. C'est l'objectif de l'action."
+                "feedback": "Bien vu. C'est le complément."
             },
             {
                 "type": "write",
-                "title": "Saisie Tactique : Verbe",
-                "question": "\"Écris le mot qui manque (le Verbe) :\" (Lovyc ____ son écran de jeu.)",
+                "title": "Compléter le verbe",
+                "question": "\"Écris le verbe qui manque :\" (Lovyc ____ son écran de jeu.)",
                 "requirements": {
                     "mode": "verb",
                     "keywords": [
@@ -110,14 +110,14 @@
                         "prépare"
                     ]
                 },
-                "hint": "Cherche une action concrète (regarde, allume, fixe...)",
+                "hint": "Cherche un verbe au présent (regarde, allume, fixe...)",
                 "hint2": "Garde la structure « Lovyc ____ son écran de jeu. » et mets un verbe au présent.",
                 "hint3": "Réponse à recopier : « regarde ».",
                 "feedback": "Bien !"
             },
             {
                 "type": "write",
-                "title": "Saisie Tactique : Complément",
+                "title": "Compléter le complément",
                 "question": "\"Complète la phrase avec un complément simple. Écris seulement le complément :\" (L'agent surveille ____.)",
                 "requirements": {
                     "mode": "sentence",
@@ -129,27 +129,27 @@
                         "base"
                     ]
                 },
-                "hint": "Un complément indique ce qu'il surveille.",
+                "hint": "Le complément dit ce qu'il surveille.",
                 "hint2": "Écris uniquement la partie manquante, pas toute la phrase.",
                 "hint3": "Exemple à recopier : « L'agent surveille la zone. »",
                 "feedback": "Cible verrouillée."
             },
             {
                 "type": "interactive",
-                "title": "Ordre de Mission",
-                "question": "\"Quelle phrase respecte l'ordre S + V + C ?\"",
+                "title": "Ordre de la phrase",
+                "question": "\"Quelle phrase respecte l'ordre sujet + verbe + complément ?\"",
                 "options": [
                     "Le drone la zone surveille.",
                     "Le drone surveille la zone.",
                     "Surveille le drone la zone."
                 ],
                 "answer": 1,
-                "feedback": "Structure claire et efficace."
+                "feedback": "Structure claire : sujet, puis verbe, puis complément."
             },
             {
                 "type": "write",
-                "title": "Phrase SVC Contrôlée",
-                "question": "\"Écris une phrase S + V + C avec ces mots :\" (coach - explique - stratégie)",
+                "title": "Phrase contrôlée",
+                "question": "\"Écris une phrase avec un sujet, un verbe et un complément, en utilisant ces mots :\" (coach - explique - stratégie)",
                 "requirements": {
                     "mode": "sentence",
                     "keywords": [
@@ -160,21 +160,21 @@
                     "enforceKeywords": true
                 },
                 "hint": "Place d'abord le sujet.",
-                "hint2": "Ordre attendu : Sujet + Verbe + Complément avec les trois mots imposés.",
+                "hint2": "Ordre attendu : sujet + verbe + complément avec les trois mots imposés.",
                 "hint3": "Exemple à recopier : « Le coach explique la stratégie. »",
-                "feedback": "Flux valide."
+                "feedback": "Phrase valide."
             },
             {
                 "type": "interactive",
-                "title": "Sujet Cache",
-                "question": "\"Quel est le Sujet (qui fait l'action) ?\" (Dans le lobby, les joueurs discutent.)",
+                "title": "Trouver le sujet",
+                "question": "\"Quel est le sujet ?\" (Dans le lobby, les joueurs discutent.)",
                 "options": [
                     "le lobby",
                     "les joueurs",
                     "discutent"
                 ],
                 "answer": 1,
-                "feedback": "Oui. Ce sont eux qui agissent."
+                "feedback": "Oui. Le sujet, ce sont les joueurs."
             },
             {
                 "type": "write",
@@ -196,19 +196,19 @@
             },
             {
                 "type": "interactive",
-                "title": "Verbe ou Nom ?",
-                "question": "\"Quel mot indique l'action dans cette phrase ?\" (L'agent attaque la zone.)",
+                "title": "Verbe ou nom ?",
+                "question": "\"Quel mot est le verbe dans cette phrase ?\" (L'agent attaque la zone.)",
                 "options": [
                     "agent",
                     "attaque",
                     "zone"
                 ],
                 "answer": 1,
-                "feedback": "Oui. C'est l'action effectuée par l'agent."
+                "feedback": "Oui. « attaque » est le verbe."
             },
             {
                 "type": "write",
-                "title": "Ajoute le Complément",
+                "title": "Ajoute le complément",
                 "question": "\"Ajoute un complément pour compléter la phrase. Écris seulement le complément :\" (Lovyc lance ____.)",
                 "requirements": {
                     "mode": "sentence",
@@ -222,7 +222,7 @@
             {
                 "type": "write",
                 "title": "Mini Rapport",
-                "question": "\"Écris deux phrases S+V+C sur une préparation de match. Utilise au moins un mot de chaque groupe : match/rencontre/terrain, équipe/joueurs/coach, stratégie/tactique/attaque/défense.\"",
+                "question": "\"Écris deux phrases avec sujet, verbe et complément sur une préparation de match. Utilise au moins un mot de chaque groupe : match/rencontre/terrain, équipe/joueurs/coach, stratégie/tactique/attaque/défense.\"",
                 "requirements": {
                     "mode": "sentence",
                     "keywordGroups": [
@@ -254,7 +254,7 @@
             {
                 "type": "challenge",
                 "title": "Boss de Fin - Mission 1",
-                "question": "\"Rédige deux phrases complètes (S+V+C) au présent. Contraintes: un verbe de la famille 'éliminer', un mot de la famille adversaire/ennemi/opposant, et un sujet collectif équipe/joueurs/agents/escouade.\"",
+                "question": "\"Rédige deux phrases complètes au présent, chacune avec un sujet, un verbe et un complément. Contraintes: un verbe de la famille 'éliminer', un mot de la famille adversaire/ennemi/opposant, et un sujet collectif équipe/joueurs/agents/escouade.\"",
                 "requirements": {
                     "mode": "sentence",
                     "keywordGroups": [
@@ -283,7 +283,7 @@
                         "."
                     ]
                 },
-                "hint": "Vérifie S+V+C dans chaque phrase, puis relis les accords.",
+                "hint": "Vérifie le sujet, le verbe et le complément dans chaque phrase, puis relis les accords.",
                 "hint2": "Checklist: 2 phrases, 12 mots minimum, un verbe 'éliminer', un mot adversaire/ennemi/opposant et un sujet collectif (équipe/joueurs/agents/escouade).",
                 "hint3": "Exemple à recopier : « L'équipe élimine un adversaire dangereux. Les joueurs protègent ensuite la zone centrale. »",
                 "feedback": "Mission 1 accomplie a 100%."
