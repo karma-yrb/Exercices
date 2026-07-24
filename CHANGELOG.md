@@ -6,6 +6,18 @@ Le numéro de version produit (`package.json` / `assets/shared/version.js`) est 
 
 Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versionnement sémantique.
 
+## [2.6.1] — 2026-07-24
+
+Lovyc Français : lisibilité mobile et consignes grammaticales plus claires.
+
+### Lovyc — Français
+- Boutons de navigation : texte adaptatif (évite le débordement de « ÉTAPE SUIVANTE »).
+- Consignes d'exercice : instruction sans guillemets ; phrase d'exemple entre `""` et démarquée.
+- Module 1 : suppression des codes Agent / Action / Objectif / S+V+C au profit de **sujet**, **verbe**, **complément**.
+
+### Produit / Portail
+- Version produit `2.6.1`.
+
 ## [2.6.0] — 2026-07-23
 
 Lovyc Français : Modules 3 (phrase complexe) et 4 (argumentation / compte-rendu).

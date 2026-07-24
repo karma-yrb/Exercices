@@ -1,6 +1,29 @@
 // Release notes data — keep in sync with CHANGELOG.md and APP_VERSION.
 window.APP_RELEASES = [
     {
+        version: '2.6.1',
+        date: '2026-07-24',
+        summary: 'Lovyc Français : lisibilité mobile et consignes grammaticales plus claires.',
+        modules: [
+            {
+                id: 'lovyc-fr',
+                label: 'Lovyc — Français',
+                changes: [
+                    'Boutons de navigation : texte adaptatif (évite le débordement de « ÉTAPE SUIVANTE »).',
+                    'Consignes d\'exercice : instruction sans guillemets ; phrase d\'exemple entre "" et démarquée.',
+                    'Module 1 : codes Agent / Action / Objectif / S+V+C remplacés par sujet, verbe, complément.'
+                ]
+            },
+            {
+                id: 'produit',
+                label: 'Produit / Portail',
+                changes: [
+                    'Version produit 2.6.1.'
+                ]
+            }
+        ]
+    },
+    {
         version: '2.6.0',
         date: '2026-07-23',
         summary: 'Lovyc Français : Modules 3 (phrase complexe) et 4 (argumentation / compte-rendu).',
