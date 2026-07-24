@@ -19,7 +19,12 @@
     </div>
 
     <div id="view-content" class="view active">
-        <div id="step-container"></div>
+        <h2 id="step-title"></h2>
+        <div id="step-body"></div>
+        <div id="footer" class="footer">
+            <button id="btn-prev" class="btn-nav">RETOUR</button>
+            <button id="btn-next" class="btn-nav">ÉTAPE SUIVANTE</button>
+        </div>
     </div>
 
     <div id="view-success" class="view">
@@ -33,14 +38,14 @@
             <p class="success-text">Félicitations Zyvah ! Tu as bouclé l'intégralité du calcul littéral de Seconde !</p>
             <div class="box-concept" style="margin: 25px 0; padding: 20px; text-align: left;">
                 <h3 style="color: var(--accent); margin-bottom: 10px;">Badge final débloqué :</h3>
-                <p style="font-size: 1.2em; margin-bottom: 20px;">🏆 **STUDIO MASTER - Calcul Littéral Seconde GT**</p>
+                <p style="font-size: 1.2em; margin-bottom: 20px;">🏆 <b>STUDIO MASTER - Calcul Littéral Seconde GT</b></p>
                 <h3 style="color: var(--accent); margin: 15px 0 10px;">📊 Compétences validées :</h3>
                 <p style="margin-bottom: 5px;">✅ Développement (distributivité simple/double)</p>
                 <p style="margin-bottom: 5px;">✅ Identités remarquables (3 formules magiques)</p>
                 <p style="margin-bottom: 5px;">✅ Factorisation (facteur commun + identités)</p>
                 <p style="margin-bottom: 5px;">✅ Équations (1er degré + produit-nul)</p>
                 <p style="margin-bottom: 15px;">✅ Problèmes concrets (mise en équation)</p>
-                <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.85;">Ton niveau en maths est maintenant **aligné** avec le programme officiel de Seconde générale. Continue comme ça ! 💪🔥</p>
+                <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.85;">Ton niveau en maths est maintenant <b>aligné</b> avec le programme officiel de Seconde générale. Continue comme ça ! 💪🔥</p>
             </div>
             <button onclick="window.location.href='index.html'" class="btn-main">RETOUR SEANCES</button>
         </div>
@@ -51,239 +56,243 @@
 <script>
     window.APP_CONFIG = {
         STORAGE_KEY: storageKey('zyvah_maths_w2'),
-        MISSION_ID: 5,
-        TOTAL_MISSIONS: 5,
-        MISSION_NAME: "Studio Master Challenge",
-        BASE_PATH: "./",
+        SINGLE_MISSION_MODE: true,
+        MISSION_LABEL: "SEANCE",
+        QUIT_HREF: "index.html",
         TRACKING_SUBJECT: "Maths",
         TRACKING_MODULE: "Module_2",
+        BASE_PATH: "./"
     };
 
     const weekData = [
-    {
-        "type": "msg",
-        "title": "L'Examen Final du Studio",
-        "text": "Zyvah, c'est l'heure du **rendu final**. Pour valider ton niveau **seconde en calcul littéral**, tu dois prouver que tu maîtrises :\n\n✅ **Développer** (simple et double distributivité, identités remarquables)  \n✅ **Factoriser** (facteur commun, identités remarquables)  \n✅ **Résoudre** (équations du premier degré, produit-nul)  \n✅ **Choisir** la bonne stratégie selon le contexte\n\n**15 écrans de validation.**\n\nC'est parti pour ton badge **Studio Master** ! 🎚️🔥"
-    },
-    {
-        "type": "quiz",
-        "q": "Quelle expression est **factorisée** ?",
-        "opts": [
-            "x² + 5x + 6",
-            "(x + 2)(x + 3)",
-            "x² - 9"
-        ],
-        "correct": 1,
-        "feed": "Exact ! Une forme factorisée contient des **parenthèses** (produit de facteurs).",
-        "title": "Reconnaître une forme (factorisée vs développée)"
-    },
-    {
-        "type": "write",
-        "q": "Développe :<br><br><code>(2x - 3)(x + 5)</code>",
-        "requirements": {
-            "keywords": [
-                "2x²",
-                "7x",
-                "-15"
-            ],
-            "minWords": 4,
-            "validationType": "algebraic"
-        },
-        "hint": "Double distributivité : 4 produits à calculer.",
-        "feed": "Parfait ! <code>2x² + 10x - 3x - 15 = 2x² + 7x - 15</code>.",
-        "title": "Développer (2x - 3)(x + 5)"
-    },
-    {
-        "type": "quiz",
-        "q": "<code>x² - 14x + 49</code> correspond à quelle identité ?",
-        "opts": [
-            "(a + b)²",
-            "(a - b)²",
-            "(a + b)(a - b)"
-        ],
-        "correct": 1,
-        "feed": "Exact ! <code>x²</code>, <code>49 = 7²</code>, <code>14x = 2 × x × 7</code> → <code>(x - 7)²</code>.",
-        "title": "Identifier l'identité remarquable"
-    },
-    {
-        "type": "write",
-        "q": "Factorise :<br><br><code>x² - 14x + 49</code>",
-        "requirements": {
-            "keywords": [
-                "(",
-                "x",
-                "-",
-                "7",
-                ")²"
-            ],
-            "minWords": 4,
-            "enforceKeywords": true,
-            "validationType": "algebraic"
-        },
-        "hint": "Reconnaître le pattern <code>a² - 2ab + b²</code>.",
-        "feed": "Parfait ! <code>x² - 14x + 49 = (x - 7)²</code>.",
-        "title": "Factoriser x² - 14x + 49"
-    },
-    {
-        "type": "quiz",
-        "q": "Pour résoudre <code>x² - 16 = 0</code>, quelle méthode utiliser ?",
-        "opts": [
-            "Isoler x directement",
-            "Factoriser puis produit-nul",
-            "Développer"
-        ],
-        "correct": 1,
-        "feed": "Exact ! C'est <code>a² - b²</code> → <code>(x + 4)(x - 4) = 0</code>.",
-        "title": "Stratégie de résolution d'équation"
-    },
-    {
-        "type": "write",
-        "q": "Résous :<br><br><code>x² - 16 = 0</code><br><br>Donne les 2 solutions.",
-        "requirements": {
-            "keywords": [
-                "-4",
-                "4"
-            ],
-            "minWords": 3,
-            "enforceKeywords": true,
-            "validationType": "equation",
-            "expectNumbers": true
-        },
-        "hint": "Factorise avec <code>a² - b²</code>, puis produit-nul.",
-        "feed": "Parfait ! <code>(x + 4)(x - 4) = 0</code> → <code>x = -4</code> ou <code>x = 4</code>.",
-        "title": "Résoudre x² - 16 = 0"
-    },
-    {
-        "type": "interactive",
-        "q": "Un studio rectangulaire a pour longueur <code>x + 3</code> et largeur <code>x</code>. Si l'aire = 40 m², l'équation est :",
-        "opts": [
-            "x(x + 3) = 40",
-            "x + 3 = 40",
-            "x² + 3 = 40"
-        ],
-        "correct": 0,
-        "feed": "Exact ! Aire = Longueur × Largeur = <code>(x + 3) × x</code>.",
-        "title": "Mise en équation d'un problème"
-    },
-    {
-        "type": "write",
-        "q": "Un micro coûte <code>x</code> euros. Une console coûte <code>2x + 50</code> euros. Si le total = 350 €, combien coûte le micro ?<br><br>Résous l'équation.",
-        "requirements": {
-            "keywords": [
-                "100"
-            ],
-            "minWords": 1,
-            "validationType": "equation",
-            "expectNumbers": true
-        },
-        "hint": "Équation : <code>x + (2x + 50) = 350</code>. Simplifie puis isole <code>x</code>.",
-        "feed": "Bravo ! <code>3x + 50 = 350</code> → <code>3x = 300</code> → <code>x = 100</code>. Le micro coûte **100 €**.",
-        "title": "Problème complet (équation + calcul)"
-    },
-    {
-        "type": "quiz",
-        "q": "Pour simplifier <code>(x + 5)² - (x + 5)(x - 2)</code>, quelle stratégie adopter ?",
-        "opts": [
-            "Développer les deux, puis simplifier",
-            "Factoriser d'abord",
-            "Résoudre une équation"
-        ],
-        "correct": 0,
-        "feed": "Exact ! Il faut développer chaque partie avant de regrouper les termes.",
-        "title": "Développer ou factoriser ?"
-    },
-    {
-        "type": "write",
-        "q": "Simplifie (développe les deux parties puis regroupe) :<br><br><code>(x + 3)² - (x + 1)(x + 2)</code>",
-        "requirements": {
-            "keywords": [
-                "5x",
-                "7",
-                "+"
-            ],
-            "minWords": 3,
-            "enforceKeywords": true,
-            "validationType": "algebraic"
-        },
-        "hint": "Développe <code>(x + 3)²</code> et <code>(x + 1)(x + 2)</code> séparément, puis soustrais.",
-        "feed": "Excellent ! <code>x² + 6x + 9 - (x² + 3x + 2) = 5x + 7</code>.",
-        "title": "Simplifier une expression complexe"
-    },
-    {
-        "type": "quiz",
-        "q": "Pour développer <code>(5x - 2)²</code>, quelle formule utiliser ?",
-        "opts": [
-            "(a + b)²",
-            "(a - b)²",
-            "(a + b)(a - b)"
-        ],
-        "correct": 1,
-        "feed": "Exact ! Résultat : <code>25x² - 20x + 4</code>.",
-        "title": "Choix de formule"
-    },
-    {
-        "type": "write",
-        "q": "Développe <code>(x - 4)²</code>, puis factorise le résultat. (Vérifie que tu retrouves bien la forme initiale !)",
-        "requirements": {
-            "keywords": [
-                "x²",
-                "-8x",
-                "16",
-                "(",
-                "x",
-                "-",
-                "4",
-                ")²"
-            ],
-            "minWords": 8,
-            "validationType": "algebraic"
-        },
-        "hint": "Développe d'abord, puis reconnaître l'identité remarquable dans le résultat.",
-        "feed": "Parfait ! Tu as fait un aller-retour complet : développement → factorisation.",
-        "title": "Exercice mixte (développement + factorisation)"
-    },
-    {
-        "type": "write",
-        "q": "Un ingénieur modélise le coût d'un studio par :<br><br><code>Coût = (x + 10)² - (x + 5)(x + 8)</code><br><br>où <code>x</code> = nombre de jours de location.<br><br>Simplifie cette expression au maximum.",
-        "requirements": {
-            "keywords": [
-                "7x",
-                "60",
-                "+"
-            ],
-            "minWords": 3,
-            "enforceKeywords": true,
-            "validationType": "algebraic"
-        },
-        "hint1": "Quelle est la première étape pour simplifier une différence d'expressions entre parenthèses ?",
-        "hint2": "Développe les deux parties : <code>(x + 10)²</code> et <code>(x + 5)(x + 8)</code>, puis soustrais terme à terme.",
-        "feed": "Bravo ! <code>x² + 20x + 100 - (x² + 13x + 40) = 7x + 60</code> €.",
-        "title": "Problème final intégré"
-    },
-    {
-        "type": "challenge",
-        "q": "**CHALLENGE FINAL**<br><br>Un studio propose un forfait dont le prix dépend de la durée <code>x</code> (en heures) :<br><br><code>Prix = (2x + 5)² - 4x²</code> €<br><br>**Seance :**<br>1. Simplifie cette expression au maximum<br>2. Si <code>x = 3</code>, calcule le prix final<br><br>Réponds sous la forme : <code>expression simplifiée ; prix</code>",
-        "requirements": {
-            "keywords": [
-                "20x",
-                "25",
-                "85"
-            ],
-            "minWords": 5,
-            "enforceKeywords": true,
-            "validationType": "algebraic"
-        },
-        "hint1": "Commence par simplifier l'expression algébrique, puis applique la valeur numérique.",
-        "hint2": "Développe <code>(2x + 5)²</code> avec la formule, soustrais <code>4x²</code>, puis remplace <code>x</code> par <code>3</code>.",
-        "feed": "**🎊 MODULE 2 TERMINÉ - STUDIO MASTER 🎊**\n\n**Félicitations Zyvah !** Tu as bouclé l'intégralité du calcul littéral de Seconde !\n\n**Badge final débloqué :** 🏆 **STUDIO MASTER - Calcul Littéral Seconde GT**\n\n---\n\n**💡 Calcul détaillé :**\n\n<code>(2x + 5)² - 4x²</code>\n\n**Étape 1 :** Développer <code>(2x + 5)²</code>  \n= <code>4x² + 20x + 25</code>\n\n**Étape 2 :** Soustraire <code>4x²</code>  \n= <code>4x² + 20x + 25 - 4x²</code>  \n= <code>20x + 25</code>\n\n**Étape 3 :** Remplacer <code>x = 3</code>  \n= <code>20(3) + 25</code>  \n= <code>60 + 25</code>  \n= **85 €**\n\n---\n\n**📊 Compétences validées :**  \n✅ Développement (distributivité simple/double)  \n✅ Identités remarquables (3 formules magiques)  \n✅ Factorisation (facteur commun + identités)  \n✅ Équations (1er degré + produit-nul)  \n✅ Problèmes concrets (mise en équation)\n\nTon niveau en maths est maintenant **aligné** avec le programme officiel de Seconde générale. Continue comme ça ! 💪🔥",
-        "title": "Ultimate Boss - Studio Master"
-    }
-];
+        {
+            "id": 5,
+            "title": "Studio Master Challenge",
+            "steps": [
+                {
+                    "type": "msg",
+                    "title": "L'Examen Final du Studio",
+                    "body": "<p class=\"content-chunk\">Zyvah, c'est l'heure du <b>rendu final</b>. Pour valider ton niveau <b>seconde en calcul littéral</b>, tu dois prouver que tu maîtrises :<br><br>✅ <b>Développer</b> (simple et double distributivité, identités remarquables)  <br>✅ <b>Factoriser</b> (facteur commun, identités remarquables)  <br>✅ <b>Résoudre</b> (équations du premier degré, produit-nul)  <br>✅ <b>Choisir</b> la bonne stratégie selon le contexte<br><br><b>15 écrans de validation.</b><br><br>C'est parti pour ton badge <b>Studio Master</b> ! 🎚️🔥</p>"
+                },
+                {
+                    "type": "quiz",
+                    "q": "Quelle expression est <b>factorisée</b> ?",
+                    "opts": [
+                        "x² + 5x + 6",
+                        "(x + 2)(x + 3)",
+                        "x² - 9"
+                    ],
+                    "feed": "Exact ! Une forme factorisée contient des <b>parenthèses</b> (produit de facteurs).",
+                    "title": "Reconnaître une forme (factorisée vs développée)",
+                    "a": 1
+                },
+                {
+                    "type": "write",
+                    "q": "Développe :<br><br><code>(2x - 3)(x + 5)</code>",
+                    "requirements": {
+                        "keywords": [
+                            "2x²",
+                            "7x",
+                            "-15"
+                        ],
+                        "minWords": 4,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "Double distributivité : 4 produits à calculer.",
+                    "feed": "Parfait ! <code>2x² + 10x - 3x - 15 = 2x² + 7x - 15</code>.",
+                    "title": "Développer (2x - 3)(x + 5)"
+                },
+                {
+                    "type": "quiz",
+                    "q": "<code>x² - 14x + 49</code> correspond à quelle identité ?",
+                    "opts": [
+                        "(a + b)²",
+                        "(a - b)²",
+                        "(a + b)(a - b)"
+                    ],
+                    "feed": "Exact ! <code>x²</code>, <code>49 = 7²</code>, <code>14x = 2 × x × 7</code> → <code>(x - 7)²</code>.",
+                    "title": "Identifier l'identité remarquable",
+                    "a": 1
+                },
+                {
+                    "type": "write",
+                    "q": "Factorise :<br><br><code>x² - 14x + 49</code>",
+                    "requirements": {
+                        "keywords": [
+                            "(",
+                            "x",
+                            "-",
+                            "7",
+                            ")²"
+                        ],
+                        "minWords": 4,
+                        "enforceKeywords": true,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "Reconnaître le pattern <code>a² - 2ab + b²</code>.",
+                    "feed": "Parfait ! <code>x² - 14x + 49 = (x - 7)²</code>.",
+                    "title": "Factoriser x² - 14x + 49"
+                },
+                {
+                    "type": "quiz",
+                    "q": "Pour résoudre <code>x² - 16 = 0</code>, quelle méthode utiliser ?",
+                    "opts": [
+                        "Isoler x directement",
+                        "Factoriser puis produit-nul",
+                        "Développer"
+                    ],
+                    "feed": "Exact ! C'est <code>a² - b²</code> → <code>(x + 4)(x - 4) = 0</code>.",
+                    "title": "Stratégie de résolution d'équation",
+                    "a": 1
+                },
+                {
+                    "type": "write",
+                    "q": "Résous :<br><br><code>x² - 16 = 0</code><br><br>Donne les 2 solutions.",
+                    "requirements": {
+                        "keywords": [
+                            "-4",
+                            "4"
+                        ],
+                        "minWords": 3,
+                        "enforceKeywords": true,
+                        "validationType": "equation",
+                        "expectNumbers": true
+                    },
+                    "hint": "Factorise avec <code>a² - b²</code>, puis produit-nul.",
+                    "feed": "Parfait ! <code>(x + 4)(x - 4) = 0</code> → <code>x = -4</code> ou <code>x = 4</code>.",
+                    "title": "Résoudre x² - 16 = 0"
+                },
+                {
+                    "type": "interactive",
+                    "q": "Un studio rectangulaire a pour longueur <code>x + 3</code> et largeur <code>x</code>. Si l'aire = 40 m², l'équation est :",
+                    "opts": [
+                        "x(x + 3) = 40",
+                        "x + 3 = 40",
+                        "x² + 3 = 40"
+                    ],
+                    "feed": "Exact ! Aire = Longueur × Largeur = <code>(x + 3) × x</code>.",
+                    "title": "Mise en équation d'un problème",
+                    "a": 0
+                },
+                {
+                    "type": "write",
+                    "q": "Un micro coûte <code>x</code> euros. Une console coûte <code>2x + 50</code> euros. Si le total = 350 €, combien coûte le micro ?<br><br>Résous l'équation.",
+                    "requirements": {
+                        "keywords": [
+                            "100"
+                        ],
+                        "minWords": 1,
+                        "validationType": "equation",
+                        "expectNumbers": true
+                    },
+                    "hint": "Équation : <code>x + (2x + 50) = 350</code>. Simplifie puis isole <code>x</code>.",
+                    "feed": "Bravo ! <code>3x + 50 = 350</code> → <code>3x = 300</code> → <code>x = 100</code>. Le micro coûte <b>100 €</b>.",
+                    "title": "Problème complet (équation + calcul)"
+                },
+                {
+                    "type": "quiz",
+                    "q": "Pour simplifier <code>(x + 5)² - (x + 5)(x - 2)</code>, quelle stratégie adopter ?",
+                    "opts": [
+                        "Développer les deux, puis simplifier",
+                        "Factoriser d'abord",
+                        "Résoudre une équation"
+                    ],
+                    "feed": "Exact ! Il faut développer chaque partie avant de regrouper les termes.",
+                    "title": "Développer ou factoriser ?",
+                    "a": 0
+                },
+                {
+                    "type": "write",
+                    "q": "Simplifie (développe les deux parties puis regroupe) :<br><br><code>(x + 3)² - (x + 1)(x + 2)</code>",
+                    "requirements": {
+                        "keywords": [
+                            "5x",
+                            "7",
+                            "+"
+                        ],
+                        "minWords": 3,
+                        "enforceKeywords": true,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "Développe <code>(x + 3)²</code> et <code>(x + 1)(x + 2)</code> séparément, puis soustrais.",
+                    "feed": "Excellent ! <code>x² + 6x + 9 - (x² + 3x + 2) = 5x + 7</code>.",
+                    "title": "Simplifier une expression complexe"
+                },
+                {
+                    "type": "quiz",
+                    "q": "Pour développer <code>(5x - 2)²</code>, quelle formule utiliser ?",
+                    "opts": [
+                        "(a + b)²",
+                        "(a - b)²",
+                        "(a + b)(a - b)"
+                    ],
+                    "feed": "Exact ! Résultat : <code>25x² - 20x + 4</code>.",
+                    "title": "Choix de formule",
+                    "a": 1
+                },
+                {
+                    "type": "write",
+                    "q": "Développe <code>(x - 4)²</code>, puis factorise le résultat. (Vérifie que tu retrouves bien la forme initiale !)",
+                    "requirements": {
+                        "keywords": [
+                            "x²",
+                            "-8x",
+                            "16",
+                            "(",
+                            "x",
+                            "-",
+                            "4",
+                            ")²"
+                        ],
+                        "minWords": 8,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "Développe d'abord, puis reconnaître l'identité remarquable dans le résultat.",
+                    "feed": "Parfait ! Tu as fait un aller-retour complet : développement → factorisation.",
+                    "title": "Exercice mixte (développement + factorisation)"
+                },
+                {
+                    "type": "write",
+                    "q": "Un ingénieur modélise le coût d'un studio par :<br><br><code>Coût = (x + 10)² - (x + 5)(x + 8)</code><br><br>où <code>x</code> = nombre de jours de location.<br><br>Simplifie cette expression au maximum.",
+                    "requirements": {
+                        "keywords": [
+                            "7x",
+                            "60",
+                            "+"
+                        ],
+                        "minWords": 3,
+                        "enforceKeywords": true,
+                        "validationType": "algebraic"
+                    },
+                    "hint1": "Quelle est la première étape pour simplifier une différence d'expressions entre parenthèses ?",
+                    "hint2": "Développe les deux parties : <code>(x + 10)²</code> et <code>(x + 5)(x + 8)</code>, puis soustrais terme à terme.",
+                    "feed": "Bravo ! <code>x² + 20x + 100 - (x² + 13x + 40) = 7x + 60</code> €.",
+                    "title": "Problème final intégré"
+                },
+                {
+                    "type": "challenge",
+                    "q": "<b>CHALLENGE FINAL</b><br><br>Un studio propose un forfait dont le prix dépend de la durée <code>x</code> (en heures) :<br><br><code>Prix = (2x + 5)² - 4x²</code> €<br><br><b>Seance :</b><br>1. Simplifie cette expression au maximum<br>2. Si <code>x = 3</code>, calcule le prix final<br><br>Réponds sous la forme : <code>expression simplifiée ; prix</code>",
+                    "requirements": {
+                        "keywords": [
+                            "20x",
+                            "25",
+                            "85"
+                        ],
+                        "minWords": 5,
+                        "enforceKeywords": true,
+                        "validationType": "algebraic"
+                    },
+                    "hint1": "Commence par simplifier l'expression algébrique, puis applique la valeur numérique.",
+                    "hint2": "Développe <code>(2x + 5)²</code> avec la formule, soustrais <code>4x²</code>, puis remplace <code>x</code> par <code>3</code>.",
+                    "feed": "<b>🎊 MODULE 2 TERMINÉ - STUDIO MASTER 🎊</b><br><br><b>Félicitations Zyvah !</b> Tu as bouclé l'intégralité du calcul littéral de Seconde !<br><br><b>Badge final débloqué :</b> 🏆 <b>STUDIO MASTER - Calcul Littéral Seconde GT</b><br><br>---<br><br><b>💡 Calcul détaillé :</b><br><br><code>(2x + 5)² - 4x²</code><br><br><b>Étape 1 :</b> Développer <code>(2x + 5)²</code>  <br>= <code>4x² + 20x + 25</code><br><br><b>Étape 2 :</b> Soustraire <code>4x²</code>  <br>= <code>4x² + 20x + 25 - 4x²</code>  <br>= <code>20x + 25</code><br><br><b>Étape 3 :</b> Remplacer <code>x = 3</code>  <br>= <code>20(3) + 25</code>  <br>= <code>60 + 25</code>  <br>= <b>85 €</b><br><br>---<br><br><b>📊 Compétences validées :</b>  <br>✅ Développement (distributivité simple/double)  <br>✅ Identités remarquables (3 formules magiques)  <br>✅ Factorisation (facteur commun + identités)  <br>✅ Équations (1er degré + produit-nul)  <br>✅ Problèmes concrets (mise en équation)<br><br>Ton niveau en maths est maintenant <b>aligné</b> avec le programme officiel de Seconde générale. Continue comme ça ! 💪🔥",
+                    "title": "Ultimate Boss - Studio Master"
+                }
+            ]
+        }
+    ];
 </script>
 
 <script src="../../../assets/shared/engine.js"></script>
 
 </body>
 </html>
-
-

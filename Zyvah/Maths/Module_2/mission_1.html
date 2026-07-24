@@ -19,7 +19,12 @@
     </div>
 
     <div id="view-content" class="view active">
-        <div id="step-container"></div>
+        <h2 id="step-title"></h2>
+        <div id="step-body"></div>
+        <div id="footer" class="footer">
+            <button id="btn-prev" class="btn-nav">RETOUR</button>
+            <button id="btn-next" class="btn-nav">ÉTAPE SUIVANTE</button>
+        </div>
     </div>
 
     <div id="view-success" class="view">
@@ -44,211 +49,216 @@
 <script>
     window.APP_CONFIG = {
         STORAGE_KEY: storageKey('zyvah_maths_w2'),
-        MISSION_ID: 1,
-        TOTAL_MISSIONS: 5,
-        MISSION_NAME: "Le Développement",
-        BASE_PATH: "./",
+        SINGLE_MISSION_MODE: true,
+        MISSION_LABEL: "SEANCE",
+        QUIT_HREF: "index.html",
         TRACKING_SUBJECT: "Maths",
         TRACKING_MODULE: "Module_2",
+        BASE_PATH: "./"
     };
 
     const weekData = [
-    {
-        "type": "msg",
-        "title": "Les Variables du Studio",
-        "text": "Zyvah, jusqu'ici on manipulait des **nombres**. Maintenant, on passe aux **variables** : des lettres qui représentent des valeurs qu'on ne connaît pas encore.\n\n**Exemple Studio :**\n- <code>x</code> = Niveau de gain (inconnu, à régler)\n- <code>a</code> = Fréquence de base\n- <code>k</code> = Coefficient de compression\n\nEn **calcul littéral**, on manipule ces lettres comme des nombres pour créer des **formules universelles**."
-    },
-    {
-        "type": "quiz",
-        "q": "Le mixage <code>3(x + 2)</code> signifie qu'on applique un gain de **3** à deux signaux : <code>x</code> et <code>2</code>. Quel est le résultat développé ?",
-        "opts": [
-            "3x + 2",
-            "3x + 6",
-            "3x + 5"
-        ],
-        "correct": 1,
-        "feed": "Exact ! On multiplie le <code>3</code> par **chaque** élément : <code>3 × x = 3x</code> et <code>3 × 2 = 6</code>.",
-        "title": "Distributivité simple (reconnaissance)"
-    },
-    {
-        "type": "write",
-        "q": "Développe cette expression (applique le gain à chaque signal) :<br><br><code>5(x + 4)</code>",
-        "requirements": {
-            "keywords": [
-                "5x",
-                "20",
-                "+"
-            ],
-            "minWords": 3,
-            "validationType": "algebraic"
-        },
-        "hint": "Multiplie le <code>5</code> par <code>x</code>, puis multiplie le <code>5</code> par <code>4</code>. Relie les deux avec un <code>+</code>.",
-        "feed": "Parfait ! <code>5(x + 4) = 5x + 20</code>. C'est la **distributivité simple**.",
-        "title": "Développer k(a + b) contexte gain"
-    },
-    {
-        "type": "quiz",
-        "q": "Pour mixer deux signaux composites <code>(x + 2)</code> et <code>(x + 3)</code>, on multiplie **chaque élément du premier** par **chaque élément du second**. Combien de multiplications au total ?",
-        "opts": [
-            "2",
-            "3",
-            "4"
-        ],
-        "correct": 2,
-        "feed": "Exact ! C'est la **double distributivité** : <code>x×x</code>, <code>x×3</code>, <code>2×x</code>, <code>2×3</code> = 4 produits.",
-        "title": "Double distributivité (reconnaissance)"
-    },
-    {
-        "type": "write",
-        "q": "Développe (multiplie tout par tout) :<br><br><code>(x + 1)(x + 2)</code>",
-        "requirements": {
-            "keywords": [
-                "x²",
-                "3x",
-                "2",
-                "+"
-            ],
-            "minWords": 4,
-            "validationType": "algebraic"
-        },
-        "hint": "Multiplie <code>x</code> par les deux termes du second bloc, puis <code>1</code> par les deux termes du second bloc. Additionne tout.",
-        "feed": "Génial ! <code>x×x = x²</code>, <code>x×2 = 2x</code>, <code>1×x = x</code>, <code>1×2 = 2</code>. Total : <code>x² + 3x + 2</code>.",
-        "title": "Développer (a + b)(c + d) simple"
-    },
-    {
-        "type": "msg",
-        "title": "La Méthode du Carré (visualisation)",
-        "text": "Pour développer <code>(a + b)(c + d)</code>, imagine un **carré de mixage** avec 4 pads :\n\n<pre>\n       c      d\n   ┌──────┬──────┐\n a │ a×c  │ a×d  │\n   ├──────┼──────┤\n b │ b×c  │ b×d  │\n   └──────┴──────┘\n</pre>\n\nRésultat : <code>ac + ad + bc + bd</code>\n\n**Exemple :** <code>(x + 2)(x + 3)</code>\n- <code>x × x = x²</code>\n- <code>x × 3 = 3x</code>\n- <code>2 × x = 2x</code>\n- <code>2 × 3 = 6</code>\n\n**Total :** <code>x² + 3x + 2x + 6 = x² + 5x + 6</code>."
-    },
-    {
-        "type": "quiz",
-        "q": "En utilisant la méthode du carré, développe :<br><br><code>(x + 2)(x + 3)</code>",
-        "opts": [
-            "x² + 5x + 6",
-            "x² + 6x + 5",
-            "x² + 5x + 5"
-        ],
-        "correct": 0,
-        "feed": "Exact ! Les 4 pads donnent : <code>x²</code>, <code>3x</code>, <code>2x</code>, <code>6</code>. Regroupe : <code>x² + 5x + 6</code>.",
-        "title": "Développer (x + 2)(x + 3)"
-    },
-    {
-        "type": "write",
-        "q": "Développe (attention au signe **−**) :<br><br><code>(x + 5)(x - 2)</code>",
-        "requirements": {
-            "keywords": [
-                "x²",
-                "3x",
-                "-10",
-                "+"
-            ],
-            "minWords": 4,
-            "validationType": "algebraic"
-        },
-        "hint": "<code>x × x = x²</code>, <code>x × (-2) = -2x</code>, <code>5 × x = 5x</code>, <code>5 × (-2) = -10</code>. Regroupe les termes en <code>x</code>.",
-        "feed": "Parfait ! <code>x² + 5x - 2x - 10 = x² + 3x - 10</code>. Le signe − est bien géré !",
-        "title": "Développer (x + 5)(x - 2)"
-    },
-    {
-        "type": "quiz",
-        "q": "Développe : <code>(x - 3)(x + 4)</code>",
-        "opts": [
-            "x² + x - 12",
-            "x² - x + 12",
-            "x² + 7x - 12"
-        ],
-        "correct": 0,
-        "feed": "Bien ! Les 4 produits : <code>x²</code>, <code>4x</code>, <code>-3x</code>, <code>-12</code>. Total : <code>x² + x - 12</code>.",
-        "title": "Piège : signe négatif"
-    },
-    {
-        "type": "write",
-        "q": "Développe (coefficient devant <code>x</code>) :<br><br><code>(2x + 1)(x + 4)</code>",
-        "requirements": {
-            "keywords": [
-                "2x²",
-                "9x",
-                "4",
-                "+"
-            ],
-            "minWords": 4,
-            "validationType": "algebraic"
-        },
-        "hint": "<code>2x × x = 2x²</code>, <code>2x × 4 = 8x</code>, <code>1 × x = x</code>, <code>1 × 4 = 4</code>. Additionne tout.",
-        "feed": "Excellent ! <code>2x² + 8x + x + 4 = 2x² + 9x + 4</code>.",
-        "title": "Développer (2x + 1)(x + 4)"
-    },
-    {
-        "type": "msg",
-        "title": "Application : Aire d'un studio",
-        "text": "**Situation concrète :**\n\nUn studio rectangulaire a pour dimensions :\n- Longueur : <code>(x + 5)</code> mètres\n- Largeur : <code>(x + 3)</code> mètres\n\nQuelle est l'**aire totale** ?\n\n**Formule de l'aire :** <code>Longueur × Largeur</code>\n\nAire = <code>(x + 5)(x + 3)</code>\n\nEn développant, on obtient une **formule universelle** :  \n<code>x² + 8x + 15</code> m²."
-    },
-    {
-        "type": "write",
-        "q": "Un studio a comme dimensions <code>(x + 7)</code> et <code>(x + 2)</code>. Calcule son **aire développée**.",
-        "requirements": {
-            "keywords": [
-                "x²",
-                "9x",
-                "14",
-                "+"
-            ],
-            "minWords": 4,
-            "validationType": "algebraic"
-        },
-        "hint": "Multiplie <code>(x + 7)</code> par <code>(x + 2)</code> avec la méthode du carré.",
-        "feed": "Parfait ! Aire = <code>x² + 7x + 2x + 14 = x² + 9x + 14</code> m².",
-        "title": "Problème aire rectangulaire"
-    },
-    {
-        "type": "quiz",
-        "q": "Développe : <code>(x - 1)(x - 5)</code>",
-        "opts": [
-            "x² - 6x + 5",
-            "x² + 6x - 5",
-            "x² - 4x + 5"
-        ],
-        "correct": 0,
-        "feed": "Exact ! <code>x² - 5x - x + 5 = x² - 6x + 5</code>. Signes négatifs maîtrisés.",
-        "title": "Développer expression complexe"
-    },
-    {
-        "type": "write",
-        "q": "Développe cette expression complexe :<br><br><code>(3x - 2)(2x + 5)</code>",
-        "requirements": {
-            "keywords": [
-                "6x²",
-                "11x",
-                "-10"
-            ],
-            "minWords": 4,
-            "validationType": "algebraic"
-        },
-        "hint": "4 produits : <code>3x×2x</code>, <code>3x×5</code>, <code>-2×2x</code>, <code>-2×5</code>. Regroupe les termes en <code>x</code>.",
-        "feed": "Maîtrise totale ! <code>6x² + 15x - 4x - 10 = 6x² + 11x - 10</code>.",
-        "title": "Développer (3x - 2)(2x + 5)"
-    },
-    {
-        "type": "challenge",
-        "q": "Un studio d'enregistrement facture selon la formule :<br><br><code>Prix = (3x + 10)(2x - 5)</code> €<br><br>où <code>x</code> = nombre d'heures.<br><br>Développe cette formule pour obtenir l'expression du prix.",
-        "requirements": {
-            "keywords": [
-                "6x²",
-                "5x",
-                "-50"
-            ],
-            "minWords": 4,
-            "validationType": "algebraic"
-        },
-        "hint": "Applique la double distributivité : multiplie tous les termes entre eux, puis regroupe.",
-        "feed": "**Seance 1 TERMINÉE** ✅<br><br>Bravo Zyvah ! Tu maîtrises le **développement** (simple et double distributivité). Direction la Seance 2 pour découvrir les **identités remarquables**, les formules magiques du calcul littéral !<br><br>**Badge débloqué :** 🎛️ Développeur Studio",
-        "title": "Boss Développement"
-    }
-];
+        {
+            "id": 1,
+            "title": "Le Développement",
+            "steps": [
+                {
+                    "type": "msg",
+                    "title": "Les Variables du Studio",
+                    "body": "<p class=\"content-chunk\">Zyvah, jusqu'ici on manipulait des <b>nombres</b>. Maintenant, on passe aux <b>variables</b> : des lettres qui représentent des valeurs qu'on ne connaît pas encore.<br><br><b>Exemple Studio :</b><br>- <code>x</code> = Niveau de gain (inconnu, à régler)<br>- <code>a</code> = Fréquence de base<br>- <code>k</code> = Coefficient de compression<br><br>En <b>calcul littéral</b>, on manipule ces lettres comme des nombres pour créer des <b>formules universelles</b>.</p>"
+                },
+                {
+                    "type": "quiz",
+                    "q": "Le mixage <code>3(x + 2)</code> signifie qu'on applique un gain de <b>3</b> à deux signaux : <code>x</code> et <code>2</code>. Quel est le résultat développé ?",
+                    "opts": [
+                        "3x + 2",
+                        "3x + 6",
+                        "3x + 5"
+                    ],
+                    "feed": "Exact ! On multiplie le <code>3</code> par <b>chaque</b> élément : <code>3 × x = 3x</code> et <code>3 × 2 = 6</code>.",
+                    "title": "Distributivité simple (reconnaissance)",
+                    "a": 1
+                },
+                {
+                    "type": "write",
+                    "q": "Développe cette expression (applique le gain à chaque signal) :<br><br><code>5(x + 4)</code>",
+                    "requirements": {
+                        "keywords": [
+                            "5x",
+                            "20",
+                            "+"
+                        ],
+                        "minWords": 3,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "Multiplie le <code>5</code> par <code>x</code>, puis multiplie le <code>5</code> par <code>4</code>. Relie les deux avec un <code>+</code>.",
+                    "feed": "Parfait ! <code>5(x + 4) = 5x + 20</code>. C'est la <b>distributivité simple</b>.",
+                    "title": "Développer k(a + b) contexte gain"
+                },
+                {
+                    "type": "quiz",
+                    "q": "Pour mixer deux signaux composites <code>(x + 2)</code> et <code>(x + 3)</code>, on multiplie <b>chaque élément du premier</b> par <b>chaque élément du second</b>. Combien de multiplications au total ?",
+                    "opts": [
+                        "2",
+                        "3",
+                        "4"
+                    ],
+                    "feed": "Exact ! C'est la <b>double distributivité</b> : <code>x×x</code>, <code>x×3</code>, <code>2×x</code>, <code>2×3</code> = 4 produits.",
+                    "title": "Double distributivité (reconnaissance)",
+                    "a": 2
+                },
+                {
+                    "type": "write",
+                    "q": "Développe (multiplie tout par tout) :<br><br><code>(x + 1)(x + 2)</code>",
+                    "requirements": {
+                        "keywords": [
+                            "x²",
+                            "3x",
+                            "2",
+                            "+"
+                        ],
+                        "minWords": 4,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "Multiplie <code>x</code> par les deux termes du second bloc, puis <code>1</code> par les deux termes du second bloc. Additionne tout.",
+                    "feed": "Génial ! <code>x×x = x²</code>, <code>x×2 = 2x</code>, <code>1×x = x</code>, <code>1×2 = 2</code>. Total : <code>x² + 3x + 2</code>.",
+                    "title": "Développer (a + b)(c + d) simple"
+                },
+                {
+                    "type": "msg",
+                    "title": "La Méthode du Carré (visualisation)",
+                    "body": "<p class=\"content-chunk\">Pour développer <code>(a + b)(c + d)</code>, imagine un <b>carré de mixage</b> avec 4 pads :<br><br><pre><br>       c      d<br>   ┌──────┬──────┐<br> a │ a×c  │ a×d  │<br>   ├──────┼──────┤<br> b │ b×c  │ b×d  │<br>   └──────┴──────┘<br></pre><br><br>Résultat : <code>ac + ad + bc + bd</code><br><br><b>Exemple :</b> <code>(x + 2)(x + 3)</code><br>- <code>x × x = x²</code><br>- <code>x × 3 = 3x</code><br>- <code>2 × x = 2x</code><br>- <code>2 × 3 = 6</code><br><br><b>Total :</b> <code>x² + 3x + 2x + 6 = x² + 5x + 6</code>.</p>"
+                },
+                {
+                    "type": "quiz",
+                    "q": "En utilisant la méthode du carré, développe :<br><br><code>(x + 2)(x + 3)</code>",
+                    "opts": [
+                        "x² + 5x + 6",
+                        "x² + 6x + 5",
+                        "x² + 5x + 5"
+                    ],
+                    "feed": "Exact ! Les 4 pads donnent : <code>x²</code>, <code>3x</code>, <code>2x</code>, <code>6</code>. Regroupe : <code>x² + 5x + 6</code>.",
+                    "title": "Développer (x + 2)(x + 3)",
+                    "a": 0
+                },
+                {
+                    "type": "write",
+                    "q": "Développe (attention au signe <b>−</b>) :<br><br><code>(x + 5)(x - 2)</code>",
+                    "requirements": {
+                        "keywords": [
+                            "x²",
+                            "3x",
+                            "-10",
+                            "+"
+                        ],
+                        "minWords": 4,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "<code>x × x = x²</code>, <code>x × (-2) = -2x</code>, <code>5 × x = 5x</code>, <code>5 × (-2) = -10</code>. Regroupe les termes en <code>x</code>.",
+                    "feed": "Parfait ! <code>x² + 5x - 2x - 10 = x² + 3x - 10</code>. Le signe − est bien géré !",
+                    "title": "Développer (x + 5)(x - 2)"
+                },
+                {
+                    "type": "quiz",
+                    "q": "Développe : <code>(x - 3)(x + 4)</code>",
+                    "opts": [
+                        "x² + x - 12",
+                        "x² - x + 12",
+                        "x² + 7x - 12"
+                    ],
+                    "feed": "Bien ! Les 4 produits : <code>x²</code>, <code>4x</code>, <code>-3x</code>, <code>-12</code>. Total : <code>x² + x - 12</code>.",
+                    "title": "Piège : signe négatif",
+                    "a": 0
+                },
+                {
+                    "type": "write",
+                    "q": "Développe (coefficient devant <code>x</code>) :<br><br><code>(2x + 1)(x + 4)</code>",
+                    "requirements": {
+                        "keywords": [
+                            "2x²",
+                            "9x",
+                            "4",
+                            "+"
+                        ],
+                        "minWords": 4,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "<code>2x × x = 2x²</code>, <code>2x × 4 = 8x</code>, <code>1 × x = x</code>, <code>1 × 4 = 4</code>. Additionne tout.",
+                    "feed": "Excellent ! <code>2x² + 8x + x + 4 = 2x² + 9x + 4</code>.",
+                    "title": "Développer (2x + 1)(x + 4)"
+                },
+                {
+                    "type": "msg",
+                    "title": "Application : Aire d'un studio",
+                    "body": "<p class=\"content-chunk\"><b>Situation concrète :</b><br><br>Un studio rectangulaire a pour dimensions :<br>- Longueur : <code>(x + 5)</code> mètres<br>- Largeur : <code>(x + 3)</code> mètres<br><br>Quelle est l'<b>aire totale</b> ?<br><br><b>Formule de l'aire :</b> <code>Longueur × Largeur</code><br><br>Aire = <code>(x + 5)(x + 3)</code><br><br>En développant, on obtient une <b>formule universelle</b> :  <br><code>x² + 8x + 15</code> m².</p>"
+                },
+                {
+                    "type": "write",
+                    "q": "Un studio a comme dimensions <code>(x + 7)</code> et <code>(x + 2)</code>. Calcule son <b>aire développée</b>.",
+                    "requirements": {
+                        "keywords": [
+                            "x²",
+                            "9x",
+                            "14",
+                            "+"
+                        ],
+                        "minWords": 4,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "Multiplie <code>(x + 7)</code> par <code>(x + 2)</code> avec la méthode du carré.",
+                    "feed": "Parfait ! Aire = <code>x² + 7x + 2x + 14 = x² + 9x + 14</code> m².",
+                    "title": "Problème aire rectangulaire"
+                },
+                {
+                    "type": "quiz",
+                    "q": "Développe : <code>(x - 1)(x - 5)</code>",
+                    "opts": [
+                        "x² - 6x + 5",
+                        "x² + 6x - 5",
+                        "x² - 4x + 5"
+                    ],
+                    "feed": "Exact ! <code>x² - 5x - x + 5 = x² - 6x + 5</code>. Signes négatifs maîtrisés.",
+                    "title": "Développer expression complexe",
+                    "a": 0
+                },
+                {
+                    "type": "write",
+                    "q": "Développe cette expression complexe :<br><br><code>(3x - 2)(2x + 5)</code>",
+                    "requirements": {
+                        "keywords": [
+                            "6x²",
+                            "11x",
+                            "-10"
+                        ],
+                        "minWords": 4,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "4 produits : <code>3x×2x</code>, <code>3x×5</code>, <code>-2×2x</code>, <code>-2×5</code>. Regroupe les termes en <code>x</code>.",
+                    "feed": "Maîtrise totale ! <code>6x² + 15x - 4x - 10 = 6x² + 11x - 10</code>.",
+                    "title": "Développer (3x - 2)(2x + 5)"
+                },
+                {
+                    "type": "challenge",
+                    "q": "Un studio d'enregistrement facture selon la formule :<br><br><code>Prix = (3x + 10)(2x - 5)</code> €<br><br>où <code>x</code> = nombre d'heures.<br><br>Développe cette formule pour obtenir l'expression du prix.",
+                    "requirements": {
+                        "keywords": [
+                            "6x²",
+                            "5x",
+                            "-50"
+                        ],
+                        "minWords": 4,
+                        "validationType": "algebraic"
+                    },
+                    "hint": "Applique la double distributivité : multiplie tous les termes entre eux, puis regroupe.",
+                    "feed": "<b>Seance 1 TERMINÉE</b> ✅<br><br>Bravo Zyvah ! Tu maîtrises le <b>développement</b> (simple et double distributivité). Direction la Seance 2 pour découvrir les <b>identités remarquables</b>, les formules magiques du calcul littéral !<br><br><b>Badge débloqué :</b> 🎛️ Développeur Studio",
+                    "title": "Boss Développement"
+                }
+            ]
+        }
+    ];
 </script>
 
 <script src="../../../assets/shared/engine.js"></script>
 
 </body>
 </html>
-

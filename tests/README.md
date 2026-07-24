@@ -60,28 +60,38 @@ node tests/test-runner.js lovyc_fr_module_1
 - Pas d'options identiques dans `interactive`
 - Reponses (`answer`) dans la plage valide
 
-### 3. Synchronisation Draft <-> HTML (contenu)
+### 3. Contrat moteur `engine.js` (anti-regression affichage)
+- DOM mission : `#view-content`, `#step-title`, `#step-body`, `#footer`, `#btn-prev`, `#btn-next`
+- Rejette `#step-container` (format legacy incompatible)
+- `SINGLE_MISSION_MODE` truthy sur les pages mission
+- `weekData` nested obligatoire : `[{ id, title, steps: [...] }]`
+- Champs runtime : `body|content` (pas `text`), `a|answer` (pas `correct` seul)
+- Smoke leger sur le 1er ecran (champs lisibles par `renderStep`)
+- Index lobby : `#view-lobby` + `#days-grid` si `index.html` present
+- Self-check : `node tests/validators/engine-contract-validator.js --self-check`
+
+### 4. Synchronisation Draft <-> HTML (contenu)
 - Questions identiques entre draft et HTML
 - Options MCQ identiques (ordre, contenu)
 - Bonne reponse coherente avec les options du draft
 - Titres et types synchronises
 
-### 4. Tests reponses Write (validation)
+### 5. Tests reponses Write (validation)
 - 10+ propositions testees par exercice write/challenge
 - Variantes de casse, ponctuation, ordre des mots
 - Reponses valides (avec keywords) acceptees
 - Reponses invalides (sans keywords) rejetees
 - Verification mode `verb` vs `sentence`
 
-### 5. Validation des chemins de navigation
+### 6. Validation des chemins de navigation
 - Bloque tout lien vers `../Exercices/`
 
-### 6. Validation des checkpoints
+### 7. Validation des checkpoints
 - Presence des `checkpoint_*.html` annonces dans le draft
 - Liens mission → checkpoint et checkpoint → suite resolus
 - Pages pause (hors `weekData`) : navigation + bouton CONTINUER
 
-### 7. Validation FR dediee
+### 8. Validation FR dediee
 - Presence de `assets/lovyc/fr_validator.js`
 - Regles critiques presentes (`y'a` interdit, majuscule initiale, ponctuation finale)
 - Chargement effectif du validator sur les missions FR avec `write/challenge`

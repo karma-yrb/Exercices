@@ -17,6 +17,7 @@ const EncodingValidator = require('./validators/encoding-validator');
 const FrQualityValidator = require('./validators/fr-quality-validator');
 const CheckpointValidator = require('./validators/checkpoint-validator');
 const StorageKeysValidator = require('./validators/storage-keys-validator');
+const EngineContractValidator = require('./validators/engine-contract-validator');
 
 class TestRunner {
     constructor() {
@@ -32,6 +33,18 @@ class TestRunner {
         console.log('╔═══════════════════════════════════════════════════════╗');
         console.log('║   🧪 TEST RUNNER - Validation des Modules           ║');
         console.log('╚═══════════════════════════════════════════════════════╝\n');
+
+        // Garde-fou : le contrat engine doit toujours rejeter le fixture legacy.
+        try {
+            EngineContractValidator.runSelfCheck({ exitOnFailure: false });
+            this.results.totalTests++;
+            this.results.passed++;
+            console.log('  ✅ Contrat engine self-check: OK\n');
+        } catch (error) {
+            this.results.totalTests++;
+            this.results.failed++;
+            console.log(`  ❌ Contrat engine self-check: ${error.message}\n`);
+        }
 
         const modules = this.discoverModules();
         const toTest = moduleFilter 
@@ -109,13 +122,13 @@ class TestRunner {
         const expectedMissions = this.getExpectedMissions(module.draftPath);
 
         // Test 1: Validation Draft Markdown
-        console.log('🔍 Test 1/3: Validation Draft Markdown...');
+        console.log('🔍 Test 1/7: Validation Draft Markdown...');
         const mdValidator = new MarkdownValidator(module.draftPath);
         const mdResult = mdValidator.validate();
         this.printResult('Draft Markdown', mdResult);
 
         // Test 2: Validation HTML (chaque mission)
-        console.log('\n🔍 Test 2/6: Validation Fichiers HTML...');
+        console.log('\n🔍 Test 2/7: Validation Fichiers HTML...');
         if (!fs.existsSync(module.htmlDir)) {
             console.log(`  ⚠️  Dossier HTML introuvable: ${module.htmlDir}`);
             this.results.warnings++;
@@ -133,8 +146,18 @@ class TestRunner {
             }
         }
 
-        // Test 3: Synchronisation Draft ↔ HTML
-        console.log('\n🔍 Test 3/6: Synchronisation Draft ↔ HTML...');
+        // Test 3: Contrat engine.js (DOM + nested weekData + champs runtime)
+        console.log('\n🔍 Test 3/7: Contrat moteur (engine.js)...');
+        if (fs.existsSync(module.htmlDir)) {
+            const engineValidator = new EngineContractValidator(module.htmlDir);
+            const engineResult = engineValidator.validate();
+            this.printResult('Contrat engine', engineResult);
+        } else {
+            console.log('  ⏭️  Skipped (dossier HTML manquant)');
+        }
+
+        // Test 4: Synchronisation Draft ↔ HTML
+        console.log('\n🔍 Test 4/7: Synchronisation Draft ↔ HTML...');
         if (fs.existsSync(module.htmlDir)) {
             const syncValidator = new SyncValidator(module.draftPath, module.htmlDir);
             const syncResult = syncValidator.validate();
@@ -143,8 +166,8 @@ class TestRunner {
             console.log('  ⏭️  Skipped (dossier HTML manquant)');
         }
 
-        // Test 4: Validation Réponses Write (10+ propositions)
-        console.log('\n🔍 Test 4/6: Tests Réponses Write (10+ propositions)...');
+        // Test 5: Validation Réponses Write (10+ propositions)
+        console.log('\n🔍 Test 5/7: Tests Réponses Write (10+ propositions)...');
         if (fs.existsSync(module.htmlDir)) {
             const writeValidator = new WriteResponseValidator(module.htmlDir, module.draftPath);
             const writeResult = writeValidator.validate();
@@ -153,14 +176,14 @@ class TestRunner {
             console.log('  ⏭️  Skipped (dossier HTML manquant)');
         }
 
-        // Test 5: Validation chemins interdits
-        console.log('\n🔍 Test 5/6: Validation des chemins de navigation...');
+        // Test 6: Validation chemins interdits
+        console.log('\n🔍 Test 6/7: Validation des chemins de navigation...');
         const pathValidator = new PathValidator(module.htmlDir);
         const pathResult = pathValidator.validate();
         this.printResult('Chemins', pathResult);
 
-        // Test 6: Checkpoints (pages pause hors weekData)
-        console.log('\n🔍 Test 6/6: Validation des checkpoints...');
+        // Test 7: Checkpoints (pages pause hors weekData)
+        console.log('\n🔍 Test 7/7: Validation des checkpoints...');
         const checkpointValidator = new CheckpointValidator(module.draftPath, module.htmlDir);
         const checkpointResult = checkpointValidator.validate();
         this.printResult('Checkpoints', checkpointResult);

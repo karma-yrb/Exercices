@@ -434,8 +434,11 @@ function extractHtmlStep(htmlPath, ecranNum) {
         const match = html.match(/const\s+weekData\s*=\s*(\[[\s\S]*?\]);/);
         if (!match) return null;
         const data = Function(`"use strict"; return (${match[1]});`)();
-        if (!Array.isArray(data) || ecranNum < 1 || ecranNum > data.length) return null;
-        return data[ecranNum - 1];
+        if (!Array.isArray(data) || data.length === 0) return null;
+        // Support nested engine format [{ id, title, steps }] and legacy flat steps [].
+        const steps = Array.isArray(data[0] && data[0].steps) ? data[0].steps : data;
+        if (ecranNum < 1 || ecranNum > steps.length) return null;
+        return steps[ecranNum - 1];
     } catch {
         return null;
     }
