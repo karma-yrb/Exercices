@@ -36,6 +36,44 @@ function splitNormalizedWords(text) {
         .filter(Boolean);
 }
 
+/** Affiche consigne claire + phrase d'exemple entre "" (démarquée). */
+function formatExerciseQuestion(raw) {
+    if (!raw) return '';
+    const q = String(raw).trim();
+    if (!q || /class\s*=\s*["']q-(instruction|example)/i.test(q)) return q;
+
+    let instruction = q;
+    let example = null;
+
+    if (q.endsWith(')')) {
+        let depth = 0;
+        for (let i = q.length - 1; i >= 0; i--) {
+            const ch = q[i];
+            if (ch === ')') depth += 1;
+            else if (ch === '(') {
+                depth -= 1;
+                if (depth === 0) {
+                    if (i > 0 && /\s/.test(q[i - 1])) {
+                        example = q.slice(i + 1, -1).trim();
+                        instruction = q.slice(0, i).trim();
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    instruction = instruction.replace(/^["«]+/, '').replace(/["»]+$/, '').trim();
+
+    if (example) {
+        instruction = instruction.replace(/[?"«»\s]+$/g, '').replace(/:\s*$/, '').trim() + ' :';
+        const quoted = /^["«].*["»]$/.test(example) ? example : `"${example}"`;
+        return `<span class="q-instruction">${instruction}</span><span class="q-example">${quoted}</span>`;
+    }
+
+    return instruction;
+}
+
 function hasRequiredToken(rawText, normalizedWords, keyword) {
     if (!keyword) return false;
     const token = String(keyword);
@@ -871,7 +909,7 @@ function renderStep() {
         const bossIcon = isBoss ? renderBossVisual(config) : '';
         
         // Dynamic Question Formatting (Extracting text inside <i> and wrapping it)
-        let formattedQ = q.replace(/<i>(.*?)<\/i>/g, '<div class="tactical-data">$1</div>');
+        let formattedQ = formatExerciseQuestion(q).replace(/<i>(.*?)<\/i>/g, '<div class="tactical-data">$1</div>');
 
         const activeHint = getActiveWriteHint(step);
         if (activeHint) {
@@ -971,7 +1009,7 @@ function renderStep() {
             };
         }
     } else {
-        el.stepBody.innerHTML = '<p class="content-chunk">' + q + '</p>';
+        el.stepBody.innerHTML = '<p class="content-chunk">' + formatExerciseQuestion(q) + '</p>';
         const area = document.createElement('div'); 
         area.className = 'interactive-area';
         area.style.marginTop = '20px';

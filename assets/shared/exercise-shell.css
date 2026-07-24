@@ -62,6 +62,27 @@
     font-size: var(--story-hint-size);
 }
 
+.content-chunk .q-instruction {
+    display: block;
+    color: var(--text, #fff);
+    font-weight: 500;
+    line-height: 1.45;
+    margin-bottom: 0.7em;
+}
+
+.content-chunk .q-example {
+    display: block;
+    color: var(--accent, #00fcf4);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-weight: 700;
+    font-size: 1.02em;
+    line-height: 1.5;
+    padding: 12px 14px;
+    background: rgba(0, 252, 244, 0.07);
+    border-left: 3px solid var(--accent, #00fcf4);
+    border-radius: 10px;
+}
+
 #app.story-layout-active .footer {
     padding: 14px;
     padding-bottom: calc(14px + env(safe-area-inset-bottom, 18px));
