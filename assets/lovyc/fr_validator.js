@@ -243,7 +243,8 @@
                 } else {
                     keywordsValidated = keywords.some(k => hasTokenStrict(normalizedRawStrict, k));
                     if (!keywordsValidated) {
-                        return { handled: true, ok: false, msg: 'Objectif non atteint. Tu dois utiliser au moins un mot-cle attendu (ex: ' + keywords[0] + ').' };
+                        const examples = keywords.slice(0, 3).filter(Boolean).join(', ');
+                        return { handled: true, ok: false, msg: 'Objectif non atteint. Tu dois utiliser au moins un mot-cle attendu (ex: ' + examples + ').' };
                     }
                 }
             }

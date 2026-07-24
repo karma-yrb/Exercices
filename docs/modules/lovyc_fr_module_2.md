@@ -194,20 +194,24 @@
 - Question: "Complète ce dialogue avec une incise de ton choix :" (— Attention au sniper à gauche, _______. )
 - Requirements:
   - mode: "sentence"
-  - keywords: "Lovyc", "Zyvah", "chef", "agent", "dit", "répondit", "s'exclama", "murmura"
+  - keywordGroups:
+    - ["cria", "prévint", "chuchota", "lança", "avertit", "hurla", "souffla", "ordonna", "répondit", "signala", "dit", "murmura", "s'exclama"]
+    - ["Lovyc", "agent", "squad", "capitaine", "drone", "leader", "coéquipier", "sniper", "Zyvah", "chef"]
 - Hint: "Utilise un verbe de parole et un nom de personnage."
 - Hint2: "Complète après la virgule avec une incise: verbe de parole + nom du personnage."
-- Hint3: "Exemple à recopier : « — Attention au sniper à gauche, dit Lovyc. »"
+- Hint3: "Après la réplique, ajoute une incise = verbe de parole + qui parle (ex. « cria Lovyc », « prévint l'agent »)."
 - Feedback: "Parfait. On sait maintenant d'où vient l'alerte."
 
 ### Écran 6 - write - Incise Courte
 - Question: "Écris une incise courte (ex: dit l'agent)."
 - Requirements:
   - mode: "sentence"
-  - keywords: "dit", "répondit", "murmura", "hurla"
+  - keywordGroups:
+    - ["dit", "répondit", "murmura", "hurla", "cria", "lança", "souffla", "chuchota", "ajouta", "prévint", "s'exclama", "répliqua"]
+    - ["agent", "Lovyc", "squad", "leader", "capitaine", "sniper", "coéquipier", "drone"]
 - Hint: "Utilise un verbe de parole (dit, murmura, répondit) et garde une ponctuation claire."
 - Hint2: "Forme minimale attendue: verbe de parole + groupe nominal."
-- Hint3: "Exemple à recopier : « dit l'agent. »"
+- Hint3: "Une incise courte = un verbe de parole suivi de qui parle (ex. « dit l'agent », « murmura Lovyc »)."
 - Feedback: "Incise valide."
 
 ### Écran 7 - interactive - Verbe de Parole

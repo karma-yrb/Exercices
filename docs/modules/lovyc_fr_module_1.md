@@ -67,20 +67,20 @@
 - Question: "Écris le verbe qui manque :" (Lovyc ____ son écran de jeu.)
 - Requirements:
   - mode: "verb"
-  - keywords: "regarde", "allume", "fixe", "nettoie", "prépare"
+  - keywords: "regarde", "allume", "fixe", "nettoie", "prépare", "observe", "éteint", "règle", "scrute", "configure", "inspecte"
 - Hint: "Cherche un verbe au présent (regarde, allume, fixe...)"
 - Hint2: "Garde la structure « Lovyc ____ son écran de jeu. » et mets un verbe au présent."
-- Hint3: "Réponse à recopier : « regarde »."
+- Hint3: "Un seul verbe au présent, 3e personne du singulier (ex. « allume », « règle », « observe »)."
 - Feedback: "Bien !"
 
 ### Écran 7 - write - Compléter le complément
 - Question: "Complète la phrase avec un complément simple. Écris seulement le complément :" (L'agent surveille ____.)
 - Requirements:
   - mode: "sentence"
-  - keywords: "zone", "map", "terrain", "couloir", "base"
-- Hint: "Le complément dit ce qu'il surveille."
+  - minWords: 2
+- Hint: "Le complément dit ce qu'il surveille (lieu, personne ou objet)."
 - Hint2: "Écris uniquement la partie manquante, pas toute la phrase."
-- Hint3: "Exemple à recopier : « L'agent surveille la zone. »"
+- Hint3: "Réponds seulement par ce que l'agent surveille (ex. « la zone », « le couloir de gauche », « le drone adverse »)."
 - Feedback: "Cible verrouillée."
 
 ### Écran 8 - interactive - Ordre de la phrase
@@ -264,11 +264,11 @@
 - Question: "Complète avec le verbe correct :" (Les joueurs ____ la finale ce soir.)
 - Requirements:
   - mode: "verb"
-  - keywords: "gagnent"
+  - keywords: "gagnent", "jouent", "disputent", "attendent", "préparent", "remportent", "affrontent", "visent", "dominent", "abordent", "redoutent"
 - Hint: "Sujet pluriel 'Les joueurs' -> verbe en -ent. Écris seulement le verbe."
 - Hint2: "Un seul mot attendu: verbe au présent, 3e personne du pluriel."
-- Hint3: "Réponse à recopier : « gagnent »."
-- Feedback: "Parfait. Les joueurs gagnent la finale ce soir."
+- Hint3: "Le sujet est pluriel (Les joueurs) : le verbe au présent doit finir par -ent (ex. « jouent », « gagnent »)."
+- Feedback: "Parfait. Accord pluriel validé."
 
 ### Écran 12 - interactive - Pluriel Repere
 - Question: "Quel mot montre que le sujet est pluriel ?" (Mes frères avancent vite.)

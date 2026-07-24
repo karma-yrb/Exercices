@@ -290,7 +290,7 @@ class WriteResponseValidator {
             return keywords.some(kw => this.normalizeText(kw) === this.normalizeText(trimmed));
         }
 
-        if (mode === 'sentence' && !hasOneWordTarget && trimmed.length < 10) return false;
+        if (mode === 'sentence' && !hasOneWordTarget && !minWords && trimmed.length < 10) return false;
         if (minWords > 0 && this.countWords(trimmed) < minWords) return false;
 
         if (mustInclude.length > 0) {
