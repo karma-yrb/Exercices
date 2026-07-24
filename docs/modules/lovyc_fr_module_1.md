@@ -52,15 +52,15 @@
 - Feedback: "Correct ! Le sujet, c'est le pro-gamer."
 
 ### Écran 4 - interactive - Repérer le verbe
-- Question: "Trouve le verbe :" (Le pro-gamer lance une attaque parfaite.)
-- Options: "lance" / "une attaque" / "pro-gamer"
-- Réponse: "lance"
-- Feedback: "Exact ! « lance » est le verbe."
+- Question: "Trouve le verbe :" (La squad sécurise le point central.)
+- Options: "sécurise" / "le point" / "squad"
+- Réponse: "sécurise"
+- Feedback: "Exact ! « sécurise » est le verbe."
 
 ### Écran 5 - interactive - Repérer le complément
-- Question: "Quel est le Complément ?" (Le pro-gamer lance une attaque parfaite.)
-- Options: "pro-gamer" / "lance" / "une attaque parfaite"
-- Réponse: "une attaque parfaite"
+- Question: "Quel est le complément ?" (L'agent analyse la map ennemie.)
+- Options: "agent" / "analyse" / "la map ennemie"
+- Réponse: "la map ennemie"
 - Feedback: "Bien vu. C'est le complément."
 
 ### Écran 6 - write - Compléter le verbe
