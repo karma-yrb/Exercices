@@ -40,56 +40,97 @@ window.APP_VERSION = '2.6.0';
         return filled;
     }
 
-    function injectBadge(notesUrl) {
-        if (document.getElementById('app-version-badge')) return;
-        if (!document.body) return;
+    function createVersionLink(notesUrl) {
+        const link = document.createElement('a');
+        link.id = 'app-version-badge';
+        link.href = notesUrl;
+        link.title = 'Notes de version';
+        link.textContent = 'v' + VERSION;
+        link.setAttribute('aria-label', 'Version produit ' + VERSION + ' — ouvrir les notes de version');
+        return link;
+    }
 
-        const badge = document.createElement('a');
-        badge.id = 'app-version-badge';
-        badge.href = notesUrl;
-        badge.title = 'Notes de version';
-        badge.textContent = 'v' + VERSION;
-        badge.setAttribute('aria-label', 'Version produit ' + VERSION + ' — ouvrir les notes de version');
-        badge.style.cssText = [
-            'position:fixed',
-            'right:12px',
-            'bottom:12px',
-            'z-index:99999',
+    function styleInlineLink(link) {
+        link.style.cssText = [
+            'display:inline-block',
             'font-family:Outfit,system-ui,Segoe UI,sans-serif',
-            'font-size:12px',
+            'font-size:11px',
             'font-weight:700',
             'letter-spacing:0.08em',
             'text-transform:uppercase',
             'text-decoration:none',
-            'color:#e2e8f0',
-            'background:rgba(15,23,42,0.92)',
-            'border:1px solid rgba(96,165,250,0.45)',
-            'border-radius:999px',
-            'padding:6px 12px',
-            'box-shadow:0 4px 18px rgba(0,0,0,0.35)',
-            'backdrop-filter:blur(8px)',
-            '-webkit-backdrop-filter:blur(8px)',
-            'opacity:1',
-            'transition:color 0.2s ease, border-color 0.2s ease, background 0.2s ease'
+            'color:#94a3b8',
+            'transition:color 0.2s ease'
         ].join(';');
-        badge.addEventListener('mouseenter', () => {
-            badge.style.color = '#93c5fd';
-            badge.style.borderColor = 'rgba(147,197,253,0.8)';
-            badge.style.background = 'rgba(30,41,59,0.95)';
-        });
-        badge.addEventListener('mouseleave', () => {
-            badge.style.color = '#e2e8f0';
-            badge.style.borderColor = 'rgba(96,165,250,0.45)';
-            badge.style.background = 'rgba(15,23,42,0.92)';
-        });
-        document.body.appendChild(badge);
+        link.addEventListener('mouseenter', () => { link.style.color = '#93c5fd'; });
+        link.addEventListener('mouseleave', () => { link.style.color = '#94a3b8'; });
+    }
+
+    function createFooterBar(notesUrl) {
+        const bar = document.createElement('footer');
+        bar.id = 'app-version-footer';
+        bar.setAttribute('role', 'contentinfo');
+        bar.style.cssText = [
+            'flex-shrink:0',
+            'display:flex',
+            'justify-content:center',
+            'align-items:center',
+            'gap:8px',
+            'width:100%',
+            'padding:6px 12px',
+            'padding-bottom:calc(6px + env(safe-area-inset-bottom, 0px))',
+            'background:rgba(15,23,42,0.96)',
+            'border-top:1px solid rgba(96,165,250,0.28)',
+            'z-index:20'
+        ].join(';');
+
+        const link = createVersionLink(notesUrl);
+        styleInlineLink(link);
+        bar.appendChild(link);
+        return bar;
+    }
+
+    function injectFooter(notesUrl) {
+        if (document.getElementById('app-version-badge') || document.getElementById('app-version-footer')) return;
+        if (!document.body) return;
+
+        const bar = createFooterBar(notesUrl);
+        const app = document.getElementById('app');
+
+        if (app) {
+            // Inside the app column so buttons stay above and nothing overlaps.
+            // Safe-area is owned by this strip — drop it from the action footer.
+            const actionFooter = document.getElementById('footer')
+                || app.querySelector('.footer-nav, .footer');
+            if (actionFooter) {
+                actionFooter.style.paddingBottom = '14px';
+            }
+            app.appendChild(bar);
+            return;
+        }
+
+        // Pages without #app: fixed viewport footer + reserved space.
+        bar.style.position = 'fixed';
+        bar.style.left = '0';
+        bar.style.right = '0';
+        bar.style.bottom = '0';
+        bar.style.zIndex = '40';
+        document.body.appendChild(bar);
+
+        const reserve = () => {
+            const h = Math.ceil(bar.getBoundingClientRect().height) || 32;
+            document.body.style.paddingBottom = h + 'px';
+        };
+        reserve();
+        window.addEventListener('resize', reserve, { passive: true });
     }
 
     function render() {
         const notesUrl = releaseNotesUrl();
-        fillLabeledSlots(notesUrl);
-        // Always show a fixed badge so the version is visible without scrolling.
-        injectBadge(notesUrl);
+        const hasSlots = fillLabeledSlots(notesUrl);
+        // Hub pages already expose the version in their site footer — no extra chrome.
+        if (hasSlots) return;
+        injectFooter(notesUrl);
     }
 
     if (document.readyState === 'loading') {
